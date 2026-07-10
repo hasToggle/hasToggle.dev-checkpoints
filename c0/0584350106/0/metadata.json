@@ -3,20 +3,32 @@
   "checkpoint_id": "c00584350106",
   "session_id": "b10586c9-1b13-412f-92b7-ddd260a6528c",
   "strategy": "manual-commit",
-  "created_at": "2026-07-10T21:48:40.888238Z",
+  "created_at": "2026-07-10T21:49:17.024736Z",
   "branch": "Kheirah/agent-knowledge-hub-design",
-  "checkpoints_count": 0,
-  "files_touched": [],
+  "checkpoints_count": 1,
+  "files_touched": [
+    "packages/knowledge/keys.ts"
+  ],
   "agent": "Claude Code",
   "model": "",
   "turn_id": "c32de80e641e",
-  "checkpoint_transcript_start": 80,
-  "transcript_lines_at_start": 80,
   "token_usage": {
-    "input_tokens": 16,
-    "cache_creation_tokens": 7479,
-    "cache_read_tokens": 813340,
-    "output_tokens": 5805,
-    "api_call_count": 8
+    "input_tokens": 20491,
+    "cache_creation_tokens": 245329,
+    "cache_read_tokens": 1208263,
+    "output_tokens": 15810,
+    "api_call_count": 16
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-10T21:49:17.017711Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 1,
+    "human_modified": 5,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 7,
+    "agent_percentage": 0,
+    "metric_version": 2
   }
 }
