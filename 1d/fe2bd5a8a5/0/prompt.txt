@@ -1,0 +1,21 @@
+<task-notification>
+<task-id>bj92jy798</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-davao/5fa40f62-ac6e-4ec0-b585-5d4629515e57/tasks/bj92jy798.output</output-file>
+<status>completed</status>
+<summary>Background command "Poll PR 284 checks until Vercel deploy resolves" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bqptf8gtn</task-id>
+<tool-use-id>toolu_01MFbPgSPEQu4ohNv2GiesP2</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-davao/5fa40f62-ac6e-4ec0-b585-5d4629515e57/tasks/bqptf8gtn.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for remaining PR checks to settle" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+For now, the fix should hold up for future Renovate PRs, so they continue to pass any typechecks.
