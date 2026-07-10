@@ -1,0 +1,20 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "68931fa670c0",
+  "session_id": "b10586c9-1b13-412f-92b7-ddd260a6528c",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-10T22:34:43.425838Z",
+  "branch": "Kheirah/agent-knowledge-hub-design",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "c32de80e641e",
+  "token_usage": {
+    "input_tokens": 20579,
+    "cache_creation_tokens": 274175,
+    "cache_read_tokens": 3936734,
+    "output_tokens": 36514,
+    "api_call_count": 38
+  }
+}
