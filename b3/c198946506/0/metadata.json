@@ -3,38 +3,35 @@
   "checkpoint_id": "b3c198946506",
   "session_id": "b10586c9-1b13-412f-92b7-ddd260a6528c",
   "strategy": "manual-commit",
-  "created_at": "2026-07-10T21:46:02.264927Z",
+  "created_at": "2026-07-10T21:51:08.450239Z",
   "branch": "Kheirah/agent-knowledge-hub-design",
-  "checkpoints_count": 0,
+  "checkpoints_count": 1,
   "files_touched": [
-    "bun.lock",
-    "packages/knowledge/client.ts",
-    "packages/knowledge/index.ts",
-    "packages/knowledge/keys.ts",
     "packages/knowledge/package.json",
-    "packages/knowledge/tsconfig.json"
+    "packages/knowledge/tsconfig.json",
+    "packages/knowledge/client.ts",
+    "packages/knowledge/index.ts"
   ],
   "agent": "Claude Code",
   "model": "",
   "turn_id": "c32de80e641e",
   "token_usage": {
-    "input_tokens": 20086,
-    "cache_creation_tokens": 235560,
-    "cache_read_tokens": 289482,
-    "output_tokens": 9221,
-    "api_call_count": 7
+    "input_tokens": 20491,
+    "cache_creation_tokens": 245329,
+    "cache_read_tokens": 1208263,
+    "output_tokens": 15810,
+    "api_call_count": 16
   },
-  "prompt_attributions": [
-    {
-      "checkpoint_number": 1,
-      "user_lines_added": 1722,
-      "user_lines_removed": 0,
-      "agent_lines_added": 0,
-      "agent_lines_removed": 0,
-      "user_added_per_file": {
-        "docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md": 1561,
-        "docs/superpowers/specs/2026-07-10-knowledge-hub-design.md": 161
-      }
-    }
-  ]
+  "initial_attribution": {
+    "calculated_at": "2026-07-10T21:51:08.440315Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 33,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 33,
+    "total_lines_changed": 33,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
 }
