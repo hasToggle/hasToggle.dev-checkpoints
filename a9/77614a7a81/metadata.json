@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "a977614a7a81",
+  "strategy": "manual-commit",
+  "branch": "renovate/typescript-7.x",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "package.json",
+    "packages/email/templates/digest.tsx",
+    "packages/payments/index.ts",
+    "tsup.config.ts",
+    "turbo.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a9/77614a7a81/0/metadata.json",
+      "transcript": "/a9/77614a7a81/0/full.jsonl",
+      "content_hash": "/a9/77614a7a81/0/content_hash.txt",
+      "prompt": "/a9/77614a7a81/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 32371,
+    "cache_creation_tokens": 148583,
+    "cache_read_tokens": 3292920,
+    "output_tokens": 36376,
+    "api_call_count": 40
+  }
+}
