@@ -1,0 +1,54 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "4b38f873e27f",
+  "session_id": "b10586c9-1b13-412f-92b7-ddd260a6528c",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-11T08:42:26.592059Z",
+  "branch": "Kheirah/agent-knowledge-hub-design",
+  "checkpoints_count": 3,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "0e6c7a057625",
+  "token_usage": {
+    "input_tokens": 30089,
+    "cache_creation_tokens": 803880,
+    "cache_read_tokens": 18205635,
+    "output_tokens": 101830,
+    "api_call_count": 117
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 1737,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2032,
+      "agent_lines_removed": 574,
+      "user_added_per_file": {
+        "docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md": 1576,
+        "docs/superpowers/specs/2026-07-10-knowledge-hub-design.md": 161
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 1737,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2032,
+      "agent_lines_removed": 574,
+      "user_added_per_file": {
+        "docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md": 1576,
+        "docs/superpowers/specs/2026-07-10-knowledge-hub-design.md": 161
+      }
+    }
+  ]
+}
