@@ -139,3 +139,7 @@ Deferred items (Important #2 Art. 17 proposals scope — product decision; Minor
 2.
 
 What is/was the purpose of the knowledge-test-mongo Docker container?
+
+---
+
+I just ran "entire configure --checkpoint-remote github:hasToggle/hasToggle.dev-checkpoints" in this workspace following the request of PR 293. read up on it to understand it, then commit the changes introduced by that command, and push to remote.
