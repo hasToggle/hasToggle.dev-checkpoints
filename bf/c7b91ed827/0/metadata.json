@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "bfc7b91ed827",
+  "session_id": "bbdd924f-e82d-4d1d-8f86-0053c2c05179",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-11T08:24:15.252977Z",
+  "branch": "Kheirah/entire-io-vercel-build-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/api/vercel.json",
+    "apps/app/vercel.json",
+    "apps/storybook/vercel.json",
+    "apps/web/vercel.json"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7d480da31e89",
+  "token_usage": {
+    "input_tokens": 24107,
+    "cache_creation_tokens": 373393,
+    "cache_read_tokens": 3119879,
+    "output_tokens": 61602,
+    "api_call_count": 26
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-11T08:24:15.240432Z",
+    "agent_lines": 27,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 27,
+    "total_lines_changed": 30,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 27,
+      "agent_lines_removed": 3
+    }
+  ]
+}
