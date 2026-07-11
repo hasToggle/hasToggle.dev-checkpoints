@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "bfc7b91ed827",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/entire-io-vercel-build-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/api/vercel.json",
+    "apps/app/vercel.json",
+    "apps/storybook/vercel.json",
+    "apps/web/vercel.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bf/c7b91ed827/0/metadata.json",
+      "transcript": "/bf/c7b91ed827/0/full.jsonl",
+      "content_hash": "/bf/c7b91ed827/0/content_hash.txt",
+      "prompt": "/bf/c7b91ed827/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 24107,
+    "cache_creation_tokens": 373393,
+    "cache_read_tokens": 3119879,
+    "output_tokens": 61602,
+    "api_call_count": 26
+  }
+}
