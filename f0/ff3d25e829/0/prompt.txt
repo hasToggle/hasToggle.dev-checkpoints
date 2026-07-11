@@ -1,0 +1,141 @@
+<task-notification>
+<task-id>a4360f933366ddbfb</task-id>
+<tool-use-id>toolu_01QVv26Q2bN13bsdwuGJDYtM</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/a4360f933366ddbfb.output</output-file>
+<status>completed</status>
+<summary>Agent "Review Task 7 (spec+quality)" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>### Spec Compliance
+- ✅ Spec compliant
+
+The Important finding from round 1 is resolved. Verified against the new diff:
+
+1. **All index key specs now lead with `tenantId`, exactly per the brief** — all 12 index definitions across the 6 collections (10 distinct names; `tenant_org` and `tenant_status_recency` are each reused on two collections):
+   - `packages/knowledge/collections.ts:31-32` — `tenant_name` `{ tenantId: 1, name: 1 }`, `tenant_domains` `{ tenantId: 1, domains: 1 }`
+   - `collections.ts:35-36` — people `tenant_org` `{ tenantId: 1, organizationId: 1 }`, `tenant_emails` `{ tenantId: 1, emails: 1 }`
+   - `collections.ts:39` — engagements `tenant_org` `{ tenantId: 1, organizationId: 1 }`
+   - `collections.ts:43-51` — sources `tenant_status_recency` `{ tenantId: 1, status: 1, createdAt: -1 }` (descending recency preserved) and `tenant_gmail_message` `{ tenantId: 1, "email.gmailMessageId": 1 }` with `unique: true, sparse: true` intact
+   - `collections.ts:54-57` — proposals `tenant_status_recency` `{ tenantId: 1, status: 1, createdAt: -1 }`
+   - `collections.ts:60-72` — facts `tenant_org_anchor` / `tenant_person_anchor` / `tenant_engagement_anchor` `{ tenantId: 1, "anchors.*": 1 }` and `tenant_source` `{ tenantId: 1, sourceId: 1 }`
+   Every key shape now matches the brief's Step 3 character-for-character (modulo formatting).
+
+2. **Suppression is scoped and justified** — a single file-level comment, `collections.ts:1`: `// biome-ignore-all assist/source/useSortedKeys: MongoDB compound-index key order is semantically significant (tenantId must lead)`. It suppresses exactly one assist action (`assist/source/useSortedKeys`), in exactly one file, with a reason that states the invariant. No lint rules are disabled and no config-wide change was made. The reported `bunx biome check packages/knowledge` → "Checked 15 files... No fixes applied" confirms the gate passes without re-sorting. File-level rather than per-literal scope is the pragmatic choice here: the file's entire purpose is index/collection definitions, and ~12 nested per-object suppressions would be noise.
+
+3. **No regressions from the amend** — the test file is byte-identical to the previous head (same blob `411c8c6`, diff lines 12-16), so the round-1 `MongoClient(uri ?? "mongodb://localhost:27017")` fix and skipIf behavior are untouched. `collections.ts` changes are limited to the suppression comment and key reordering; `KnowledgeCollections`, `getCollections`, and both signatures are unchanged (`collections.ts:7-23`). Still one conventional commit (`953b7eb feat(knowledge): typed collections and idempotent indexes`).
+
+### Strengths
+- The fix addresses the root cause, not the symptom: it restores the semantics *and* pins them against the tool that destroyed them, so a future `biome --write` cannot silently re-alphabetize the key specs. The justification comment teaches the next reader why the order matters.
+- Verification evidence goes beyond the test suite, which (as noted in round 1) cannot see key order: the report dumps live index shapes from a real `ensureIndexes` run against local MongoDB showing `tenantId` leading (report lines 205-229), plus 3/3 integration tests, 20/20 full suite, clean typecheck, and clean scoped lint (report lines 231-266).
+- All round-1 strengths stand: contract-exact `getCollections`/`ensureIndexes`, real-MongoDB tests for idempotency, typed round-trip, and duplicate-key rejection, `tenantId: "test-tenant"` throughout, correct minimal MongoClient fallback.
+
+### Issues
+#### Critical (Must Fix)
+None.
+
+#### Important (Should Fix)
+None. Round 1's Important finding is fully resolved.
+
+#### Minor (Nice to Have)
+- Report inaccuracy only: Fix round 2 says "all 11 compound indexes" (report line 202); the file defines 12 compound index specs (10 distinct names). The code itself is complete — this is a counting slip in prose, not a missing index.
+- Carried over from round 1, both inherited from the brief rather than implementer defects: the idempotency test doesn't assert index count is unchanged after the second run (`__tests__/collections.test.ts:40-46`), and the duplicate-gmailMessageId test doesn't prove the same ID is *accepted* for a different tenant (`__tests__/collections.test.ts:67-88`).
+
+### Assessment
+**Task quality:** Approved
+**Reasoning:** All 12 index key specs now match the brief exactly with `tenantId` leading, the suppression is minimal, single-rule, single-file, and well-justified, and the amend introduced no other changes — with live index-shape evidence covering the one property the test suite can't observe.</result>
+<usage><subagent_tokens>55316</subagent_tokens><tool_uses>3</tool_uses><duration_ms>72214</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a8d6d85c546a67d37</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/a8d6d85c546a67d37.output</output-file>
+<status>completed</status>
+<summary>Agent "Review Task 8 (spec+quality)" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>### Spec Compliance
+✅ Spec compliant
+
+All six cascade behaviors from the brief remain correctly implemented and tested (`packages/knowledge/__tests__/erasure.test.ts:148-180`): person-anchored fact deletion with the org-only fact surviving, dual-source redaction with `[REDACTED]` markers and full identifier scrubbing, pending-draft discard via `arrayFilters`, orphaned-blob URLs reported for the caller (package stays Vercel-agnostic), and the unknown-person no-op. The `ErasureReport` shape and `erasePerson` signature still match the interface contract exactly (`packages/knowledge/erasure.ts:7-12,18-22`). The Important finding from the previous round is fixed.
+
+**Fix verification:**
+
+1. **Guard fully prevents the empty-pattern find+rewrite; cascade intact.** `erasure.ts:52-58` declares `let mentioningSources: WithId&lt;Source&gt;[] = [];` and wraps pattern construction, the `sources.find` (erasure.ts:59-68), and the entire redaction `for` loop (erasure.ts:70-96) inside `if (identifiers.length &gt; 0)`. With no usable identifiers, `new RegExp("", "gi")` is never built, no `find` runs, no `updateOne` runs, and `sourcesRedacted: mentioningSources.length` (erasure.ts:120) correctly reports 0. Steps 1 (fact deletion, erasure.ts:35-39), 2 (draft discard, erasure.ts:41-46), 4 (orphan reporting, erasure.ts:98-111), and 5 (person deletion, erasure.ts:113-114) all sit outside the guard and run unconditionally — confirmed against the diff line by line.
+
+2. **The new test genuinely covers the defect.** `erasure.test.ts:182-201` inserts a person named `"Al"` (length 2, filtered by `identifier.length &gt; 2`) with `emails: []` — exactly the empty-`identifiers` path. It snapshots `mixedSourceId` before the call and asserts `content` and `email.originalSender` are byte-identical after, plus `sourcesRedacted === 0` and `personDeleted === true` (proving the rest of the cascade still executed). The assertions would catch both symptoms of the unguarded bug: the empty pattern's `find` matches every source (`sourcesRedacted` would be 2), and the empty-pattern `.replace` mangles content. The implementer's report shows a red run against temporarily-unguarded code (`Expected: 0 / Received: 2`) — consistent with what the code would do, and the assertion structure makes the claim credible on its face. The test's reliance on running after the first test (mixedSource already redacted) is harmless: it only uses the source as an "unchanged by this call" comparison target.
+
+3. **No regressions from the amend.** The only deltas vs. head 311fc64 are: the guard block (indentation of the redaction section), `tenantId` added to the redaction `updateOne` filter (erasure.ts:73), two new type-only imports (`WithId` from `mongodb`, `Source` from `./schemas/sources` — I confirmed `Source` is exported at `packages/knowledge/schemas/sources.ts:38`), and the new test. The `lastIndex` safety analysis from my previous review is unaffected — the `.replace`/`.test` sequencing inside the loop is unchanged. Both `biome-ignore` suppressions remain scoped and justified. Reported verification (3/3 erasure, 23 full suite, typecheck clean, biome 0 errors) is consistent with the diff; nothing in the code raises a doubt that would warrant a re-run.
+
+### Strengths
+- The guard comment (`erasure.ts:53-55`) documents *why* the skip exists — the `/(?:)/gi` match-everything hazard — so the next maintainer won't "simplify" it away.
+- The fix addressed my Minor 1 unprompted-by-severity: the redaction `updateOne` now carries `tenantId` (erasure.ts:73), making tenant scoping uniform across every query in the file.
+- The covering test asserts both the report field (`sourcesRedacted: 0`) and the actual persisted state (byte-identical content/sender), not just one proxy.
+- Red-run evidence against the unguarded code demonstrates the test detects the defect rather than merely passing alongside the fix.
+
+### Issues
+
+#### Critical (Must Fix)
+None.
+
+#### Important (Should Fix)
+None. The previous Important finding (empty-identifier pattern causing tenant-wide redaction) is resolved by the guard at `erasure.ts:56` and covered by the test at `erasure.test.ts:182-201`.
+
+#### Minor (Nice to Have)
+1. **Silent redaction skip is indistinguishable from "nothing matched."** When a person exists but all identifiers are filtered out, the report returns `sourcesRedacted: 0` — the same as a person whose identifiers simply appear nowhere. A GDPR audit trail might want to distinguish "redaction skipped: no usable identifiers" (e.g., a flag or the caller checking identifier viability). Fine for this task's contract, worth considering at the app layer.
+2. **No cross-tenant isolation test** (carried over). A test proving erasure in `test-tenant` leaves an identical-content source in another tenant untouched is still absent from `erasure.test.ts`.
+3. **Orphan-check path with a surviving fact plus audio blob still untested** (carried over). `mixedSourceId` has no `audio` field, so the `remaining === 0` gate (`erasure.ts:103-105`) is never exercised against a source that both retains a fact and carries audio.
+
+### Assessment
+**Task quality:** Approved
+**Reasoning:** The guard cleanly eliminates the empty-pattern corruption path without touching the rest of the cascade, the new integration test provably fails against the unguarded code, and the amend introduces no regressions; remaining items are coverage-breadth polish only.</result>
+<usage><subagent_tokens>60076</subagent_tokens><tool_uses>2</tool_uses><duration_ms>59090</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a56e48cce1feab0fb</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/a56e48cce1feab0fb.output</output-file>
+<status>completed</status>
+<summary>Agent "Final whole-branch review" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Fix-Round Verification (b8cc9f5..2cdec4f)
+
+I read the delta diff and independently ran the suite at HEAD `2cdec4f`.
+
+**(1) Partial filter fix** — Confirmed. `packages/knowledge/collections.ts:50-53` now reads `partialFilterExpression: { "email.gmailMessageId": { $exists: true } }` with `unique`, key, and name unchanged — byte-identical to the variant I empirically validated against the local MongoDB (multiple non-email sources per tenant OK; dup gmail ID same tenant rejected; same gmail ID cross-tenant accepted).
+
+**(2) Test coverage** — Genuine. "allows multiple sources without email per tenant" inserts two voice sources under one tenant and asserts count 2 — exactly the E11000 collision I reproduced. "accepts the same gmailMessageId for a different tenant" reuses `dup-123` under `other-tenant`; it depends on the earlier duplicate-key test having inserted the first doc, which bun's declaration-order execution guarantees and the comment documents — acceptable. Same-tenant rejection remains covered by the pre-existing test, so all three semantics of the new index are pinned. The idempotency test now also asserts the facts index count is unchanged after a rerun, without losing the "second run must not throw" check.
+
+**(3) redactionSkipped semantics** — Consistent. There are exactly two return sites: the unknown-person no-op returns `false` (person didn't exist), and the main path returns `identifiers.length === 0` (true iff the person existed but had no usable identifiers). All three erasure tests assert the flag. Matches the stated contract.
+
+**(4) Regressions** — None. Only the 4 in-scope files changed. Independently verified: `28 pass / 0 fail` with `MONGODB_TEST_URI`, `20 pass / 12 skip / 0 fail` without — exactly matching the fixer's report.
+
+One non-blocking nit: the new comment above `pattern.lastIndex = 0` slightly overstates the prior failure mode (the old code was safe by evaluation-order accident, not actively skipping matches) — the reset itself is precisely the right defensive fix and what the plan recommended.
+
+Deferred items (Important #2 Art. 17 proposals scope — product decision; Minors #5–#9; triage fast-follows) are correctly out of this round per my triage and should be tracked before Plan 2 consumes the package.
+
+### Final Assessment
+
+**Ready to merge?** Yes
+**Reasoning:** The single Critical finding is fixed exactly as validated and regression-tested from both directions, the promoted Important finding and the defensive Minor are correctly implemented, and the suite is independently green in both integration and unit-only modes. Remaining items are deliberate deferrals (one product decision, the rest fast-follows) that don't affect this branch's correctness.</result>
+<usage><subagent_tokens>125953</subagent_tokens><tool_uses>2</tool_uses><duration_ms>62622</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>byy708age</task-id>
+<tool-use-id>toolu_017PAJU9yayS72Ntn2R92NMs</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/byy708age.output</output-file>
+<status>killed</status>
+<summary>Background command "Wait for reviewer agent completion" was stopped</summary>
+</task-notification>
+
+---
+
+2.
+
+What is/was the purpose of the knowledge-test-mongo Docker container?
