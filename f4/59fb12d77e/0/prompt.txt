@@ -44,3 +44,50 @@ None. Round 1's Important finding is fully resolved.
 **Reasoning:** All 12 index key specs now match the brief exactly with `tenantId` leading, the suppression is minimal, single-rule, single-file, and well-justified, and the amend introduced no other changes — with live index-shape evidence covering the one property the test suite can't observe.</result>
 <usage><subagent_tokens>55316</subagent_tokens><tool_uses>3</tool_uses><duration_ms>72214</duration_ms></usage>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>a8d6d85c546a67d37</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/a8d6d85c546a67d37.output</output-file>
+<status>completed</status>
+<summary>Agent "Review Task 8 (spec+quality)" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>### Spec Compliance
+✅ Spec compliant
+
+All six cascade behaviors from the brief remain correctly implemented and tested (`packages/knowledge/__tests__/erasure.test.ts:148-180`): person-anchored fact deletion with the org-only fact surviving, dual-source redaction with `[REDACTED]` markers and full identifier scrubbing, pending-draft discard via `arrayFilters`, orphaned-blob URLs reported for the caller (package stays Vercel-agnostic), and the unknown-person no-op. The `ErasureReport` shape and `erasePerson` signature still match the interface contract exactly (`packages/knowledge/erasure.ts:7-12,18-22`). The Important finding from the previous round is fixed.
+
+**Fix verification:**
+
+1. **Guard fully prevents the empty-pattern find+rewrite; cascade intact.** `erasure.ts:52-58` declares `let mentioningSources: WithId&lt;Source&gt;[] = [];` and wraps pattern construction, the `sources.find` (erasure.ts:59-68), and the entire redaction `for` loop (erasure.ts:70-96) inside `if (identifiers.length &gt; 0)`. With no usable identifiers, `new RegExp("", "gi")` is never built, no `find` runs, no `updateOne` runs, and `sourcesRedacted: mentioningSources.length` (erasure.ts:120) correctly reports 0. Steps 1 (fact deletion, erasure.ts:35-39), 2 (draft discard, erasure.ts:41-46), 4 (orphan reporting, erasure.ts:98-111), and 5 (person deletion, erasure.ts:113-114) all sit outside the guard and run unconditionally — confirmed against the diff line by line.
+
+2. **The new test genuinely covers the defect.** `erasure.test.ts:182-201` inserts a person named `"Al"` (length 2, filtered by `identifier.length &gt; 2`) with `emails: []` — exactly the empty-`identifiers` path. It snapshots `mixedSourceId` before the call and asserts `content` and `email.originalSender` are byte-identical after, plus `sourcesRedacted === 0` and `personDeleted === true` (proving the rest of the cascade still executed). The assertions would catch both symptoms of the unguarded bug: the empty pattern's `find` matches every source (`sourcesRedacted` would be 2), and the empty-pattern `.replace` mangles content. The implementer's report shows a red run against temporarily-unguarded code (`Expected: 0 / Received: 2`) — consistent with what the code would do, and the assertion structure makes the claim credible on its face. The test's reliance on running after the first test (mixedSource already redacted) is harmless: it only uses the source as an "unchanged by this call" comparison target.
+
+3. **No regressions from the amend.** The only deltas vs. head 311fc64 are: the guard block (indentation of the redaction section), `tenantId` added to the redaction `updateOne` filter (erasure.ts:73), two new type-only imports (`WithId` from `mongodb`, `Source` from `./schemas/sources` — I confirmed `Source` is exported at `packages/knowledge/schemas/sources.ts:38`), and the new test. The `lastIndex` safety analysis from my previous review is unaffected — the `.replace`/`.test` sequencing inside the loop is unchanged. Both `biome-ignore` suppressions remain scoped and justified. Reported verification (3/3 erasure, 23 full suite, typecheck clean, biome 0 errors) is consistent with the diff; nothing in the code raises a doubt that would warrant a re-run.
+
+### Strengths
+- The guard comment (`erasure.ts:53-55`) documents *why* the skip exists — the `/(?:)/gi` match-everything hazard — so the next maintainer won't "simplify" it away.
+- The fix addressed my Minor 1 unprompted-by-severity: the redaction `updateOne` now carries `tenantId` (erasure.ts:73), making tenant scoping uniform across every query in the file.
+- The covering test asserts both the report field (`sourcesRedacted: 0`) and the actual persisted state (byte-identical content/sender), not just one proxy.
+- Red-run evidence against the unguarded code demonstrates the test detects the defect rather than merely passing alongside the fix.
+
+### Issues
+
+#### Critical (Must Fix)
+None.
+
+#### Important (Should Fix)
+None. The previous Important finding (empty-identifier pattern causing tenant-wide redaction) is resolved by the guard at `erasure.ts:56` and covered by the test at `erasure.test.ts:182-201`.
+
+#### Minor (Nice to Have)
+1. **Silent redaction skip is indistinguishable from "nothing matched."** When a person exists but all identifiers are filtered out, the report returns `sourcesRedacted: 0` — the same as a person whose identifiers simply appear nowhere. A GDPR audit trail might want to distinguish "redaction skipped: no usable identifiers" (e.g., a flag or the caller checking identifier viability). Fine for this task's contract, worth considering at the app layer.
+2. **No cross-tenant isolation test** (carried over). A test proving erasure in `test-tenant` leaves an identical-content source in another tenant untouched is still absent from `erasure.test.ts`.
+3. **Orphan-check path with a surviving fact plus audio blob still untested** (carried over). `mixedSourceId` has no `audio` field, so the `remaining === 0` gate (`erasure.ts:103-105`) is never exercised against a source that both retains a fact and carries audio.
+
+### Assessment
+**Task quality:** Approved
+**Reasoning:** The guard cleanly eliminates the empty-pattern corruption path without touching the rest of the cascade, the new integration test provably fails against the unguarded code, and the amend introduces no regressions; remaining items are coverage-breadth polish only.</result>
+<usage><subagent_tokens>60076</subagent_tokens><tool_uses>2</tool_uses><duration_ms>59090</duration_ms></usage>
+</task-notification>
