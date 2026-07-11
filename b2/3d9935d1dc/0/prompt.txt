@@ -1,0 +1,46 @@
+<task-notification>
+<task-id>a4360f933366ddbfb</task-id>
+<tool-use-id>toolu_01QVv26Q2bN13bsdwuGJDYtM</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/b10586c9-1b13-412f-92b7-ddd260a6528c/tasks/a4360f933366ddbfb.output</output-file>
+<status>completed</status>
+<summary>Agent "Review Task 7 (spec+quality)" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>### Spec Compliance
+- ✅ Spec compliant
+
+The Important finding from round 1 is resolved. Verified against the new diff:
+
+1. **All index key specs now lead with `tenantId`, exactly per the brief** — all 12 index definitions across the 6 collections (10 distinct names; `tenant_org` and `tenant_status_recency` are each reused on two collections):
+   - `packages/knowledge/collections.ts:31-32` — `tenant_name` `{ tenantId: 1, name: 1 }`, `tenant_domains` `{ tenantId: 1, domains: 1 }`
+   - `collections.ts:35-36` — people `tenant_org` `{ tenantId: 1, organizationId: 1 }`, `tenant_emails` `{ tenantId: 1, emails: 1 }`
+   - `collections.ts:39` — engagements `tenant_org` `{ tenantId: 1, organizationId: 1 }`
+   - `collections.ts:43-51` — sources `tenant_status_recency` `{ tenantId: 1, status: 1, createdAt: -1 }` (descending recency preserved) and `tenant_gmail_message` `{ tenantId: 1, "email.gmailMessageId": 1 }` with `unique: true, sparse: true` intact
+   - `collections.ts:54-57` — proposals `tenant_status_recency` `{ tenantId: 1, status: 1, createdAt: -1 }`
+   - `collections.ts:60-72` — facts `tenant_org_anchor` / `tenant_person_anchor` / `tenant_engagement_anchor` `{ tenantId: 1, "anchors.*": 1 }` and `tenant_source` `{ tenantId: 1, sourceId: 1 }`
+   Every key shape now matches the brief's Step 3 character-for-character (modulo formatting).
+
+2. **Suppression is scoped and justified** — a single file-level comment, `collections.ts:1`: `// biome-ignore-all assist/source/useSortedKeys: MongoDB compound-index key order is semantically significant (tenantId must lead)`. It suppresses exactly one assist action (`assist/source/useSortedKeys`), in exactly one file, with a reason that states the invariant. No lint rules are disabled and no config-wide change was made. The reported `bunx biome check packages/knowledge` → "Checked 15 files... No fixes applied" confirms the gate passes without re-sorting. File-level rather than per-literal scope is the pragmatic choice here: the file's entire purpose is index/collection definitions, and ~12 nested per-object suppressions would be noise.
+
+3. **No regressions from the amend** — the test file is byte-identical to the previous head (same blob `411c8c6`, diff lines 12-16), so the round-1 `MongoClient(uri ?? "mongodb://localhost:27017")` fix and skipIf behavior are untouched. `collections.ts` changes are limited to the suppression comment and key reordering; `KnowledgeCollections`, `getCollections`, and both signatures are unchanged (`collections.ts:7-23`). Still one conventional commit (`953b7eb feat(knowledge): typed collections and idempotent indexes`).
+
+### Strengths
+- The fix addresses the root cause, not the symptom: it restores the semantics *and* pins them against the tool that destroyed them, so a future `biome --write` cannot silently re-alphabetize the key specs. The justification comment teaches the next reader why the order matters.
+- Verification evidence goes beyond the test suite, which (as noted in round 1) cannot see key order: the report dumps live index shapes from a real `ensureIndexes` run against local MongoDB showing `tenantId` leading (report lines 205-229), plus 3/3 integration tests, 20/20 full suite, clean typecheck, and clean scoped lint (report lines 231-266).
+- All round-1 strengths stand: contract-exact `getCollections`/`ensureIndexes`, real-MongoDB tests for idempotency, typed round-trip, and duplicate-key rejection, `tenantId: "test-tenant"` throughout, correct minimal MongoClient fallback.
+
+### Issues
+#### Critical (Must Fix)
+None.
+
+#### Important (Should Fix)
+None. Round 1's Important finding is fully resolved.
+
+#### Minor (Nice to Have)
+- Report inaccuracy only: Fix round 2 says "all 11 compound indexes" (report line 202); the file defines 12 compound index specs (10 distinct names). The code itself is complete — this is a counting slip in prose, not a missing index.
+- Carried over from round 1, both inherited from the brief rather than implementer defects: the idempotency test doesn't assert index count is unchanged after the second run (`__tests__/collections.test.ts:40-46`), and the duplicate-gmailMessageId test doesn't prove the same ID is *accepted* for a different tenant (`__tests__/collections.test.ts:67-88`).
+
+### Assessment
+**Task quality:** Approved
+**Reasoning:** All 12 index key specs now match the brief exactly with `tenantId` leading, the suppression is minimal, single-rule, single-file, and well-justified, and the amend introduced no other changes — with live index-shape evidence covering the one property the test suite can't observe.</result>
+<usage><subagent_tokens>55316</subagent_tokens><tool_uses>3</tool_uses><duration_ms>72214</duration_ms></usage>
+</task-notification>
