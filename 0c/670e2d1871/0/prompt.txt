@@ -72,3 +72,11 @@ third lane: automated package updates running on eve (Vercel's agent framework)
 Drop the cost from our conversation since it's irrelevant. We are designing the best masterclass here and it will be ready before long. And let's remove the TS fineprint. I've discarded that idea again.
 
 Shape the design update.
+
+---
+
+To be clear, the current demo in era 3 should stay/move to make room for the lanes. Don't discard it.
+
+On 1: We review every PR.
+
+Continue with the design plan, then write the implementation plan, and then execute the plan subagent-driven. From now on, I want to iterate with you on the entire demo where necessary, by running the dev server and pointing you to places. So, let's get there first, then I'll spin up the dev server for our iterative work on the live demo.
