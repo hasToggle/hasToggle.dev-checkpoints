@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "e0306f60d52e",
+  "session_id": "1f9b46a2-743d-4c57-b2ab-8cb327ad4c93",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-12T16:31:05.806662Z",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b203696f9bdf",
+  "token_usage": {
+    "input_tokens": 20040,
+    "cache_creation_tokens": 348918,
+    "cache_read_tokens": 7386432,
+    "output_tokens": 82880,
+    "api_call_count": 51
+  },
+  "session_metrics": {
+    "turn_count": 5
+  }
+}
