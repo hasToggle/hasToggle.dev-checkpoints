@@ -80,3 +80,50 @@ To be clear, the current demo in era 3 should stay/move to make room for the lan
 On 1: We review every PR.
 
 Continue with the design plan, then write the implementation plan, and then execute the plan subagent-driven. From now on, I want to iterate with you on the entire demo where necessary, by running the dev server and pointing you to places. So, let's get there first, then I'll spin up the dev server for our iterative work on the live demo.
+
+---
+
+<task-notification>
+<task-id>a9814861f0625fe3c</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-banjul/1f9b46a2-743d-4c57-b2ab-8cb327ad4c93/tasks/a9814861f0625fe3c.output</output-file>
+<status>completed</status>
+<summary>Agent "Final whole-feature review" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Verified at HEAD 432d4b3: 61/61 tests pass, typecheck exits 0, working tree clean under the masterclass route.
+
+## Fix-wave verification (f474a6e..432d4b3)
+
+**Finding 1 — done-lane pulse (era3-pipeline/index.tsx:166-171).** Resolved correctly. The pulse condition now requires `laneState.phase !== "done"`. I traced every cell state through the new condition:
+
+- Running lanes (phase `execute`/`validate`): active cell still pulses — the working affordance is unchanged.
+- Both gates: `!isRagGate` / `!isDepsGate` exclusions retained, so the Hand off and Approve merge buttons remain pulse-free with the cyan attention ring intact.
+- Done lanes: the validate cell's `isActive` no longer triggers the pulse, so the `isDone` quiet styling (`border-foreground/10 text-muted-foreground`) now applies without the tailwind-merge override. The wp lane's **VALIDATED ✓** badge is static, matching the harness treatment it echoes; after full completion all three lanes go quiet exactly when the "Notice where your clicks went" placard appears.
+- Reduced motion: `fastForward` end-state (wp done) is now animation-free — the reduced-motion leak is closed.
+- `awaiting-signature` maps to the validate column but is caught by `isDepsGate` before the pulse clause, same as before — no behavior change there.
+
+**Finding 2 — TestRunner updater purity (era3-ladder/index.tsx:65-75).** Resolved. `setPassed((p) =&gt; Math.min(p + 1, RUNNER_TESTS.length))` is pure; the interval is cleared only in the effect cleanup. Timing is identical: one test per 450 ms tick, five ticks to green. The only behavioral delta is that the interval keeps firing no-op ticks after completion until unmount — React bails out on same-value state, so no re-renders; harmless and bounded by the tab's lifetime. Reduced-motion instant-green path untouched.
+
+**Finding 3 — `&lt;pre&gt;` → `&lt;div&gt;` (era3-ladder/index.tsx:27-44).** Resolved with the identical className (`max-h-44 overflow-y-auto font-mono text-xs leading-5`), so scroll, mono rendering, and the +/− diff coloring are visually unchanged, and the per-line `&lt;div&gt;` children are now spec-valid flow content.
+
+Dispositions of findings 4–6 (copy-veto list for the confession doc paths; no action on the resting-placard interpretation and the Amendment 4 interaction-law note) match my recommendations.
+
+## Final verdict: READY
+
+The spectator layer at `apps/web/app/[locale]/learn/masterclass-28-07-2026/` is complete against the 2026-07-12 spec: composition order (harness → ladder → pipeline → field note → deep cut) correct, stepper/onBegin untouched, all verbatim lines present, demos deterministic and reset-clean across step changes, reduced-motion end-states correct, and the fix wave resolved all code findings without regressions. One item remains on Eric's live copy-veto list (whether the Synthesis confession should also cite the 2026-07-12 spectator-layer documents) — copy decision, not a blocker.</result>
+<usage><subagent_tokens>96024</subagent_tokens><tool_uses>2</tool_uses><duration_ms>45914</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bi9emason</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-banjul/1f9b46a2-743d-4c57-b2ab-8cb327ad4c93/tasks/bi9emason.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for re-review to complete" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+For era IV, check actual reports about the current engineering landscape and use real questions with real data. Try trusted sources like GitHub if they have reports. Try Linkedin, sometimes they have reports. I want this part to be real data with questions that are of interest to aspiring and junior devs, maybe even senior roles on the horizon.
