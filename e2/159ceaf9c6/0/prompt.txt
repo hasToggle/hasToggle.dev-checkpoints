@@ -1,0 +1,82 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/banjul directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md (24.7 KB)
+</system_instruction>
+
+
+
+.context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md 
+I'm iterating on the four-eras masterclass demo (event: 2026-07-28). The core demo is built on this branch. Before anything else, ground yourself: read the branch changes deeply — the exhibit lives at apps/web/app/[locale]/learn/masterclass-28-07-2026/ (nuqs-synced stepper: Intro → four eras → Synthesis, four playable demos, all offline/deterministic), the design spec is docs/superpowers/specs/2026-06-29-masterclass-four-eras-design.md — and read the landing page copy (apps/web/app/[locale]/page.tsx + its components) for voice and thesis context.
+
+Purpose of this session — same as the last one: I throw ideas at you for making the masterclass approachable for a non-technical audience while keeping enough practical value that senior engineers benefit. You catch each idea against the frame below, sharpen it, tell me where it lands in the exhibit and what it costs. Offer options and iterate with me; no generic language.
+
+Decisions locked in the previous session:
+- Audience: genuinely general (people who've never thought about how software gets made) plus some seniors watching along — bootcamp lead coaches, work colleagues.
+- Takeaway for the non-technical majority: comprehension. They're well-informed spectators of the developers' story — no "this comes for your job too" reframing, no hands-on-agency goal.
+- Where translation lives: layered. I translate live on stage; the page carries a quieter written version (captions, "what just happened" beats) that works cold when shared later, but is written to accompany me, not replace me.
+
+Rubric for every idea:
+1. Spectator test — does someone with no software background follow the ball better?
+2. Arena rule — the code stays code; translation sits beside the artifact, never replaces it (no cake metaphors in the editor).
+3. Senior tax — must not dilute the senior rail (the Expandable deep cuts / fine print).
+4. Companion rule — written to accompany a live narrator, still coherent without one.
+Standing constraints: offline/deterministic, house style (editorial, mono accents, Pratchett-dry), ~2 weeks to the event, so copy and light UI beat new engines.
+
+Ideas I've thrown so far, clustered (no shortlist chosen yet):
+- A · Situate the room: rebuild the Intro as a field-report opening — who I am (principal engineer burning through two Claude Code Max 20x subscriptions; frame as an instrument reading, not a flex), what this masterclass is, who it's for, and how to watch the page — including explicitly advertising the senior rail ("engineers: the fine print under each demo is for you"). Watch for Intro bloat.
+- B · The missing middle of the trust pivot (strongest cluster): Era III currently shows only the end state (harness, VALIDATE); add a "Where did the reading go?" beat covering the lived stages — 2024: plan-mode era, I read every generated diff like a literature student (keep that phrase verbatim; I have an English-lit degree); 2025: I read the plan, not the code; 2026: I plan the design, Claude writes the implementation plan, TDD execution gives confidence — tests read the code, I don't. Candidate shape: three dated tabs, same feature at three review altitudes, the reading visibly moving up and shrinking. This stays a sub-stage of Era III — no fifth era; four is the load-bearing number.
+- C · Field notes as a new content type: small, dated, true artifacts of daily practice, mono/lab-notebook styling, 1–2 per era — e.g. saying hi to the agent at 7:00 sharp so the 5-hour rate-limit window opens early; burning the window in 3 hours and waiting 2. Hard rule: only notes I actually lived; where an era predates my practice, the note says so honestly. Field notes also relieve Intro bloat: the Intro establishes the narrator, field notes keep him present in every room.
+- Style flag: a turtle-and-rabbit weekly-rhythm graphic (long "nothing is built" thinking/planning stretches vs. bursts of parallel sessions and long-horizon tasks at lightning speed). Concept approved directionally; execution must be dry/editorial — flat timeline, mono labels, joke lives in the caption — not clip-art. Leaning Intro placement.
+- One retained assistant suggestion, "the exhibit confesses": this masterclass page was itself built via design spec → implementation plan → TDD (spec, plan, and tests are on the branch); a late beat (Era III deep cut or Synthesis) could reveal that and link to the real documents.
+
+Pick up from here: I'll keep throwing ideas. Hold each against the rubric, and once we converge, shape the additions into a design update for my approval before touching any code.
+
+---
+
+- current coding-focused LLMs are good at typescript specifically since it's trained on vast amounts of it. why? because that's what's available the most on public repos. verify this claim; I might be wrong. if true, maybe show statistics.
+- many misuse AI as a glorified search engine or db. that's not what it is. this becomes evident from my era 1 demo. maybe it's good foreshadowing prior to era 1 which naturally leads into the explanation of why LLMs are not search engines or dbs
+
+---
+
+(i)
+
+another thought:
+- i can imagine laying out my current workflow t era 3 where we could display a process of planning => implementation => validation. My professional time goes into planning in an interative fashion with an agent, then I hand it all off to the TDD execution and validation. Meanwhile I start planning the next thing, and the next, spawning multiple git worktrees which now run in parallel. the harness and wordpress migration is one such parallel stream. I can imagine displaying this visually. First the three phases, each phase needs me to click somewhere to reveal the next phase. The second phase has an animation and the third is transparent/inactive, indicating my aforementioned parallel workflow that I start as the plan transitions into execution and frees me up to plan the next thing. We could do that for three parallell workflows. One of them being the harness + migration.
+
+---
+
+I'll use the graphic as a humorous intro. I have to generate it elsewhere, then I'll share it with you here.
+
+masterclass on three lanes confirmed. first lane: RAG pipeline for semantic retrieval with debiasing work on discrimination in language (female vs. male mentions result in different retrieval sets which is problematic for job posting results. I'm mentioning this for your context on the lane, not necessarily for displaying all of it.)
+second lane: harness + rebuilder
+third lane: automated package updates running on eve (Vercel's agent framework)
+
+---
+
+Drop the cost from our conversation since it's irrelevant. We are designing the best masterclass here and it will be ready before long. And let's remove the TS fineprint. I've discarded that idea again.
+
+Shape the design update.
+
+---
+
+To be clear, the current demo in era 3 should stay/move to make room for the lanes. Don't discard it.
+
+On 1: We review every PR.
+
+Continue with the design plan, then write the implementation plan, and then execute the plan subagent-driven. From now on, I want to iterate with you on the entire demo where necessary, by running the dev server and pointing you to places. So, let's get there first, then I'll spin up the dev server for our iterative work on the live demo.
