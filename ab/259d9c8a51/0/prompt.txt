@@ -167,3 +167,8 @@ That's where the subscription comes in. It's very expensive to code with Anthrop
 The demos of all era should be adjust to reflect this story. This is what I will be talking about and the demos should support and the whole masterclass should be shaped around. The demos themselves are fine but need reorienting to fit the narrative. Era 4 is not really an era to be honest. It's not about empowering the individual engineer (which the whole story is about) but more of a natural extension of LLMs into the next frontier, the runtime itself.
 
 Your task is to re-do the entire masterclass following the narrative arc and story. I want to be able to show things I talk about. There may be some little things you could add to support that, and change existing ones to better fall into my story.
+
+---
+
+- playable browser-tab mock
+- “thousands” because I don't know the range
