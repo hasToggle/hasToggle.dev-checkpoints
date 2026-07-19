@@ -199,3 +199,18 @@ Your task is to re-do the entire masterclass following the narrative arc and sto
 ## Verdict: READY</result>
 <usage><subagent_tokens>91591</subagent_tokens><tool_uses>2</tool_uses><duration_ms>37047</duration_ms></usage>
 </task-notification>
+
+---
+
+The copy is still too much oriented towards terminology that's incidental: era, room being the most dominant. 
+It reads as if someone wrote it who was being told what to write and they baked in the direction into the writing. For instance the three items in the intro:
+
+- Three rooms of history, one workshop, one horizon — walk them in order.
+- Everything is playable, and nothing breaks.
+- The tech changes in every room. The vibe changes more — that arc is the real story.
+
+This does not read like something the audience would like to read and be excited, properly informed. Also, "Engineers: the fine print under each demo is for you." is not true as there's not a single demo that adheres to it. The styling of this note with its double slash is elegant as it speaks to engineers and we should keep it, but keep it honest too.
+
+Adjust the tone of the copy from a slightly arrogant voice ("I'm a principal engineer, and I burn through two of the largest Claude Code subscriptions there are...") to a more grounded, calm, but intense voice. 
+
+Apply that to the intro step first before expanding all over. I want to nail the voice first.
