@@ -268,3 +268,12 @@ What the current data says about the job market for developers — juniors and s
 Who this is for: Everyone. No programming knowledge is required — the masterclass is built so that someone who has never thought about how software gets made can follow the whole story. At the same time, every demo carries technical fine print for experienced engineers, so senior developers, team leads, and coaches will leave with concrete, current practice they can apply.
 
 What to expect: A live, guided walk through an interactive exhibit — every claim demonstrated on screen, every demo playable, every statistic sourced. Expect a story with a beginning, a turning point, and an honest look at where it leads. Expect dry humor. Expect to leave understanding not just that software development changed, but how — and what remains, unchanged, the human’s job: the AI produces the artifact; you hold the meaning.
+
+---
+
+" told as it happened, and checked against real data."
+
+what about: " told as it happened, and models that were barely useful along the way."
+Not verbabtim. But I'd like to weave in part of the ensuing narrative here already.
+
+Also, the first item is too meta. It reads like "who cares?". The second item should really be the first as it directly talks to the audience. The third item should stay third as it softly transitions into the next step. We'd need a new second item.
