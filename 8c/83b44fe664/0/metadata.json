@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "8c83b44fe664",
+  "session_id": "1f9b46a2-743d-4c57-b2ab-8cb327ad4c93",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-19T18:19:37.166692Z",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/intro.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "87c21cd6615c",
+  "token_usage": {
+    "input_tokens": 52180,
+    "cache_creation_tokens": 2222136,
+    "cache_read_tokens": 49573844,
+    "output_tokens": 230604,
+    "api_call_count": 188
+  },
+  "session_metrics": {
+    "turn_count": 8
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-19T18:19:37.104784Z",
+    "agent_lines": 1,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 0,
+    "total_committed": 3,
+    "total_lines_changed": 6,
+    "agent_percentage": 66.66666666666666,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 1355,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2030,
+      "agent_lines_removed": 576,
+      "user_added_per_file": {
+        ".context/attachments/7p3CHT/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/AQFGRV/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/Lqf2gn/pasted_text_2026-07-12_20-41-37.txt": 27,
+        ".context/attachments/tqNgxc/Transcript of Iterate masterclass demo.md": 583,
+        ".context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/masterclass-event-summary.md": 61
+      }
+    }
+  ]
+}
