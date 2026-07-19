@@ -277,3 +277,9 @@ what about: " told as it happened, and models that were barely useful along the 
 Not verbabtim. But I'd like to weave in part of the ensuing narrative here already.
 
 Also, the first item is too meta. It reads like "who cares?". The second item should really be the first as it directly talks to the audience. The third item should stay third as it softly transitions into the next step. We'd need a new second item.
+
+---
+
+"This is built so that someone who has never wondered how software gets made can follow the whole story" It's worded complicatedly. Simpler, please.
+
+The second item doesn't have to be about veracity. Drop it for something else that's useful from the script I gave you.
