@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "70069d5c78d0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/intro.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/70/069d5c78d0/0/metadata.json",
+      "transcript": "/70/069d5c78d0/0/full.jsonl",
+      "content_hash": "/70/069d5c78d0/0/content_hash.txt",
+      "prompt": "/70/069d5c78d0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 50816,
+    "cache_creation_tokens": 2214325,
+    "cache_read_tokens": 46903461,
+    "output_tokens": 224988,
+    "api_call_count": 182
+  }
+}
