@@ -220,3 +220,51 @@ Apply that to the intro step first before expanding all over. I want to nail the
 I wanted to rewrite the intro, but for the first paragraph alone I'm only getting to two sentences because I had to prune the rest as it's too showoff. Let's get this first paragraph right together. Propose additions, adjustments, ...
 
 "I'm Eric, a principal engineer and coach for web development. All of the code I ship today is written by LLMs I direct."
+
+---
+
+Confirmed, we'll use that.
+
+You know what? I totally missed telling you about the summary we wrote for the masterclass event. I want you to draw from it for the copy. The paragraph rewrite you proposed is good and I like it. Still, apply the following to the entire intro anew. I want to get this right and then apply it to all other steps. Here it is:
+
+Topic & structure of the event
+
+Title: Agentic Engineering — A Masterclass · 2026-07-28
+
+Topic: How software engineering arrived at “agentic engineering” — the current practice of engineers planning and directing AI agents that write, test, and validate code — told as lived experience by a principal engineer, set against the history of how AI models actually developed and how engineers had to change the way they think and work.
+
+Structure: The masterclass walks through an interactive exhibit of live, playable demos, organized as three eras of history, one workshop, and one look ahead:
+
+Intro — the field report. Who’s presenting, from what vantage point, and how to watch.
+Era I · The completion machine (2019–2022). What a language model actually is underneath: not a search engine, not a database — a text-continuation machine. Includes a live demo of the moment that changed everything: the “post-training flip” that turned raw text completion into question-answering, i.e. the ChatGPT moment.
+Era II · Extraction → Integration (2022–2024). The copy/paste-from-ChatGPT era, then AI moving into the code editor itself (the Cursor moment) — and why, at that point, a senior engineer was still faster and better than the AI.
+Era III · Agentic engineering (2024 → now). The heart of the masterclass: an AI agent is “a language model with tools, trapped in a loop.” How engineers stopped reading every line of AI-generated code and learned to trust automated validation instead; what a real 2026 working day looks like (planning several parallel work streams while agents execute them); and the real-world economics of working this way.
+Outlook — the runtime frontier. Where AI goes next, grounded in real, cited labor-market data for Germany and the EU (junior vs. senior job postings, fastest-growing roles, AI wage premiums, developer trust surveys).
+Synthesis. What changed, what didn’t: the AI produces the artifact — the human holds the meaning.
+Every demo is interactive and shown live on stage. The exhibit carries two layers throughout: plain-language explanations for a general audience, and technical “fine print” for experienced engineers.
+
+Short description (two sentences)
+
+Software isn’t written the way it was three years ago — today, engineers plan and direct AI agents that write, test, and validate the code themselves. In this masterclass, a principal engineer recounts that transformation as lived experience, through live interactive demos anyone can follow: no coding background required, with real depth on offer for the engineers in the room.
+
+Long description
+
+Something fundamental has changed in how software gets made. In 2022, an AI model couldn’t reliably answer a question. Today, professional engineers hand entire features to AI agents that plan, write, test, and validate code on their own — while the engineer moves on to planning the next thing. This shift has a name: agentic engineering. This masterclass tells the story of how we got here — not as a hype talk, but as a first-hand field report, checked against real data.
+
+Your guide is a principal engineer who works this way every day — intensively enough to burn through two maximum-tier AI coding subscriptions a month. He recounts the journey through three eras he lived through, each one shaped by what the AI models could barely do, and by how people learned to use them:
+
+The completion machine. You’ll see, live, what a language model really is under the hood — and why it’s not a search engine. You’ll watch the exact mechanism that turned a curiosity into ChatGPT.
+From copy/paste to integration. The era when developers shuttled code between a chat window and their editor by hand — and why, even then, an experienced human was still faster and better than the machine.
+Agentic engineering. What happened when models became agents: tools, loops, and long-running autonomous work. How an engineer learns to stop reading every line and trust automated checks instead — and what a working day looks like when your job becomes planning and directing several parallel streams of machine-executed work.
+The masterclass closes with a clear-eyed look at what this means for careers, built on real, cited data for Germany and the EU: what’s happening to junior developer positions, which roles are growing fastest, what AI skills pay, and how much developers actually trust these tools (spoiler: German developers are the most skeptical in the world — and the masterclass argues that skepticism is exactly the right instinct, properly aimed).
+
+What you will learn:
+
+A correct mental model of what AI language models actually are and do — and why “fancy search engine” is the wrong one
+How AI coding tools evolved from autocomplete to autonomous agents, and what drove each step
+What agentic engineering looks like in real professional practice: planning, delegation, automated validation, and parallel work streams
+How the role of the engineer is shifting from writing code to directing and judging it
+What the current data says about the job market for developers — juniors and seniors — in Germany and the EU
+Who this is for: Everyone. No programming knowledge is required — the masterclass is built so that someone who has never thought about how software gets made can follow the whole story. At the same time, every demo carries technical fine print for experienced engineers, so senior developers, team leads, and coaches will leave with concrete, current practice they can apply.
+
+What to expect: A live, guided walk through an interactive exhibit — every claim demonstrated on screen, every demo playable, every statistic sourced. Expect a story with a beginning, a turning point, and an honest look at where it leads. Expect dry humor. Expect to leave understanding not just that software development changed, but how — and what remains, unchanged, the human’s job: the AI produces the artifact; you hold the meaning.
