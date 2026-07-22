@@ -30,3 +30,8 @@ What's more, I'd like to somehow make available the various technical terms I mi
 ---
 
 Continue, I interrupted, apologies.
+
+---
+
+1 (i) no psychology fold
+2 D but let's defer its implementation until the demo is verified as final by me. That way we'll have settled on the exact copy and hence the terminology.
