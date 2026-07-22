@@ -1,0 +1,297 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/banjul directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md (24.7 KB)
+</system_instruction>
+
+
+
+.context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md 
+I'm iterating on the four-eras masterclass demo (event: 2026-07-28). The core demo is built on this branch. Before anything else, ground yourself: read the branch changes deeply — the exhibit lives at apps/web/app/[locale]/learn/masterclass-28-07-2026/ (nuqs-synced stepper: Intro → four eras → Synthesis, four playable demos, all offline/deterministic), the design spec is docs/superpowers/specs/2026-06-29-masterclass-four-eras-design.md — and read the landing page copy (apps/web/app/[locale]/page.tsx + its components) for voice and thesis context.
+
+Purpose of this session — same as the last one: I throw ideas at you for making the masterclass approachable for a non-technical audience while keeping enough practical value that senior engineers benefit. You catch each idea against the frame below, sharpen it, tell me where it lands in the exhibit and what it costs. Offer options and iterate with me; no generic language.
+
+Decisions locked in the previous session:
+- Audience: genuinely general (people who've never thought about how software gets made) plus some seniors watching along — bootcamp lead coaches, work colleagues.
+- Takeaway for the non-technical majority: comprehension. They're well-informed spectators of the developers' story — no "this comes for your job too" reframing, no hands-on-agency goal.
+- Where translation lives: layered. I translate live on stage; the page carries a quieter written version (captions, "what just happened" beats) that works cold when shared later, but is written to accompany me, not replace me.
+
+Rubric for every idea:
+1. Spectator test — does someone with no software background follow the ball better?
+2. Arena rule — the code stays code; translation sits beside the artifact, never replaces it (no cake metaphors in the editor).
+3. Senior tax — must not dilute the senior rail (the Expandable deep cuts / fine print).
+4. Companion rule — written to accompany a live narrator, still coherent without one.
+Standing constraints: offline/deterministic, house style (editorial, mono accents, Pratchett-dry), ~2 weeks to the event, so copy and light UI beat new engines.
+
+Ideas I've thrown so far, clustered (no shortlist chosen yet):
+- A · Situate the room: rebuild the Intro as a field-report opening — who I am (principal engineer burning through two Claude Code Max 20x subscriptions; frame as an instrument reading, not a flex), what this masterclass is, who it's for, and how to watch the page — including explicitly advertising the senior rail ("engineers: the fine print under each demo is for you"). Watch for Intro bloat.
+- B · The missing middle of the trust pivot (strongest cluster): Era III currently shows only the end state (harness, VALIDATE); add a "Where did the reading go?" beat covering the lived stages — 2024: plan-mode era, I read every generated diff like a literature student (keep that phrase verbatim; I have an English-lit degree); 2025: I read the plan, not the code; 2026: I plan the design, Claude writes the implementation plan, TDD execution gives confidence — tests read the code, I don't. Candidate shape: three dated tabs, same feature at three review altitudes, the reading visibly moving up and shrinking. This stays a sub-stage of Era III — no fifth era; four is the load-bearing number.
+- C · Field notes as a new content type: small, dated, true artifacts of daily practice, mono/lab-notebook styling, 1–2 per era — e.g. saying hi to the agent at 7:00 sharp so the 5-hour rate-limit window opens early; burning the window in 3 hours and waiting 2. Hard rule: only notes I actually lived; where an era predates my practice, the note says so honestly. Field notes also relieve Intro bloat: the Intro establishes the narrator, field notes keep him present in every room.
+- Style flag: a turtle-and-rabbit weekly-rhythm graphic (long "nothing is built" thinking/planning stretches vs. bursts of parallel sessions and long-horizon tasks at lightning speed). Concept approved directionally; execution must be dry/editorial — flat timeline, mono labels, joke lives in the caption — not clip-art. Leaning Intro placement.
+- One retained assistant suggestion, "the exhibit confesses": this masterclass page was itself built via design spec → implementation plan → TDD (spec, plan, and tests are on the branch); a late beat (Era III deep cut or Synthesis) could reveal that and link to the real documents.
+
+Pick up from here: I'll keep throwing ideas. Hold each against the rubric, and once we converge, shape the additions into a design update for my approval before touching any code.
+
+---
+
+- current coding-focused LLMs are good at typescript specifically since it's trained on vast amounts of it. why? because that's what's available the most on public repos. verify this claim; I might be wrong. if true, maybe show statistics.
+- many misuse AI as a glorified search engine or db. that's not what it is. this becomes evident from my era 1 demo. maybe it's good foreshadowing prior to era 1 which naturally leads into the explanation of why LLMs are not search engines or dbs
+
+---
+
+(i)
+
+another thought:
+- i can imagine laying out my current workflow t era 3 where we could display a process of planning => implementation => validation. My professional time goes into planning in an interative fashion with an agent, then I hand it all off to the TDD execution and validation. Meanwhile I start planning the next thing, and the next, spawning multiple git worktrees which now run in parallel. the harness and wordpress migration is one such parallel stream. I can imagine displaying this visually. First the three phases, each phase needs me to click somewhere to reveal the next phase. The second phase has an animation and the third is transparent/inactive, indicating my aforementioned parallel workflow that I start as the plan transitions into execution and frees me up to plan the next thing. We could do that for three parallell workflows. One of them being the harness + migration.
+
+---
+
+I'll use the graphic as a humorous intro. I have to generate it elsewhere, then I'll share it with you here.
+
+masterclass on three lanes confirmed. first lane: RAG pipeline for semantic retrieval with debiasing work on discrimination in language (female vs. male mentions result in different retrieval sets which is problematic for job posting results. I'm mentioning this for your context on the lane, not necessarily for displaying all of it.)
+second lane: harness + rebuilder
+third lane: automated package updates running on eve (Vercel's agent framework)
+
+---
+
+Drop the cost from our conversation since it's irrelevant. We are designing the best masterclass here and it will be ready before long. And let's remove the TS fineprint. I've discarded that idea again.
+
+Shape the design update.
+
+---
+
+To be clear, the current demo in era 3 should stay/move to make room for the lanes. Don't discard it.
+
+On 1: We review every PR.
+
+Continue with the design plan, then write the implementation plan, and then execute the plan subagent-driven. From now on, I want to iterate with you on the entire demo where necessary, by running the dev server and pointing you to places. So, let's get there first, then I'll spin up the dev server for our iterative work on the live demo.
+
+---
+
+<task-notification>
+<task-id>a9814861f0625fe3c</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-banjul/1f9b46a2-743d-4c57-b2ab-8cb327ad4c93/tasks/a9814861f0625fe3c.output</output-file>
+<status>completed</status>
+<summary>Agent "Final whole-feature review" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Verified at HEAD 432d4b3: 61/61 tests pass, typecheck exits 0, working tree clean under the masterclass route.
+
+## Fix-wave verification (f474a6e..432d4b3)
+
+**Finding 1 — done-lane pulse (era3-pipeline/index.tsx:166-171).** Resolved correctly. The pulse condition now requires `laneState.phase !== "done"`. I traced every cell state through the new condition:
+
+- Running lanes (phase `execute`/`validate`): active cell still pulses — the working affordance is unchanged.
+- Both gates: `!isRagGate` / `!isDepsGate` exclusions retained, so the Hand off and Approve merge buttons remain pulse-free with the cyan attention ring intact.
+- Done lanes: the validate cell's `isActive` no longer triggers the pulse, so the `isDone` quiet styling (`border-foreground/10 text-muted-foreground`) now applies without the tailwind-merge override. The wp lane's **VALIDATED ✓** badge is static, matching the harness treatment it echoes; after full completion all three lanes go quiet exactly when the "Notice where your clicks went" placard appears.
+- Reduced motion: `fastForward` end-state (wp done) is now animation-free — the reduced-motion leak is closed.
+- `awaiting-signature` maps to the validate column but is caught by `isDepsGate` before the pulse clause, same as before — no behavior change there.
+
+**Finding 2 — TestRunner updater purity (era3-ladder/index.tsx:65-75).** Resolved. `setPassed((p) =&gt; Math.min(p + 1, RUNNER_TESTS.length))` is pure; the interval is cleared only in the effect cleanup. Timing is identical: one test per 450 ms tick, five ticks to green. The only behavioral delta is that the interval keeps firing no-op ticks after completion until unmount — React bails out on same-value state, so no re-renders; harmless and bounded by the tab's lifetime. Reduced-motion instant-green path untouched.
+
+**Finding 3 — `&lt;pre&gt;` → `&lt;div&gt;` (era3-ladder/index.tsx:27-44).** Resolved with the identical className (`max-h-44 overflow-y-auto font-mono text-xs leading-5`), so scroll, mono rendering, and the +/− diff coloring are visually unchanged, and the per-line `&lt;div&gt;` children are now spec-valid flow content.
+
+Dispositions of findings 4–6 (copy-veto list for the confession doc paths; no action on the resting-placard interpretation and the Amendment 4 interaction-law note) match my recommendations.
+
+## Final verdict: READY
+
+The spectator layer at `apps/web/app/[locale]/learn/masterclass-28-07-2026/` is complete against the 2026-07-12 spec: composition order (harness → ladder → pipeline → field note → deep cut) correct, stepper/onBegin untouched, all verbatim lines present, demos deterministic and reset-clean across step changes, reduced-motion end-states correct, and the fix wave resolved all code findings without regressions. One item remains on Eric's live copy-veto list (whether the Synthesis confession should also cite the 2026-07-12 spectator-layer documents) — copy decision, not a blocker.</result>
+<usage><subagent_tokens>96024</subagent_tokens><tool_uses>2</tool_uses><duration_ms>45914</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bi9emason</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-banjul/1f9b46a2-743d-4c57-b2ab-8cb327ad4c93/tasks/bi9emason.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for re-review to complete" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+For era IV, check actual reports about the current engineering landscape and use real questions with real data. Try trusted sources like GitHub if they have reports. Try Linkedin, sometimes they have reports. I want this part to be real data with questions that are of interest to aspiring and junior devs, maybe even senior roles on the horizon.
+
+---
+
+Good. Let's use data for the EU. I see you're relying on US data. We're in Europe, Germany. If we can't narrow it to Germany, EU is fine.
+
+---
+
+Write a copyable message for me to paste into a new session where I want to continue out conversation and iterative work. Provide enough context so the new session can pick up where we left off here.
+
+---
+
+Changed my mind, let's continue here. And let's fix the repo-wide Biome/lint gate now, so it's out of the way. Find the root cause of the issue. Maybe there's a v8 out and we're still referencing and using v7, maybe there's a migration guide we missed, that kind of things.
+
+---
+
+Commit the fix an push to remote
+
+---
+
+Back to iterating on the masterclass.
+
+I like the eyebrow in the intro saying "A field report · 2026-07-28" but change it to say "Masterclass on agentic engineering  · 2026-07-28"
+
+The title (and the structure of our demo) about the four eras is not quite on point. The masterclass is about agentic engineering. Let me explain. Agentic engineering is something we arrived at. It not something that was possible and not something people wanted four years ago. Hence, my approach to a presentation about the stage/era we're in now and call "agentic engineering" is to recount lived experience against the historic background of how AI developed and how engineers had to shift their mindset. The first "era" in the demo serves the purpose of rooting the entire knoweldge of LLMs in the completion mechanism. It was not a time where engineers actually used GPT 2 for work. It was not useful, yet. And OpenAI knew this, too. They saw that you could extract information from the model if you learned how to prompt it, which was prior to the Q&A format. A completion just continued the question instead of answering it, as our demo shows. Because it was hard to extract knowledge from the model, OpenAI posttrained the model on the Q&A format (verify this using web search, please). That was the moment of ChatGPT. Suddenly, the model was useful. It wasn't useful for engineering work, yet. But you could extract knowledge more readily, more easily. As the models improved and reasoning was added as way for the model to use multiple steps as a way of thinking to arrive at the answer and as these reasoning-capable models got better at reasoning then they became barely useful for engineering work, like completing a function signature and body given a comment that describes what the function should do. That's what I want to focus on in era 2. The "let me ask ChatGPT and copy/paste the answer over to my coding editor" era. The Cursor era where developers could select portion of their code to provide it as context for the integrated chat interface on the right. No more copy/paste from ChatGPT, so it feels less fragmented as an experience. That's why Cursor was so successful as an editor that was forked off an open source VS Code codebase. VS Code couldn't do it because it needed substantial refactoring; it was very hard to do this kind of editing from a chat interface because these things were bolted on top instead of integrated into how the editor works (verify this as well).
+
+But every little change, the Q&A format, the model's baseline improvement, the reasoning capability, the multi-modal capability (do you even remember when a model couldn't understand image?), the chat-like experience from ChatGPT integrated into the coding editor itself, all these things were shaped by what the model could barely do and by how people learned to use it.
+
+And mind you, at that time of Cursor as an AI-driven chat editor if you will, the amount of work and the quality of work you could do with it was minor. A senior engineer was faster and better. With AI you would produce code that had to be corrected, rewritten, refactored because it neglected the surrounding context, it missed basic working of the framework the code was written in (like react functional components and their lifecycle). It was more work to correct what the LLM generated to fast, than to write it yourself.
+
+That changed.
+
+People started experimenting with agents. And as always there was a debate about what an agent is. Various definitions by various people. Leaving aside the interpretation of what an agent is, mechanistically an agent was an LLM with tools, trapped in a loop. You would chat with the LLM, the LLM would think, sometimes it would invoke its tools like read this file, write this file, and return a response. This was the beginning of agentic engineering, the era 3 of the masterclass. This is when the product Claude Code was launched. Anthropic has the most capable coding models already. If you were not using the Sonnet and Opus models you were not doing any meaningful work. When Claude Code launched, it was once again barely useful. Even with the very models that were the most capable at coding tasks the harness around it made the product just barely useful. It was different, too. Cursor was the UI. Claude Code was the terminal. That does not attract the same kind of people. But Anthropic chose the terminal because that was the common denominator among their own employees, some developers, some researchers, some marketing people, etc. Designing an interface that works for everyone is not something you could reasonably start with. But the terminal, no need to worry about the UI, you have a similar chat-like experience just not in the browser or your familiar coding editor, but you could chat with it and it would use its tools to do work.
+
+As the models improved, the work you could do in Claude Code got more sophisticated. You could have the agent do more high quality work, touch more files without introducing breaking changes, and code for longer. The models became increasingly more capable of these long horizon tasks where an agent would run for tens of minutes at first, then for hours.
+
+That's where the subscription comes in. It's very expensive to code with Anthropic's models. If I had to pay via their API it would cost several thousand Euros every month. But with the subscription you only pay a flat 180 Euros a month. You get a quota that you can use. And if you use up all of it, you have to wait. You get weekly limits that reset every Saturday at 11 am. You get five hour windows which reset 5h after your first message. That's why I have an automated morning greeting to the LLM so the window starts early. I can burn through my limit in 3h and I'd have to wait for 2h. If I start the window early but don't code yet and start coding 3h into the window I don't have to wait because the new 5h window starts in 3h as well, just as I'd hit the limit. If you want to do professional coding work, you need the Max Pro 20x subscription. I have two because I still have to wait sometimes and my quota is filled up on Wednesday.
+
+The demos of all era should be adjust to reflect this story. This is what I will be talking about and the demos should support and the whole masterclass should be shaped around. The demos themselves are fine but need reorienting to fit the narrative. Era 4 is not really an era to be honest. It's not about empowering the individual engineer (which the whole story is about) but more of a natural extension of LLMs into the next frontier, the runtime itself.
+
+Your task is to re-do the entire masterclass following the narrative arc and story. I want to be able to show things I talk about. There may be some little things you could add to support that, and change existing ones to better fall into my story.
+
+---
+
+- playable browser-tab mock
+- “thousands” because I don't know the range
+
+---
+
+<task-notification>
+<task-id>a2ca524a00521fd0a</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-banjul/1f9b46a2-743d-4c57-b2ab-8cb327ad4c93/tasks/a2ca524a00521fd0a.output</output-file>
+<status>completed</status>
+<summary>Agent "Final rework whole-feature review" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Fix wave verified. Final verdict below.
+
+# Fix-wave verification (a257f69)
+
+**Verified:** HEAD is a257f69, exhibit working tree clean, `bun test` 70/70 pass, `bun run typecheck` clean.
+
+**Finding 1 (metadata) — resolved.** `page.tsx:8` now `"Agentic Engineering — a Masterclass"`, and the description was rewritten to the intro's own framing ("recounted as lived experience — against the history of how the models grew up and how engineers' minds had to move"), so tab title/share preview now match the H1 and spine. `robots: { follow: false, index: false }` preserved.
+
+**Finding 2 (stream-safe toggle) — resolved, ordering sound.** `stop()` was added as the first statement in both the mode-toggle and prompt-chip onClick handlers (`demos/era1-playground/index.tsx`). Ordering check: `stop()` is a stable `useCallback([], …)` that synchronously clears `timer.current` (a ref, so no stale-closure race) and sets `streaming=false`; then `setShown("")` hides all captions. The old interval can never fire after the click, and no caption renders until the next Submit, which reads the new mode/prompt. `run()` still self-stops on entry, the unmount cleanup `useEffect(() =&gt; stop, [stop])` is untouched, and the reduced-motion path (checked per Submit) is unaffected. The mid-stream contradiction — instruct visuals over a streaming base continuation, followed by the wrong placard — is gone in both directions, and the pre-existing prompt-chip variant is fixed too.
+
+**Finding 7 (keys) — resolved.** Extraction mock now keys pasted lines with `` `${i}-${l}` ``, matching the sibling Era2Companion pattern.
+
+**No regressions.** The three hunks touch exactly the flagged lines; no copy, sequencing, step-id, or demo-logic changes rode along. Verbatim guards, Era III room order, and the single-use 7:00 FieldNote are all as reviewed. Findings 3–6 dispositioned to Eric's live copy-veto list, as agreed.
+
+## Verdict: READY</result>
+<usage><subagent_tokens>91591</subagent_tokens><tool_uses>2</tool_uses><duration_ms>37047</duration_ms></usage>
+</task-notification>
+
+---
+
+The copy is still too much oriented towards terminology that's incidental: era, room being the most dominant. 
+It reads as if someone wrote it who was being told what to write and they baked in the direction into the writing. For instance the three items in the intro:
+
+- Three rooms of history, one workshop, one horizon — walk them in order.
+- Everything is playable, and nothing breaks.
+- The tech changes in every room. The vibe changes more — that arc is the real story.
+
+This does not read like something the audience would like to read and be excited, properly informed. Also, "Engineers: the fine print under each demo is for you." is not true as there's not a single demo that adheres to it. The styling of this note with its double slash is elegant as it speaks to engineers and we should keep it, but keep it honest too.
+
+Adjust the tone of the copy from a slightly arrogant voice ("I'm a principal engineer, and I burn through two of the largest Claude Code subscriptions there are...") to a more grounded, calm, but intense voice. 
+
+Apply that to the intro step first before expanding all over. I want to nail the voice first.
+
+---
+
+I wanted to rewrite the intro, but for the first paragraph alone I'm only getting to two sentences because I had to prune the rest as it's too showoff. Let's get this first paragraph right together. Propose additions, adjustments, ...
+
+"I'm Eric, a principal engineer and coach for web development. All of the code I ship today is written by LLMs I direct."
+
+---
+
+Confirmed, we'll use that.
+
+You know what? I totally missed telling you about the summary we wrote for the masterclass event. I want you to draw from it for the copy. The paragraph rewrite you proposed is good and I like it. Still, apply the following to the entire intro anew. I want to get this right and then apply it to all other steps. Here it is:
+
+Topic & structure of the event
+
+Title: Agentic Engineering — A Masterclass · 2026-07-28
+
+Topic: How software engineering arrived at “agentic engineering” — the current practice of engineers planning and directing AI agents that write, test, and validate code — told as lived experience by a principal engineer, set against the history of how AI models actually developed and how engineers had to change the way they think and work.
+
+Structure: The masterclass walks through an interactive exhibit of live, playable demos, organized as three eras of history, one workshop, and one look ahead:
+
+Intro — the field report. Who’s presenting, from what vantage point, and how to watch.
+Era I · The completion machine (2019–2022). What a language model actually is underneath: not a search engine, not a database — a text-continuation machine. Includes a live demo of the moment that changed everything: the “post-training flip” that turned raw text completion into question-answering, i.e. the ChatGPT moment.
+Era II · Extraction → Integration (2022–2024). The copy/paste-from-ChatGPT era, then AI moving into the code editor itself (the Cursor moment) — and why, at that point, a senior engineer was still faster and better than the AI.
+Era III · Agentic engineering (2024 → now). The heart of the masterclass: an AI agent is “a language model with tools, trapped in a loop.” How engineers stopped reading every line of AI-generated code and learned to trust automated validation instead; what a real 2026 working day looks like (planning several parallel work streams while agents execute them); and the real-world economics of working this way.
+Outlook — the runtime frontier. Where AI goes next, grounded in real, cited labor-market data for Germany and the EU (junior vs. senior job postings, fastest-growing roles, AI wage premiums, developer trust surveys).
+Synthesis. What changed, what didn’t: the AI produces the artifact — the human holds the meaning.
+Every demo is interactive and shown live on stage. The exhibit carries two layers throughout: plain-language explanations for a general audience, and technical “fine print” for experienced engineers.
+
+Short description (two sentences)
+
+Software isn’t written the way it was three years ago — today, engineers plan and direct AI agents that write, test, and validate the code themselves. In this masterclass, a principal engineer recounts that transformation as lived experience, through live interactive demos anyone can follow: no coding background required, with real depth on offer for the engineers in the room.
+
+Long description
+
+Something fundamental has changed in how software gets made. In 2022, an AI model couldn’t reliably answer a question. Today, professional engineers hand entire features to AI agents that plan, write, test, and validate code on their own — while the engineer moves on to planning the next thing. This shift has a name: agentic engineering. This masterclass tells the story of how we got here — not as a hype talk, but as a first-hand field report, checked against real data.
+
+Your guide is a principal engineer who works this way every day — intensively enough to burn through two maximum-tier AI coding subscriptions a month. He recounts the journey through three eras he lived through, each one shaped by what the AI models could barely do, and by how people learned to use them:
+
+The completion machine. You’ll see, live, what a language model really is under the hood — and why it’s not a search engine. You’ll watch the exact mechanism that turned a curiosity into ChatGPT.
+From copy/paste to integration. The era when developers shuttled code between a chat window and their editor by hand — and why, even then, an experienced human was still faster and better than the machine.
+Agentic engineering. What happened when models became agents: tools, loops, and long-running autonomous work. How an engineer learns to stop reading every line and trust automated checks instead — and what a working day looks like when your job becomes planning and directing several parallel streams of machine-executed work.
+The masterclass closes with a clear-eyed look at what this means for careers, built on real, cited data for Germany and the EU: what’s happening to junior developer positions, which roles are growing fastest, what AI skills pay, and how much developers actually trust these tools (spoiler: German developers are the most skeptical in the world — and the masterclass argues that skepticism is exactly the right instinct, properly aimed).
+
+What you will learn:
+
+A correct mental model of what AI language models actually are and do — and why “fancy search engine” is the wrong one
+How AI coding tools evolved from autocomplete to autonomous agents, and what drove each step
+What agentic engineering looks like in real professional practice: planning, delegation, automated validation, and parallel work streams
+How the role of the engineer is shifting from writing code to directing and judging it
+What the current data says about the job market for developers — juniors and seniors — in Germany and the EU
+Who this is for: Everyone. No programming knowledge is required — the masterclass is built so that someone who has never thought about how software gets made can follow the whole story. At the same time, every demo carries technical fine print for experienced engineers, so senior developers, team leads, and coaches will leave with concrete, current practice they can apply.
+
+What to expect: A live, guided walk through an interactive exhibit — every claim demonstrated on screen, every demo playable, every statistic sourced. Expect a story with a beginning, a turning point, and an honest look at where it leads. Expect dry humor. Expect to leave understanding not just that software development changed, but how — and what remains, unchanged, the human’s job: the AI produces the artifact; you hold the meaning.
+
+---
+
+" told as it happened, and checked against real data."
+
+what about: " told as it happened, and models that were barely useful along the way."
+Not verbabtim. But I'd like to weave in part of the ensuing narrative here already.
+
+Also, the first item is too meta. It reads like "who cares?". The second item should really be the first as it directly talks to the audience. The third item should stay third as it softly transitions into the next step. We'd need a new second item.
+
+---
+
+"This is built so that someone who has never wondered how software gets made can follow the whole story" It's worded complicatedly. Simpler, please.
+
+The second item doesn't have to be about veracity. Drop it for something else that's useful from the script I gave you.
+
+---
+
+This is it, perfect! Now apply that copy, tone & voice and however else to describe it (you know what I mean) to the remaining copy of all steps.
+
+---
+
+Propose alternatives, please.
+
+---
+
+Package 1
