@@ -45,3 +45,7 @@ looks out of place. Maybe we just delete it? Or write a proper intro instead? I 
 ---
 
 Option 1 is good. But the list that starts with "No coding background required" starts too abruptly. It's a different concern, we're talking to the audience more directly. How can we more gracefully transition?
+
+---
+
+“Three things before we start:” I like that.
