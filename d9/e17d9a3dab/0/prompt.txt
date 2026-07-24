@@ -93,3 +93,16 @@ into the first step:
 
 Drop "How it felt: skepticism" 
 I want to reserve the colored side notes for senior devs with a double slash as introduced in the intro. this seems colored differently, but that only confuses the viewer.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/YuAgkJ/Screenshot 2026-07-24 at 19.16.48.png (8.8 KB)
+</system_instruction>
+
+
+
+The focus of the navigation does not look great right now. .context/attachments/YuAgkJ/Screenshot 2026-07-24 at 19.16.48.png 
+
+Apply your design engineer skills to make it look fitting and exceptionally great.
