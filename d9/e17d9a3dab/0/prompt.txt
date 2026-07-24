@@ -1,0 +1,95 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/banjul directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md (102.1 KB)
+</system_instruction>
+
+
+
+.context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md 
+
+Let's iteratively work on the masterclass. I just had the idea that it would be great to define "agentic engineering" somewhere in the presentation. I'd prefer in the beginning since that's the title of the presentation and jumping into historic context without an explanation of what "agentic" means and where it comes from, is lacking.
+
+What's more, I'd like to somehow make available the various technical terms I might use during the presentation. When I say "LLMs", "deployment", "CI/CD", etc. there are certainly non-technical people who will not be able to follow along. I have no concrete idea how to make my language inclusive and I am open to suggestions.
+
+---
+
+Continue, I interrupted, apologies.
+
+---
+
+1 (i) no psychology fold
+2 D but let's defer its implementation until the demo is verified as final by me. That way we'll have settled on the exact copy and hence the terminology.
+
+---
+
+Now this
+"I'm Eric — principal engineer, web-development coach. All of the code I ship today is written by LLMs I direct. What they write, I still answer for."
+looks out of place. Maybe we just delete it? Or write a proper intro instead? I mean, mentioning me now seems out of place on the intro and could be better used by something else.
+
+---
+
+Option 1 is good. But the list that starts with "No coding background required" starts too abruptly. It's a different concern, we're talking to the audience more directly. How can we more gracefully transition?
+
+---
+
+“Three things before we start:” I like that.
+
+---
+
+The intro has a back button which you can drop, as well as two button that proceed to the next step: next and begin. Drop the next button. Or rather reuse the next button since I presume that's the button that is on every step, but have it say "begin" and position where the current Begin button is.
+
+---
+
+Add key navigation. I want to use my left and right arrows to go back and forth the steps.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/9fWWVS/Screenshot 2026-07-24 at 16.27.12.png (11.9 KB)
+</system_instruction>
+
+
+
+.context/attachments/9fWWVS/Screenshot 2026-07-24 at 16.27.12.png 
+
+The colored underline sits too far up for the intro and synthesis steps. Make it even for all steps.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/ftCA34/Screenshot 2026-07-24 at 16.28.59.png (19.2 KB)
+</system_instruction>
+
+
+
+.context/attachments/ftCA34/Screenshot 2026-07-24 at 16.28.59.png 
+
+When there's a white headline than scrolls up it's visually too close in terms of contrast to the colored underline. Can we make the scrolled content dimmer when it's just about to touch the navigation? Like a subtle fade?
+
+---
+
+into the first step:
+
+"Nobody was shipping software with this. It's here because ..."
+"It's here" doesn't sound right. Sounds like we are talking about the step being here, too meta. 
+
+Drop "How it felt: skepticism" 
+I want to reserve the colored side notes for senior devs with a double slash as introduced in the intro. this seems colored differently, but that only confuses the viewer.
