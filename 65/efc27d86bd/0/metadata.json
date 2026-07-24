@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "65efc27d86bd",
+  "session_id": "9353ee33-a8a2-4093-9822-e71bba7f48ad",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-24T08:30:32.743709Z",
+  "branch": "block-broken-radix-slot",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "renovate.json"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ea33c30128df",
+  "checkpoint_transcript_start": 243,
+  "transcript_lines_at_start": 243,
+  "token_usage": {
+    "input_tokens": 663,
+    "cache_creation_tokens": 42180,
+    "cache_read_tokens": 4817411,
+    "output_tokens": 20462,
+    "api_call_count": 37
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-24T08:30:32.729792Z",
+    "agent_lines": 10,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 10,
+    "total_lines_changed": 10,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
