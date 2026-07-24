@@ -49,3 +49,7 @@ Option 1 is good. But the list that starts with "No coding background required" 
 ---
 
 “Three things before we start:” I like that.
+
+---
+
+The intro has a back button which you can drop, as well as two button that proceed to the next step: next and begin. Drop the next button. Or rather reuse the next button since I presume that's the button that is on every step, but have it say "begin" and position where the current Begin button is.
