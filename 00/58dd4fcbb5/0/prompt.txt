@@ -70,3 +70,16 @@ The user has attached these files. Read them before proceeding.
 .context/attachments/9fWWVS/Screenshot 2026-07-24 at 16.27.12.png 
 
 The colored underline sits too far up for the intro and synthesis steps. Make it even for all steps.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/ftCA34/Screenshot 2026-07-24 at 16.28.59.png (19.2 KB)
+</system_instruction>
+
+
+
+.context/attachments/ftCA34/Screenshot 2026-07-24 at 16.28.59.png 
+
+When there's a white headline than scrolls up it's visually too close in terms of contrast to the colored underline. Can we make the scrolled content dimmer when it's just about to touch the navigation? Like a subtle fade?
