@@ -1,0 +1,51 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/banjul directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md (24.2 KB)
+</system_instruction>
+
+
+
+.context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md 
+
+The first demo needs a UI/UX makeover. The headline, eyebrow, and intro are good. The demo has two modes - base and post-trained, but they look too similar to the example toggles, and their positioning is unfortunate. You have to view the masterclass from the perspective of me presenting, directing attention, being the voice of things not on paper. I need a cleaner UI/UX for the mode and example toggles, and I'd prefer, if possible, to not display things I haven't gotten to yet. If I start with the base model, the audience doesn't know I am going to talk about the instruct post-training yet. Can we design it such that it supports presentation flow?
+
+---
+
+Spot on, and it's a beat I always do.
+
+---
+
+(b)
+
+---
+
+1. four gates, no insurance
+2. agreed
+
+---
+
+confirm all
+
+---
+
+continue
+
+---
+
+1
