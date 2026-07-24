@@ -83,3 +83,13 @@ The user has attached these files. Read them before proceeding.
 .context/attachments/ftCA34/Screenshot 2026-07-24 at 16.28.59.png 
 
 When there's a white headline than scrolls up it's visually too close in terms of contrast to the colored underline. Can we make the scrolled content dimmer when it's just about to touch the navigation? Like a subtle fade?
+
+---
+
+into the first step:
+
+"Nobody was shipping software with this. It's here because ..."
+"It's here" doesn't sound right. Sounds like we are talking about the step being here, too meta. 
+
+Drop "How it felt: skepticism" 
+I want to reserve the colored side notes for senior devs with a double slash as introduced in the intro. this seems colored differently, but that only confuses the viewer.
