@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "cee56e0646cc",
+  "strategy": "manual-commit",
+  "branch": "renovate/patch-updates",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "bun.lock",
+    "package.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ce/e56e0646cc/0/metadata.json",
+      "transcript": "/ce/e56e0646cc/0/full.jsonl",
+      "content_hash": "/ce/e56e0646cc/0/content_hash.txt",
+      "prompt": "/ce/e56e0646cc/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 21478,
+    "cache_creation_tokens": 174681,
+    "cache_read_tokens": 3670875,
+    "output_tokens": 25943,
+    "api_call_count": 47
+  }
+}
