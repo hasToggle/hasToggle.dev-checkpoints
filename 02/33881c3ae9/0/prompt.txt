@@ -57,3 +57,16 @@ The intro has a back button which you can drop, as well as two button that proce
 ---
 
 Add key navigation. I want to use my left and right arrows to go back and forth the steps.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/9fWWVS/Screenshot 2026-07-24 at 16.27.12.png (11.9 KB)
+</system_instruction>
+
+
+
+.context/attachments/9fWWVS/Screenshot 2026-07-24 at 16.27.12.png 
+
+The colored underline sits too far up for the intro and synthesis steps. Make it even for all steps.
