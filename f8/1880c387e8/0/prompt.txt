@@ -71,3 +71,7 @@ deleting gates entirely: yes.
 live dial in post-trained with per-band instruct answers: yes.
 labels, take C with D's "turn the dial" for "randomness".
 fades: yes
+
+---
+
+go ahead
