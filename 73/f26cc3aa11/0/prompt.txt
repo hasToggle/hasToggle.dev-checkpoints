@@ -126,3 +126,8 @@ The user has attached these files. Read them before proceeding.
 .context/attachments/WLBWYQ/Screenshot 2026-07-26 at 14.32.22.png 
 
 there's a sliver of the darker bg still left on the left tab.
+
+---
+
+Remove the "did you know" collapsible and replace the field note with this:
+"Asked for the capital of France, a base model offers the capital of Germany, as a question. Users preferred post-trained answers roughly 85% of the time over the base model's; ChatGPT shipped on that flip nine months later."
