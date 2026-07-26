@@ -147,3 +147,11 @@ let's something "You asked a question. It continued your question with another q
 For the third phase the footer lines should not read two distinct lines. Let's settle on one regardless of the temperature. But instead of 
 "Nothing broke. You widened the odds, and it kept continuing the only pattern it could see — someone typing questions."
 I'd like to something that explains temperature.
+
+---
+
+Strip "Neither setting puts anyone in there to answer you."
+
+And for phase 4 instead of
+"The dial is still up, and it still answers — in the shape you asked for. Post-training didn't take the dice away. It made the format survive them."
+I'd like something that brings the message home. We went from the baseline model to the instruct model. We experienced the big shift when ChatGPT came out. That's what the footer should capture.
