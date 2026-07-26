@@ -79,3 +79,11 @@ go ahead
 ---
 
 1
+
+---
+
+let's iterate on a few details.
+
+the way the tabs look like is not what I imagined. currently there's the colored underline on the active tab. what i imagined is that the tab and the completion window have the same color while the other tab has a more inactive color. no colored underline.
+
+the same is true of the footer. no colored underline for the active item. think of something better. also, center all items. the numbers in the circle look like they could use more space, maybe a wider circle?
