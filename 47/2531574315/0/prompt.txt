@@ -113,3 +113,16 @@ The user has attached these files. Read them before proceeding.
 
 .context/attachments/oyZC0k/Screenshot 2026-07-26 at 14.24.51.png 
 this is counterintuitive. we need the reverse of that. the darker tab looks like it's the active one. maybe my same-color directive can be loosened in favor of the nest ui/ux you can think of.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/WLBWYQ/Screenshot 2026-07-26 at 14.32.22.png (24.9 KB)
+</system_instruction>
+
+
+
+.context/attachments/WLBWYQ/Screenshot 2026-07-26 at 14.32.22.png 
+
+there's a sliver of the darker bg still left on the left tab.
