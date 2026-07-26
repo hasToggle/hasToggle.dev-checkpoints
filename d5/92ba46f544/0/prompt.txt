@@ -141,3 +141,9 @@ verify that the field note is factually correct using web search
 Adjust the footer lines.
 Instead of "You asked a question. It didn't answer — it just kept going. There's no one in there to ask." 
 let's something "You asked a question. It continued your question with another question." You can adjust it to fit the overall style.
+
+---
+
+For the third phase the footer lines should not read two distinct lines. Let's settle on one regardless of the temperature. But instead of 
+"Nothing broke. You widened the odds, and it kept continuing the only pattern it could see — someone typing questions."
+I'd like to something that explains temperature.
