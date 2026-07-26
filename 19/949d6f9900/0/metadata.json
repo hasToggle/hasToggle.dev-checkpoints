@@ -1,0 +1,70 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "19949d6f9900",
+  "session_id": "1da619be-9b13-441c-bba2-c11784b79be6",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-26T17:38:36.336504Z",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 3,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "2931ba9ed287",
+  "token_usage": {
+    "input_tokens": 33887,
+    "cache_creation_tokens": 1518827,
+    "cache_read_tokens": 83530009,
+    "output_tokens": 255434,
+    "api_call_count": 293
+  },
+  "session_metrics": {
+    "turn_count": 18
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 2999,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2027,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/7p3CHT/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/AQFGRV/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md": 333,
+        ".context/attachments/Lqf2gn/pasted_text_2026-07-12_20-41-37.txt": 27,
+        ".context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md": 914,
+        ".context/attachments/rLM9y2/session-transcript-bd9f618f-7c15-4fac-8738-b3d1d7c782c8.md": 291,
+        ".context/attachments/tqNgxc/Transcript of Iterate masterclass demo.md": 583,
+        ".context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/era1-iteration/phase-footer-inline-variant.tsx.txt": 106,
+        ".context/masterclass-event-summary.md": 61
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 2999,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2027,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/7p3CHT/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/AQFGRV/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md": 333,
+        ".context/attachments/Lqf2gn/pasted_text_2026-07-12_20-41-37.txt": 27,
+        ".context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md": 914,
+        ".context/attachments/rLM9y2/session-transcript-bd9f618f-7c15-4fac-8738-b3d1d7c782c8.md": 291,
+        ".context/attachments/tqNgxc/Transcript of Iterate masterclass demo.md": 583,
+        ".context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/era1-iteration/phase-footer-inline-variant.tsx.txt": 106,
+        ".context/masterclass-event-summary.md": 61
+      }
+    }
+  ]
+}
