@@ -347,3 +347,7 @@ The user has attached these files. Read them before proceeding.
 
 .context/attachments/lCBBIs/Screenshot 2026-07-27 at 13.56.41.png 
 this is the bottom half and the lines don't extend all the way. yes, they won't extend anyway when the footer appears, but leaving them dangling is not OK. how do we best solve this?
+
+---
+
+one last thing: the reset button is part of the chat ui, but resets the whole demo. we should stick to our existing reset button from the previous demo up top and move it outside the demo so it's clear we're resetting the demo and not the prompt to the chat ui.
