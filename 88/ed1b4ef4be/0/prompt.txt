@@ -53,3 +53,7 @@ This is a large era. I want everything gated sensibly, in the manner of era 1's 
 drop the hedging, the date is tomorrow, but we're fast; we'll get this done.
 
 one note on the copy: the intro and era 1 already have the voice I want to use across the masterclass. rely on that for the exact copy. don't be too meta; it's leaking instructions I gave you. era 2 is missing the footer controls as well. you can add them there as well. I'd first want to see the chatgpt window and editor, and then transition to the in-editor chat demo which appears as I a second beat.
+
+---
+
+go
