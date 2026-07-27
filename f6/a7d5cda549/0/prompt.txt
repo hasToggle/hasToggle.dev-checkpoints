@@ -47,3 +47,9 @@ what's more, I just had another look at the demos and I want the demo "Where did
 - and last, the meter.
 
 This is a large era. I want everything gated sensibly, in the manner of era 1's UI/UX. Since here we have separate demos (era 1 had all things in one demo) I am open to suggestions for how best to implement it. Maybe adding the demos below the one before as I proceed. Maybe I need a footer control panel that's not bound to any one demo but sits fixed at the bottom of the screen.
+
+---
+
+drop the hedging, the date is tomorrow, but we're fast; we'll get this done.
+
+one note on the copy: the intro and era 1 already have the voice I want to use across the masterclass. rely on that for the exact copy. don't be too meta; it's leaking instructions I gave you. era 2 is missing the footer controls as well. you can add them there as well. I'd first want to see the chatgpt window and editor, and then transition to the in-editor chat demo which appears as I a second beat.
