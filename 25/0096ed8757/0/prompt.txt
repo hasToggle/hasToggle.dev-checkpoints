@@ -65,3 +65,7 @@ I wonder if "in reach" is really the common denominator
 ---
 
 yes
+
+---
+
+The first demo "An LLM with tools, trapped in a loop" should not run automatically in a loop. Give me a button to run it.
