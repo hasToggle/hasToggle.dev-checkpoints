@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "71c8d8ae3d31",
+  "session_id": "1da619be-9b13-441c-bba2-c11784b79be6",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-27T12:29:02.51434Z",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b99d46723585",
+  "token_usage": {
+    "input_tokens": 52118,
+    "cache_creation_tokens": 2431371,
+    "cache_read_tokens": 291118483,
+    "output_tokens": 519043,
+    "api_call_count": 598
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 3974,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2027,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/7p3CHT/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/AQFGRV/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md": 333,
+        ".context/attachments/Lqf2gn/pasted_text_2026-07-12_20-41-37.txt": 27,
+        ".context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md": 914,
+        ".context/attachments/rLM9y2/session-transcript-bd9f618f-7c15-4fac-8738-b3d1d7c782c8.md": 291,
+        ".context/attachments/tPp2Ru/session-transcript-1da619be-9b13-441c-bba2-c11784b79be6.md": 975,
+        ".context/attachments/tqNgxc/Transcript of Iterate masterclass demo.md": 583,
+        ".context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/era1-iteration/phase-footer-inline-variant.tsx.txt": 106,
+        ".context/masterclass-event-summary.md": 61
+      }
+    }
+  ]
+}
