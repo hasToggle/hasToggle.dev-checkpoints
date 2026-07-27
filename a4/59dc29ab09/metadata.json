@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "a459dc29ab09",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/a4/59dc29ab09/0/metadata.json",
+      "transcript": "/a4/59dc29ab09/0/full.jsonl",
+      "content_hash": "/a4/59dc29ab09/0/content_hash.txt",
+      "prompt": "/a4/59dc29ab09/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 42973,
+    "cache_creation_tokens": 2288280,
+    "cache_read_tokens": 195065098,
+    "output_tokens": 447659,
+    "api_call_count": 484
+  }
+}
