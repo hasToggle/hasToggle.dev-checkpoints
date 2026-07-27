@@ -201,3 +201,9 @@ continue
 ---
 
 1
+
+---
+
+keep. let's move on to the next era: 2022–2024.
+
+the first demo in that era where you copy something from a browser's chat window into the code editor, is functional, but I'd like to polish it. currently, the chat and code editor are within the same chrome, which doesn't land the punch quite as having two visually distinct chromes, one for the chat which already looks all right, and one for the code editor which currently lacks all indication that it's a code editor window. also, i want the same code highlighting applied to the code in the code editor. the code in chat can stay uncolored as-is.
