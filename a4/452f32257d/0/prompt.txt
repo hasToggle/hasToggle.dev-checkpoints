@@ -187,3 +187,9 @@ let's try (a)
 ---
 
 (a+) pre-computed, on both prompts.
+
+---
+
+opacity: ok
+staleness: CI check
+visible tokens: if necessary, tests are fine
