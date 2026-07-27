@@ -290,3 +290,7 @@ Missed drift classes, in descending reachability:
 It is `kind === "comment"`, its sole caller is the ternary at `index.tsx:262`, and both branches are exercised on stage by the actual data: I confirmed `PREFIX_TOKENS["how-do-i"]` contains exactly one token with `k: "comment"` covering the whole question line, and `PREFIX_TOKENS["reverse-fn"]` contains none. Task 4 Step 5 read that line on both themes and confirmed it does not render the theme grey — that *is* the branch, verified where it matters, at the resolution that matters. A four-line unit test would add coverage of a tautology, not of the risk. Add it after the talk if you want the symmetry.</result>
 <usage><subagent_tokens>111512</subagent_tokens><tool_uses>47</tool_uses><duration_ms>609065</duration_ms></usage>
 </task-notification>
+
+---
+
+go on
