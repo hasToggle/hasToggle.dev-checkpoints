@@ -307,3 +307,7 @@ give it the same treatment
 
 confirm.
 and i want the editor code colored while the chat's code stays uncolored.
+
+---
+
+1
