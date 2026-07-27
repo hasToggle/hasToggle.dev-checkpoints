@@ -77,3 +77,9 @@ change "Where did the reading go?" into something clearer and simpler. give me s
 ---
 
 1
+
+---
+
+It's ok.
+
+Here's something else I want you to drop entirely: "Did you know? The day the records vanished" on the home page. Locate it, delete it.
