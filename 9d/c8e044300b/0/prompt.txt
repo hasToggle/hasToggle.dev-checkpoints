@@ -1,0 +1,59 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/banjul directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+I need to write this down before it's forgotten:
+
+in the masterclass I want the audience to understand the core mechanism of LLMs. that's why I start with GPT-2 and the completion demo. understanding that the mechanism of an LLM is token prediction will surface issues down the line, like when using chat gpt in demo 2 for generating code you could copy and paste, but you didn't know for sure if that code is syntactically or semantically correct. you didn't know it would work in your codebase. the probabilstic engine did not generate the code with your framework and your specific codebase as context. even cursor wasn't at first good at helping the developer be productive when code suggestions broke imports or framework idiosyncrasies. you needed to either manually run something like typescript or tell the LLM to runt it after its edits, to receive the feedback for its edits. 
+
+this was all the more evident and crucial for the agentic era where we need a feedback loop we can rely on. that loop can't be allowed to be tampered with by the LLM. verification becomes a center piece. some of them can be read on the main page of the web project. my goal is to vivdly and clearly show and tell that agentic engineering needs a strong foundation to reliably function in. it's not a model-inherent feature or capability that enables agentic engineering. it's the environment on which it's placed. LLMs are good at typing bash commands. they are great at exploring the file system. they are great at invoking skills. but you still need to know that writing into a skill that the LLM should run a linter does not mean the LLM will always do it. you have to place guardrails at the right boundary, so the LLM can't tamper with it and can't forgot or choose not to run it. and the checks that we receive as feedback by the environment have to be trusted by the developer. done has to mean done, and not "I stopped here because ..."
+
+I am open to refactoring the era 3 demo, the agentic engineering era. keep everything we currently have; we will adjust it later. I like the intro with "An LLM with tools, trapped in a loop" which visually shows what the agentic workflow looks like when running. right below that I'd like to go into details and weave in the common thread from the previous demos. everything has been leading up to this. everything before was the setup; this is the punchline.
+
+gather context on the landing page with its 5 misconceptions, understand the masterclass, and then let's iterate on the agentic engineering step together, to make this presentation great.
+
+---
+
+A+C toggle sounds good. Maybe we can add B as well since tempering with the very test that's supposed to be the guardrail is a learning curve for the audience to absorb and be aware of. 
+
+Does this suffice to bring home the message I laid out previously? I really want to nail it. This is where everything comes together - completion from demo 1 could stop mid-way. agents stop before running tests. the developer is the integration layer that has to make sure he/she understands how the LLMs works first or otherwise they wouldn't be able to build the right environment around the agent harness to rely on with confidence. and one thing I haven't mentioned is that the agent can access everything that's in reach via api keys that the developer may have on their project or somewhere on their operating system - these keys better not be reachable or scoped to least priviledge, or the LLM might use destructive actions to reach a goal and possibly drop databases and infrastructure.
+
+Let's make this demo badass. Help me with it.
+
+---
+
+1. your rec
+2. presenter-gated
+3. annotation
+
+what's more, I just had another look at the demos and I want the demo "Where did the reading go?" to come second after the the era3loop. The flow is:
+
+- animated preview of what agentic engineering looks and feels like
+- hooking into the question of do I read the code at all? yes, I did. then I only read the plan, and now I read the design plan.
+- the traps I referred to (misconceptions) that bring back some of the things we talked about and sharpen the audience for why we have to care at all.
+- wordpress demo. we are extending the awareness of traps and how to build the environment/use the harness right, by having the agent build its own scripts. I don't know how to use playwright to make pixel-perfect measurements, but the agents can figure it out and test it, too. This is what Claude Code calls "dynamic workflow" or recently relabelled to "Ultracode". 
+- then come the three lanes, one week.
+- and last, the meter.
+
+This is a large era. I want everything gated sensibly, in the manner of era 1's UI/UX. Since here we have separate demos (era 1 had all things in one demo) I am open to suggestions for how best to implement it. Maybe adding the demos below the one before as I proceed. Maybe I need a footer control panel that's not bound to any one demo but sits fixed at the bottom of the screen.
+
+---
+
+drop the hedging, the date is tomorrow, but we're fast; we'll get this done.
+
+one note on the copy: the intro and era 1 already have the voice I want to use across the masterclass. rely on that for the exact copy. don't be too meta; it's leaking instructions I gave you. era 2 is missing the footer controls as well. you can add them there as well. I'd first want to see the chatgpt window and editor, and then transition to the in-editor chat demo which appears as I a second beat.
+
+---
+
+go
