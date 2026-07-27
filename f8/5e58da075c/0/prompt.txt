@@ -171,3 +171,7 @@ Push the changes to remote.
 ---
 
 Do it.
+
+---
+
+There's a remaining "temperature — how much the dice get to decide" that is displayed when switching between the four phases. Remove it. And don't display anything when switching. The footer should only display when I run the demo at that phase.
