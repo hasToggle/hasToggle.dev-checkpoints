@@ -319,3 +319,15 @@ Can we highlight the imported line after hitting "Fix it yourself" ? Currently, 
 ---
 
 a
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/usGhdE/Screenshot 2026-07-27 at 13.16.02.png (6.3 KB)
+</system_instruction>
+
+
+
+.context/attachments/usGhdE/Screenshot 2026-07-27 at 13.16.02.png 
+The Apply button's text is not readable enough when inactive. Its contrast should be WCAG compliant.
