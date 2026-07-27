@@ -315,3 +315,7 @@ and i want the editor code colored while the chat's code stays uncolored.
 ---
 
 Can we highlight the imported line after hitting "Fix it yourself" ? Currently, the code jumps and it's easy to lose focus of what happened.
+
+---
+
+a
