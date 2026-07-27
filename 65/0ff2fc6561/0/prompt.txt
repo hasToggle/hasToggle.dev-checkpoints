@@ -331,3 +331,7 @@ The user has attached these files. Read them before proceeding.
 
 .context/attachments/usGhdE/Screenshot 2026-07-27 at 13.16.02.png 
 The Apply button's text is not readable enough when inactive. Its contrast should be WCAG compliant.
+
+---
+
+Now let's make the layout stable. when clicking the fix button, the editor adds two lines which shifts the entire layout down. let's make enough room to that doesn't happen.
