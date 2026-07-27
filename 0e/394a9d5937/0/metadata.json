@@ -1,0 +1,66 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "0e394a9d5937",
+  "session_id": "1da619be-9b13-441c-bba2-c11784b79be6",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-27T09:33:06.105929Z",
+  "branch": "Kheirah/continue-prev-task",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era1-playground/highlight/index.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7c2ed8c72a6a",
+  "token_usage": {
+    "input_tokens": 41069,
+    "cache_creation_tokens": 2119255,
+    "cache_read_tokens": 138004194,
+    "output_tokens": 345931,
+    "api_call_count": 400
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-27T09:33:06.046118Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 2,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 3974,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2498,
+      "agent_lines_removed": 1044,
+      "user_added_per_file": {
+        ".context/attachments/7p3CHT/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/AQFGRV/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/attachments/HF79vl/session-transcript-6bd41d46-9100-4c9b-bbcd-ef0c4c240faa.md": 333,
+        ".context/attachments/Lqf2gn/pasted_text_2026-07-12_20-41-37.txt": 27,
+        ".context/attachments/RKWVri/session-transcript-1f9b46a2-743d-4c57-b2ab-8cb327ad4c93.md": 914,
+        ".context/attachments/rLM9y2/session-transcript-bd9f618f-7c15-4fac-8738-b3d1d7c782c8.md": 291,
+        ".context/attachments/tPp2Ru/session-transcript-1da619be-9b13-441c-bba2-c11784b79be6.md": 975,
+        ".context/attachments/tqNgxc/Transcript of Iterate masterclass demo.md": 583,
+        ".context/attachments/wPwVOk/session-transcript-62ae26ac-64eb-44a4-a9bc-058e71e62551.md": 228,
+        ".context/era1-iteration/phase-footer-inline-variant.tsx.txt": 106,
+        ".context/masterclass-event-summary.md": 61
+      }
+    }
+  ]
+}
