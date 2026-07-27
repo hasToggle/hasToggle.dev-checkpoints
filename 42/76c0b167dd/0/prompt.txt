@@ -335,3 +335,15 @@ The Apply button's text is not readable enough when inactive. Its contrast shoul
 ---
 
 Now let's make the layout stable. when clicking the fix button, the editor adds two lines which shifts the entire layout down. let's make enough room to that doesn't happen.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/lCBBIs/Screenshot 2026-07-27 at 13.56.41.png (18.0 KB)
+</system_instruction>
+
+
+
+.context/attachments/lCBBIs/Screenshot 2026-07-27 at 13.56.41.png 
+this is the bottom half and the lines don't extend all the way. yes, they won't extend anyway when the footer appears, but leaving them dangling is not OK. how do we best solve this?
