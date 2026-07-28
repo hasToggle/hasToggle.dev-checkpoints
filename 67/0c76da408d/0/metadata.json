@@ -1,0 +1,106 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "670c76da408d",
+  "session_id": "9cd8407a-5ac3-4b85-a26d-34c0535daccc",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-28T12:22:04.641043Z",
+  "branch": "Kheirah/masterclass-demo-polish",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/diff-data.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/reducer.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/reducer.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-ladder/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-ladder/stages.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-loop/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-meter/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-reach/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/masterclass.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "021dd1d1c77c",
+  "token_usage": {
+    "input_tokens": 46983,
+    "cache_creation_tokens": 712254,
+    "cache_read_tokens": 89274745,
+    "output_tokens": 214352,
+    "api_call_count": 325
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-28T12:22:04.527055Z",
+    "agent_lines": 179,
+    "agent_removed": 120,
+    "human_added": 0,
+    "human_modified": 8,
+    "human_removed": 1,
+    "total_committed": 187,
+    "total_lines_changed": 308,
+    "agent_percentage": 97.07792207792207,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3587,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 4985,
+      "agent_lines_removed": 627,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 5191,
+      "agent_lines_removed": 637,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 5414,
+      "agent_lines_removed": 646,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 6639,
+      "agent_lines_removed": 693,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "670c76da408d",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/masterclass-demo-polish",
+  "checkpoints_count": 6,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/diff-data.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/reducer.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-harness/reducer.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-ladder/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-ladder/stages.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-loop/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-meter/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-reach/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/masterclass.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/67/0c76da408d/0/metadata.json",
+      "transcript": "/67/0c76da408d/0/full.jsonl",
+      "content_hash": "/67/0c76da408d/0/content_hash.txt",
+      "prompt": "/67/0c76da408d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 46983,
+    "cache_creation_tokens": 712254,
+    "cache_read_tokens": 89274745,
+    "output_tokens": 214352,
+    "api_call_count": 325
+  }
+}
