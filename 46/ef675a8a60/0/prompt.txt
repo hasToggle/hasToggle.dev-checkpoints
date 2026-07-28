@@ -256,3 +256,7 @@ should change to say something like, "how I work"
 ---
 
 drop the date
+
+---
+
+commit them, push to remote, and open a PR
