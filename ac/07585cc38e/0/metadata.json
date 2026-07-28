@@ -1,0 +1,67 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ac07585cc38e",
+  "session_id": "9cd8407a-5ac3-4b85-a26d-34c0535daccc",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-28T09:07:47.855521Z",
+  "branch": "Kheirah/persistent-url-display",
+  "checkpoints_count": 5,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "0be7a6668c35",
+  "token_usage": {
+    "input_tokens": 22573,
+    "cache_creation_tokens": 148005,
+    "cache_read_tokens": 2099836,
+    "output_tokens": 27974,
+    "api_call_count": 31
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2028,
+      "agent_lines_removed": 573
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2028,
+      "agent_lines_removed": 573
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2028,
+      "agent_lines_removed": 573
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2160,
+      "agent_lines_removed": 573
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2459,
+      "agent_lines_removed": 573
+    }
+  ]
+}
