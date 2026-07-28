@@ -190,3 +190,7 @@ Now adjust the json-render demo in that the json structure is displayed alongsid
 ---
 
 Now add the footer panel for two beats. I want the ambient context to display second when I'm ready. You may use numbers in indicators, as for era 1.
+
+---
+
+Commit our changes, do not commit any other files unstaged files that happen to be in tree like playwright or svgs touched by some process.
