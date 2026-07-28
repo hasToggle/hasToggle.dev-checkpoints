@@ -269,3 +269,7 @@ i merged the pr, create a new branch for one minor change I want to make, please
 
 on the intro step, remove "Engineers: the folds marked ▸ are for you."
 we don't actually have them
+
+---
+
+commit the change, push to remote, and open a PR
