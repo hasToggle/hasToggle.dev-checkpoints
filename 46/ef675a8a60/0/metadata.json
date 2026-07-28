@@ -1,0 +1,140 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "46ef675a8a60",
+  "session_id": "9cd8407a-5ac3-4b85-a26d-34c0535daccc",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-28T12:50:17.410948Z",
+  "branch": "Kheirah/masterclass-demo-polish",
+  "checkpoints_count": 10,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-meter/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/reducer.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/reducer.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/field-note.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "790ea0c34fe0",
+  "token_usage": {
+    "input_tokens": 55492,
+    "cache_creation_tokens": 787847,
+    "cache_read_tokens": 128592950,
+    "output_tokens": 261245,
+    "api_call_count": 405
+  },
+  "session_metrics": {
+    "turn_count": 37
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-28T12:50:17.283519Z",
+    "agent_lines": 330,
+    "agent_removed": 274,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 330,
+    "total_lines_changed": 604,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 6661,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7143,
+      "agent_lines_removed": 843,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7356,
+      "agent_lines_removed": 844,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7615,
+      "agent_lines_removed": 843,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7615,
+      "agent_lines_removed": 843,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 7829,
+      "agent_lines_removed": 843,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 8042,
+      "agent_lines_removed": 844,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 8255,
+      "agent_lines_removed": 845,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 1,
+      "user_lines_removed": 0,
+      "agent_lines_added": 8538,
+      "agent_lines_removed": 847,
+      "user_added_per_file": {
+        ".context/attachments/O3v4eG/Branch continued.md": 1
+      }
+    }
+  ]
+}
