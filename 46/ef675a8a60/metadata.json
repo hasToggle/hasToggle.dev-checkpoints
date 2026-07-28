@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "46ef675a8a60",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/masterclass-demo-polish",
+  "checkpoints_count": 10,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-meter/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/reducer.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-pipeline/reducer.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/field-note.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/46/ef675a8a60/0/metadata.json",
+      "transcript": "/46/ef675a8a60/0/full.jsonl",
+      "content_hash": "/46/ef675a8a60/0/content_hash.txt",
+      "prompt": "/46/ef675a8a60/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 55492,
+    "cache_creation_tokens": 787847,
+    "cache_read_tokens": 128592950,
+    "output_tokens": 261245,
+    "api_call_count": 405
+  }
+}
