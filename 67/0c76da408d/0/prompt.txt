@@ -213,3 +213,7 @@ Let's add some headlines to each demo here, so the audience is situated what to 
 ---
 
 the pixel for pixel demo needs polish. we have some diff count already displayed, but when I run the audit, nearly nothing changes visually for the skeletons above. Let's be visually congruent to the findings below and have them change as a result of running the audit. The reset button can go below the demo where it belongs (see other demos for reference). The validate button can be entirely removed.
+
+---
+
+move the reset button to the right where it's on other demos as well
