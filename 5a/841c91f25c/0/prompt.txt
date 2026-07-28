@@ -1,0 +1,192 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/rome directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+The masterclass will be presented without the browser bar. Let's add an element somewhere up top where the exact url is permanently displayed so people who join in can see and visit it without having to ask. Give me suggestions and your recommendation for the placement and look and feel.
+
+---
+
+I like "/live"
+For the lifetime of the presentation that redirect will be more readable and more easily typeable.
+
+---
+
+A
+
+---
+
+Yes
+
+---
+
+Go
+
+---
+
+1
+
+---
+
+On this branch.
+
+---
+
+<task-notification>
+<task-id>adb03086c137a954f</task-id>
+<tool-use-id>toolu_01C3SP2xgb3taCoCSoxs4QyF</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-rome/9cd8407a-5ac3-4b85-a26d-34c0535daccc/tasks/adb03086c137a954f.output</output-file>
+<status>completed</status>
+<summary>Agent "Final whole-branch review" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Verdict
+
+**Ready to merge — yes**, after two 30-second chores (untracked `.playwright-mcp/`, one lint diagnostic) and one product decision on the `/live` anchor. No correctness defects. All three deferred items clear.
+
+**Note: the branch grew a third commit while I was reviewing it.** HEAD is now `1b60987` (`fix(i18n): stop 500ing on requests with no or malformed Accept-Language`), not `ce98e50`. That's the separate fix for triage item 2, folded into this branch. I reviewed it too. Also, 31 unrelated SVG files had been reformatted in the working tree (collateral from `bun run fix` at plan Task 2 Step 4); they've since been restored, so no debris remains.
+
+## What's solid
+
+- **The taller sticky header breaks nothing, and I checked rather than assumed.** The masterclass tree has exactly one sticky element and two z-indices (`masterclass.tsx:108` z-10, `beat-footer.tsx:61` z-40). Nothing anywhere encodes the old header height — no `scroll-mt`, no `top-[Npx]` — and `beat-slot.tsx:31` scrolls with `block: "center"`, so a revealed beat can't end up hidden under the grown header. That's the single biggest risk in a change like this, and it's clean.
+- **`SHORT_URL_PATH` (`address-strip.tsx:4`) is both the displayed text and the `href`** — the string on screen and the link target cannot drift apart.
+- **The spec's Next.js execution-order claim is confirmed empirically, not just from docs.** `/legal` still 301s under `Accept-Language: *`, a header that used to 400 once it reached the proxy — proving redirects resolve first.
+- **`/live` verified end to end**: 307 + correct `Location`; query preserved (`?presenter=1`); follow-chain 200 for `en`, and 200 at `/de/learn/masterclass-28-07-2026` with `?presenter=1&amp;step=outlook` intact for `de`.
+- **Exactly two hairlines** in the finished header, confirmed in the recorded screenshot. `stepper-header.tsx` correctly surrendered its `border-b`.
+- 174 tests pass across 4 turbo tasks; `tsc --noEmit` clean for `apps/web` and `@repo/internationalization`; biome clean on the new i18n files.
+
+## Critical
+
+None.
+
+## Important
+
+**1. The `/live` anchor discards presentation state — the one defect only visible across both commits.** `address-strip.tsx:33` (`href={SHORT_URL_PATH}`) → `next.config.ts:26`. Task 1 built a redirect that forwards only the query params it receives; Task 2 wired a link that never sends any. Activating it does a full document navigation that drops `?step=` and `?presenter=1` and resets every beat in `use-beats.ts`. Neither task-scoped review could see the pair.
+
+The likely trigger isn't the presenter — it's an attendee on their own laptop clicking a thing that looks like a link and getting bounced from step 4 back to the intro. Secondary: `Shift+Tab` from the first stepper tab focuses this anchor, since it's now the document's first focusable element.
+
+Fix: `tabIndex={-1}` on the anchor keeps it clickable and right-click-copyable while removing it from the tab order. I confirmed `isArrowConsumingTarget` (`step-keys.ts:12-25`) does not match `a`, so arrow-key step navigation is unaffected either way. Talk is today — cheap insurance, but it's your call against the spec's deliberate anchor choice.
+
+**2. Branch scope now spans two concerns.** Commit `1b60987` modifies `@repo/internationalization`, which every `apps/web` route passes through. Blast radius went from one page to the whole site, and the redirect/strip work is no longer independently revertable. The fix itself is good (see triage 2), but the PR description needs to cover both, or split the commit onto its own branch.
+
+## Minor
+
+**3. One new lint diagnostic.** `next.config.ts:26 assist/source/useSortedKeys`. This file had 2 on `origin/main`, now 3 — the new `/live` entry. Key order in a redirect object is semantically irrelevant, so the autofix is safe *here*; reorder by hand (`destination`, `permanent`, `source`) rather than running `bun run fix`, which is what reformatted those 31 SVGs.
+
+**4. The "dev too" constraint is unguarded and unexplained.** `next.config.ts:17`. The comment at 23-24 explains *why 307*; nothing explains why `redirects` now sits outside the old `NODE_ENV === "production"` guard. That removal is the branch's most regression-prone edit — a future reader could "restore" the guard and silently break `/live` in dev. One comment line closes it. (I considered a pure-logic test instead per your caveat: importing `next.config.ts` pulls `@/env` plus the whole plugin chain, so cost outweighs benefit. A comment is the right tool.)
+
+**5. `/legal` now 301s in development** (verified). Browsers cache 301s indefinitely — the exact hazard the spec reasoned about for `/live`. Harmless today, but if a `/legal` page is ever added, every dev who hit it will keep bouncing to `/legal/privacy`.
+
+**6. `/de/live` → 404** (verified). `hastoggle.dev/live` works for every locale because the redirect resolves pre-proxy, so this only bites someone hand-typing a locale prefix. Not worth fixing for one talk.
+
+**7. Content ghosts through the strip.** `masterclass.tsx:108` `bg-background/80` + `address-strip.tsx:29` `bg-foreground/[0.03]` leaves ~20% of the scrolling page showing through behind the address — visible in `.superpowers/sdd/2026-07-28-masterclass-address-strip/agentic-engineering-step.png` as coloured smear at the strip's top edge. The spec calls this "the one string in the room that has to survive the back row"; `bg-background/95` on the header costs nothing and keeps the frosted look.
+
+**8. Weak focus indicator on the new anchor.** `address-strip.tsx:32`: `focus-visible:bg-foreground/10 focus-visible:outline-hidden`, `rounded`, no padding. The stepper tabs use this same idiom, but they're ~200×54px blocks; on a ~130×20px inline anchor a 10% tint hugging the glyphs — with the default outline suppressed — is nearly invisible. Add `px-1 py-0.5`, or swap `outline-hidden` for a ring.
+
+**9. The date lives in three places with two orderings**: `address-strip.tsx:5`, `intro.tsx:17`, and the route directory `masterclass-28-07-2026`. Spec acknowledged the intro duplication. Low urgency for a dated one-off page.
+
+**10. `.playwright-mcp/` is untracked and not ignored.** `.gitignore:290` covers `.superpowers/` only. Delete it or ignore it so verification screenshots don't ride along.
+
+## Triage rulings
+
+**1. Missing `"use client"` in `address-strip.tsx` — ship, no action.** Stronger than "harmless": a directive on a module already inside the client graph is a no-op, so adding it would change neither the bundle nor the behavior. With no hooks, handlers, or browser APIs, the file is simultaneously a valid Server Component and a valid client component — it keeps working if it's ever imported from a server component instead. The only cost is a reader's moment of "wait, where's the boundary."
+
+**2. i18n `RangeError` — moot, fixed in-branch by `1b60987`.** Before ruling I reproduced it: `Accept-Language: *` returned **400** on `/`, `/blog`, `/legal/privacy`; after the fix, **200** on all three. So the bug was real. It never touched `/live`: the redirect resolves before the proxy, and the full `/live` chain returned 200 for missing, wildcard, and malformed headers (`en_US`, `xx`, `???`, `,`, `q=1`). **The branch was safe to merge even without the fix**; with it, it's better than main. The fix is well-built — per-tag filtering via `Intl.getCanonicalLocales`, so `"en_US, de-DE"` still resolves to `de` instead of bailing to default, with 8 pure-logic tests covering exactly that. One residual: `locale-negotiation.ts:26` guards the negotiator's *output* but not the `new Negotiator(...).languages()` call itself, so a pathological header that makes negotiator throw would restore the 500. Not worth another commit; a `try/catch` around the function body would close it permanently.
+
+**3. Failing `confirm/route.test.ts` — premise does not reproduce; drop it rather than carrying it forward as a known issue.** Standalone: 2 pass / 0 fail. `apps/web`: 161 pass / 0 fail across 25 files. Whole monorepo: 174 pass / 0 fail, 4/4 turbo tasks successful. Nothing fails at HEAD in this workspace.
+
+One process note: there is **no CI gate** for any of this — `.github/workflows` contains only `claude-code-review.yml` and `claude.yml`, no test/lint/build workflow. Local green is the only gate. I ran tests and typecheck but not a production `next build`; since the dev server serves both redirect entries correctly (301 + 307) and Next validates redirect shape identically in dev and build, build risk is negligible.</result>
+<usage><subagent_tokens>100701</subagent_tokens><tool_uses>46</tool_uses><duration_ms>626468</duration_ms></usage>
+</task-notification>
+
+---
+
+push to remote
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/O3v4eG/Branch continued.md (109 B)
+</system_instruction>
+
+
+
+.context/attachments/O3v4eG/Branch continued.md 
+I want to iterate on the masterclass demo and refactor some of them, polish them.
+Name the branch accordingly, then await my first instruction.
+
+---
+
+era 4 - The runtime frontier
+It's not really a frontier. rewrite the copy to reflect the direction of where LLMs are used now. give me suggestions.
+
+---
+
+C yes, deep-cut
+
+---
+
+Apply 1-4.
+
+---
+
+Simplify this:
+Where it's pointed now
+Two moves, both already shipping. Inward: the model crosses out of the build phase into the running product — you ask, and the interface is compiled on the spot instead of designed in advance. Outward: it stops living in your codebase and takes up residence in the company's whole record — mail, chat, transcripts, tickets. Neither is a preview. Both change who is allowed to ask.
+
+It's factually correct, but the copy is a bit harder to read. Look at the intro and first era for reference, for the voice I have in my copy. Suggest something before writing it to file.
+
+---
+
+Agree, The model moves in + C.
+
+---
+
+remove the "Two moves, both already in use." sentence, then we're fine with this paragrah.
+
+---
+
+Adjust the synthesis copy accordingly. Remove the exhibit element entirely.
+
+---
+
+No I'm not happy with the final synthesis.
+
+Read all demo copies, then tell me what the masterclass was about, as if to a friend. Let's try that direction.
+
+---
+
+yes
+
+---
+
+V2
+
+---
+
+For the prior era4-now-meanwhile phase:
+
+move the did you know collapsible to the json-render demo, so it's colocated.
+
+for the ambient context demo:
+think of a better animation to display that ambient context is moving via the various channels to the company brain. make it badass. apply your design engineer skills.
+
+---
+
+Excellent!
+
+Now adjust the json-render demo in that the json structure is displayed alongside the rendered chart. I want people to see what the model produces using a catalog.
+
+---
+
+Now add the footer panel for two beats. I want the ambient context to display second when I'm ready. You may use numbers in indicators, as for era 1.

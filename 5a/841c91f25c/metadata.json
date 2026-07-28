@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "5a841c91f25c",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/masterclass-demo-polish",
+  "checkpoints_count": 18,
+  "files_touched": [
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/beats.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/beats.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era4-runtime/company-brain.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era4-runtime/index.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/masterclass.tsx",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/steps.test.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/steps.ts",
+    "apps/web/app/[locale]/learn/masterclass-28-07-2026/synthesis.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5a/841c91f25c/0/metadata.json",
+      "transcript": "/5a/841c91f25c/0/full.jsonl",
+      "content_hash": "/5a/841c91f25c/0/content_hash.txt",
+      "prompt": "/5a/841c91f25c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 35614,
+    "cache_creation_tokens": 618018,
+    "cache_read_tokens": 47050413,
+    "output_tokens": 163086,
+    "api_call_count": 220
+  }
+}
