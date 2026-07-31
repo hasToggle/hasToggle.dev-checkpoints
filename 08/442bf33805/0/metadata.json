@@ -1,0 +1,186 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "08442bf33805",
+  "session_id": "2e22c0c7-c7c9-49d3-acee-d8fee1526066",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-31T13:56:31.767263Z",
+  "branch": "Kheirah/agent-knowledge-hub-design",
+  "checkpoints_count": 12,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "714d7dcd5b45",
+  "token_usage": {
+    "input_tokens": 83,
+    "cache_creation_tokens": 254914,
+    "cache_read_tokens": 8683547,
+    "output_tokens": 101040,
+    "api_call_count": 45
+  },
+  "session_metrics": {
+    "turn_count": 12
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 3769,
+      "user_lines_removed": 574,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "apps/docs/favicon.svg": 163,
+        "apps/docs/images/hero-dark.svg": 463,
+        "apps/docs/images/hero-light.svg": 373,
+        "apps/docs/logo/dark.svg": 183,
+        "apps/docs/logo/light.svg": 172,
+        "apps/web/public/dot-texture.svg": 9,
+        "apps/web/public/investors/deccel.svg": 46,
+        "apps/web/public/investors/remington-schwartz.svg": 109,
+        "apps/web/public/logo-cloud/laravel.svg": 6,
+        "apps/web/public/logo-cloud/savvycal.svg": 12,
+        "apps/web/public/logo-cloud/statamic.svg": 8,
+        "apps/web/public/logo-cloud/transistor.svg": 10,
+        "apps/web/public/logo-cloud/tuple.svg": 22,
+        "apps/web/public/logo-cluster/career-builder.svg": 17,
+        "apps/web/public/logo-cluster/dribbble.svg": 25,
+        "apps/web/public/logo-cluster/glassdoor.svg": 35,
+        "apps/web/public/logo-cluster/linkedin.svg": 12,
+        "apps/web/public/logo-cluster/upwork.svg": 12,
+        "apps/web/public/logo-cluster/we-work-remotely.svg": 28,
+        "apps/web/public/logo-timeline/css.svg": 28,
+        "apps/web/public/logo-timeline/html.svg": 20,
+        "apps/web/public/logo-timeline/javascript.svg": 14,
+        "apps/web/public/logo-timeline/mongodb.svg": 103,
+        "apps/web/public/logo-timeline/nextjs.svg": 61,
+        "apps/web/public/logo-timeline/nodejs.svg": 15,
+        "apps/web/public/logo-timeline/postgresql.svg": 21,
+        "apps/web/public/logo-timeline/react.svg": 11,
+        "apps/web/public/logo-timeline/ssr.svg": 13,
+        "apps/web/public/logo-timeline/state-management.svg": 11,
+        "apps/web/public/logo-timeline/tailwindcss.svg": 11,
+        "apps/web/public/logo-timeline/typescript.svg": 14,
+        "biome.jsonc": 5,
+        "docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md": 1576,
+        "docs/superpowers/specs/2026-07-10-knowledge-hub-design.md": 161
+      },
+      "user_removed_per_file": {
+        "apps/docs/favicon.svg": 48,
+        "apps/docs/images/hero-dark.svg": 160,
+        "apps/docs/images/hero-light.svg": 154,
+        "apps/docs/logo/dark.svg": 54,
+        "apps/docs/logo/light.svg": 50,
+        "apps/web/public/dot-texture.svg": 3,
+        "apps/web/public/investors/deccel.svg": 13,
+        "apps/web/public/investors/remington-schwartz.svg": 26,
+        "apps/web/public/logo-cloud/laravel.svg": 1,
+        "apps/web/public/logo-cloud/savvycal.svg": 1,
+        "apps/web/public/logo-cloud/statamic.svg": 1,
+        "apps/web/public/logo-cloud/transistor.svg": 1,
+        "apps/web/public/logo-cloud/tuple.svg": 1,
+        "apps/web/public/logo-cluster/career-builder.svg": 3,
+        "apps/web/public/logo-cluster/dribbble.svg": 9,
+        "apps/web/public/logo-cluster/glassdoor.svg": 11,
+        "apps/web/public/logo-cluster/linkedin.svg": 2,
+        "apps/web/public/logo-cluster/upwork.svg": 2,
+        "apps/web/public/logo-cluster/we-work-remotely.svg": 4,
+        "apps/web/public/logo-timeline/css.svg": 1,
+        "apps/web/public/logo-timeline/html.svg": 1,
+        "apps/web/public/logo-timeline/javascript.svg": 1,
+        "apps/web/public/logo-timeline/mongodb.svg": 1,
+        "apps/web/public/logo-timeline/nextjs.svg": 18,
+        "apps/web/public/logo-timeline/nodejs.svg": 1,
+        "apps/web/public/logo-timeline/postgresql.svg": 1,
+        "apps/web/public/logo-timeline/react.svg": 1,
+        "apps/web/public/logo-timeline/ssr.svg": 1,
+        "apps/web/public/logo-timeline/state-management.svg": 1,
+        "apps/web/public/logo-timeline/tailwindcss.svg": 1,
+        "apps/web/public/logo-timeline/typescript.svg": 1,
+        "biome.jsonc": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 12,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    },
+    {
+      "checkpoint_number": 13,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3769,
+      "agent_lines_removed": 574
+    }
+  ]
+}
