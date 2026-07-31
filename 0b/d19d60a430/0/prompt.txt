@@ -1,0 +1,519 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/marseille directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Read the current PR and its changes.
+
+Look up any changes to MongoDB Atlas, like the addition of a $rank to the aggregation pipeline so you no longer have to use the Voyage APi and can solely rely on queries. Check eve by Vercel for any updates that might concern us. Do a general pass on anything that can be improved on what we have. The PR has not been touched for a few weeks and the goal is to be up-to-date and to improve the existing approach/code. 
+
+Regardless of my instructions, do a review of your own on the current/updated state and propose changes/additions. We worked this out together, and I am still open to your view of things.
+
+---
+
+<task-notification>
+<task-id>a88a2f1936b95b772</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a88a2f1936b95b772.output</output-file>
+<status>completed</status>
+<summary>Agent "Research MongoDB Atlas updates" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>All research questions are now answered with primary sources. Here is the raw-data report.
+
+---
+
+# MongoDB Atlas capability check — verified 2026-07-31
+
+## 1. $rankFusion / $scoreFusion / "$rank"
+
+**Findings:**
+- **$rankFusion: GA.** Shipped GA in server 8.1 (released 2025-06-30); usable on 8.0.x only by opening a support case (feature-flag enablement). Docs: "$rankFusion is only available for deployments that use MongoDB 8.0 and later. You must open a support case to use $rankFusion on 8.0.X versions." $vectorSearch inside input pipelines requires 8.1+. Must be first stage; sub-pipelines limited to $search/$vectorSearch/$match/$sort/$geoNear; no views-in-definition, no time series, no pagination, sub-pipelines run serially.
+  - https://www.mongodb.com/docs/manual/reference/operator/aggregation/rankfusion/ (current 8.3 manual)
+  - https://www.mongodb.com/company/blog/product-release-announcements/boost-search-relevance-mongodb-atlas-native-hybrid-search (posted 2025-06-25, updated 2026-06-30: "Hybrid search is generally available, including $rankFusion for clusters on 8.0+ and $scoreFusion on clusters on 8.2+")
+- **$scoreFusion: GA.** Public preview in 8.2 (2025-09-30), GA in 8.3 (2026-05-31). Current docs instruct: "To use $scoreFusion, your cluster must run MongoDB v8.3 or later."
+  - https://www.mongodb.com/products/updates/public-preview-mongodb-native-hybrid-search-with-scorefusion/ ; https://www.mongodb.com/docs/vector-search/hybrid-search/hybrid-search/ ; https://www.mongodb.com/docs/manual/reference/operator/aggregation/scorefusion/
+- **Tiers:** these are server stages, no Search Nodes dependency. But M0/Flex clusters are pinned to 8.0 (see Q5), and 8.0.x needs a support case for $rankFusion — so on M0/Flex treat $rankFusion as **effectively unavailable** (no doc says Atlas enabled the flag fleet-wide there — UNCONFIRMED either way). On M10+ it requires choosing "Latest Version With Auto Upgrades" (8.3) or a support case on 8.0.
+- **No new stage literally called `$rank` exists.** `$rank` remains the window operator inside $setWindowFields (since 5.0). What the user heard is almost certainly **$rankFusion** (hybrid-search GA marketing, June 2025/2026) — or possibly the brand-new **$rerank** (2026-06-30, see Q4). Related new scoring stage: **$score** (normalize/compute score metadata, in 8.3 manual; arrived with the 8.2/8.3 hybrid-scoring work): https://www.mongodb.com/docs/manual/reference/operator/aggregation/score
+
+**Impact on our design:** None negative — our BM25-only design doesn't use them; if we ever add hybrid search we need a dedicated M10+ on "Latest Version With Auto Upgrades" (8.3), not Flex/M0.
+
+## 2. Automated Embedding in Atlas Vector Search — THE DECIDING FACTOR
+
+**Findings:**
+- **Status: Public Preview on Atlas since 2026-05-07/11** (products update May 7; blog May 11). Not GA as of 2026-07-31. Index type `autoEmbed`, query via `$vectorSearch.query` text. Supported on M0, Flex, M10+ (M10+ requires storage AND compute auto-scaling enabled, max tier ≥ M30). Also public preview for self-managed Community Edition 8.2+ (uses your own Voyage API key; text goes to api.voyageai.com).
+  - https://www.mongodb.com/products/updates/now-in-public-preview-automated-embedding-in-mongodb-vector-search-on-atlas/ (2026-05-07)
+  - https://www.mongodb.com/company/blog/product-release-announcements/ai-search-for-agents-announcing-automated-embedding-atlas (2026-05-11)
+  - https://www.mongodb.com/docs/vector-search/crud-embeddings/automated-embedding/
+- **WHERE INFERENCE RUNS — verbatim from current docs** (https://www.mongodb.com/docs/vector-search/vector-search-type — Index Limitations section): "The embedding model inference runs on a multi-tenant service in the Atlas Data Plane, available in **MongoDB's Google Cloud based infrastructure in a US region**. This means that your data is **sent to MongoDB's inference infrastructure** for embedding generation and retrieval, **regardless of your cluster's cloud provider**. Data transfer costs apply." Corroborated by https://www.mongodb.com/docs/vector-search/crud-embeddings/automated-embedding/overview ("The model inference platform runs on MongoDB's infrastructure in Google Cloud cloud in a US region"). Text is not stored or used for training; TLS in transit; embeddings persist in an internal collection (`__mdb_internal_search`) on your own cluster.
+- **No EU region option exists or is announced.** I searched MongoDB blog, products/updates, and docs for any 2026 EU/regional-inference announcement: nothing. UNCONFIRMED only in the sense that no roadmap statement exists either way.
+- Models: voyage-4-lite $0.02 / voyage-4 $0.06 / voyage-4-large $0.12 / voyage-code-3 $0.18 per 1M tokens; 32k context; one-time 200M free tokens per model per org. https://www.mongodb.com/docs/vector-search/crud-embeddings/automated-embedding/models
+- Governance note: Atlas Resource Policies can forbid `autoEmbed` index creation org-wide (https://www.mongodb.com/docs/atlas/atlas-resource-policies) — worth enabling for this client to prevent accidental use.
+
+**Impact on our design: the 2026-07-10 rejection stands, now with an exact citation.** Your spec said "Google-US" — docs now literally confirm "Google Cloud … US region, regardless of your cluster's cloud provider." Raw `facts.text` would leave Frankfurt. Do not enable autoEmbed; optionally add a resource policy forbidding it.
+
+## 3. Voyage AI API (EU endpoint / DPA)
+
+**Findings:**
+- The standalone Voyage API is being migrated to the **Atlas "Embedding and Reranking API"** at `https://ai.mongodb.com/v1/*` — **Public Preview since 2026-01-15**, keys managed in Atlas ("model API keys"), 200M free tokens on latest models, explicitly "not for production" during preview. Old api.voyageai.com endpoints map 1:1 to ai.mongodb.com. Launched together with the **voyage-4 model family** (shared embedding space across 4-series).
+  - https://www.mongodb.com/company/blog/product-release-announcements/introducing-the-embedding-and-reranking-api-on-mongodb-atlas (2026-01-15)
+  - https://www.mongodb.com/docs/voyageai/tutorials/migrate-to-atlas ; https://www.infoq.com/news/2026/02/mongodb-embedding-reranking-api (2026-02)
+- **No EU endpoint, no EU data-residency option, no region selection documented** for ai.mongodb.com or api.voyageai.com. No Voyage-specific EU DPA found. Third-party assessments in 2026 describe Voyage's residency posture as immature vs. Cohere/Mistral. Hosting region of ai.mongodb.com: not explicitly documented — **UNCONFIRMED**, but the only documented Voyage serving infrastructure (the Atlas inference platform, Q2) is US/Google Cloud; assume US processing.
+- **In-your-own-cloud options grew** (these ARE EU-capable because you pick the region and the model runs in your account): AWS Marketplace/SageMaker model packages ("Deploy models in your account and VPC… AWS serves as your sub-processor") — https://www.mongodb.com/docs/voyageai/management/aws-marketplace ; **Azure AI Foundry** — https://www.mongodb.com/docs/voyageai/management/azure-foundry ; **Google Cloud Model Garden** — https://www.mongodb.com/docs/voyageai/management/gcp-marketplace. No Atlas-calls-Voyage-in-region integration exists; $vectorSearch/autoEmbed cannot point at your own SageMaker endpoint.
+
+**Impact on our design:** Fallback plan unchanged and slightly better: Mistral embed (EU) or self-deployed Voyage via SageMaker eu-central-1 / Azure AI Foundry EU — both keep data in-region under your DPA with the hyperscaler. The hosted Voyage API remains a US processor and is also formally "preview, not for production."
+
+## 4. Atlas Search / Vector Search platform changes since mid-2025
+
+Source: https://www.mongodb.com/docs/atlas/search-changelog/ (entries dated as listed)
+
+- **2026-06-30: Native Reranking — new `$rerank` aggregation stage** (Voyage rerank models). **Preview**, Atlas-only, requires MongoDB 8.3+ ("Latest Version With Auto Upgrades"), opt-in per project (Project Settings toggle + cost acknowledgment), not available self-managed/Atlas Local. Docs state "$rerank does not run Voyage AI reranking models on your Atlas cluster resources" — inference is external (same MongoDB-hosted model platform; region not stated, assume US — UNCONFIRMED explicitly). Pricing rerank-2.5 $0.05/1M, rerank-2.5-lite $0.02/1M, 200M free tokens. https://www.mongodb.com/docs/vector-search/query/aggregation-stages/rerank/ ; https://www.mongodb.com/docs/voyageai/models/rerankers
+- **German-language relevant: 2025-07-10 release changed the `german` stemmer's umlaut handling (ä/ö/ü → ae/oe/ue) and marked `german2` outdated.** If our `facts.text` field uses `lucene.german`, match behavior changed mid-2025; verify recall on umlaut terms after any reindex.
+- **Facets:** `stringFacet`/`numberFacet`/`dateFacet` index types are "outdated" — replaced by faceting directly on `token`/`number`/`date` types (2025-01-24, 2025-06-10). `token` faceting is the recommended path, NOT deprecated. Facet bucket limits raised to 10,000 (2026-05-25 strings, 2026-06-24 numbers/dates). Multi-select faceting added 2026-04-14.
+- **Not deprecated, still standard:** `dynamic: false` static mappings (still the documented performance recommendation) and the `compound.filter` pattern. No breaking changes to `$search` operators we use.
+- **Breaking-ish:** from server 8.0.14 (2025-09-25 release note), `returnStoredSource`/`scoreDetails` must be boolean; passing `null` now errors.
+- Other additions: `typeSets` dynamic-indexing config + `stableTfl`/`boolean` similarities (2025-09-25); `returnScope`, `hasRoot`, `hasAncestor` for array-of-objects querying (2025-10-21); lexical prefilters for the `vectorSearch` operator (preview, 2025-11-24); index-field-limit alerts (2026-01-29); flat vector indexes for multitenant workloads (preview, 2026-04-07); `storedSource` on vector indexes (2026-04-27); `$vectorSearch` over arrays of embeddings (preview, 2026-04-30); index-time sorted indexes + `englishMinimalStemming` (2026-07-06).
+- **Tier limits (current):** M0 = max **3** search indexes total (search+vector), Flex = **10**; index definition ≤3KB, ≤300 fields, 1 synonym mapping on those tiers; cluster-wide hard cap 2,500. M2/M5 shared tiers are gone (migrated to Flex). https://www.mongodb.com/docs/search/deployment/feature-compatibility
+- **Search Nodes in Frankfurt: yes** — AWS `eu-central-1` (EU_CENTRAL_1) is in the dedicated-Search-Nodes region table; M10+ only (never M0/Flex); cheapest S10 tier is AWS-only. Not required for anything we do. https://www.mongodb.com/docs/atlas/reference/amazon-aws
+- **Rebranding:** "Atlas Search"/"Atlas Vector Search" are now "MongoDB Search"/"MongoDB Vector Search" with new doc sites (mongodb.com/docs/search/, /docs/vector-search/); search also runs on Community Edition 8.2+ self-managed. Old /docs/atlas/atlas-search URLs redirect.
+
+**Impact on our design:** Nothing we use is deprecated (`dynamic:false`, `compound.filter`, token facets all fine). Action items: check the German stemmer change against our analyzer choice, and note $rerank as a future quality lever that is currently preview + US-inference (same GDPR objection as Q2).
+
+## 5. MongoDB versions on Atlas, July 2026
+
+- Release train: 8.0 LTS (2024-10-31, supported to 2029-10-31) → rapid releases 8.1 (2025-06-30), 8.2 (2025-09-30), **8.3 = current latest (2026-05-31**, 8.3.7 as of 2026-07-24). **No 9.0 yet**; docs carry a "9.0 (Upcoming)" label; majors are ~yearly so expect fall 2026 — no announced date (UNCONFIRMED). https://endoflife.date/mongodb ; https://www.mongodb.com/docs/manual/release-notes/8.3/
+- New dedicated (M10+) clusters choose: **7.0, 8.0, or "Latest Version With Auto Upgrades" (currently 8.3)**. You cannot pin 8.1/8.2/8.3 specifically; leaving auto-upgrades means you can only step back to a major in the 9.0→9.1 window. **Free (M0) and Flex are pinned to MongoDB 8.0** and auto-upgraded by Atlas. UI-preselected default not documented; the default major is 8.0. https://www.mongodb.com/docs/atlas/atlas-versions
+- Practical stage floor: on M0/Flex assume an 8.0 feature set (no self-serve $rankFusion, no $scoreFusion, no $rerank). On M10+ with auto-upgrades: full 8.3 set.
+
+**Impact on our design:** If the MVP is on Flex/M0, we are on 8.0 — plain `$search` BM25 is fully supported there and that's all we need. Any hybrid/rerank ambition implies M10+ with auto-upgrades.
+
+## 6. Other 2026 items worth knowing
+
+- **Voyage 4 family + voyage-context-4** (contextualized chunk embeddings) GA'd via the API in the 2026-01-15 announcement wave (PR: https://www.prnewswire.com/news-releases/mongodb-sets-a-new-standard-for-retrieval-accuracy-with-voyage-4-models-for-production-ready-ai-applications-302662558.html). All 4-series models share one embedding space (mix models later without reindexing).
+- **Atlas Resource Policies** now cover search/AI governance: forbid `autoEmbed` indexes, restrict the Embedding/Reranking API, restrict clusters to specific regions — a cheap, auditable GDPR guardrail for this project (https://www.mongodb.com/docs/atlas/atlas-resource-policies ; blog https://www.mongodb.com/company/blog/innovation/enforce-data-sovereignty-with-mongodb-atlas-resource-policies).
+- Automated Embedding on M10+ force-requires auto-scaling (to ≥M30 during initial index builds) — hidden cost trap for small consultancy budgets if anyone ever flips it on.
+- Preview-feature terms apply to autoEmbed / $rerank / ai.mongodb.com: "might change at any time… do not use in production" — an independent reason (besides GDPR) they're out of scope for a client deliverable right now.
+
+## Bottom line for the 2026-07-10 design
+
+1. **Decision "reject auto-embedding, stay lexical" remains correct and is now explicitly documented by MongoDB**: inference is multi-tenant, Google Cloud, US region, regardless of cluster region.
+2. **No EU path exists** for MongoDB-hosted Voyage inference (autoEmbed, $rerank, ai.mongodb.com) as of 2026-07-31 — GA'ing any of them won't fix residency; watch for a regional-inference announcement before revisiting.
+3. **Embedding fallbacks unchanged**: Mistral (EU API) or self-deployed Voyage (SageMaker eu-central-1, now also Azure AI Foundry / GCP Model Garden in EU regions).
+4. **One real action item**: verify the July 2025 `german` stemmer umlaut change against our analyzer configuration.
+5. Nothing in our index definition pattern (dynamic:false, compound.filter, token facets) is deprecated; M0=3 / Flex=10 index limits and the 8.0 pin on those tiers are the only constraints to respect.</result>
+<usage><subagent_tokens>148038</subagent_tokens><tool_uses>41</tool_uses><duration_ms>557437</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a955e74f264c0c4a3</task-id>
+<tool-use-id>toolu_01L3Dq1VnmnWkdJnB2BHJ5bR</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a955e74f264c0c4a3.output</output-file>
+<status>completed</status>
+<summary>Agent "Research eve and Vercel stack updates" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>All questions resolved. Cleaning up is unnecessary (temp dir only). Final report:
+
+---
+
+# Vercel agent/AI stack — state as of 2026-07-31
+
+Method note: npm registry queries run today; eve docs read from the actual published package (`eve@0.29.2` installed to `/tmp/eve-docs-check/node_modules/eve/` — docs ship inside the package and match the installed version exactly).
+
+## 1. eve current state
+
+**Finding:** Latest is **0.29.2, published 2026-07-30** (npm `latest` dist-tag). Still **beta/public preview, not GA**: eve@0.29.2's README states "eve is currently a preview and subject to the Vercel beta terms; the framework, APIs, documentation, and behavior may change before general availability." Public preview began 2026-06-17 ([changelog: Introducing eve](https://vercel.com/changelog/introducing-eve-an-open-source-agent-framework)).
+
+**Cadence since 2026-07-10** (npm `time`): you designed against 0.22.4/0.22.5; since then ~40 releases in 20 days, seven 0.x minors: 0.23.0 (07-13), 0.24.0 (07-14), 0.25.0 (07-17), 0.26.0 (07-20), 0.27.0 (07-21), 0.28.0 (07-30), 0.29.0 (07-30).
+
+**Breaking changes in the window** (from the package `CHANGELOG.md`):
+- 0.22.5 (07-10): `limits.maxSubagentDepth` default 3 → 1
+- 0.23.0 (07-13): built-in `agent` delegation tool is root-only; `limits.maxSubagentDepth` removed; `isChannel` metadata-narrowing change
+- 0.24.0 (07-14): `ExperimentalWorkflow` marker → `experimental_workflow(options)`; `maxSubagents` moved out of `defineAgent({ limits })`
+- 0.26.0 (07-20): `maxReconnectAttempts` removed from client/React/Svelte/Vue APIs (reconnection now internal)
+- 0.24.5 + 0.27.0 (07-16/07-21): Vercel platform stopped routing/accepting `vercel.json` `experimentalServices` — eve now emits stable `services`; delete any generated `experimentalServices` block
+- 0.28.0 (07-30): `MessageStreamEvent` is the canonical stream-event type with required `meta.id`/`meta.at` (`HandleMessageStreamEvent` deprecated alias); **sessions now auto-complete after 30 days by default** (`limits.sessionTimeoutMs` to change/disable)
+- 0.29.0 (07-30): CLI churn — `eve channels add` removed in favor of `eve add`; `eve trace` → `eve traces`
+- Dependency shift: eve 0.29.2 has **peerDependency `ai: ^7.0.38`** (AI SDK v7)
+
+**Changelog locations:** `node_modules/eve/CHANGELOG.md` (authoritative, per-version), [GitHub releases](https://github.com/vercel/eve/releases), plus vercel.com/changelog entries.
+
+**Impact:** eve is viable but hot — pin exact versions, budget for API churn each upgrade, and note the new 30-day session default against your durable-sessions assumption. Still under Vercel beta terms — factor that into the GDPR/consultancy risk register.
+
+## 2. eve custom providers — SPIKE RESOLVED: YES
+
+**Finding:** Direct AI SDK model instances are first-class. From `/tmp/eve-docs-check/node_modules/eve/docs/agent-config.md` (eve 0.29.2):
+
+&gt; "`model` accepts a gateway model id string, which routes through the Vercel AI Gateway. **To call a provider directly and configure the model in code, pass a provider-authored `LanguageModel`.**"
+
+&gt; "Provider-specific AI SDK packages are regular project dependencies. ... Install the provider package you import, then set that provider's API key" — with a worked example: `import { anthropic } from "@ai-sdk/anthropic"; defineAgent({ model: anthropic("claude-opus-4-8") })`.
+
+Bedrock specifically is exercised upstream — CHANGELOG 0.27.0 (2026-07-21): "Anthropic models served through the standard `@ai-sdk/amazon-bedrock` Converse provider are now detected as cacheable ... The cache marker now also carries the Bedrock `cachePoint` namespace that the Converse provider reads." The dev TUI even labels direct wiring ("via `&lt;provider&gt;` for a directly-authored endpoint", 0.26.1). Eval judges also accept a `LanguageModel` instance directly (`docs/evals/judge.mdx`). Dynamic model selection: live `LanguageModel` objects only from `step.started` scope; session/turn scopes need id strings.
+
+**Impact:** The plan-gating spike passes — `createAmazonBedrock({ region: "eu-central-1" })` in `defineAgent` works, with prompt caching. Use `@ai-sdk/amazon-bedrock` v5.x (the AI-SDK-v7-compatible line, latest 5.0.38, 2026-07-31) to match eve's `ai ^7` peer.
+
+## 3. eve feature set relevant to a knowledge hub
+
+- **Memory/knowledge/RAG: nothing built-in that overlaps our MongoDB layer.** The official pattern doc `docs/patterns/multi-tenant-memory.md` says: "The storage implementation is **deliberately outside eve**. PostgreSQL, a durable KV store, or a vector database all work as long as every operation is scoped by tenant and user" — recommending exactly our architecture (route auth → tenant on `ctx.session.auth`, dynamic instructions load memories per turn, ordinary tools write/delete). Packaged memory integrations in the gallery are only **Mem0** and **Upstash AgentKit** ([eve.dev/integrations?filter=memory](https://eve.dev/integrations?filter=memory)); no MongoDB/knowledge-base/RAG integration. Connections remain MCP + OpenAPI only. `defineState` (`docs/guides/state.md`) is durable **per-session** typed state, not cross-session knowledge.
+- **Channels/email:** No first-class email channel, but the **Chat SDK bridge channel** (`docs/channels/chat-sdk.mdx`) is documented with email as the lead example: "Bridge any Vercel Chat SDK adapter — Slack, Discord, Telegram, WhatsApp, **email**, and more"; the quickstart "uses the **Resend email adapter**" with a `/webhooks/inbound-email` route and `streaming: false` guidance for email. First-class channels: slack, teams, discord, telegram, github, linear, twilio, web, HTTP, custom.
+- **Schedules:** `agent/schedules/*.ts`, `defineSchedule({ cron, markdown | run })`, 5-field cron at minute granularity, evaluated UTC; **each schedule becomes a Vercel Cron Job** on deploy — 0.27.11 (07-28) wired this into project-level Cron Jobs with no duplicate `vercel.json` entries. Task-mode sessions cannot park for human input.
+- **Evals:** full suite in docs (cases, value + LLM-judge assertions, Braintrust reporters, targets); `--exclude-tag`, timeout enforcement (0.29.x).
+- **Sandboxes:** Vercel Sandbox / Docker / microsandbox / just-bash backends; static skills no longer need a sandbox (0.26.2).
+- **New since 07-10 worth knowing:** `eve add` + shadcn-style registry (0.27.8+); extensions packaging (0.25.0); `eve invoke` headless JSON invocation (0.27.12 — useful for CI tests); opt-in durable `sleep` tool (0.29.2); `defineAgent.outputSchema` structured output for task-mode runs (schedules/subagents) — handy for extraction jobs; local trace store `.eve/traces` + `eve traces` + OTel options; session token budgets with Approve/Stop continuation (0.28.0).
+
+**Impact:** No overlap to worry about — eve explicitly delegates knowledge storage to you; our MongoDB layer is the endorsed pattern. Email channel for phase 2 exists today via the chat-sdk bridge.
+
+## 4. Workflow DevKit
+
+**Finding:** Stable line is `workflow` **4.7.0 (2026-07-29)**; since 07-10 (you were on 4.6.0, 07-06): 4.6.1 (07-22), 4.6.2 (07-24), 4.7.0 (07-29) — **no breaking changes**; 4.7.0 adds an optimistic-concurrency precondition guard (on by default, `WORKFLOW_PRECONDITION_GUARD=0` opt-out) and 30s HTTP timeouts in world-vercel ([GitHub releases](https://github.com/vercel/workflow/releases)). A **5.0.0-beta line** has run since 2026-04-11 (beta.38 on 07-30) — eve vendors `@workflow/core@5.0.0-beta.38`. Platform docs ([vercel.com/docs/workflows](https://vercel.com/docs/workflows), last_updated 2026-07-15) present "Vercel Workflows" as a fully managed platform (Functions + Queues + managed persistence; Python support added); no beta label on the platform page — formal GA announcement UNCONFIRMED.
+
+**Region finding that changes our design:** from that docs page, Multi-region section: "**Runs created by the 4.x release line always live in `iad1`.** ... Multi-region requires `workflow` version `5.0.0-beta.33` or later" (beta.33 = 2026-07-13). With 5.0-beta, a run auto-pins to the invoking function's region (fra1 for us) or explicitly via `start(wf, [input], { region: 'fra1' })`; state, queue dispatch, and streams stay in that region for the run's lifetime.
+
+Crons: WDK has no cron primitive (that's Vercel Cron Jobs / eve schedules). Retention is a billed dimension ("Events, Data Written, Data Retained" — [/docs/workflows/pricing](https://vercel.com/docs/workflows/pricing)); retention-config specifics not verified.
+
+**Impact — stale assumption, GDPR-relevant:** on the stable 4.x SDK, our ingestion pipelines' durable state (step inputs/outputs = transcripts, email bodies in flight) is stored in **iad1 (US)**, regardless of `fra1` function deployment. EU-resident workflow state requires the 5.0.0-beta.33+ line. Decide: accept US-resident workflow state, minimize payloads through steps (pass MongoDB IDs, not content), or adopt 5.0-beta (which eve itself vendors).
+
+## 5. AI SDK
+
+**Finding:** Current major is **v7** — 7.0.0 released **2026-06-25** (npm; [vercel.com/blog/ai-sdk-7](https://vercel.com/blog/ai-sdk-7)), latest 7.0.44 (2026-07-31). v6 (6.0.238) and v5 (5.0.223) still receive maintenance releases (both updated 2026-07-29). For `generateObject` ([migration guide 7.0](https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0)): the API remains; breaking change is the top-level **`system` → `instructions` rename** (deprecated `system` fallback still accepted; `instructions` wins if both); `experimental_repairText` → stable `repairText`. No Bedrock-provider breaking changes and no Zod changes in the guide. **Zod v4 fully supported:** `ai@7.0.44` peers `zod: "^3.25.76 || ^4.1.8"` (zod latest is 4.4.3). Bedrock provider pairing: `@ai-sdk/amazon-bedrock@5.x` for ai v7 (5.0.38), `4.x` for ai v6.
+
+**Impact:** Our fact-extraction (`generateObject` + Zod + Bedrock) carries over intact; if/when the repo moves to v7 (mandatory inside eve 0.29.x), rename `system:` → `instructions:` — codemod exists (`npx @ai-sdk/codemod v7`).
+
+## 6. Chat SDK
+
+**Finding:** npm package is **`chat`** (not `chat-sdk`), repo [github.com/vercel/chat](https://github.com/vercel/chat), docs chat-sdk.dev. Latest **4.35.0 (2026-07-24)**, steady minors all July (4.33.0 07-07, 4.34.0 07-13); all `@chat-adapter/*` adapters ship in lockstep (slack, teams, gchat, discord, github, linear, telegram, whatsapp, twilio, web, x at 4.35.0). No beta labeling observed; treat as stable 4.x. **Email adapter: exists, but third-party** — `@resend/chat-sdk-adapter`, published by Resend, latest 0.2.2 (2026-04-22; created 2026-03-02). No first-party `@chat-adapter/email`. eve's own docs use the Resend adapter as the canonical email path (see Q3).
+
+**Impact:** Phase-2 email channel is buildable now: eve `chatSdkChannel` + `chat` + `@resend/chat-sdk-adapter`; the adapter is young (0.2.x) and Resend-owned — validate inbound-email parsing early.
+
+## 7. AI Gateway region pinning — CHANGED since 07-10
+
+**Finding:** **Regional inference shipped 2026-07-27** ([changelog](https://vercel.com/changelog/regional-inference-now-available-on-ai-gateway)). Per-request `providerOptions.gateway.inferenceRegion` with `scope: 'zone'`, `geoRegion: 'us' | 'eu'`. Fail-closed: "If no model provider can serve it, the request fails rather than running somewhere else." "Every response reports the region that served it." "Inference runs there, and any data the provider keeps is stored there." Opt-in; regional rate ~10% above standard, passed through with no markup. Model availability per zone is exposed via a `regions` array on `/v1/models`.
+
+**Caveats:** granularity is **zone (EU), not region (eu-central-1)**; whether `anthropic/claude-*` models currently have EU-zone capacity is UNCONFIRMED (check `/v1/models` regions array); Gateway's own logs/metadata residency is governed separately, and the broader [data-residency feature request](https://community.vercel.com/t/feature-request-data-residency-options-for-ai-gateway/41187) (open since May 2026) covers what zone-pinning does not.
+
+**Impact:** Our 07-10 rejection reason ("no region pinning") is now stale as literally stated — EU-zone pinning exists. But Bedrock-direct eu-central-1 remains strictly stronger for us (exact region, our own AWS DPA, no dependency on gateway zone semantics), so the decision stands; record the updated rationale.
+
+## 8. Vercel platform (only what affects us)
+
+- **Cron Jobs** ([docs, last_updated 2026-06-16](https://vercel.com/docs/cron-jobs/usage-and-pricing)): Hobby — 100 jobs, **min once per day**, ±59 min precision (sub-daily expressions fail deployment); **Pro/Enterprise — 100 jobs, once per minute, per-minute precision**. Nightly consolidation + eve schedules need Pro for anything sub-daily/precise.
+- **Blob EU** ([docs, last_updated 2026-07-13](https://vercel.com/docs/vercel-blob)): stores can now be created "in any of the 20 regions" (incl. fra1) "to meet data regulatory requirements"; **default is iad1 and region is immutable after creation** — if we use Blob for voice files, explicitly create the store in fra1. Private access mode supported; S3-backed.
+- **Workflows run-state region**: the iad1-on-4.x issue in Q4 is the single most design-relevant platform item.
+- **Sandbox** (2026-07-30 [changelog](https://vercel.com/changelog)): multiple isolated agents (Linux users/groups) per Sandbox — not project-critical.
+- Other 07-30 changelog items (Server-Timing pass-through from Aug 10, mcp-handler 2.0 stateless MCP, deployments ~7s faster, OIDC for Remote Cache): no design impact.
+
+## Stale-decision summary (what changed since 2026-07-10)
+
+1. **AI Gateway now has EU zone pinning** (07-27) — rejection rationale needs rewording, conclusion unchanged.
+2. **Workflow 4.x stores all run state in iad1**; EU workflow-state residency requires `workflow@5.0.0-beta.33+` (07-13) — our ingestion-pipeline design must either minimize payloads in steps, accept US state, or go 5.0-beta.
+3. **eve moved 0.22 → 0.29** with the breaking changes listed in Q1, now **requires AI SDK v7**, and **sessions expire after 30 days by default**.
+4. Spike closed affirmatively: direct region-pinned Bedrock `LanguageModel` in eve is documented and supported (with prompt caching since 0.27.0).
+
+Sources: [eve npm](https://www.npmjs.com/package/eve), [vercel/eve releases](https://github.com/vercel/eve/releases), [Introducing eve changelog](https://vercel.com/changelog/introducing-eve-an-open-source-agent-framework), eve@0.29.2 bundled docs (`/tmp/eve-docs-check/node_modules/eve/docs/`), [vercel/workflow releases](https://github.com/vercel/workflow/releases), [Vercel Workflows docs](https://vercel.com/docs/workflows), [AI SDK 7 blog](https://vercel.com/blog/ai-sdk-7), [v7 migration guide](https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0), [regional inference changelog](https://vercel.com/changelog/regional-inference-now-available-on-ai-gateway), [Gateway data-residency request](https://community.vercel.com/t/feature-request-data-residency-options-for-ai-gateway/41187), [Cron usage docs](https://vercel.com/docs/cron-jobs/usage-and-pricing), [Blob docs](https://vercel.com/docs/vercel-blob), [vercel/chat releases](https://github.com/vercel/chat/releases), [Vercel changelog](https://vercel.com/changelog).</result>
+<usage><subagent_tokens>135554</subagent_tokens><tool_uses>36</tool_uses><duration_ms>555306</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a02c3da3258c113ac</task-id>
+<tool-use-id>toolu_013J9bbARAjCsRuYREf1iuK8</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a02c3da3258c113ac.output</output-file>
+<status>completed</status>
+<summary>Agent "Review: CLAUDE.md compliance audit" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## PR #292 Review — CLAUDE.md Compliance Audit (packages/knowledge)
+
+Scope covered: full CLAUDE.md read, `git diff origin/main...HEAD` (25 files, all under `packages/knowledge/` plus `biome.jsonc`, `package.json`, `bun.lock`, `.entire/*`), cross-checked against `packages/database` (the package this new package is meant to mirror), `turbo.json`, and `packages/typescript-config/base.json`.
+
+### Issue 1: Schema barrel breaks the server/client separation the package itself establishes
+
+- **File/lines**: `packages/knowledge/schemas/shared.ts:1` (`import { ObjectId } from "mongodb";`, a value import, not `import type`) and `:7` (`_id: zodObjectId` inside `baseDocFields`, which every schema in `entities.ts`, `facts.ts`, `proposals.ts`, and `sources.ts` spreads via `...baseDocFields`); amplified by `packages/knowledge/index.ts:1-36`, which re-exports all of these schemas as values with no `server-only` guard anywhere in the file.
+- **Description**: `zodObjectId = z.instanceof(ObjectId)` requires the real `ObjectId` class from the Node-only `mongodb` driver at runtime, so every exported schema (`organizationSchema`, `personSchema`, `factSchema`, `sourceSchema`, `proposalSchema`, etc.) transitively pulls in the full `mongodb` package the moment it's imported — yet unlike `client.ts:1` (which correctly has `import "server-only"`), none of `schemas/shared.ts`, the other schema files, or the `index.ts` barrel carry that guard, so a client component importing a schema for form validation would get a raw bundler resolution failure instead of the intended fail-fast `server-only` error (or worse, a broken client bundle).
+- **CLAUDE.md violation**: "Server/Client Separation: Packages use `server-only` for server-side code — Database and auth server utilities are server-only — Client components/utilities are separate files" (CLAUDE.md lines 144–146). This is also a direct deviation from the mirrored precedent: `packages/database/index.ts:1` puts `import "server-only"` at the top of its single barrel file, guarding literally everything the package exports (including its own `export { ObjectId } from "mongodb"`), whereas `packages/knowledge/index.ts` has no equivalent top-level guard despite exporting values with the identical runtime dependency.
+- Note: every other value import of `mongodb` in the new package's source (excluding tests) is correctly `import type` (`collections.ts:3`, `erasure.ts:1`, `search.ts:1`), which confirms `schemas/shared.ts` is the sole, avoidable outlier — the type-only-import discipline was followed everywhere else.
+
+### Other areas checked — no violations found
+
+- `workspace:*` protocol usage (`packages/knowledge/package.json` → `@repo/typescript-config: workspace:*`) — compliant.
+- Env validation via `@t3-oss/env-nextjs` in `keys.ts` — matches `packages/database/keys.ts` pattern exactly.
+- `biome.jsonc` extends-path fix and root `package.json` ultracite pinning — consistent with CLAUDE.md's "extends ultracite presets" description; no new auto-generated code requiring exclusion.
+- `turbo.json` — untouched by this PR; the new package needs no wiring because it follows the same no-`build`-script, `test`+`typecheck`-script shape as `packages/database` (pre-existing pattern, `envMode: loose` already covers new env vars).
+- TypeScript strict/NodeNext — `packages/knowledge/tsconfig.json` extends `@repo/typescript-config/base.json`, which sets `strict: true`, `module: NodeNext`, `moduleResolution: NodeNext` (differs from `packages/database`'s use of `nextjs.json`, but CLAUDE.md only requires strict+NodeNext, which is satisfied either way — not a citable violation).
+- Test file location/naming (`__tests__/*.test.ts`, `bun:test`) matches `apps/app/__tests__/*.test.tsx` convention.
+
+No other CLAUDE.md-citable issues found in the diff.</result>
+<usage><subagent_tokens>102344</subagent_tokens><tool_uses>31</tool_uses><duration_ms>380003</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a0fcd190c9d166798</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a0fcd190c9d166798.output</output-file>
+<status>completed</status>
+<summary>Agent "Review: prior PR comments" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Feedback Review for PR #292 — Findings
+
+### 1. PR #292's own comments/checks
+
+- **Comments**: Only one, from the `vercel` bot — a standard deployment-status comment (preview deployed, Ready). No human reviews (`gh pr view 292 --json reviews` → `[]`), no inline review comments (`gh api repos/.../pulls/292/comments` → `[]`). Nothing actionable in comment text.
+- **Checks** (`gh pr checks 292`): all pass or skip — `Vercel Preview Comments` (pass), `claude-review` (pass, 1m0s, posted no comment despite running), `Mintlify Deployment` (skipping), `Vercel Agent Review` (skipping), `Vercel` deployment (pass, Ready).
+- **Not from comments, but directly actionable**: `gh pr view 292 --json mergeable,mergeStateStatus` reports **`"mergeable":"CONFLICTING"`, `"mergeStateStatus":"DIRTY"`**. Root cause identified below.
+
+### 2. Applicable feedback — biome.jsonc / root package.json history
+
+**Source: PR #323** ("feat(web): agentic engineering masterclass", merged 2026-07-28, squash commit `42b48f4`, now the tip lineage of `origin/main`). No human-written review text exists on #323 either (only the vercel bot comment; `.reviews` is empty) — so there's no quote, but the **merged diff itself is directly applicable precedent that PR #292 conflicts with**:
+
+- Main already fixed the identical issue PR #292's commit `484e1a0` fixes — the ultracite v7 preset-path rename (`ultracite/core` → `ultracite/biome/core`, etc.) — but formatted the array **multi-line** (one path per line). PR #292's `biome.jsonc:3` still has it **single-line**:
+  `"extends": ["ultracite/biome/core", "ultracite/biome/react", "ultracite/biome/next"],`
+  Since both branches independently edited the same original line from a common ancestor with different resulting text, this is a **real textual merge conflict**, not just a redundant no-op — confirmed empirically by GitHub's `CONFLICTING` mergeable status. **Action: when rebasing PR #292 onto current main, drop/reconcile commit `484e1a0` and take main's formatting rather than trying to preserve PR #292's version.**
+- Main also fixed `package.json`'s `check`/`fix` scripts the same way PR #292's commit `26327a7` does (drop `@latest` from `bunx --bun ultracite@latest`). Verified: both sides converge to **byte-identical** text (`"check": "bunx --bun ultracite check"`, `"fix": "bunx --bun ultracite fix"`, lines 13–14). This hunk will **merge cleanly, no action needed** — flagging only so the lead reviewer knows this part of the "CONFLICTING" status isn't from package.json.
+- Main made two more package.json/biome.jsonc edits that don't overlap PR #292's changed lines (bumped `@biomejs/biome`→2.5.6, `turbo`→2.10.7, `ultracite`→7.9.4, added `@radix-ui/react-slot` devDependency; added `"!**/*.generated.*"` to biome.jsonc's `files.includes`) — these won't conflict, they'll just be picked up on rebase.
+- `.entire/settings.json` and `.entire/.gitignore` (also touched by PR #292's commit `f08e0d0`, "route checkpoints to private hasToggle.dev-checkpoints repo"): verified **byte-identical** to what's already on main. Clean merge, no action needed.
+- `bun.lock`: both sides have substantial independent, non-overlapping changes (main's dependency bumps vs. PR #292's new `packages/knowledge` deps). Very likely to show conflict markers too, but this is mechanical — resolve via rebase + `bun install` regeneration, not a content decision.
+
+No other biome.jsonc/package.json PR (#300, #60, and the ~25 other ultracite/biome renovate bumps) carries review comments — all are bot-only, auto-merged renovate PRs with empty `.reviews`.
+
+### 3. Applicable feedback — conventions from prior "new workspace package" PRs
+
+**None found — say so explicitly.** Searched all history for commits adding any `packages/*/package.json`:
+- `734b8a7` ("Initial commit") — added `packages/database`, `packages/ai`, and all other current sibling packages at once, pre-dating any PR review.
+- `ceb5ea0` (2025-12-09, direct commit "chore: update dependencies...") — incidentally added `packages/learning-primitives/package.json` (later deleted in `681f339`); no associated PR found via `gh api search/issues` on the SHA or a `learning-primitives` search — predates this repo's PR workflow (earliest PR activity is `#39`, 2026-02-13).
+- `389c8fc` — PR #292 itself, adding `packages/knowledge`.
+
+**`@repo/knowledge` is the first new workspace package ever introduced through this repo's actual PR-review process.** There is no prior reviewed PR establishing env-key, package.json-shape, or test-wiring conventions to check PR #292 against — nothing to violate, nothing to cite.
+
+### Summary for lead reviewer
+
+The one concrete, verified, actionable item is the **`biome.jsonc:3` merge conflict** against current `main` (GitHub reports `mergeable: CONFLICTING`), caused by PR #292 and already-merged PR #323 independently fixing the same ultracite v7 path rename with different formatting. Everything else the PR touches at the root (`package.json` scripts, `.entire/*`) converges cleanly with main and needs no reviewer action beyond a routine rebase. No applicable review-comment precedent exists for new-package conventions (item 3) since no prior PR ever created one.</result>
+<usage><subagent_tokens>88296</subagent_tokens><tool_uses>34</tool_uses><duration_ms>391960</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a5b0416c1c39624ae</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a5b0416c1c39624ae.output</output-file>
+<status>completed</status>
+<summary>Agent "Review: git history context" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Review Findings — PR #292, git-history-based bugs/inconsistencies
+
+**Methodology note:** Working directory is shared (checkpoint commits from concurrent agents visible in `git log --all`); confirmed mid-investigation that `biome.jsonc` had an uncommitted working-tree edit from something else in this workspace (`git status --short` showed ` M biome.jsonc`, re-wrapping `extends` to multi-line, matching exactly the failure mode commit 26327a7 describes). All findings below are based on committed refs only (`origin/main` = `7f86db0`, `HEAD` = `26327a7`), verified via `git show &lt;sha&gt;:&lt;path&gt;`, not the mutable working tree.
+
+---
+
+**1. `2cdec4f` (partial-filter fix): complete, no stale references — verified, no issue.**
+Grepped all of `packages/knowledge` for `sparse`/`gmailMessageId`/`partialFilterExpression`: the only `sparse` hit anywhere is in the untracked plan doc `docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md:1023`, which is the *original* plan snippet, correctly superseded by that same doc's "Execution notes" section (lines 1565–1576) explicitly warning "never deploy the sparse variant." No tracked file (`collections.ts`, `collections.test.ts`, `erasure.ts`, `erasure.test.ts`, `scripts/setup-indexes.ts`) references old sparse behavior. `redactionSkipped` assertions cover all three erasure paths (cascade, unknown person, no-usable-identifiers).
+
+**2. `packages/knowledge/erasure.ts:75` — the `pattern.lastIndex = 0` reset added by `2cdec4f` is dead code; its justifying comment doesn't hold up (low severity).**
+Comment (erasure.ts:72-74) claims omitting the reset "would otherwise skip alternating matches across sources." Traced the control flow and verified empirically (`node -e`) that `String.prototype.replace` on a `g`-flagged RegExp unconditionally resets `lastIndex` to 0 at the *start* of the call and always leaves it at 0 when done — independent of whatever `.test()` left it at. `email.originalSender`'s `.test()` call (the only stateful read) is always immediately followed, within the same `source.email ? {...} : {}` object-literal branch, by `email.subject`'s `.replace()` call, which force-resets `lastIndex` before the loop reaches the next source. By induction from the RegExp's initial `lastIndex = 0`, it is provably always 0 at the top of every iteration, with or without this line. No test added by `2cdec4f` isolates this line's effect — removing it would not fail any test. Harmless, but the stated rationale is inaccurate; worth a comment fix or removal so it isn't cargo-culted later.
+
+**3. `biome.jsonc` — branch's fix (`484e1a0`) duplicates, differently formatted, a fix main already applied independently; confirms the reported merge conflict.**
+- Branch `484e1a0` (2026-07-10): `"extends": ["ultracite/core",...]` → `"extends": ["ultracite/biome/core","ultracite/biome/react","ultracite/biome/next"]` (single-line).
+- Main `42b48f4` "feat(web): agentic engineering masterclass (#323)" (2026-07-28) made the *identical* rename independently, but formatted multi-line, and its embedded commit message literally says "biome.jsonc kept the v5-era extends... v7... ultracite/biome/*. Also pin check/fix scripts to the local ultracite" — the exact same two fixes as this branch's `484e1a0` + `26327a7`, arrived at independently.
+- Main's version additionally adds `"!**/*.generated.*"` to `files.includes` (for the masterclass's generated demo files), which the branch lacks.
+- Evidence: `git diff origin/main HEAD -- biome.jsonc` (origin/main=`7f86db0`, HEAD=`26327a7`) shows both deltas. This is a pure formatting/line-based conflict (JSON-semantically identical extends array); on rebase, take main's version — the branch contributes nothing new to this file once the extends-path portion is accounted for.
+
+**4. `package.json` (root) — script-pin fix is byte-identical on both sides (clean merge), but three devDependency pins are stale and one override is *missing entirely* (real rebase risk).**
+- `check`/`fix` scripts: branch `26327a7` and main `42b48f4` made the exact same edit (`bunx --bun ultracite@latest` → `bunx --bun ultracite`) — will merge cleanly, no action needed.
+- Stale pins (branch → main, both via routine Renovate patch bumps, low risk):
+  - `@biomejs/biome`: `2.5.3` → `2.5.6` (main via `0a89b35` "fix(deps): update patch updates (#327)", following `098c070` "chore(deps): update dependency @biomejs/biome to v2.5.4 (#300)")
+  - `turbo`: `2.10.4` → `2.10.7` (main via `550824a` "fix(deps): update patch updates (#318)")
+  - `ultracite`: `7.9.3` → `7.9.4` (main via `63fd4e2` "fix(deps): update patch updates (#297)") — same package this PR's biome fix targets; confirmed `ultracite/biome/*` path scheme is unchanged 7.9.3→7.9.4, so no further breakage, just staleness.
+- **Real risk:** main's `overrides` block has `"@radix-ui/react-slot": "1.3.3"`, entirely absent from the branch (branch predates it). Added by `0be52bc` "fix: pin @radix-ui/react-slot to 1.3.0 to unblock web build" (2026-07-24): `@radix-ui/react-slot@1.3.1` shipped a module-scope `React.createContext` without `"use client"`, crashing `next build` when Slot is imported from a server component (`design-system button.tsx`); bumped 1.3.0→1.3.3 by `08a2639` "fix(deps): update patch updates (#316)" (2026-07-25). Confirmed via `bun.lock`: on `origin/main`, `@radix-ui/react-slot` resolves uniformly to `1.3.3` across every Radix package (react-collection, react-menu, react-popover, etc. at bun.lock line 581 override + all consumers); on the branch, the same packages resolve to a mix of `1.3.0`/`1.2.3` because the override doesn't exist. `packages/knowledge` itself has no Radix dependency, so this isn't a bug the PR introduces — but if the `package.json`/`bun.lock` conflict (confirmed: 1465 changed lines in `bun.lock`) is resolved by naively keeping the branch's `overrides` block, it will silently reintroduce the `next build` crash on `apps/web`.
+
+**5. `packages/knowledge/package.json:21` — `@types/node: "26.1.1"` is stale by one patch vs. every other package on main.**
+- `zod` (`^4.4.3`), `mongodb` (`^7.5.0`), `typescript` (`^7.0.2`), `@t3-oss/env-nextjs` (`^0.13.11`) all match main's current convention exactly across every `apps/*` and `packages/*` — no skew, no issue.
+- `@types/node: "26.1.1"` was correct and consistent *at the branch's fork point* (confirmed: `packages/database/package.json` at merge-base `5a49022` also pinned exactly `26.1.1`). Main has since moved every package to `26.1.2` via `065c9ef` "fix(deps): update patch updates (#322)" (merged ~2026-07-27/28). Purely base-branch drift, not an authoring error — but it will look inconsistent immediately after rebase and likely draw its own targeted Renovate/lint flag unless bumped alongside the merge.
+
+Note: `git merge-base origin/main HEAD` = `5a49022` (2026-07-10), confirming the branch has been diverged from main for the full ~3-week window described.</result>
+<usage><subagent_tokens>147531</subagent_tokens><tool_uses>42</tool_uses><duration_ms>557054</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a40bd14b03b17ff98</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a40bd14b03b17ff98.output</output-file>
+<status>completed</status>
+<summary>Agent "Review: shallow bug scan" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Reviewed the full diff (`git diff origin/main...HEAD`) and all new files under `packages/knowledge/` (erasure.ts, collections.ts, search.ts, client.ts, keys.ts, index.ts, all schemas, scripts/setup-indexes.ts, all tests), cross-checked against the design spec/plan docs (`docs/superpowers/specs/2026-07-10-knowledge-hub-design.md`, `docs/superpowers/plans/2026-07-10-knowledge-hub-foundation.md`) to distinguish documented/intentional gaps from real bugs, verified the BSON regex-serialization and Atlas Search `equals`/`token` semantics against the actual `bson` package source and MongoDB docs, and reproduced one issue empirically against a live MongoDB instance.
+
+## Suspected bugs
+
+**`packages/knowledge/erasure.ts:42-47`** — The proposal-draft discard step scopes its `arrayFilters` only on `draft.anchors.personId`, not on `draft.resolution.status`, so it force-overwrites *every* fact draft anchored to the erased person in any `open` proposal to `resolution.status: "discarded"` — even drafts that were already `"confirmed"` or `"edited"` (leaving their `resolution.factId` dangling, since the referenced fact was just deleted in step 1). The comment above it says "Discard **pending** fact drafts," but the code doesn't check for pending status.
+
+Failure scenario (reproduced against a live MongoDB instance): a proposal has two `factDrafts`, one already reviewed (`anchors.personId: &lt;erased person&gt;`, `resolution: {status: "confirmed", factId: &lt;someFactId&gt;}`) and one unrelated draft still `resolution.status: "pending"` (proposal stays `status: "open"` because not all drafts are resolved yet — a realistic state for a review-queue UI where a reviewer processes drafts one at a time). Calling `erasePerson` on that person produced:
+```
+draft[0] (was "confirmed" w/ factId) resolution: {"status":"discarded","factId":"&lt;original id, now dangling&gt;"}
+draft[1] (unrelated, was "pending") resolution: {"status":"pending"}
+```
+i.e., the already-confirmed draft's audit trail is silently rewritten to "discarded" with a stale `factId` still attached, rather than being left alone as the comment implies. Whether this is reachable depends on whether the (not-yet-built) app layer ever leaves a proposal `open` with some drafts already resolved — nothing in this package's schema or code prevents that state, and the "review queue, tiny volume, two users" workflow described in the design doc makes partial/incremental review plausible.
+
+No other findings. Specifically checked and found correct (per documented invariants, cross-referenced against the plan's own design notes, and/or verified against MongoDB source/docs):
+- The shared `/gi` `pattern` reuse across `.replace`/`.test` in the redaction loop (erasure.ts:71-101) — the `pattern.lastIndex = 0` reset is correctly placed and sufficient; confirmed via the existing `erasePerson` test passing against a real MongoDB instance (`email.originalSender` redacts to exactly `"[REDACTED]"`).
+- `partialFilterExpression: { "email.gmailMessageId": { $exists: true } }` on the unique gmail index (collections.ts:51) — this is the canonical correct pattern (already fixed in an earlier commit on this branch per `git log`).
+- `{ supersededBy: null, validUntil: null }` in search.ts:56 — correctly relies on Mongo's "equality-to-null matches missing-or-null" semantics, matching the documented fact-lifecycle convention.
+- `$search.compound.filter` using `equals` against `token`-typed `tenantId`/`category` fields (search.ts) — verified via MongoDB docs this is the documented/correct pattern for exact-match filtering (not `term`/`phrase`); `$match` after `$search` and `$limit` placed last are correctly ordered.
+- Tenant scoping — every query in erasure.ts, collections.ts, and search.ts includes `tenantId` (verified line by line); no cross-tenant leak found.
+- Zod refine anchor invariants (`factAnchorsSchema`, `factDraftAnchorsSchema`) correctly use `Boolean()` so an empty-string draft id is treated as "no anchor," consistent with tests.
+- The empty-identifiers guard in erasure.ts (skip redaction rather than building `/(?:)/gi`) is present and correct.
+- `packages/knowledge` deliberately does not redact/erase `factDrafts[].text`, person-type `entityDrafts[].data`, or resolved proposals — this is an explicitly tracked "open product decision" in the plan doc (line 1576), not an oversight, so I did not flag it as a bug per the instruction to ignore documented/intentional gaps.</result>
+<usage><subagent_tokens>127060</subagent_tokens><tool_uses>40</tool_uses><duration_ms>693675</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a2b59d577606b2063</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a2b59d577606b2063.output</output-file>
+<status>completed</status>
+<summary>Agent "Review: code-comment compliance" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Discrepancies found (packages/knowledge, PR #292)
+
+All four items below were verified empirically against a live MongoDB 7 instance (Docker) and/or direct Zod/regex probes — not just static reading. Scratch/probe files were created outside the tracked tree and removed; `git status` for `packages/knowledge` is clean.
+
+---
+
+**1. `packages/knowledge/erasure.ts:42` vs `erasure.ts:43-47`**
+
+Comment claim: `// 2. Discard pending fact drafts about the person in open proposals.`
+
+Actual code:
+```js
+await proposals.updateMany(
+  { status: "open", tenantId },
+  { $set: { "factDrafts.$[draft].resolution.status": "discarded" } },
+  { arrayFilters: [{ "draft.anchors.personId": personId }] }
+);
+```
+The `arrayFilters` condition only checks `draft.anchors.personId`; it never checks `draft.resolution.status`. Reproduced live: seeded an open proposal with two factDrafts anchored to the same person — one already `{ status: "confirmed", factId: &lt;ObjectId&gt; }` and one `{ status: "pending" }`. After `erasePerson`, **both** drafts end up `"discarded"`, including the already-confirmed one (its `factId` link is left dangling). The comment's "pending" scoping is not enforced — any factDraft anchored to the person in an open proposal gets stomped, regardless of prior resolution state. The existing `erasure.test.ts` fixture only ever has one `"pending"` draft, so this gap isn't covered by the test suite.
+
+---
+
+**2. `packages/knowledge/erasure.ts:72-75` vs `erasure.ts:81-95`**
+
+Comment claim:
+```js
+// Reset stateful regex state before the `.test` call below: `pattern`
+// is a shared `g`-flagged RegExp, and `.test` advances `lastIndex` on
+// match, which would otherwise skip alternating matches across sources.
+pattern.lastIndex = 0;
+```
+Actual behavior: traced against the ECMA-262 spec and confirmed empirically (removed the reset in an isolated repro of the exact call sequence, output was byte-identical with or without it). `String.prototype.replace()` on a global regex *unconditionally* resets `lastIndex` to 0 at its own entry (regardless of prior state) and always ends at 0 (a global-flag `.replace()` only terminates via a failed `exec`, which itself resets `lastIndex` to 0). In this loop, `pattern.test(source.email.originalSender)` (line 86-88) is *always* immediately followed, within the same `source.email ? {...} : {}` block/iteration, by `source.email.subject.replace(pattern, REDACTED)` (line 91-94), which self-resets regardless of what `.test()` left behind. So by the end of every iteration `lastIndex` is guaranteed back to 0 independent of the explicit reset — the described "skip alternating matches across sources" failure mode cannot occur given the code's actual structure. The reset is harmless but not doing what the comment says it's doing; it would only become load-bearing if the `.test()` call were ever decoupled from the immediately-following `subject.replace()`.
+
+---
+
+**3. `packages/knowledge/schemas/facts.ts:39-42` vs `packages/knowledge/search.ts:54-56`**
+
+Comment claims: facts.ts:41 — `// Lifecycle (dream cycle): a fact is currently valid iff BOTH are absent.` ; search.ts:54-55 — `// Convention from schemas/facts.ts: valid iff both lifecycle fields absent. // In MongoDB, { field: null } matches both null and missing.`
+
+Both fields (`supersededBy`, `validUntil`) are declared `.optional()`, not `.nullable()`/`.nullish()`. Verified via `factSchema.safeParse()`: passing `supersededBy: null` or `validUntil: null` explicitly **fails** validation (`"expected ObjectId, received null"` / `"expected date, received null"`), while omitting the key succeeds. Separately verified against the live driver (mongodb@7.5.0, `MongoClient` constructed with no options in `client.ts`, so `ignoreUndefined` stays at its default `false`): inserting a document with a key *present* but set to JS `undefined` (e.g. `{ supersededBy: undefined }`, the natural shape produced by spreading a wider typed object) is silently serialized and stored as BSON `null`, not omitted (`hasOwnProperty` true, value `null`). The `{ field: null }` Mongo-query-matches-both-null-and-missing claim itself is accurate (confirmed), but the schema cannot actually round-trip the state its own comment treats as equivalent to "absent" — any future write path that isn't careful to omit rather than `undefined`-assign these keys will produce documents that `factSchema.parse()` rejects. No code in this diff currently writes these fields (no `.parse()`/`.safeParse()` call exists anywhere outside `__tests__/`), so this is latent rather than actively triggered, but it directly contradicts the "iff BOTH absent" symmetry the two comments jointly assert.
+
+---
+
+**4. `packages/knowledge/index.ts:1,3` + `client.ts:1` vs the stated "server-only ONLY in client.ts — everything else importable from Bun tests" constraint**
+
+Verified true: `server-only` is imported only by `client.ts` (grep across the whole package), and currently no test file imports `../client` or `../index` (grep across `__tests__/*.ts`). However, `index.ts` (the barrel, `package.json`'s `"main"`/`"types"` entry, self-commented as "Package API re-export pattern for clean import surface") re-exports `getKnowledgeDb` from `./client`. The installed `server-only@0.0.1` package (`node_modules/.bun/server-only@0.0.1/.../index.js`) has **no `typeof window` guard** — it unconditionally `throw`s on import, resolving only to the empty/no-op `empty.js` under a `"react-server"` export condition that a plain `bun test`/`bun run` never sets. Reproduced directly: a static top-level `import { getKnowledgeDb } from ".../packages/knowledge/index.ts"` in a Bun test file crashes the entire test file ("Unhandled error between tests", 0 pass / 1 fail, exit 1). So while no *current* test explodes, the package's own canonical/declared entry point is the one import path that is not Bun-test-safe — only bypassing the barrel with direct relative imports (as every current test does) avoids it.</result>
+<usage><subagent_tokens>174347</subagent_tokens><tool_uses>95</tool_uses><duration_ms>1259539</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>ae2819db28018442a</task-id>
+<tool-use-id>toolu_01TNqHBMKoPBbkuNvuV6ctL4</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/ae2819db28018442a.output</output-file>
+<status>completed</status>
+<summary>Agent "Score finding: lastIndex comment" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>**Score: 50**
+
+The verification is sound: `.replace()` unconditionally resets `lastIndex` at entry and exit, making the reset at line 75 provably dead code. The comment describing a stateful `.test()` problem that "would otherwise skip alternating matches" is indeed misleading, since the immediately following `.replace()` resets the index regardless. However, this is a clarity/documentation issue rather than a functional bug—the code behaves correctly—and a senior engineer would likely classify this as a polish item rather than a blocking finding. The comment should be clarified or the reset removed, but the PR is not broken without this change.</result>
+<usage><subagent_tokens>24858</subagent_tokens><tool_uses>1</tool_uses><duration_ms>24162</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>ac168095287250f75</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/ac168095287250f75.output</output-file>
+<status>completed</status>
+<summary>Agent "Score finding: types-node staleness" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>**0**
+
+This is a false positive. The finding reflects normal base-branch drift from a Renovate patch update—the author correctly pinned `@types/node: "26.1.1"` to match the branch's fork point (2026-07-10), and the one-patch gap would be automatically resolved by Renovate or absorbed during merge conflict resolution with main. A single patch difference in a devDependency type package is a pedantic nitpick that falls squarely into the rubric's false-positive territory; no senior engineer would flag this in review.</result>
+<usage><subagent_tokens>23858</subagent_tokens><tool_uses>2</tool_uses><duration_ms>19417</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a050291c037cd16ec</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/a050291c037cd16ec.output</output-file>
+<status>completed</status>
+<summary>Agent "Score finding: barrel server-only" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>**75**
+
+Confirmed real: importing the barrel in a Bun test crashes with "This module cannot be imported from a Client Component" (verified reproduction). The plan's constraint explicitly says "Everything else must be importable from Bun tests (server-only throws outside React server environments)" — the barrel re-exports `getKnowledgeDb` from `client.ts` which has `import "server-only"`, violating the intent. This will break when apps/agent (eve framework, not RSC environment) imports the barrel at startup.</result>
+<usage><subagent_tokens>54663</subagent_tokens><tool_uses>21</tool_uses><duration_ms>105444</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>af52efb267e978ccb</task-id>
+<tool-use-id>toolu_01VLD8o7buSffrohrYmR1Tv8</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-marseille/2e22c0c7-c7c9-49d3-acee-d8fee1526066/tasks/af52efb267e978ccb.output</output-file>
+<status>completed</status>
+<summary>Agent "Score finding: undefined-null asymmetry" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Based on my verification, I can now provide a confidence score for this data-integrity issue.
+
+**VERIFICATION SUMMARY:**
+
+1. **Schema definition** (facts.ts lines 39, 42): Lifecycle fields declared with `.optional()`, which in Zod accepts `undefined` or omitted values, but **NOT** `null`.
+
+2. **Zod behavior confirmed**: I tested that `.optional()` rejects explicit `null` while `.nullish()` accepts it.
+
+3. **Client.ts construction** (lines 12-14): MongoClient created with only URI, no options object, meaning it uses the MongoDB driver's default `ignoreUndefined: false`.
+
+4. **MongoDB driver default**: With `ignoreUndefined: false`, undefined values serialize to BSON null (well-documented behavior in mongodb@7.5.0).
+
+5. **Current write paths**: No existing write operations in erasure.ts or collections.ts set the lifecycle fields. Tests only parse hand-constructed objects, not database round-trips.
+
+6. **Asymmetry confirmed**: If Plan 2 writes `{...fact, supersededBy: undefined}`, it becomes BSON null, which future Zod parses will reject.
+
+**THE ISSUE IS REAL**: The package declares a convention ("valid iff both absent") via schema, but the driver default violates this convention by converting undefined→null. The search filter correctly expects null, but the Zod parser won't accept it on round-trip reads.
+
+**75**
+
+Highly confident this is a real issue that will definitely surface when Plan 2 writes facts with undefined lifecycle fields. The package is positioned as the fully-tested foundation, and this is an architectural data-layer flaw that must be fixed before downstream consumers rely on it. However, it's latent in this PR (no current write path triggers it), which prevents a 100 score.</result>
+<usage><subagent_tokens>45308</subagent_tokens><tool_uses>25</tool_uses><duration_ms>130572</duration_ms></usage>
+</task-notification>
+
+---
+
+Go, all in one pass, your recommendations.
