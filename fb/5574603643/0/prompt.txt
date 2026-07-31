@@ -1,0 +1,20 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/buenos-aires directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+I'm thinking of building a playground for Next.js and Vercel. The docs are already good for both, and there's a playground for the app directory, but I want to build interactive, live examples of everything Next.js has to offer. The Vercel platform has a lot functionality that I would love to cover as well, as far as possible. I'm coming from the background of coaching web development in bootcamps and I know how difficult things are in the beginning. This playground serves the purpose of lowering the barrier to entry, but even for more experienced engineers it's a living guide.
+
+The current landing page in the web project covers AI and misconceptions. There's a masterclass I held, as well. I've reconsidered since, and now I want to build the live playground using AI. Everything I build is public already (the repo is public on GitHub). The way I use Conductor with Claude Code under the hood I want to share as well using Entire.io.
+
+For the first work in that direction, build the landing page. We need several working demos that show some aspect of Next.js and/or Vercel. Maybe you can figure out the most commonly used features or the ones that evoke looking them up in the docs a lot, so we can focus on them for the page. Keep the current design style. The current landing page is no longer needed; you can fully remove anything on it and its references, demos, everything. This is a fresh start. Keep the weekly digest form, though. I want to capture emails for people interested in more of what I do. I want to offer paid cohorts where I coach people.
