@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "da0d974a84e9",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/agent-knowledge-hub-design",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/da/0d974a84e9/0/metadata.json",
+      "transcript": "/da/0d974a84e9/0/full.jsonl",
+      "content_hash": "/da/0d974a84e9/0/content_hash.txt",
+      "prompt": "/da/0d974a84e9/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 111,
+    "cache_creation_tokens": 285720,
+    "cache_read_tokens": 12917757,
+    "output_tokens": 127144,
+    "api_call_count": 60
+  }
+}
