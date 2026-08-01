@@ -1,0 +1,55 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "d7081c074fd0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/self-hosted-renovate",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/docs/favicon.svg",
+    "apps/docs/images/hero-dark.svg",
+    "apps/docs/images/hero-light.svg",
+    "apps/docs/logo/dark.svg",
+    "apps/docs/logo/light.svg",
+    "apps/web/public/dot-texture.svg",
+    "apps/web/public/investors/deccel.svg",
+    "apps/web/public/investors/remington-schwartz.svg",
+    "apps/web/public/logo-cloud/laravel.svg",
+    "apps/web/public/logo-cloud/savvycal.svg",
+    "apps/web/public/logo-cloud/statamic.svg",
+    "apps/web/public/logo-cloud/transistor.svg",
+    "apps/web/public/logo-cloud/tuple.svg",
+    "apps/web/public/logo-cluster/career-builder.svg",
+    "apps/web/public/logo-cluster/dribbble.svg",
+    "apps/web/public/logo-cluster/glassdoor.svg",
+    "apps/web/public/logo-cluster/linkedin.svg",
+    "apps/web/public/logo-cluster/upwork.svg",
+    "apps/web/public/logo-cluster/we-work-remotely.svg",
+    "apps/web/public/logo-timeline/css.svg",
+    "apps/web/public/logo-timeline/html.svg",
+    "apps/web/public/logo-timeline/javascript.svg",
+    "apps/web/public/logo-timeline/mongodb.svg",
+    "apps/web/public/logo-timeline/nextjs.svg",
+    "apps/web/public/logo-timeline/nodejs.svg",
+    "apps/web/public/logo-timeline/postgresql.svg",
+    "apps/web/public/logo-timeline/react.svg",
+    "apps/web/public/logo-timeline/ssr.svg",
+    "apps/web/public/logo-timeline/state-management.svg",
+    "apps/web/public/logo-timeline/tailwindcss.svg",
+    "apps/web/public/logo-timeline/typescript.svg"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d7/081c074fd0/0/metadata.json",
+      "transcript": "/d7/081c074fd0/0/full.jsonl",
+      "content_hash": "/d7/081c074fd0/0/content_hash.txt",
+      "prompt": "/d7/081c074fd0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 287,
+    "cache_creation_tokens": 245495,
+    "cache_read_tokens": 6728388,
+    "output_tokens": 57889,
+    "api_call_count": 73
+  }
+}
