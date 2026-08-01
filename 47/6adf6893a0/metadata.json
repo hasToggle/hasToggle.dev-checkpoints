@@ -4,20 +4,30 @@
   "strategy": "manual-commit",
   "branch": "Kheirah/deprecated-deps",
   "checkpoints_count": 2,
-  "files_touched": null,
+  "files_touched": [
+    "apps/email/package.json",
+    "bun.lock",
+    "packages/auth/package.json"
+  ],
   "sessions": [
     {
       "metadata": "/47/6adf6893a0/0/metadata.json",
       "transcript": "/47/6adf6893a0/0/full.jsonl",
       "content_hash": "/47/6adf6893a0/0/content_hash.txt",
       "prompt": "/47/6adf6893a0/0/prompt.txt"
+    },
+    {
+      "metadata": "/47/6adf6893a0/1/metadata.json",
+      "transcript": "/47/6adf6893a0/1/full.jsonl",
+      "content_hash": "/47/6adf6893a0/1/content_hash.txt",
+      "prompt": "/47/6adf6893a0/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 466,
-    "cache_creation_tokens": 613058,
-    "cache_read_tokens": 26719531,
-    "output_tokens": 146555,
-    "api_call_count": 169
+    "input_tokens": 510,
+    "cache_creation_tokens": 702708,
+    "cache_read_tokens": 28356478,
+    "output_tokens": 157403,
+    "api_call_count": 192
   }
 }
