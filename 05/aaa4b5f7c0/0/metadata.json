@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "05aaa4b5f7c0",
+  "session_id": "0d04d4d6-5e32-492c-b2c2-47420ecf2a87",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-01T15:21:34.203221Z",
+  "branch": "Kheirah/biome-svg-churn",
+  "checkpoints_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "1a36a5a149a7",
+  "token_usage": {
+    "input_tokens": 417,
+    "cache_creation_tokens": 336298,
+    "cache_read_tokens": 20202333,
+    "output_tokens": 117422,
+    "api_call_count": 143
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 47,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2027,
+      "agent_lines_removed": 573,
+      "user_added_per_file": {
+        ".context/attachments/oAyl8c/PR instructions.md": 47
+      }
+    }
+  ]
+}
