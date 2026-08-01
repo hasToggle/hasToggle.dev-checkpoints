@@ -33,3 +33,7 @@ Create a PR .context/attachments/oAyl8c/PR instructions.md
 ---
 
 wh could spinor as a name be appropriate to the idea of building a company brain? I'm kind of fascinated by the two rotations needed to start from the origin detail.
+
+---
+
+I don't have Renovate on that spinor repo anymore. Help me self-host a Renovate app and add to this repo (the Renovate app on hasToggle is managed by the Renovate Cloud Runner).
