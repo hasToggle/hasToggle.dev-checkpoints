@@ -27,3 +27,9 @@ please run `gh repo set-default` to select a default remote repository.
 
 I activated the vulnerability alerts using your command.
 Let's change the app-id input to the client-id instead. can you do it? if you need my input, let me know.
+
+---
+
+Merged.
+
+clean up, then let's fix the stop hook. i want to understand what this hook does differently from the command you would run. why does one produce these formatted svgs?
