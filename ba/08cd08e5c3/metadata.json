@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ba08cd08e5c3",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/deprecated-deps",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/ba/08cd08e5c3/0/metadata.json",
+      "transcript": "/ba/08cd08e5c3/0/full.jsonl",
+      "content_hash": "/ba/08cd08e5c3/0/content_hash.txt",
+      "prompt": "/ba/08cd08e5c3/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 513,
+    "cache_creation_tokens": 635557,
+    "cache_read_tokens": 34023370,
+    "output_tokens": 161898,
+    "api_call_count": 194
+  }
+}
