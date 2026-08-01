@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "05aaa4b5f7c0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/biome-svg-churn",
+  "checkpoints_count": 2,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/05/aaa4b5f7c0/0/metadata.json",
+      "transcript": "/05/aaa4b5f7c0/0/full.jsonl",
+      "content_hash": "/05/aaa4b5f7c0/0/content_hash.txt",
+      "prompt": "/05/aaa4b5f7c0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 417,
+    "cache_creation_tokens": 336298,
+    "cache_read_tokens": 20202333,
+    "output_tokens": 117422,
+    "api_call_count": 143
+  }
+}
