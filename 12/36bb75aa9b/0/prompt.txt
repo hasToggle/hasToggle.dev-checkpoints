@@ -22,3 +22,8 @@ when i tried running gh workflow run renovate.yml -f dryRun=true -f logLevel=deb
 X No default remote repository has been set. To learn more about the default repository, run: gh repo set-default --help
 
 please run `gh repo set-default` to select a default remote repository.
+
+---
+
+I activated the vulnerability alerts using your command.
+Let's change the app-id input to the client-id instead. can you do it? if you need my input, let me know.

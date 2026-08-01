@@ -3,7 +3,7 @@
   "checkpoint_id": "1236bb75aa9b",
   "strategy": "manual-commit",
   "branch": "Kheirah/renovate-client-id",
-  "checkpoints_count": 5,
+  "checkpoints_count": 1,
   "files_touched": null,
   "sessions": [
     {
@@ -14,10 +14,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 61,
-    "cache_creation_tokens": 42823,
-    "cache_read_tokens": 6452267,
-    "output_tokens": 28327,
-    "api_call_count": 33
+    "input_tokens": 397,
+    "cache_creation_tokens": 322096,
+    "cache_read_tokens": 17673546,
+    "output_tokens": 105460,
+    "api_call_count": 132
   }
 }
