@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "476adf6893a0",
+  "session_id": "8ca5da3d-f521-49e9-9284-e141fbcd3f35",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-01T19:25:13.204925Z",
+  "branch": "Kheirah/deprecated-deps",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/email/package.json",
+    "bun.lock",
+    "packages/auth/package.json"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "c690d5fa5b5e",
+  "token_usage": {
+    "input_tokens": 44,
+    "cache_creation_tokens": 89650,
+    "cache_read_tokens": 1636947,
+    "output_tokens": 10848,
+    "api_call_count": 23
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-01T19:25:13.198349Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 6,
+    "human_removed": 90,
+    "total_committed": 0,
+    "total_lines_changed": 96,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 51,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47
+      }
+    }
+  ]
+}
