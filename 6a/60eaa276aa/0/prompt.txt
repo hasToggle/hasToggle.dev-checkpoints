@@ -18,3 +18,14 @@ this repo is a fork of hasToggle where I have created this PR:
 https://github.com/hasToggle/hasToggle.dev/pull/292
 
 read it, understand it, then apply it in this repo instead. I will close the PR 292 in hasToggle once you have moved/reapplied all the code. I want hasToggle to become a Next.js & Vercel playground. The company brain product should be its own repo. I called the new product spinor.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/oAyl8c/PR instructions.md (2.0 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/oAyl8c/PR instructions.md
