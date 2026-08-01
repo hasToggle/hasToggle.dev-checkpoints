@@ -1,0 +1,36 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ba08cd08e5c3",
+  "session_id": "0d04d4d6-5e32-492c-b2c2-47420ecf2a87",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-01T19:33:34.766768Z",
+  "branch": "Kheirah/deprecated-deps",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b4e54841d7f9",
+  "token_usage": {
+    "input_tokens": 513,
+    "cache_creation_tokens": 635557,
+    "cache_read_tokens": 34023370,
+    "output_tokens": 161898,
+    "api_call_count": 194
+  },
+  "session_metrics": {
+    "turn_count": 14
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 51,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47
+      }
+    }
+  ]
+}
