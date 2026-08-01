@@ -1,0 +1,39 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "919214e6a43d",
+  "session_id": "0d04d4d6-5e32-492c-b2c2-47420ecf2a87",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-01T14:26:29.675778Z",
+  "branch": "Kheirah/self-hosted-renovate",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "docs/renovate.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "107c939c52f3",
+  "checkpoint_transcript_start": 388,
+  "transcript_lines_at_start": 388,
+  "token_usage": {
+    "input_tokens": 10,
+    "cache_creation_tokens": 6813,
+    "cache_read_tokens": 846506,
+    "output_tokens": 4735,
+    "api_call_count": 5
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-01T14:26:29.664586Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 0,
+    "total_lines_changed": 0,
+    "agent_percentage": 0,
+    "metric_version": 2
+  }
+}

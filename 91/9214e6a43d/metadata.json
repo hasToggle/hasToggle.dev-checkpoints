@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "919214e6a43d",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/self-hosted-renovate",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "docs/renovate.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/91/9214e6a43d/0/metadata.json",
+      "transcript": "/91/9214e6a43d/0/full.jsonl",
+      "content_hash": "/91/9214e6a43d/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 10,
+    "cache_creation_tokens": 6813,
+    "cache_read_tokens": 846506,
+    "output_tokens": 4735,
+    "api_call_count": 5
+  }
+}
