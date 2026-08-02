@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "78849610eb95",
+  "session_id": "8ca5da3d-f521-49e9-9284-e141fbcd3f35",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-02T18:28:11.206695Z",
+  "branch": "Kheirah/email-capture",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "packages/knowledge/__tests__/inbound.test.ts",
+    "packages/knowledge/inbound.ts",
+    "packages/knowledge/index.ts",
+    "packages/knowledge/keys.ts",
+    "apps/api/app/webhooks/inbound-email/route.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "233233ff095c",
+  "checkpoint_transcript_start": 1495,
+  "transcript_lines_at_start": 1495,
+  "token_usage": {
+    "input_tokens": 41,
+    "cache_creation_tokens": 26720,
+    "cache_read_tokens": 13265083,
+    "output_tokens": 14924,
+    "api_call_count": 22
+  },
+  "session_metrics": {
+    "turn_count": 16
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-02T18:28:11.162629Z",
+    "agent_lines": 270,
+    "agent_removed": 0,
+    "human_added": 15,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 285,
+    "total_lines_changed": 298,
+    "agent_percentage": 90.60402684563759,
+    "metric_version": 2
+  }
+}
