@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "78d180e23b1b",
+  "session_id": "8ca5da3d-f521-49e9-9284-e141fbcd3f35",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-02T18:14:37.967621Z",
+  "branch": "Kheirah/capture-ui",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ac42ceb7ee93",
+  "checkpoint_transcript_start": 1250,
+  "transcript_lines_at_start": 1250,
+  "token_usage": {
+    "input_tokens": 53,
+    "cache_creation_tokens": 75208,
+    "cache_read_tokens": 15489493,
+    "output_tokens": 32680,
+    "api_call_count": 29
+  },
+  "session_metrics": {
+    "turn_count": 15
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 376,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    }
+  ]
+}

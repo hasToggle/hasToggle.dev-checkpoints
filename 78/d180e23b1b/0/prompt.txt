@@ -1,0 +1,6 @@
+merged. now the capture ui. before you start, how do we record? do we use a package for that, is that native to web apis? answer first, do not continue yet.
+
+---
+
+I added the BLOB_READ_WRITE_TOKEN to the api project's .env.local
+However, I created a private blob store on Vercel. Read up on it for comprehensive context and adjust any of our plan accordingly. Continue now.
