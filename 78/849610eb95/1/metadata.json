@@ -1,0 +1,85 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "78849610eb95",
+  "session_id": "ef712bf2-1974-4603-ba58-0cf99925da56",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-02T18:28:21.095996Z",
+  "branch": "Kheirah/email-capture",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/api/app/webhooks/inbound-email/route.ts",
+    "apps/api/package.json",
+    "bun.lock",
+    "packages/knowledge/__tests__/collections.test.ts",
+    "packages/knowledge/__tests__/erasure.test.ts",
+    "packages/knowledge/__tests__/inbound.test.ts",
+    "packages/knowledge/__tests__/sources-facts.test.ts",
+    "packages/knowledge/collections.ts",
+    "packages/knowledge/inbound.ts",
+    "packages/knowledge/index.ts",
+    "packages/knowledge/keys.ts",
+    "packages/knowledge/schemas/sources.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "f82d78c3db87",
+  "token_usage": {
+    "input_tokens": 2,
+    "cache_creation_tokens": 25818,
+    "cache_read_tokens": 15273,
+    "output_tokens": 2338,
+    "api_call_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-02T18:28:21.07915Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 13,
+    "total_committed": 0,
+    "total_lines_changed": 13,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 706,
+      "user_lines_removed": 13,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-private-blob.ts": 44,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41,
+        "apps/api/app/webhooks/inbound-email/route.ts": 81,
+        "apps/api/package.json": 1,
+        "bun.lock": 1,
+        "packages/knowledge/__tests__/collections.test.ts": 5,
+        "packages/knowledge/__tests__/erasure.test.ts": 2,
+        "packages/knowledge/__tests__/inbound.test.ts": 98,
+        "packages/knowledge/__tests__/sources-facts.test.ts": 2,
+        "packages/knowledge/collections.ts": 3,
+        "packages/knowledge/inbound.ts": 87,
+        "packages/knowledge/index.ts": 2,
+        "packages/knowledge/keys.ts": 3,
+        "packages/knowledge/schemas/sources.ts": 1
+      },
+      "user_removed_per_file": {
+        "packages/knowledge/__tests__/collections.test.ts": 5,
+        "packages/knowledge/__tests__/erasure.test.ts": 2,
+        "packages/knowledge/__tests__/sources-facts.test.ts": 2,
+        "packages/knowledge/collections.ts": 3,
+        "packages/knowledge/schemas/sources.ts": 1
+      }
+    }
+  ]
+}
