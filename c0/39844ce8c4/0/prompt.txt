@@ -1,0 +1,117 @@
+yes
+
+---
+
+I'm setting up the Cluster in MongoDB and now I wonder, the cluster is currently configured as 0.0.0.0/0 which is literally open to the internet. That's not the privacy and security I promised with the company brain product. There's an option to create an endpoint, though. Three options:
+- dedicated cluster (needs billing)
+- federated database instance (needs billing)
+- Atlas stream processing
+
+The two latter options use AWS PrivateLink, which Vercel mentions on their docs as well. Educate me. Explain the options and recommend a way forward.
+
+---
+
+Understood. Do I have a DPA with MongoDB? I just created a new project with a free tier cluster. Where would I sign a DPA? or is that automatic?
+
+---
+
+ok, back to the remaining 2-4 items from our learning on claude code memory: 
+mongodb is set up, I have the credentials. where do I paste them?
+I'm creating an api key for assembly next. I want to unblock you from the remaining items. guide me.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/x15Ve1/Screenshot 2026-08-02 at 16.57.59.png (139.6 KB)
+</system_instruction>
+
+
+
+i have not created a database in the cluster yet. hence the uri does not end in any db name, yet. If you need me to create a db, let me know.
+
+I provided the assembly key and the ai gateway key as well. for the llm I'd like you to use deepseek/deepseek-v4-flash-0731
+
+from assembly I have a "Hybrid meeting notes" template recommended for my use case. it reads "Best for production meeting notetakers needing both live + polished output" with an agent prompt:
+
+You are helping me integrate AssemblyAI into my codebase. Build the integration described below end to end, matching the official API shape, do not invent endpoints or parameters.
+
+## Goal
+Use case: Hybrid meeting notes
+Category: AI Notetaker
+What good looks like: Accurate transcription tuned for this use case.
+
+## Recipe (recommended defaults)
+- Product: Streaming + Async
+- Model: universal-3-5-pro
+- Parameters:
+  - live:
+    - speech_model: "universal-3-5-pro"
+    - sample_rate: 16000
+    - mode: "balanced"
+    - speaker_labels: true
+  - post_call:
+    - speech_models: ["universal-3-5-pro", "universal-2"]
+    - speaker_labels: true
+    - language_detection: true
+    - sentiment_analysis: true
+    - speech_understanding:
+      - request: {"summarization":{"summary_type":"paragraph"},"action_items":{}}
+
+## API & integration notes
+- Use the WebSocket streaming API for the live pass (captions / agent input).
+- Use the REST /v2/transcript endpoint for the archival async pass with richer features.
+- Share session metadata (user, room, timestamps) across both passes so you can reconcile them.
+
+## Reference docs
+- Streaming quickstart: https://www.assemblyai.com/docs/streaming/getting-started/transcribe-streaming-audio
+- Async quickstart: https://www.assemblyai.com/docs/pre-recorded-audio/getting-started/transcribe-an-audio-file
+- Model selection: https://www.assemblyai.com/docs/streaming/select-the-speech-model
+
+## Deliverables
+1. A working implementation in the language/framework of my project (ask me if unclear).
+2. Config surfaced via environment variables, never hardcode the API key.
+3. Error handling: auth failures, reconnection for streaming, poll/webhook for async.
+4. A short README section explaining how to run it and how to tune the parameters above.
+5. Minimal but realistic test/demo that I can run locally.
+
+## Constraints
+- Use the raw HTTP/WebSocket API (not the AssemblyAI SDK) unless I explicitly ask for the SDK.
+- Keep dependencies minimal.
+- Match my existing code style and project structure, read the repo first.
+- Ask me clarifying questions about audio source, deployment target, and concurrency before writing code.
+
+.context/attachments/x15Ve1/Screenshot 2026-08-02 at 16.57.59.png 
+
+if it's helpful, now you have it.
+
+---
+
+It exists now.
+
+on assembly's univeral model: they also have PII redaction and profanity filter. just noting in case it's useful for us.
+
+---
+
+topped up. plus, I activated zero data retention earlier which is why it came up. but deepseek v4 does display a zdr, so it should work.
+
+---
+
+merged. your turn.
+
+---
+
+do you want to build this on top of PR#9 or merge into main first, then new branch/PR from main?
+
+---
+
+merged. review-queue UI next. before you start, in which project do you want to build it? the app project already has auth which would be necessary.
+
+---
+
+go
+
+---
+
+merged. continue on a new branch.
+by the way, I want to replace Clerk with better-auth (it's been acquired by Vercel) after we're fully done implementing the remaining items.
