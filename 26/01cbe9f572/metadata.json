@@ -3,7 +3,7 @@
   "checkpoint_id": "2601cbe9f572",
   "strategy": "manual-commit",
   "branch": "Kheirah/better-auth-migration",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "CLAUDE.md",
     "apps/api/app/webhooks/auth/route.ts",
@@ -31,13 +31,19 @@
       "transcript": "/26/01cbe9f572/0/full.jsonl",
       "content_hash": "/26/01cbe9f572/0/content_hash.txt",
       "prompt": "/26/01cbe9f572/0/prompt.txt"
+    },
+    {
+      "metadata": "/26/01cbe9f572/1/metadata.json",
+      "transcript": "/26/01cbe9f572/1/full.jsonl",
+      "content_hash": "/26/01cbe9f572/1/content_hash.txt",
+      "prompt": "/26/01cbe9f572/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 71,
-    "cache_creation_tokens": 73757,
-    "cache_read_tokens": 25632890,
-    "output_tokens": 40285,
-    "api_call_count": 39
+    "input_tokens": 83,
+    "cache_creation_tokens": 175318,
+    "cache_read_tokens": 27665677,
+    "output_tokens": 45081,
+    "api_call_count": 45
   }
 }
