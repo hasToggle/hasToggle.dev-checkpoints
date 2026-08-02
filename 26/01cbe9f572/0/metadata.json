@@ -1,0 +1,107 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "2601cbe9f572",
+  "session_id": "8ca5da3d-f521-49e9-9284-e141fbcd3f35",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-02T18:52:52.772495Z",
+  "branch": "Kheirah/better-auth-migration",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/api/app/webhooks/auth/route.ts",
+    "apps/api/app/webhooks/payments/route.ts",
+    "apps/app/app/actions/users/get.ts",
+    "apps/app/app/actions/users/search.ts",
+    "apps/app/app/api/auth/[...all]/route.ts",
+    "apps/app/package.json",
+    "apps/app/proxy.ts",
+    "apps/web/package.json",
+    "bun.lock",
+    "packages/auth/client.ts",
+    "packages/auth/components/sign-in.tsx",
+    "packages/auth/instance.ts",
+    "packages/auth/keys.ts",
+    "packages/auth/middleware.ts",
+    "packages/auth/package.json",
+    "packages/auth/provider.tsx",
+    "packages/auth/server.ts",
+    "packages/next-config/index.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "b3df56af0e37",
+  "checkpoint_transcript_start": 1589,
+  "transcript_lines_at_start": 1589,
+  "token_usage": {
+    "input_tokens": 71,
+    "cache_creation_tokens": 73757,
+    "cache_read_tokens": 25632890,
+    "output_tokens": 40285,
+    "api_call_count": 39
+  },
+  "session_metrics": {
+    "turn_count": 20
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-02T18:52:52.697179Z",
+    "agent_lines": 409,
+    "agent_removed": 458,
+    "human_added": 547,
+    "human_modified": 24,
+    "human_removed": 0,
+    "total_committed": 979,
+    "total_lines_changed": 1451,
+    "agent_percentage": 59.75189524465886,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 420,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-private-blob.ts": 44,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 954,
+      "user_lines_removed": 11,
+      "agent_lines_added": 435,
+      "agent_lines_removed": 459,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-private-blob.ts": 44,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41,
+        "bun.lock": 1,
+        "packages/auth/client.ts": 1,
+        "packages/auth/components/organization-switcher.tsx": 216,
+        "packages/auth/components/sign-up.tsx": 220,
+        "packages/auth/components/user-button.tsx": 95,
+        "packages/auth/package.json": 1
+      },
+      "user_removed_per_file": {
+        "packages/auth/client.ts": 1,
+        "packages/auth/components/sign-up.tsx": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+change the PR body in that no mentions remain of forsuxess because this product is not part of forsuxess. let's call it spiritsdontfly for now.
+
+---
+
+both merged. start the migration next. be thorough. use subagents to conserve your own context where possible.
+
+---
+
+<task-notification>
+<task-id>ae57c58771ae4dc84</task-id>
+<tool-use-id>toolu_01U1Hp5tUE1V6wdkJV6nApFF</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-spinor-tacoma/8ca5da3d-f521-49e9-9284-e141fbcd3f35/tasks/ae57c58771ae4dc84.output</output-file>
+<status>completed</status>
+<summary>Agent "Inventory all Clerk touchpoints" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I have a complete picture. Here is the map.
+
+---
+
+# Clerk / auth touchpoint inventory — `/Users/eric/conductor/workspaces/spinor/tacoma`
+
+## 1. `packages/auth` — every file
+
+| File | Exports | Clerk APIs used |
+|---|---|---|
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/client.ts` | `export * from "@clerk/nextjs"` (barrel — whole client surface: `OrganizationSwitcher`, `UserButton`, `SignIn`, `SignUp`, `useAuth`, `useUser`, `ClerkProvider`, …) | `@clerk/nextjs` (client entry) |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/server.ts` | `import "server-only"` + `export * from "@clerk/nextjs/server"` (barrel — `auth`, `currentUser`, `clerkClient`, `clerkMiddleware`, plus all types: `OrganizationMembership`, `UserJSON`, `OrganizationJSON`, `OrganizationMembershipJSON`, `DeletedObjectJSON`, `WebhookEvent`, …) | `@clerk/nextjs/server` |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/middleware.ts` | `export { clerkMiddleware as authMiddleware }` — the only named rename in the package | `clerkMiddleware` from `@clerk/nextjs/server` |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/provider.tsx` | `AuthProvider` (client component). Props = `ComponentProps&lt;typeof ClerkProvider&gt;` + `privacyUrl?`, `termsUrl?`, `helpUrl?` | `ClerkProvider` from `@clerk/nextjs`; `dark` from `@clerk/themes`; `useTheme()` from `next-themes` to pick theme. Builds `appearance = { theme, options, elements, variables }` — `elements` keys are Clerk-specific class targets (`dividerLine`, `socialButtonsIconButton`, `navbarButton`, `organizationSwitcherTrigger__open`, `organizationPreviewMainIdentifier`, `organizationSwitcherTriggerIcon`, `organizationPreview__organizationSwitcherTrigger`, `organizationPreviewAvatarContainer`); `options` = `privacyPageUrl`/`termsPageUrl`/`helpPageUrl` |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/sign-in.tsx` | `SignIn` — wraps `&lt;ClerkSignIn appearance={{ elements: { header: "hidden" } }} /&gt;` | `SignIn` from `@clerk/nextjs` |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/sign-up.tsx` | `SignUp` — wraps `&lt;ClerkSignUp appearance={{ elements: { header: "hidden" } }} /&gt;` | `SignUp` from `@clerk/nextjs` |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/keys.ts` | `keys()` — `createEnv` from `@t3-oss/env-nextjs` | none (env only) |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/package.json` | — | deps: `@clerk/nextjs ^7.6.4`, `@clerk/themes ^2.4.57`, `@t3-oss/env-nextjs ^0.13.11`, `next ^16.2.12`, `next-themes ^0.4.6`, `react ^19.2.8`, `server-only ^0.0.1`, `zod ^4.4.3`. **No `exports` map** — subpaths resolve by file path, so any new file added to the package is instantly importable as `@repo/auth/&lt;file&gt;`. |
+| `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/tsconfig.json` | extends `@repo/typescript-config/nextjs.json` | — |
+
+`keys.ts` env vars:
+- server: `CLERK_SECRET_KEY` (`startsWith("sk_")`, optional), `CLERK_WEBHOOK_SECRET` (`startsWith("whsec_")`, optional)
+- client: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` (`startsWith("pk_")`, optional), `NEXT_PUBLIC_CLERK_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_SIGN_UP_URL`, `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL`, `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL` — **all four URL vars are required** (`startsWith("/")`, no `.optional()`)
+
+## 2. Every `@repo/auth*` import — symbols and usage
+
+### `@repo/auth/server` (24 sites)
+
+**apps/app — pages**
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/layout.tsx` — `auth`, `currentUser` → `currentUser()` for `user`; `const { redirectToSignIn } = await auth()`; `if (!user) return redirectToSignIn()`; `user.id` passed to `&lt;NotificationsProvider userId&gt;` (Knock).
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/page.tsx` — `auth` → destructures `orgId`; `notFound()` if `!orgId`; `orgId` passed to `&lt;CollaborationProvider orgId&gt;`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/capture/page.tsx` — `auth` → `orgId`; `notFound()` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/search/page.tsx` — `auth` → `orgId`; `notFound()` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/people/page.tsx` — `auth` → `orgId`; `notFound()` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/review/page.tsx` — `auth` → `orgId`; `notFound()` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/review/[id]/page.tsx` — `auth` → `orgId`; `notFound()` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/digest/[id]/preview/page.tsx` — `auth` → **`const { has } = await auth(); if (!has({ role: "org:admin" })) notFound()`** — the only RBAC check in the repo, uses Clerk's `org:admin` role string.
+
+**apps/app — server actions**
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/create-source.ts` — `auth`, `currentUser` → `orgId` written as `tenantId`; `capturer()` uses `currentUser()` → `user.emailAddresses.at(0)?.emailAddress ?? user.id` (falls back to `"unknown"`) stored as `capturedBy`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/erase-person.ts` — `auth` → `orgId` passed as tenant to `erasePerson(db, orgId, …)`, `markSourceBlobsDeleted(db, orgId, …)`, and filters blob candidates by `candidate.tenantId === orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/get-proposal.ts` — `auth` → `orgId` used as `tenantId` in 6 Mongo queries; returns `null` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/list-people.ts` — `auth` → `orgId` as `tenantId` in 3 queries; `[]` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/list-proposals.ts` — `auth` → `orgId` as `tenantId` in 2 queries; `[]` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/list-sources.ts` — `auth` → `orgId` as `tenantId`; `[]` if `!orgId`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/knowledge/resolve.ts` — `auth` → **`const { orgId, userId } = await auth()`**; `orgId` → tenant for `resolveProposalItems`/`refreshDossier`/facts query; **`userId` → `resolvedBy`**; error object if either missing.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/users/get.ts` — `auth`, `clerkClient`, `type OrganizationMembership` → `orgId` (throws "Not logged in"); `clerkClient()` → `clerk.organizations.getOrganizationMembershipList({ organizationId: orgId, limit: 100 })`; reads `user.publicUserData.{firstName,lastName,identifier,imageUrl,userId}`; returns Liveblocks `UserMeta["info"]`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/actions/users/search.ts` — `auth`, `clerkClient`, `type OrganizationMembership` → same membership-list call; builds Fuse.js index over `{ id, name, imageUrl }`; returns membership ids.
+
+**apps/app — route handlers**
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/api/collaboration/auth/route.ts` — `auth`, `currentUser` → `currentUser()` + `orgId`; 401 if either missing; calls `authenticate({ userId: user.id, orgId, userInfo: { name: user.fullName ?? user.emailAddresses.at(0)?.emailAddress, avatar: user.imageUrl, color } })`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/api/knowledge/upload/route.ts` — `auth` → `{ orgId, userId }` inside `getSignedToken`; throws `"Not authorized"` (→ 401) if either missing. (`userId` fetched but only null-checked.)
+
+**apps/api**
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/api/app/webhooks/auth/route.ts` — type-only: `DeletedObjectJSON`, `OrganizationJSON`, `OrganizationMembershipJSON`, `UserJSON`, `WebhookEvent`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/api/app/webhooks/payments/route.ts` — `clerkClient` → `clerk.users.getUserList()`, then finds user by `user.privateMetadata.stripeCustomerId === customerId`; uses `user.id` as PostHog `distinctId`. **Clerk `privateMetadata` is the Stripe-customer store.**
+
+**packages**
+- `/Users/eric/conductor/workspaces/spinor/tacoma/packages/feature-flags/lib/create-flag.ts` — `auth` → `{ userId }`; returns `defaultValue` if `!userId`; else `analytics.isFeatureEnabled(key, userId)`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/packages/webhooks/lib/svix.ts` — `auth` → `{ orgId }` in both `send()` and `getAppPortal()`; returns undefined if `!orgId`; `orgId` used as **Svix application uid + name** (`svix.message.create(orgId, …)`, `svix.authentication.appPortalAccess(orgId, …)`).
+
+### `@repo/auth/client`
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/components/sidebar.tsx` (`"use client"`) — `OrganizationSwitcher` (props `afterSelectOrganizationUrl="/"`, `hidePersonal`) in `SidebarHeader`; `UserButton` (props `showName`, `appearance.elements.{rootBox,userButtonBox,userButtonOuterIdentifier}`) in `SidebarFooter`.
+
+### `@repo/auth/middleware`
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/proxy.ts` — `authMiddleware` → `export const proxy = authMiddleware(() =&gt; securityHeaders()) as unknown as NextProxy`; matcher skips `_next`/static, always runs for `/(api|trpc)(.*)`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/web/proxy.ts` — `authMiddleware` → wraps `async (_auth: any, request: Request, event: any) =&gt; …` running `securityHeaders()` then a `createNEMO` composition (i18n + Arcjet); returns `middlewareResponse || headersResponse`.
+
+### `@repo/auth/provider`
+- `/Users/eric/conductor/workspaces/spinor/tacoma/packages/design-system/index.tsx` — `AuthProvider` wrapped inside `ThemeProvider`, wrapping `TooltipProvider` + `Toaster`; forwards `helpUrl`/`privacyUrl`/`termsUrl`. Consumed by `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/layout.tsx` (passes the three URLs) **and `/Users/eric/conductor/workspaces/spinor/tacoma/apps/web/app/layout.tsx`** — so `ClerkProvider` also mounts on the marketing site.
+
+### `@repo/auth/components/*`
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(unauthenticated)/sign-in/[[...sign-in]]/page.tsx` — `next/dynamic` → `import("@repo/auth/components/sign-in").then(m =&gt; m.SignIn)`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(unauthenticated)/sign-up/[[...sign-up]]/page.tsx` — `next/dynamic` → `import("@repo/auth/components/sign-up").then(m =&gt; m.SignUp)`.
+
+### `@repo/auth/keys`
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/env.ts` — `keys as auth` → first entry in `extends: [auth(), …]`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/api/env.ts` — `keys as auth` → first entry in `extends: [auth(), …]`.
+
+### package.json declarations of `@repo/auth: workspace:*`
+`apps/app`, `apps/api`, `packages/feature-flags`, `packages/webhooks`, `packages/design-system`.
+**Gap: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/web/package.json` does NOT declare `@repo/auth`, yet `apps/web/proxy.ts` imports `@repo/auth/middleware`** (resolves only via hoisting), and `apps/web/env.ts` does **not** extend `auth()` — so `apps/web` runs Clerk middleware with unvalidated Clerk env.
+
+## 3. Direct `@clerk/...` imports outside `packages/auth`
+**None.** Every `@clerk/*` import in the repo is confined to the 6 source files in `packages/auth`. The only other Clerk-name couplings outside the package are:
+- `/Users/eric/conductor/workspaces/spinor/tacoma/packages/next-config/index.ts:10` — `images.remotePatterns` allows `img.clerk.com`.
+- `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/.gitignore` — ignores `/.clerk/`.
+- Identifier names only: `clerkClient` (usage sites listed above), `clerk` locals.
+- Docs: `README.md:51,89`, `CLAUDE.md:73,99,136`, `.context/spikes/seed-review-demo.ts:1,4,12` (takes a Clerk orgId as CLI arg).
+
+## 4. Auth routes / pages / middleware
+
+- **Sign-in**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(unauthenticated)/sign-in/[[...sign-in]]/page.tsx` — optional-catch-all (Clerk hosted-flow routing), dynamic-imports `SignIn`, metadata via `@repo/seo`.
+- **Sign-up**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(unauthenticated)/sign-up/[[...sign-up]]/page.tsx` — same shape.
+- **`(unauthenticated)` layout**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(unauthenticated)/layout.tsx` — pure marketing split-screen; **renders nothing from Clerk**.
+- **`(authenticated)` layout**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/layout.tsx` — Arcjet `secure()` if `ARCJET_KEY`; `currentUser()`; `auth().redirectToSignIn`; `showBetaFeature()` flag; `&lt;NotificationsProvider userId={user.id}&gt;` → `&lt;SidebarProvider&gt;` → `&lt;GlobalSidebar&gt;`. Clerk surfaces used: `currentUser`, `redirectToSignIn`.
+- **Sidebar (Clerk UI widgets)**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/components/sidebar.tsx` — `OrganizationSwitcher`, `UserButton`.
+- **`apps/app/proxy.ts`** and **`apps/web/proxy.ts`** — see §2. Both cast to `NextProxy`. No `createRouteMatcher` / no explicit public-route config anywhere — protection is entirely layout-level (`redirectToSignIn`) plus per-page `orgId` checks.
+- **`apps/api/app/webhooks/auth/route.ts`** — guarded by `env.CLERK_WEBHOOK_SECRET` (returns `{ ok:false }` if unset); verifies via `svix` `Webhook` with `svix-id`/`svix-timestamp`/`svix-signature` headers; `event as WebhookEvent`. Handled events + side effects (all PostHog via `@repo/analytics/server`):
+  - `user.created` → `analytics.identify({ distinctId: data.id, properties: email/firstName/lastName/createdAt/avatar/phoneNumber })` + `capture("User Created")`
+  - `user.updated` → same identify + `capture("User Updated")`
+  - `user.deleted` → `identify({ deleted: Date })` + `capture("User Deleted")`
+  - `organization.created` → `groupIdentify({ groupKey: data.id, groupType: "company", distinctId: data.created_by, properties: name/avatar })` + `capture("Organization Created")`
+  - `organization.updated` → same + `capture("Organization Updated")`
+  - `organizationMembership.created` → `groupIdentify({ groupKey: data.organization.id, distinctId: data.public_user_data.user_id })` + `capture("Organization Member Created")`
+  - `organizationMembership.deleted` → `capture("Organization Member Deleted")` (comment notes group unlink is TODO)
+  - default → no-op; then `await analytics.shutdown()`.
+- Only two middleware/proxy files exist repo-wide (`apps/app`, `apps/web`). `apps/api`, `apps/docs`, `apps/email`, `apps/storybook`, `apps/studio` have none and zero auth references.
+
+## 5. Env
+
+- **Definition (single source)**: `packages/auth/keys.ts` — see §1.
+- **Consumed by**: `apps/app/env.ts` (`extends: [auth(), …]`), `apps/api/env.ts` (`extends: [auth(), …]`). `apps/web/env.ts` and `apps/docs/env.ts` (empty file) do **not**.
+- **Runtime reads outside keys.ts**: `apps/api/app/webhooks/auth/route.ts:148,170` reads `env.CLERK_WEBHOOK_SECRET`. `CLERK_SECRET_KEY` / `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / the 4 URL vars are never read in app code — they're consumed implicitly by the Clerk SDK from `process.env`.
+- **`.env` files**: only `apps/app/.env.local` and `apps/api/.env.local` exist (no `.env.example` in the repo). Both are outside my read permissions, so I could not enumerate their contents — expect the 6 `CLERK_*`/`NEXT_PUBLIC_CLERK_*` vars in `apps/app/.env.local` and at least `CLERK_SECRET_KEY` + `CLERK_WEBHOOK_SECRET` in `apps/api/.env.local`.
+- **`turbo.json`** (`/Users/eric/conductor/workspaces/spinor/tacoma/turbo.json`): `envMode: "loose"`, `globalDependencies: ["**/.env.*local"]`, `globalPassThroughEnv: ["SENTRY_AUTH_TOKEN"]` — **no `globalEnv`, no CLERK entries**. Nothing to change there.
+- Vercel/CI: no `.github` or `turbo/` references to Clerk.
+
+## 6. Other auth-coupled surfaces
+
+- **Liveblocks / collaboration**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/api/collaboration/auth/route.ts` → `/Users/eric/conductor/workspaces/spinor/tacoma/packages/collaboration/auth.ts` — `liveblocks.prepareSession(userId, { userInfo })` and `session.allow(\`${orgId}:*\`, FULL_ACCESS)`. Room id is `` `${orgId}:presence` `` in `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/components/collaboration-provider.tsx`. `resolveUsers`/`resolveMentionSuggestions` call the two Clerk-backed server actions (`app/actions/users/get.ts`, `search.ts`) — **the hardest Clerk coupling to replace** (needs an org-membership directory API with `firstName/lastName/identifier/imageUrl`).
+- **Notifications (Knock)**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/app/app/(authenticated)/components/notifications-provider.tsx` → `/Users/eric/conductor/workspaces/spinor/tacoma/packages/notifications/components/provider.tsx` — `&lt;KnockProvider userId={userId}&gt;` receives the Clerk `user.id` from the authenticated layout. Trigger widget: `packages/notifications/components/trigger.tsx` (used in sidebar).
+- **Analytics identify**: only in `apps/api/app/webhooks/auth/route.ts` (see §4) and `apps/api/app/webhooks/payments/route.ts` (`distinctId: user.id` from Clerk).
+- **Feature flags**: `/Users/eric/conductor/workspaces/spinor/tacoma/packages/feature-flags/lib/create-flag.ts` keys PostHog flag evaluation on Clerk `userId`; exported as `showBetaFeature` in `packages/feature-flags/index.ts`; consumed in `apps/app/app/(authenticated)/layout.tsx`.
+- **Webhooks (Svix)**: `/Users/eric/conductor/workspaces/spinor/tacoma/packages/webhooks/lib/svix.ts` uses `orgId` as the Svix application uid — org identifiers are persisted in a third-party system.
+- **Payments**: Stripe customer id lives in Clerk `privateMetadata` (`apps/api/app/webhooks/payments/route.ts`) — needs a replacement user-metadata store.
+- **Images**: `packages/next-config/index.ts` allows `img.clerk.com` (avatar host).
+- **Alternate tenant source (no auth)**: `/Users/eric/conductor/workspaces/spinor/tacoma/apps/api/app/webhooks/inbound-email/route.ts` derives `tenantId` from the `KNOWLEDGE_INBOUND_SENDERS` env map, not from Clerk — so `tenantId` values must stay string-compatible with whatever replaces `orgId`. Same for `/Users/eric/conductor/workspaces/spinor/tacoma/apps/api/app/cron/knowledge-pipeline/route.ts` (uses `candidate.tenantId` from the DB).
+
+## 7. `orgId` → `tenantId`, and `userId` → `resolvedBy` / `capturedBy`
+
+**`orgId` used directly as `tenantId`** (Mongo `tenantId` is `z.string().min(1)` — `packages/knowledge/schemas/shared.ts:9`; every compound index leads with `tenantId`, `packages/knowledge/collections.ts`):
+- `apps/app/app/actions/knowledge/create-source.ts` (`tenantId: orgId` on insert, both voice + manual)
+- `apps/app/app/actions/knowledge/list-sources.ts`
+- `apps/app/app/actions/knowledge/list-people.ts`
+- `apps/app/app/actions/knowledge/list-proposals.ts`
+- `apps/app/app/actions/knowledge/get-proposal.ts`
+- `apps/app/app/actions/knowledge/resolve.ts`
+- `apps/app/app/actions/knowledge/erase-person.ts`
+
+**`orgId` used as a non-DB tenant scope**: `packages/webhooks/lib/svix.ts` (Svix app uid), `packages/collaboration/auth.ts` + `apps/app/app/(authenticated)/components/collaboration-provider.tsx` (Liveblocks room prefix), `apps/app/app/actions/users/{get,search}.ts` (Clerk `organizationId` filter).
+
+**`userId` → `resolvedBy`**: `apps/app/app/actions/knowledge/resolve.ts:29,46` → `resolveProposalItems({ resolvedBy: userId })`. Persisted at `packages/knowledge/schemas/proposals.ts:58` (`resolvedBy: z.string().optional()`), written in `packages/knowledge/review.ts:118,130,232,373,414 (as confirmedBy),434,458`.
+
+**`capturedBy`**: `apps/app/app/actions/knowledge/create-source.ts:29-35,57,84` — **email-first, id-fallback** (`user.emailAddresses.at(0)?.emailAddress ?? user.id`, else `"unknown"`), so it is *not* a bare Clerk user id. Schema `packages/knowledge/schemas/sources.ts:35` (`z.string().min(1)`). Read back in `apps/app/app/actions/knowledge/get-proposal.ts:36,133` and displayed in `apps/app/app/(authenticated)/review/[id]/page.tsx:46`. The inbound-email path sets its own equivalent via `createEmailSource(..., { forwardedBy, originalSender })`.
+
+**`user.id` used elsewhere**: `apps/app/app/(authenticated)/layout.tsx` (Knock `userId`), `apps/app/app/api/collaboration/auth/route.ts` (Liveblocks session id), `packages/feature-flags/lib/create-flag.ts` (PostHog flag key), `apps/api/app/webhooks/{auth,payments}/route.ts` (PostHog `distinctId`).
+
+---
+
+### Interface-stability notes for the swap
+The public surface that must keep working is narrower than the barrel exports suggest: **`auth()` returning `{ orgId, userId, has, redirectToSignIn }`**, **`currentUser()` returning `{ id, fullName, imageUrl, emailAddresses[].emailAddress }`**, **`clerkClient()` with `.organizations.getOrganizationMembershipList()` and `.users.getUserList()` (+ `privateMetadata.stripeCustomerId`)**, the **`OrganizationMembership`** type (`publicUserData.{userId,firstName,lastName,identifier,imageUrl}`), **`authMiddleware`**, **`AuthProvider`**, **`SignIn`/`SignUp`**, **`OrganizationSwitcher`/`UserButton`**, and the webhook payload types (`UserJSON`, `OrganizationJSON`, `OrganizationMembershipJSON`, `DeletedObjectJSON`, `WebhookEvent`). Two non-obvious risks: `packages/auth/package.json` has no `exports` map (subpaths are raw file paths), and `apps/web` consumes `@repo/auth/middleware` without declaring the dependency or validating its env.</result>
+<usage><subagent_tokens>81060</subagent_tokens><tool_uses>22</tool_uses><duration_ms>190013</duration_ms></usage>
+</task-notification>
