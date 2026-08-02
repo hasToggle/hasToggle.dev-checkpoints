@@ -1,0 +1,99 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "c039844ce8c4",
+  "session_id": "8ca5da3d-f521-49e9-9284-e141fbcd3f35",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-02T17:52:05.485527Z",
+  "branch": "Kheirah/consolidation-job",
+  "checkpoints_count": 4,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "10458b325075",
+  "checkpoint_transcript_start": 110,
+  "transcript_lines_at_start": 110,
+  "token_usage": {
+    "input_tokens": 428,
+    "cache_creation_tokens": 839515,
+    "cache_read_tokens": 69860963,
+    "output_tokens": 242100,
+    "api_call_count": 230
+  },
+  "session_metrics": {
+    "turn_count": 13
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 51,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 170,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 239,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-extraction.ts": 56
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 280,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 329,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    }
+  ]
+}
