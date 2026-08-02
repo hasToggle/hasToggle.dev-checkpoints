@@ -6,10 +6,17 @@
   "checkpoints_count": 0,
   "files_touched": [
     "apps/api/app/webhooks/inbound-email/route.ts",
+    "apps/api/package.json",
+    "bun.lock",
+    "packages/knowledge/__tests__/collections.test.ts",
+    "packages/knowledge/__tests__/erasure.test.ts",
     "packages/knowledge/__tests__/inbound.test.ts",
+    "packages/knowledge/__tests__/sources-facts.test.ts",
+    "packages/knowledge/collections.ts",
     "packages/knowledge/inbound.ts",
     "packages/knowledge/index.ts",
-    "packages/knowledge/keys.ts"
+    "packages/knowledge/keys.ts",
+    "packages/knowledge/schemas/sources.ts"
   ],
   "sessions": [
     {
@@ -17,13 +24,19 @@
       "transcript": "/78/849610eb95/0/full.jsonl",
       "content_hash": "/78/849610eb95/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/78/849610eb95/1/metadata.json",
+      "transcript": "/78/849610eb95/1/full.jsonl",
+      "content_hash": "/78/849610eb95/1/content_hash.txt",
+      "prompt": "/78/849610eb95/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 41,
-    "cache_creation_tokens": 26720,
-    "cache_read_tokens": 13265083,
-    "output_tokens": 14924,
-    "api_call_count": 22
+    "input_tokens": 43,
+    "cache_creation_tokens": 52538,
+    "cache_read_tokens": 13280356,
+    "output_tokens": 17262,
+    "api_call_count": 23
   }
 }
