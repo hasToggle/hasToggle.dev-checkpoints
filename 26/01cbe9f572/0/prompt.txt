@@ -167,3 +167,32 @@ both merged. start the migration next. be thorough. use subagents to conserve yo
 The public surface that must keep working is narrower than the barrel exports suggest: **`auth()` returning `{ orgId, userId, has, redirectToSignIn }`**, **`currentUser()` returning `{ id, fullName, imageUrl, emailAddresses[].emailAddress }`**, **`clerkClient()` with `.organizations.getOrganizationMembershipList()` and `.users.getUserList()` (+ `privateMetadata.stripeCustomerId`)**, the **`OrganizationMembership`** type (`publicUserData.{userId,firstName,lastName,identifier,imageUrl}`), **`authMiddleware`**, **`AuthProvider`**, **`SignIn`/`SignUp`**, **`OrganizationSwitcher`/`UserButton`**, and the webhook payload types (`UserJSON`, `OrganizationJSON`, `OrganizationMembershipJSON`, `DeletedObjectJSON`, `WebhookEvent`). Two non-obvious risks: `packages/auth/package.json` has no `exports` map (subpaths are raw file paths), and `apps/web` consumes `@repo/auth/middleware` without declaring the dependency or validating its env.</result>
 <usage><subagent_tokens>81060</subagent_tokens><tool_uses>22</tool_uses><duration_ms>190013</duration_ms></usage>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>a41ad3141ea1b5b38</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-spinor-tacoma/8ca5da3d-f521-49e9-9284-e141fbcd3f35/tasks/a41ad3141ea1b5b38.output</output-file>
+<status>completed</status>
+<summary>Agent "Build better-auth UI components" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>All verification passes. Summary:
+
+**Files written (all `"use client"`, importing `authClient` from `../client`, no `@repo/design-system` imports):**
+
+1. `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/sign-in.tsx` — `SignIn`: card-styled email/password form with labeled required inputs, pending state ("Signing in…"), error display from `error.message`, `window.location.href = "/"` on success, muted "No account? Sign up" link to /sign-up.
+2. `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/sign-up.tsx` — `SignUp`: Name / Organization name / Email / Password (minLength 8); flow: `signUp.email` → `organization.create` (slug = slugified org name + "-" + 6 random base36 chars, module-level regex literals) → `organization.setActive` → `window.location.href = "/"`, with per-step error messages. Also includes a "Already have an account? Sign in" link (small addition beyond spec, mirroring SignIn).
+3. `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/organization-switcher.tsx` — `OrganizationSwitcher` with `{ afterSelectOrganizationUrl?, hidePersonal? }` (hidePersonal accepted but never destructured/used). Full-width trigger showing active org name (fallback "Select organization") with truncation and ChevronsUpDown icon; useState-toggled absolute dropdown listing `useListOrganizations` results (extracted `OrganizationItem` child component to avoid inline arrows), Check icon on active org, selection calls `setActive` then navigates to `afterSelectOrganizationUrl ?? "/"`; bottom mini-form (labeled input + Plus icon submit) creating/activating/navigating the same way.
+4. `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/components/user-button.tsx` — `UserButton` with `{ showName?, appearance? }` (appearance ignored). Pulse skeleton while `useSession` pending (wider when showName), null when signed out, circular avatar (`&lt;img&gt;` with width/height + biome-ignore for `noImgElement`, or bg-muted initial circle), optional name, dropdown positioned above (`bottom-full`) with name/email and a Sign out item calling `signOut()` then navigating to `/sign-in`.
+
+Also edited `/Users/eric/conductor/workspaces/spinor/tacoma/packages/auth/package.json`: added `"lucide-react": "^1.28.0"` (sorted, matches design-system's version) and ran `bun install` (lockfile saved, no install changes needed since it was already hoisted).
+
+**Verification outcomes:**
+- `bun install` — clean.
+- `bunx biome check packages/auth` — my four component files exit clean (fixer applied formatting/class sorting; I resolved `useConsistentTypeDefinitions` by using `interface`, and `useImageSize` by adding width/height to the avatar img). Two pre-existing errors remain in files that belong to you, untouched per instructions: `packages/auth/provider.tsx:9` (`useConsistentTypeDefinitions`, fixable) and `packages/auth/server.ts:12` (`noBarrelFile` on `export { authInstance } from "./instance"`).
+- `bunx turbo typecheck --filter=app` — passed (1 successful). I additionally ran `tsc --noEmit` inside packages/auth directly: no errors.
+
+**Deviations from spec:** none material. Extras: reciprocal "Sign in" link on SignUp, aria-expanded/aria-haspopup on dropdown triggers, and an empty-state "No organizations yet." message in the switcher panel. Note the existing `client.ts` already re-exports `OrganizationSwitcher`/`UserButton` from these paths, so those imports now resolve.</result>
+<usage><subagent_tokens>60600</subagent_tokens><tool_uses>21</tool_uses><duration_ms>220897</duration_ms></usage>
+</task-notification>
