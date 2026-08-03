@@ -1,0 +1,3 @@
+VOYAGE_AI_KEY="REDACTED"
+
+put it alongside the other envs in the right conductor/repos dir. Then start 4a.

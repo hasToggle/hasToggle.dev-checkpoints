@@ -1,0 +1,70 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "54aaf22989d3",
+  "session_id": "ef712bf2-1974-4603-ba58-0cf99925da56",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-03T12:32:14.604549Z",
+  "branch": "Kheirah/erasure-cascade-hardening",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/agent/instructions.md",
+    "apps/app/agent/agent.ts",
+    "apps/app/agent/channels/eve.ts",
+    "apps/app/next.config.ts",
+    "packages/design-system/components/ai-elements/inline-citation.tsx",
+    "apps/app/app/(authenticated)/ask/components/fact-citation.tsx",
+    "apps/app/app/(authenticated)/ask/components/knowledge-chat.tsx",
+    "apps/app/app/(authenticated)/ask/page.tsx",
+    "packages/design-system/components/ai-elements/message.tsx",
+    "biome.jsonc",
+    "apps/app/app/(authenticated)/components/sidebar.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "a48e7892b191",
+  "checkpoint_transcript_start": 1077,
+  "transcript_lines_at_start": 1077,
+  "token_usage": {
+    "input_tokens": 126,
+    "cache_creation_tokens": 74365,
+    "cache_read_tokens": 56799461,
+    "output_tokens": 42163,
+    "api_call_count": 68
+  },
+  "session_metrics": {
+    "turn_count": 19
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-03T12:32:14.498263Z",
+    "agent_lines": 1137,
+    "agent_removed": 29,
+    "human_added": 3217,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 4354,
+    "total_lines_changed": 4391,
+    "agent_percentage": 26.554315645638805,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 420,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-private-blob.ts": 44,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    }
+  ]
+}
