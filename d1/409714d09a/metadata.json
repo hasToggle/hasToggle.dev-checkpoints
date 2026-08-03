@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "d1409714d09a",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/erasure-cascade-hardening",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/app/app/(authenticated)/people/components/person-row.tsx",
+    "apps/app/app/actions/knowledge/erase-person.ts",
+    "packages/knowledge/__tests__/erasure.test.ts",
+    "packages/knowledge/__tests__/run-consolidation.test.ts",
+    "packages/knowledge/consolidation.ts",
+    "packages/knowledge/erasure.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d1/409714d09a/0/metadata.json",
+      "transcript": "/d1/409714d09a/0/full.jsonl",
+      "content_hash": "/d1/409714d09a/0/content_hash.txt",
+      "prompt": "/d1/409714d09a/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 125,
+    "cache_creation_tokens": 1474734,
+    "cache_read_tokens": 40113350,
+    "output_tokens": 96086,
+    "api_call_count": 68
+  }
+}
