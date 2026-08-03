@@ -1,0 +1,46 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/spinor/tacoma directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/PoGy0d/session-transcript-ef712bf2-1974-4603-ba58-0cf99925da56.md (82.9 KB)
+</system_instruction>
+
+
+
+.context/attachments/PoGy0d/session-transcript-ef712bf2-1974-4603-ba58-0cf99925da56.md 
+
+Now that everything's implemented and I have no real data yet, let's generate synthetic data and run evals with the goal of verifying what we build and potentially surfacing issues we can note down and fix in a separate PR. Assume I am new to evals. Educate me on how to do them, what cases to create, adversarial cases yes or no, etc. Our budget for consuming the deepseek model is 5$, input and output tokens. I would assume the UI is not necessary for testing the functionality. Correct me if I'm wrong.
+
+---
+
+C.
+
+I have activated Zero Data Retention at the AI Gateway, and I'm unsure of whether Sonnet 5 is under ZDR. I can deactivate it if our eval doesn't work.
+
+---
+
+1. scale is fine
+2. Consultancy is fine for now.
+
+I can't currently run the app project because envs are missing. I'd supply them shortly.
+
+---
+
+1. OK for now
+2. Collect any way you like and let's put the fixes on the same branch/PR. Also, update conductor UI to reflect which branch we're on.
+
+And a question: MONGODB_URI and KNOWLEDGE_MONGODB_URI are now the same. There's only one MongoDB cluster. The original MONGODB_URI comes from the forked repo. Then we refactored some things and I spun up a new project with a new Flex cluster on Atlas. That's the KNOWLEDGE_MONGODB_URI.
