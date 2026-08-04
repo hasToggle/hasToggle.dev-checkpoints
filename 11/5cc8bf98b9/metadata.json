@@ -4,9 +4,7 @@
   "strategy": "manual-commit",
   "branch": "Kheirah/erasure-cascade-hardening",
   "checkpoints_count": 1,
-  "files_touched": [
-    "docs/knowledge-eval-findings.md"
-  ],
+  "files_touched": null,
   "sessions": [
     {
       "metadata": "/11/5cc8bf98b9/0/metadata.json",
