@@ -1,0 +1,68 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "b4453f5eab52",
+  "session_id": "c8330644-aee3-434a-b312-944dfa996288",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-04T15:11:29.314532Z",
+  "branch": "Kheirah/erasure-cascade-hardening",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "docs/knowledge-eval-findings.md",
+    "docs/superpowers/plans/2026-08-03-knowledge-evals.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6599d999d0c8",
+  "token_usage": {
+    "input_tokens": 294,
+    "cache_creation_tokens": 758235,
+    "cache_read_tokens": 34378616,
+    "output_tokens": 172469,
+    "api_call_count": 151
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-04T15:11:29.288097Z",
+    "agent_lines": 11,
+    "agent_removed": 3,
+    "human_added": 331,
+    "human_modified": 4,
+    "human_removed": 0,
+    "total_committed": 346,
+    "total_lines_changed": 378,
+    "agent_percentage": 3.7037037037037033,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 1487,
+      "user_lines_removed": 0,
+      "agent_lines_added": 15,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4,
+        ".context/attachments/PoGy0d/session-transcript-ef712bf2-1974-4603-ba58-0cf99925da56.md": 1017,
+        ".context/attachments/Qj2VZh/PR instructions.md": 50,
+        ".context/attachments/oAyl8c/PR instructions.md": 47,
+        ".context/spikes/ai-gateway-smoke.ts": 39,
+        ".context/spikes/assemblyai-eu-smoke.ts": 80,
+        ".context/spikes/debug-raw.ts": 13,
+        ".context/spikes/e2e-consolidation.ts": 47,
+        ".context/spikes/e2e-extraction.ts": 56,
+        ".context/spikes/e2e-private-blob.ts": 44,
+        ".context/spikes/e2e-sweep.ts": 49,
+        ".context/spikes/seed-review-demo.ts": 41
+      }
+    }
+  ]
+}
