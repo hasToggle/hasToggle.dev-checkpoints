@@ -113,3 +113,8 @@ Your spend so far was 19 cents on the Vercel AI Gateway. By the way, I'd like a 
 ---
 
 That's correct. A plus D. The visibility of B would only be for myself as the business of it all, not for tenants.
+
+---
+
+1. OK
+2. same PR; adjust the PR body.
