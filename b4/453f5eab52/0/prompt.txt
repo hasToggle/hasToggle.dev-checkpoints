@@ -52,3 +52,24 @@ Concerns: None outstanding. All three findings addressed — CRITICAL (sources 1
 **Concerns:** None. Fix report appended to `/Users/eric/conductor/workspaces/spinor/tacoma/.superpowers/sdd/2026-08-03-knowledge-evals/task-9-report.md`.</result>
 <usage><subagent_tokens>125490</subagent_tokens><tool_uses>10</tool_uses><duration_ms>69577</duration_ms></usage>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>a7df17a04bf477df4</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-spinor-tacoma/c8330644-aee3-434a-b312-944dfa996288/tasks/a7df17a04bf477df4.output</output-file>
+<status>completed</status>
+<summary>Agent "Task 11: adversarial evals" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Status: DONE
+
+Commit sha: `776445b` (fix commit; prior work already at `2deec1a`)
+
+Test summary: `bunx tsc --noEmit` clean, `bun test` 18 pass/0 fail, `ultracite check apps/app/evals apps/app/agent` clean — all after the fix.
+
+Fix applied: added `tags: ["mutates-db"]` to `post-erasure.eval.ts`'s `defineEval()`, and rewrote the header comment to document the enforced two-pass invocation (`--exclude-tag mutates-db` / `--tag mutates-db`) instead of the advisory "run separately" note. Verified statically by reading the actual shipped `dist/` code end-to-end (`define-eval.js` preserves `tags` through the spread, `discover.js`'s `importEvalFile` preserves it into the discovered eval list, `cli/filter.js`'s `filterEvalsByTags` reads `e.tags` against `--tag`/`--exclude-tag`, `cli/eval.js` wires both flags and reports the empty-match cases) — confirmed real and enforced, not a stub. Did not touch `evals.config.ts`, `injection.eval.ts`, or `cross-tenant.eval.ts`. Fix report appended to `.superpowers/sdd/2026-08-03-knowledge-evals/task-11-report.md`.
+
+Concerns: none new. Could still not execute `eve eval` itself (no live model/Atlas) — the tag-filter verification is static (code-path tracing), not an observed run; Task 12 is the first live confirmation.</result>
+<usage><subagent_tokens>173150</subagent_tokens><tool_uses>13</tool_uses><duration_ms>108132</duration_ms></usage>
+</task-notification>
