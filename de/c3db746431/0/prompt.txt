@@ -73,3 +73,11 @@ Fix applied: added `tags: ["mutates-db"]` to `post-erasure.eval.ts`'s `defineEva
 Concerns: none new. Could still not execute `eve eval` itself (no live model/Atlas) — the tag-filter verification is static (code-path tracing), not an observed run; Task 12 is the first live confirmation.</result>
 <usage><subagent_tokens>173150</subagent_tokens><tool_uses>13</tool_uses><duration_ms>108132</duration_ms></usage>
 </task-notification>
+
+---
+
+1. Acknlowlegded
+2. migrate better-auth. where best to migrate it to though? we have a knowledge db and a knowledge_e2e_demo db (for testing, not migrating here obviously)
+3. I've configured ZDR on the Vercel AI Gateway. Should be fine.
+
+Open a PR when we are done
