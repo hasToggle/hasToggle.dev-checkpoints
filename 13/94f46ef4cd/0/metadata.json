@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "1394f46ef4cd",
+  "session_id": "c8330644-aee3-434a-b312-944dfa996288",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-04T16:16:18.093484Z",
+  "branch": "Kheirah/erasure-cascade-hardening",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/knowledge-eval-findings.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "6599d999d0c8",
+  "token_usage": {
+    "input_tokens": 314,
+    "cache_creation_tokens": 798264,
+    "cache_read_tokens": 38300722,
+    "output_tokens": 194945,
+    "api_call_count": 161
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-04T16:16:18.059935Z",
+    "agent_lines": 24,
+    "agent_removed": 8,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 24,
+    "total_lines_changed": 32,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
