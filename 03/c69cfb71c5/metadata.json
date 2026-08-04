@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "03c69cfb71c5",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/erasure-cascade-hardening",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "packages/knowledge/scripts/eval-extraction.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/03/c69cfb71c5/0/metadata.json",
+      "transcript": "/03/c69cfb71c5/0/full.jsonl",
+      "content_hash": "/03/c69cfb71c5/0/content_hash.txt",
+      "prompt": "/03/c69cfb71c5/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 232,
+    "cache_creation_tokens": 703564,
+    "cache_read_tokens": 23649943,
+    "output_tokens": 137586,
+    "api_call_count": 120
+  }
+}
