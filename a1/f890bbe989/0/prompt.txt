@@ -149,3 +149,20 @@ Concerns: none outstanding on the reviewed item. Pre-existing notes still apply 
 ---
 
 Run 1 - 3
+
+---
+
+<task-notification>
+<task-id>a7b8bc742ed617f21</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-spinor-tacoma/c8330644-aee3-434a-b312-944dfa996288/tasks/a7b8bc742ed617f21.output</output-file>
+<status>completed</status>
+<summary>Agent "Fix abstention eval premise" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Status: done. Commit sha: `f52936c` on `Kheirah/erasure-cascade-hardening`.
+
+Test summary: `bunx tsc --noEmit` clean; `bun test` 19 pass/0 fail; `bunx eve eval --list` still lists 9 evals; scoped `ultracite check apps/app/evals apps/app/agent` — 14 files, no errors. (No live-model/Atlas eval run performed, per constraints.)
+
+Concerns: none blocking. One thing worth the maintainer's awareness (documented in the report and F9): the new deterministic citation check is, by the fixed synthetic corpus's construction, effectively a regression guard rather than something likely to ever trip today — since no real fact mentions "Zabelthorpe"/"Federweiß", it can only fail if the fixtures later grow a genuinely matching fact or an unexpected coincidental substring match. The judge call remains the primary signal for tone/abstention quality, as F9 spells out.</result>
+<usage><subagent_tokens>91806</subagent_tokens><tool_uses>31</tool_uses><duration_ms>244600</duration_ms></usage>
+</task-notification>
