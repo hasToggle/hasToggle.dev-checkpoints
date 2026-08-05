@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "38ea0df0ffb2",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/lossless-extraction",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "packages/knowledge/__tests__/re-extraction.test.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/38/ea0df0ffb2/0/metadata.json",
+      "transcript": "/38/ea0df0ffb2/0/full.jsonl",
+      "content_hash": "/38/ea0df0ffb2/0/content_hash.txt",
+      "prompt": "/38/ea0df0ffb2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 734,
+    "cache_creation_tokens": 3661348,
+    "cache_read_tokens": 162254565,
+    "output_tokens": 415326,
+    "api_call_count": 371
+  }
+}
