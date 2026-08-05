@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3b9e03faa7f0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3b/9e03faa7f0/0/metadata.json",
+      "transcript": "/3b/9e03faa7f0/0/full.jsonl",
+      "content_hash": "/3b/9e03faa7f0/0/content_hash.txt",
+      "prompt": "/3b/9e03faa7f0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 34,
+    "cache_creation_tokens": 170322,
+    "cache_read_tokens": 2729596,
+    "output_tokens": 13960,
+    "api_call_count": 17
+  }
+}

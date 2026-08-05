@@ -1,0 +1,3 @@
+Push and open a PR.
+
+Then, improve the chat itself. Currently, it doesn't look good, the placeholder is too far up top in the input field, for instance. The chat has no visible bounds. And the rendered elements within the chat stretch for the available width, which looks odd for some things like tool calls.
