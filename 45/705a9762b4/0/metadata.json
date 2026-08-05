@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "45705a9762b4",
+  "session_id": "6f33e0ff-e9bb-4252-84d7-fb1cb3985e74",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T17:55:16.375703Z",
+  "branch": "Kheirah/org-joining",
+  "checkpoints_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "09abaab38c4f",
+  "token_usage": {
+    "input_tokens": 868,
+    "cache_creation_tokens": 638830,
+    "cache_read_tokens": 91289550,
+    "output_tokens": 228786,
+    "api_call_count": 308
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2129,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4
+      }
+    }
+  ]
+}
