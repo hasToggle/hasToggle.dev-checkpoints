@@ -1,0 +1,79 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "5b3aee4d519d",
+  "session_id": "6f33e0ff-e9bb-4252-84d7-fb1cb3985e74",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T14:59:04.767667Z",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/app/(authenticated)/ask/components/fact-citation.tsx",
+    "apps/app/app/(authenticated)/ask/components/knowledge-chat.tsx",
+    "apps/app/app/(authenticated)/ask/page.tsx",
+    "apps/app/app/(authenticated)/capture/components/capture-panels.tsx",
+    "apps/app/app/(authenticated)/capture/components/note-form.tsx",
+    "apps/app/app/(authenticated)/capture/components/recorder.tsx",
+    "apps/app/app/(authenticated)/capture/components/source-list.tsx",
+    "apps/app/app/(authenticated)/capture/page.tsx",
+    "apps/app/app/(authenticated)/components/avatar-stack.tsx",
+    "apps/app/app/(authenticated)/components/brain/capture-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/fact-citation.tsx",
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx",
+    "apps/app/app/(authenticated)/components/brain/note-form.tsx",
+    "apps/app/app/(authenticated)/components/brain/people-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/person-row.tsx",
+    "apps/app/app/(authenticated)/components/brain/recorder.tsx",
+    "apps/app/app/(authenticated)/components/brain/review-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/source-list.tsx",
+    "apps/app/app/(authenticated)/components/brain/workspace.tsx",
+    "apps/app/app/(authenticated)/components/collaboration-provider.tsx",
+    "apps/app/app/(authenticated)/components/cursors.tsx",
+    "apps/app/app/(authenticated)/components/header.tsx",
+    "apps/app/app/(authenticated)/components/search.tsx",
+    "apps/app/app/(authenticated)/components/sidebar.tsx",
+    "apps/app/app/(authenticated)/page.tsx",
+    "apps/app/app/(authenticated)/people/components/person-row.tsx",
+    "apps/app/app/(authenticated)/people/page.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/re-extract-control.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "apps/app/app/(authenticated)/review/[id]/page.tsx",
+    "apps/app/app/(authenticated)/review/page.tsx",
+    "apps/app/app/(authenticated)/search/page.tsx",
+    "apps/app/next.config.ts",
+    "docs/superpowers/specs/2026-08-05-brain-unified-surface-design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "83ebbdb616eb",
+  "token_usage": {
+    "input_tokens": 90,
+    "cache_creation_tokens": 165167,
+    "cache_read_tokens": 5015687,
+    "output_tokens": 50122,
+    "api_call_count": 46
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-05T14:59:04.751239Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 1199,
+    "human_removed": 412,
+    "total_committed": 0,
+    "total_lines_changed": 1611,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4
+      }
+    }
+  ]
+}

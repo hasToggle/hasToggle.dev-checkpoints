@@ -1,0 +1,58 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "5b3aee4d519d",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/app/(authenticated)/ask/components/fact-citation.tsx",
+    "apps/app/app/(authenticated)/ask/components/knowledge-chat.tsx",
+    "apps/app/app/(authenticated)/ask/page.tsx",
+    "apps/app/app/(authenticated)/capture/components/capture-panels.tsx",
+    "apps/app/app/(authenticated)/capture/components/note-form.tsx",
+    "apps/app/app/(authenticated)/capture/components/recorder.tsx",
+    "apps/app/app/(authenticated)/capture/components/source-list.tsx",
+    "apps/app/app/(authenticated)/capture/page.tsx",
+    "apps/app/app/(authenticated)/components/avatar-stack.tsx",
+    "apps/app/app/(authenticated)/components/brain/capture-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/fact-citation.tsx",
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx",
+    "apps/app/app/(authenticated)/components/brain/note-form.tsx",
+    "apps/app/app/(authenticated)/components/brain/people-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/person-row.tsx",
+    "apps/app/app/(authenticated)/components/brain/recorder.tsx",
+    "apps/app/app/(authenticated)/components/brain/review-pane.tsx",
+    "apps/app/app/(authenticated)/components/brain/source-list.tsx",
+    "apps/app/app/(authenticated)/components/brain/workspace.tsx",
+    "apps/app/app/(authenticated)/components/collaboration-provider.tsx",
+    "apps/app/app/(authenticated)/components/cursors.tsx",
+    "apps/app/app/(authenticated)/components/header.tsx",
+    "apps/app/app/(authenticated)/components/search.tsx",
+    "apps/app/app/(authenticated)/components/sidebar.tsx",
+    "apps/app/app/(authenticated)/page.tsx",
+    "apps/app/app/(authenticated)/people/components/person-row.tsx",
+    "apps/app/app/(authenticated)/people/page.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/re-extract-control.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "apps/app/app/(authenticated)/review/[id]/page.tsx",
+    "apps/app/app/(authenticated)/review/page.tsx",
+    "apps/app/app/(authenticated)/search/page.tsx",
+    "apps/app/next.config.ts",
+    "docs/superpowers/specs/2026-08-05-brain-unified-surface-design.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5b/3aee4d519d/0/metadata.json",
+      "transcript": "/5b/3aee4d519d/0/full.jsonl",
+      "content_hash": "/5b/3aee4d519d/0/content_hash.txt",
+      "prompt": "/5b/3aee4d519d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 90,
+    "cache_creation_tokens": 165167,
+    "cache_read_tokens": 5015687,
+    "output_tokens": 50122,
+    "api_call_count": 46
+  }
+}
