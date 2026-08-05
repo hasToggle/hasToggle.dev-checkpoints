@@ -221,3 +221,8 @@ No F13 write-up for now. Continue with the implementation plan.
 ---
 
 1
+
+---
+
+Are T3-T8 in progress?
+You can open a PR already.
