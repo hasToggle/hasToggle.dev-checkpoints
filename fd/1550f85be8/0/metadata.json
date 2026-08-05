@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "fd1550f85be8",
+  "session_id": "c8330644-aee3-434a-b312-944dfa996288",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T11:48:46.407028Z",
+  "branch": "Kheirah/lossless-extraction",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "packages/knowledge/extraction-run.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "53fcb05b8286",
+  "token_usage": {
+    "input_tokens": 714,
+    "cache_creation_tokens": 3647232,
+    "cache_read_tokens": 154155269,
+    "output_tokens": 405929,
+    "api_call_count": 361
+  },
+  "session_metrics": {
+    "turn_count": 33
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-05T11:48:46.337919Z",
+    "agent_lines": 7,
+    "agent_removed": 2,
+    "human_added": 49,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 56,
+    "total_lines_changed": 60,
+    "agent_percentage": 15,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
