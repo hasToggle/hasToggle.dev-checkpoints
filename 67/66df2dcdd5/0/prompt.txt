@@ -280,3 +280,17 @@ Discard-on-stale-page: judged small, fixed rather than deferred — `resolve.ts`
 Concerns: none outstanding. Full detail in `.superpowers/sdd/2026-08-05-lossless-extraction/final-fix-report.md`.</result>
 <usage><subagent_tokens>219904</subagent_tokens><tool_uses>39</tool_uses><duration_ms>417675</duration_ms></usage>
 </task-notification>
+
+---
+
+I just tried to record a voice message and the error reads: Upload failed: Vercel Blob: Failed to retrieve the presigned URL
+
+---
+
+I don't see any webhook config, but the store also is not tied to any project on Vercel because neither the app nor the api projects are deployed yet. I should do that first, so we have a connection between the blob store and project. On that note, how do I best deploy the two projects? The app project is a simple turborepo next.js project. What abot the api project? Do I select it as nextjs as well?
+
+---
+
+PR#19 is merged.
+
+Yes, continue fixing the two items. Also, scan the entire repo for any mentions of hasToggle (or variations) and rename it to spinor.
