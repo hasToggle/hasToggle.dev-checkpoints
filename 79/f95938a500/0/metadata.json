@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "79f95938a500",
+  "session_id": "6f33e0ff-e9bb-4252-84d7-fb1cb3985e74",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T17:09:43.186709Z",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "20a31f5b3bab",
+  "token_usage": {
+    "input_tokens": 432,
+    "cache_creation_tokens": 523024,
+    "cache_read_tokens": 51100183,
+    "output_tokens": 162802,
+    "api_call_count": 217
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1129,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4
+      }
+    }
+  ]
+}

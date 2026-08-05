@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "79f95938a500",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 2,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/79/f95938a500/0/metadata.json",
+      "transcript": "/79/f95938a500/0/full.jsonl",
+      "content_hash": "/79/f95938a500/0/content_hash.txt",
+      "prompt": "/79/f95938a500/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 432,
+    "cache_creation_tokens": 523024,
+    "cache_read_tokens": 51100183,
+    "output_tokens": 162802,
+    "api_call_count": 217
+  }
+}
