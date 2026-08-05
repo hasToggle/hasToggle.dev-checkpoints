@@ -7,3 +7,12 @@ good. thanks. the tooltip itself can be visually improved. check it out and make
 ---
 
 good. have a look at the avatar button at the bottom in the sidebar; when clicking it, it seems to open something but it's below the screen. It should open above instead.
+
+---
+
+thank you. question:
+if two persons from the same company want to collaborate on the same company brain, does our current product support that? I've already signed up with a company name and tried out the product. It works. But what about the second person? How does she sign up? Use the same company name at signup? Does the first person invite them?
+
+---
+
+I merged PR#22 now. Yes, create a new branch for it, reflect it in the conductor UI as well. But: invite is not enough. People should be able to sign up to existing orgs themselves. Research how this is done in the industry. We don't want to reinvent the wheel.
