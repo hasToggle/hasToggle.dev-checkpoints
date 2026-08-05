@@ -166,3 +166,45 @@ Test summary: `bunx tsc --noEmit` clean; `bun test` 19 pass/0 fail; `bunx eve ev
 Concerns: none blocking. One thing worth the maintainer's awareness (documented in the report and F9): the new deterministic citation check is, by the fixed synthetic corpus's construction, effectively a regression guard rather than something likely to ever trip today — since no real fact mentions "Zabelthorpe"/"Federweiß", it can only fail if the fixtures later grow a genuinely matching fact or an unexpected coincidental substring match. The judge call remains the primary signal for tone/abstention quality, as F9 spells out.</result>
 <usage><subagent_tokens>91806</subagent_tokens><tool_uses>31</tool_uses><duration_ms>244600</duration_ms></usage>
 </task-notification>
+
+---
+
+Done. Confirmed working, dropped test. Credential rotated.
+
+What's next? Any open items? Moreover, I tried capturing something and the UI says, the pipeline now has to extract before it's displayed under "/review". I'm on local dev; does any scheduler exist here that would run the extraction? How does extraction run?
+
+---
+
+The curl returned this. When does the review surface anything? For this item it said "skipped".
+
+{
+  "failures": [],
+  "proposed": 0,
+  "skipped": 1,
+  "transcribed": 0,
+  "blobsCleaned": 0
+}
+
+I merged PR#18. You can create a new branch and continue the remaining items.
+
+---
+
+Yes, do 1 and 2 on a new branch. However, on 1: I find that problematic that there's a gate in front of the extraction pipeline. If "Sam" were a client who wanted to talk in the garden this morning and I just hadn't provided the full context, the item would have been skipped, with or without surfacing reasons. Before you continue, let's briefly talk about that gate, what's it for, how it works, to better understand how to change it.
+
+---
+
+I lean C. What about consolidation, is it a good idea to have consolidation to the work of discarding empty facts like out-of-office autoreplies?
+
+---
+
+Brainstorm it. If you need me for any input not already defined by what we have, let me know.
+
+---
+
+B with the option to re-extract individual items or in bulk.
+
+---
+
+A. optional
+B. no collisions, be semantically pure
+C. skipped-only
