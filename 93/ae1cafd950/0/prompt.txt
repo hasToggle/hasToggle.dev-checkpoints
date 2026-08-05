@@ -1,0 +1,1 @@
+The tool calls still stretch along with the text that's rendered beneath. At first, it's small, then grows larger. Ideally, they should keep their size throughout. What's more, the "?" at the end of citations changes the pointer, but doesn't display any tooltip or is clickable.
