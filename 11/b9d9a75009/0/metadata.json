@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "11b9d9a75009",
+  "session_id": "c8330644-aee3-434a-b312-944dfa996288",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T13:50:00.409998Z",
+  "branch": "Kheirah/blob-diagnostics-and-rename",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "92243bdd82d5",
+  "token_usage": {
+    "input_tokens": 904,
+    "cache_creation_tokens": 3791998,
+    "cache_read_tokens": 237856974,
+    "output_tokens": 489581,
+    "api_call_count": 456
+  },
+  "session_metrics": {
+    "turn_count": 40
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4
+      }
+    }
+  ]
+}
