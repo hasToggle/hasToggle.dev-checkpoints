@@ -16,3 +16,40 @@ if two persons from the same company want to collaborate on the same company bra
 ---
 
 I merged PR#22 now. Yes, create a new branch for it, reflect it in the conductor UI as well. But: invite is not enough. People should be able to sign up to existing orgs themselves. Research how this is done in the industry. We don't want to reinvent the wheel.
+
+---
+
+<task-notification>
+<summary>Background security review found 2 issues: Authorization (role check may be vacuous) in packages/auth/server.ts; Authorization / Domain Join Bypass in packages/auth/server.ts</summary>
+</task-notification>
+<system-reminder>
+Background security review feedback — address or acknowledge the findings below, then continue with the user's original request or continue waiting for their reply. This is supplementary, not a replacement for your previous response: [from security-guidance@claude-code-plugins plugin — automated security review, not user input.]
+
+Security Review: Potential vulnerabilities detected
+
+Affected files: packages/auth/server.ts
+The following issues were flagged by automated security review. Address each, or briefly note why it doesn't apply. Valid reasons to proceed without changes: the user explicitly asked for this and you've already surfaced the security tradeoffs, or the pattern isn't actually exploitable in this context. Do not dismiss findings solely because the service is internal-only — internal services are common SSRF/IDOR targets:
+
+  packages/auth/server.ts:
+    1. [HIGH] [Authorization (role check may be vacuous)]   const { has } = await auth();
+  if (!has({ role: "org:admin" })) {
+    return { error: "Only admins can change allowed domains." };
+  }
+       Suggested fix: Replace with an explicit role check tied to the better-auth membership: fetch the current user's membership in the active organization and verify member.role === 'admin' || member.role === 'owner' before permitting the change.
+
+    2. [MEDIUM] [Authorization / Domain Join Bypass] const org = await authDb
+    .collection<OrganizationDoc>("organization")
+    .findOne({ _id: idForms(organizationId) as never });
+  const existing = new Set(parseAllowedDomains(org?.metadata));
+  const added = normalized.filter((domain) => !existing.has(domain));
+  for (const domain of added) {
+    if (!session.user.emailVerified) {
+      return { error: "Verify your email before allowing a domain." };
+    }
+    if (!canAllowDomain(session.user.email, domain)) {
+       Suggested fix: Re-validate the entire final list, not just the delta. For every domain in `normalized`, require canAllowDomain(session.user.email, domain) OR require that some current admin/owner of the org has a verified email on that domain. Alternatively, when persisting, filter allowedDomains to only those the org actually 'holds' via a verified admin email.
+
+
+After addressing or acknowledging this finding, continue with the user's original request or continue waiting for their reply — this review is supplementary feedback, not a replacement for your previous response.
+
+</system-reminder>
