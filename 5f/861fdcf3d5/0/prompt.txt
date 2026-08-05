@@ -1,1 +1,5 @@
 facts still come with the question mark. if you need to run playwright to debug it, let me know and i will log you in. Otherwise you can create a new login with a fake org yourself, add some facts and query them.
+
+---
+
+good. thanks. the tooltip itself can be visually improved. check it out and make it look great.
