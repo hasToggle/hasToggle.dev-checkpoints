@@ -1,0 +1,9 @@
+I now copied the .env.local file to the conductor/repos/spinor directory under apps/api. The apps/app should have its keys, too. You may need to copy them over to this worktree.
+
+However, I am puzzled by the reranker in two regards. One, it doesn't seem to run, you said. The key is there, it should run. Two, if it doesn't run, the facts surfaced are still facts. I don't understand "Unbelegtes Zitat" in that regard since everything that's in reach for queries are data that's trusted. The reranker merely reorders findings. It doesn't verify them or otherwise bolt on trust on top of it.
+
+---
+
+Restarted. Yet the question mark still shows on my questions about milo or martin. both are in the db.
+
+One other UI/UX item: when I send a message, the send button turns into a stop button which is good. But I don't see anything else indicating progress, no spinners, no nothing that would tell me, something's happening. I'd like to use AI Elements's UI for that.
