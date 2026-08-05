@@ -3,3 +3,7 @@ facts still come with the question mark. if you need to run playwright to debug 
 ---
 
 good. thanks. the tooltip itself can be visually improved. check it out and make it look great.
+
+---
+
+good. have a look at the avatar button at the bottom in the sidebar; when clicking it, it seems to open something but it's below the screen. It should open above instead.
