@@ -1,0 +1,51 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3b9e03faa7f0",
+  "session_id": "6f33e0ff-e9bb-4252-84d7-fb1cb3985e74",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-05T15:45:44.043645Z",
+  "branch": "Kheirah/brain-unified-surface",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "efedd06c0b4b",
+  "checkpoint_transcript_start": 276,
+  "transcript_lines_at_start": 276,
+  "token_usage": {
+    "input_tokens": 34,
+    "cache_creation_tokens": 170322,
+    "cache_read_tokens": 2729596,
+    "output_tokens": 13960,
+    "api_call_count": 17
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-05T15:45:44.030555Z",
+    "agent_lines": 24,
+    "agent_removed": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 24,
+    "total_lines_changed": 29,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 4,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".conductor/settings.local.toml": 4
+      }
+    }
+  ]
+}
