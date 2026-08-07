@@ -1,0 +1,1 @@
+One visual bug: the number of review items in the sidebar is black on hover and when active. It's white in dark mode.
