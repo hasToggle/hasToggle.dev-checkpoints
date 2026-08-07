@@ -1,0 +1,190 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/spinor/tunis directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Explore the company brain product that we built and understand it deeply. Tell me, why do we have a separate extraction step? For a better UX I'd prefer to have everything the user ingests into the company brain to become available asap instead of later.
+
+---
+
+<task-notification>
+<task-id>a4b82c81dc06eae76</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-spinor-tunis/f358f45e-dbb3-4e65-a738-a7fa7add3fb0/tasks/a4b82c81dc06eae76.output</output-file>
+<status>completed</status>
+<summary>Agent "Map brain ingestion pipeline" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Pipeline map: capture → transcribe → extract → propose → human review → facts → hybrid retrieval
+
+Everything is one MongoDB database (`knowledge`, `@repo/knowledge/client:41-42`), 8 collections (`packages/knowledge/collections.ts:22-31`): `sources`, `proposals`, `facts`, `organizations`, `people`, `engagements`, `dossiers`, `usage`.
+
+---
+
+## 1. Ingestion (3 doors, all write a `source` and stop)
+
+**A. Voice memo (browser)**
+- `apps/app/app/(authenticated)/components/brain/recorder.tsx:58-146` — MediaRecorder, mime pick via `apps/app/lib/capture.ts:39-42` (webm/opus → mp4).
+- `recorder.tsx:127-132` → `uploadPresigned("voice/memo-&lt;ts&gt;.&lt;ext&gt;", blob, { access: "private", handleUploadUrl: "/api/knowledge/upload" })`, then `createVoiceSource(result.url, blob.type)`.
+- `apps/app/app/api/knowledge/upload/route.ts:18-78` — presigned PUT token, scoped to `^voice/[^/]+$` (`:16`), `ACCEPTED_AUDIO_CONTENT_TYPES`, `MAX_AUDIO_BYTES = 100MB` (`:14`), `TOKEN_TTL_MS = 10 min` (`:15`). Requires `orgId &amp;&amp; userId` (`:39-42`).
+- `apps/app/app/actions/knowledge/create-source.ts:30-66` — inserts `{ audio: { blobUrl, contentType }, status: "received", type: "voice", tenantId: orgId }`. **No content, no extraction triggered.**
+
+**B. Manual note** — `create-source.ts:68-94`: inserts `{ content, status: "received", type: "manual" }`.
+
+**C. Inbound email webhook** — `apps/api/app/webhooks/inbound-email/route.ts:13-81`. Resend svix verify (`:26-37`), strict sender→tenant allowlist from `KNOWLEDGE_INBOUND_SENDERS` (`:43-51`, parser at `packages/knowledge/inbound.ts:17-30`), fetches body (`:54`), then `createEmailSource` (`packages/knowledge/inbound.ts:51-89`) — deterministic `_id = md5(tenantId:email:messageId)` (`:61`) + unique partial index `tenant_message` (`collections.ts:69-74`) makes retries no-ops. Sets `occurredAt = sentAt` (`:82`), which becomes the fact's `validFrom`.
+
+**None of these three call a model.** Ingestion is pure insert + `revalidatePath`.
+
+---
+
+## 2. What a "source" is
+
+`packages/knowledge/schemas/sources.ts:14-66`.
+
+Status enum (`:4-12`): `received → transcribing → transcribed → extracting → proposed → reviewed`, plus `failed`.
+
+Key fields:
+- `content` (`:37`) — transcript / email body / pasted text. The extraction payload.
+- `type: "voice" | "email" | "manual"` (`:64`)
+- `occurredAt` (`:59`) — event time, inherited as fact `validFrom`
+- `extractionAttempts` (`:51`) — failure budget, max 3
+- `transcriptionAttempts` (`:63`) — same, max 3
+- `extractionGeneration` (`:54`) — deliberate re-run counter (≠ attempts)
+- `error` (`:47`), `blobsPendingDeletion` (`:34`)
+- Index `tenant_status_recency` = `{tenantId:1, status:1, createdAt:-1}` (`collections.ts:65-68`)
+
+State transitions live in `transcription.ts:172-221`, `extraction-run.ts:280-408`, and `review.ts:259-264` (`→ "reviewed"`).
+
+---
+
+## 3. EXTRACTION — a **cron job**, not inline, not a webhook
+
+**Trigger:** `apps/api/vercel.json:15-18` — `/cron/knowledge-pipeline` on `*/5 * * * *` (every 5 minutes). Auth: `Bearer ${CRON_SECRET}` (`apps/api/app/cron/auth.ts:6-15`; 503 if unset). `maxDuration = 300` (`knowledge-pipeline/route.ts:15`).
+
+**Route** `apps/api/app/cron/knowledge-pipeline/route.ts:37-73` wires:
+- `generate: createGatewayGenerate({ onUsage: createUsageRecorder(db) })` (`:45`)
+- `transcribe: createAssemblyAiTranscriber()` (`:47`)
+- `resolveAudioUrl` — 1-hour presigned GET (`:20-35`), because the blob store is private
+- Also runs blob-cleanup crash recovery (`:52-67`)
+
+**Sweep** `packages/knowledge/pipeline.ts:36-143`:
+- Cross-tenant, one query per stage, `sort({createdAt: 1})`, **`limit = 10` per stage per sweep** (`:14, :44`).
+- Stage 1 (`:60-93`): `{status:"received"} OR {status:"transcribing", updatedAt &lt; staleCutoff}` with `audio.blobUrl` and `type:"voice"`. `staleAfterMs` default **10 min** (`:34`) — that's the crashed-worker reclaim window.
+- Stage 2 (`:99-140`): `{status:"transcribed"}` OR `{status:"received", type: email|manual, content exists}` OR `{status:"extracting", updatedAt &lt; staleCutoff}`.
+- **Sequential, not parallel** — deliberate (`:75`, `:121`). One 300s function processes up to 10 transcriptions *then* up to 10 extractions.
+
+**Transcription** `packages/knowledge/transcription.ts:70-137`: AssemblyAI EU endpoint `https://api.eu.assemblyai.com` (`:64`), `redact_pii: true` with 14 PII policies (`:38-53`), `language_detection`, `speaker_labels`. **Polls every 2s** (`:65`) with a **180s timeout** (`:66`). `runTranscription` (`:139-223`) sets `transcribing` → writes `content` + `transcribed`, or increments `transcriptionAttempts`; at 3 → `failed`.
+
+**Extraction** `packages/knowledge/extraction-run.ts:294-410`:
+1. Idempotency early-return: `proposalIdFor(tenantId, sourceId, generation)` (`:195-204`) — deterministic. Existing proposal just heals status (`:313-324`).
+2. `guardExtractable` (`:206-215`) — statuses `received|transcribed|extracting` only.
+3. Status → `extracting` (`:329-332`).
+4. `gatherContext` (`:116-164`): loads **up to 200 orgs + 200 people + 200 engagements** (`CONTEXT_ENTITY_LIMIT = 200`, `:43`) and **50 currently-valid facts** sorted `updatedAt: -1` (`CONTEXT_FACT_LIMIT = 50`, `:44`). This is the "recency window" that makes cross-month contradictions invisible to extraction.
+5. **One LLM call** — `buildExtractionPrompt` (`packages/knowledge/extraction.ts:140-199`). Prompt shows known entities + currently valid facts and demands strict JSON: `{entities, facts}` or `{skip:true, reason}` (`:185-198`). Reviewer `hint` is interpolated trusted (`:167-170`).
+6. `parseExtractionResponse` (`:201-252`): refusal gate `REFUSAL_REGEX`, `extractLastValidObject`, per-draft validation — bad drafts become `rejectedDrafts` rather than being dropped (`:226, :235`). All-drafts-invalid = **failure** (retry); empty = **skip**.
+7. `validateReferences` (`extraction-run.ts:49-83`) — hallucinated entity/fact id = retryable failure, never a proposal.
+8. Writes proposal (`:374-381`) or skip-proposal (`:383-394`), then `markSourceProposed` (`:280-292`). On failure: `extractionAttempts + 1`, `maxAttempts = 3` (`:297`) → `failed`.
+
+**Model calls / spend:**
+- `packages/knowledge/gateway.ts:122-183` — raw `POST {AI_GATEWAY_BASE}/chat/completions`, Vercel AI Gateway `https://ai-gateway.vercel.sh/v1` (`:71`).
+- Default model `deepseek/deepseek-v4-flash-0731` (`:70`), override `EXTRACTION_MODEL` (`:134`).
+- `max_tokens = 16_384` (`:72`) — comment at `:12-17` explains 4096 truncated DeepSeek reasoning and cost retries.
+- `reasoning_effort: "low"` (`:73`).
+- **Spend tracking**: `parseGatewayUsage` (`:83-120`) reads `usage.gateway_cost`, `usage.cost`, `usage.surcharge_cost`, `prompt_tokens_details.cached_tokens`, `completion_tokens_details.reasoning_tokens`, `provider_metadata.gateway.generationId`. → `createUsageRecorder` (`packages/knowledge/usage.ts:61-70`), one row per call in `usage` (schema `packages/knowledge/schemas/usage.ts:17-37`; operations: `extraction | consolidation | contradiction | eval-extraction | eval-judge | rerank`). Telemetry throws are swallowed (`gateway.ts:170-175`, `usage.ts:67-69`). No TTL, deliberately (`collections.ts:103-115`).
+- **Batching: none.** One prompt per source, one HTTP call, sequential.
+
+**Nightly "dream cycle" cron** — `apps/api/vercel.json:19-22`, `/cron/knowledge-consolidation` at `0 3 * * *`, `maxDuration = 300` (`route.ts:12`). Runs `sweepConsolidation` then `sweepContradictions` (`:26-27`).
+- `findCandidateAnchors` (`packages/knowledge/anchors.ts:74-104`): 3 aggregations grouping currently-valid facts by anchor, `limit 10` anchors total.
+- Consolidation `minFacts = 8` (`consolidation.ts:130`), contradiction `minFacts = 2` (`contradiction.ts:165`). One LLM call per anchor each (`consolidation.ts:228-233`, `contradiction.ts:237-243`).
+- Both produce **proposals**, never facts (`consolidation.ts:289-299`, `contradiction.ts:297-307`). Deterministic id keyed on md5 of the exact fact set (`consolidation.ts:174-184`) — a reviewer's "no" is remembered until the facts change.
+
+**Re-extraction (manual, synchronous)** — `apps/app/app/actions/knowledge/re-extract.ts:30-85` → `packages/knowledge/re-extraction.ts:25-87`: supersedes open proposals for the source (`:55-58`), bumps `extractionGeneration` (`:64`), resets `extractionAttempts: 0` and status to resting (`:68-84`), then calls `runExtraction` **inline in the server action** — this is the only path where an LLM extraction call blocks a user request.
+
+---
+
+## 4. Proposals → review → facts: **human review is mandatory**
+
+`packages/knowledge/review.ts:13-16` states the invariant: *"capture → proposal → HUMAN CONFIRMS → fact. Everything that turns drafts into knowledge goes through here."*
+
+`resolveProposalItems` (`review.ts:111-268`) is the **only** writer to `facts` in the whole package. Verified: extraction, consolidation and contradiction all write to `proposals` only.
+
+Proposal shape `packages/knowledge/schemas/proposals.ts:53-78`: `kind: ingestion|consolidation|contradiction`, `status: open|resolved|superseded`, `entityDrafts[]`, `factDrafts[]`, `rejectedDrafts[]`, `skipReason`, `extractionGeneration`, `hint`.
+Per-draft `resolution.status`: entities `pending|confirmed|discarded` (`:16`), facts `pending|confirmed|edited|discarded` (`:43`).
+
+Flow:
+- `review.ts:133` `loadEventTime` → `validFrom` from `source.occurredAt` (ingestion) or earliest parent (merge, `:357-370`).
+- `planResolution` (`:511-554`) validates everything **before the first write** (all-or-nothing).
+- `validateSupersessions` (`:274-315`) — targets must exist and be unclaimed.
+- Writes: entities first (`:147-165`), then facts via `insertIgnoringDuplicate` with deterministic `_id = md5(proposalId:fact:index)` (`:483-485`), then stamps `supersededBy` / `supersededAt` / `validUntil` on replaced facts (`:189-202`).
+- Closes proposal → `status: "resolved"` + source → `status: "reviewed"` only when nothing is pending (`:247-265`).
+
+UI: `apps/app/app/(authenticated)/components/brain/review-pane.tsx:36-37` ("Nothing becomes knowledge without your sign-off"); detail page `apps/app/app/(authenticated)/review/[id]/page.tsx`; form `review-form.tsx:195` → `resolveProposal`; server action `apps/app/app/actions/knowledge/resolve.ts:24-97` (blocks `superseded` proposals at `:55-62`, refreshes dossiers at `:73-82`). Decision mapping `apps/app/lib/review-decisions.ts:30-57` (unedited text = `confirm`, edited = `edit`).
+
+Queue reads: `list-proposals.ts:66-77` — open proposals filtered `{status:"open", skipReason:{$exists:false}}`; skipped ones surfaced separately with a re-extract control.
+
+---
+
+## 5. Read/query path
+
+Single entry point: `packages/knowledge/retrieval.ts:169-199` `retrieveFacts` → **collection `facts` only**. Sole caller: `apps/app/agent/tools/search-knowledge.ts:36-41`.
+
+**Visible state:** `currentlyValidFilter = { supersededBy: null, validUntil: null }` (`schemas/facts.ts:33-36`), applied inside both fusion arms (`retrieval.ts:75-77, 118, 134`) unless `includeSuperseded`. So the ask surface sees **only human-confirmed, non-superseded facts**. Sources, proposals and drafts are never queryable by the agent.
+
+**Pipeline** `buildHybridFactsPipeline` (`retrieval.ts:67-143`):
+- `$rankFusion` with weights `{lexical: 0.5, semantic: 0.5}` (`:51`, `:94`), `scoreDetails: true`.
+- Lexical arm: `$search` on index `facts_search` (`search.ts:4`, def at `:13-27` — `dynamic:false`, `lucene.german` multi-analyzer + default, `token` fields for `tenantId`/`category`), `fuzzy: {maxEdits: 1}`, query hits both analyzer paths (`retrieval.ts:105-112`).
+- Semantic arm: `$vectorSearch` on index `facts_vector` (`retrieval.ts:17`), `path: "text"`, `query: { text: query }`.
+- Sizes: `DEFAULT_LIMIT = 20` (`:57`), `perArm = limit * 5 = 100` (`:55`), `numCandidates = limit * 20 = 400` (`:56`).
+- Tenant/category are **pre-filters** on the vector arm (`:38-42`) — comment explains post-filtering would let another tenant consume this tenant's k.
+
+**Reranking** `createVoyageRerank` (`retrieval.ts:264-351`): MongoDB's `https://ai.mongodb.com/v1/rerank` (`:234`), model `rerank-2.5-lite` (`:237`), `topK = 50` (`:238`). Cost is **computed**, not reported: `$0.02 / 1M tokens` (`:251`), rows flagged `estimated: true` (`:343`). Enabled only if `VOYAGE_API_KEY` is set (`search-knowledge.ts:14-20`); a rerank throw falls back to fusion order with a warning (`retrieval.ts:187-198`).
+
+**Chat surface**: eve agent `apps/app/agent/agent.ts:10-12` (`KNOWLEDGE_CHAT_MODEL`, default same DeepSeek). Tenant comes from the verified session only (`apps/app/agent/channels/eve.ts:14-34`, re-read at `search-knowledge.ts:29-34`). Instructions `apps/app/agent/instructions.md` require `&lt;fact id="…"/&gt;` citations; UI `knowledge-chat.tsx:42, 85-105` resolves citations against tool output only.
+
+**Dossiers** (`packages/knowledge/dossier.ts:113-162`) — 600-token/4-chars-per-token materialized per-anchor summaries, deterministic, refreshed on review (`resolve.ts:80`). **Nothing reads the `dossiers` collection** — grep shows only writes (`resolve.ts`) and erasure deletes (`erasure.ts:532`). The "always-loadable tier" is built but not wired into the agent.
+
+---
+
+## 6. Where the latency comes from
+
+| Stage | Trigger | Delay contributed |
+|---|---|---|
+| Capture → `received` | user action / webhook | ~instant |
+| `received` → transcription start | **cron `*/5 * * * *`** (`vercel.json:17`) | **0–5 min** |
+| Transcription | AssemblyAI, 2s poll, 180s cap (`transcription.ts:65-66`) | seconds–3 min |
+| `transcribed` → extraction | **same sweep run** — Stage 2 runs after Stage 1 in the same invocation (`pipeline.ts:99`) | usually 0; **+5 min** if the source was queued past `limit = 10` or the function hit `maxDuration = 300` |
+| Extraction LLM | one DeepSeek call, ≤16 384 output tokens | seconds–tens of seconds |
+| `proposed` → open proposal in queue | immediate | 0 |
+| **Proposal → fact** | **human clicks Confirm** | **unbounded — this is the dominant delay** |
+| Fact → lexical searchable | Atlas Search `facts_search` async index | seconds (mongot replication) |
+| Fact → semantic searchable | Atlas `autoEmbed` on `facts_vector` — Voyage `voyage-4-large`, 2048 dims, scalar quantization (`retrieval.ts:28-44`); embedding happens **server-side at index time**, none in-process | seconds; index build is async (`setup-indexes.ts:99`) |
+| Consolidation / contradiction proposals | **cron `0 3 * * *`** | up to 24h |
+
+Other timing constants:
+- Crashed-worker reclaim: `DEFAULT_STALE_AFTER_MS = 10 * 60_000` (`pipeline.ts:34`) — a source stuck in `transcribing`/`extracting` waits ≥10 min before being re-swept.
+- Failure retries: `maxAttempts = 3` both stages → a flaky source can burn **3 × 5 min = 15 min** before `failed`.
+- Presigned audio GET TTL 1h (`knowledge-pipeline/route.ts:20`); upload token TTL 10 min (`upload/route.ts:15`).
+- Throughput ceiling: **10 sources per stage per 5 min ≈ 120 transcriptions + 120 extractions per hour, global across all tenants** (`pipeline.ts:14`), sequential.
+- UI polling: `SourceList` refreshes every **15s** while any source is in an active status (`source-list.tsx:21-50`).
+- Mongo client: `maxPoolSize: 5`, `serverSelectionTimeoutMS: 10_000` (`client.ts:26-35`).
+
+**Index setup is manual and one-time**: `packages/knowledge/scripts/setup-indexes.ts` — `ensureIndexes` + 4 search indexes (`facts_search`, `facts_vector`, `organizations_search`, `people_search`). Note `:20-23`: the vector index pushes past the M0 3-index ceiling and `autoEmbed` requires Flex/M10+, so on an M0 cluster the semantic arm of `$rankFusion` simply does not exist.</result>
+<usage><subagent_tokens>134527</subagent_tokens><tool_uses>58</tool_uses><duration_ms>207301</duration_ms></usage>
+</task-notification>
+
+---
+
+yes
+
+---
+
+run the script yourself. then i will test 2 and 3
