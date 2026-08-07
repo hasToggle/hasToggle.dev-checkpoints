@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "21d13c8c3d1f",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "docs/renovate.md",
+    "package.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/21/d13c8c3d1f/0/metadata.json",
+      "transcript": "/21/d13c8c3d1f/0/full.jsonl",
+      "content_hash": "/21/d13c8c3d1f/0/content_hash.txt",
+      "prompt": "/21/d13c8c3d1f/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 13,
+    "cache_creation_tokens": 71210,
+    "cache_read_tokens": 477804,
+    "output_tokens": 15215,
+    "api_call_count": 7
+  }
+}

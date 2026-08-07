@@ -1,0 +1,98 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "21d13c8c3d1f",
+  "session_id": "39e10f4f-12ec-4581-be2a-0d7d9284453b",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-07T18:21:39.280815Z",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "docs/renovate.md",
+    "package.json"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "110b42711ab2",
+  "checkpoint_transcript_start": 60,
+  "transcript_lines_at_start": 60,
+  "token_usage": {
+    "input_tokens": 13,
+    "cache_creation_tokens": 71210,
+    "cache_read_tokens": 477804,
+    "output_tokens": 15215,
+    "api_call_count": 7
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-07T18:21:39.275764Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 12,
+    "human_modified": 16,
+    "human_removed": 0,
+    "total_committed": 12,
+    "total_lines_changed": 28,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 2903,
+      "user_lines_removed": 16,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".playwright-mcp/page-2026-08-07T15-49-22-768Z.yml": 27,
+        ".playwright-mcp/page-2026-08-07T15-49-47-953Z.yml": 79,
+        ".playwright-mcp/page-2026-08-07T15-50-19-390Z.yml": 87,
+        ".playwright-mcp/page-2026-08-07T15-50-44-091Z.yml": 72,
+        ".playwright-mcp/page-2026-08-07T15-50-48-734Z.yml": 72,
+        ".playwright-mcp/page-2026-08-07T15-51-09-923Z.yml": 87,
+        ".playwright-mcp/page-2026-08-07T15-51-35-408Z.yml": 72,
+        ".playwright-mcp/page-2026-08-07T15-51-59-925Z.yml": 89,
+        ".playwright-mcp/page-2026-08-07T15-52-14-600Z.yml": 96,
+        ".playwright-mcp/page-2026-08-07T15-52-41-384Z.yml": 96,
+        ".playwright-mcp/page-2026-08-07T15-52-47-388Z.yml": 80,
+        ".playwright-mcp/page-2026-08-07T15-55-00-998Z.yml": 68,
+        ".playwright-mcp/page-2026-08-07T15-55-14-366Z.yml": 117,
+        ".playwright-mcp/page-2026-08-07T15-55-37-522Z.yml": 119,
+        ".playwright-mcp/page-2026-08-07T15-56-00-883Z.yml": 117,
+        ".playwright-mcp/page-2026-08-07T16-01-07-269Z.yml": 68,
+        ".playwright-mcp/page-2026-08-07T16-01-25-182Z.yml": 71,
+        ".playwright-mcp/page-2026-08-07T16-02-32-687Z.yml": 99,
+        ".playwright-mcp/page-2026-08-07T16-02-50-307Z.yml": 71,
+        ".playwright-mcp/page-2026-08-07T16-02-56-725Z.yml": 71,
+        ".playwright-mcp/page-2026-08-07T16-03-23-140Z.yml": 99,
+        ".playwright-mcp/page-2026-08-07T16-03-33-768Z.yml": 71,
+        ".playwright-mcp/page-2026-08-07T16-11-09-469Z.yml": 103,
+        ".playwright-mcp/page-2026-08-07T16-11-42-634Z.yml": 134,
+        ".playwright-mcp/page-2026-08-07T16-11-49-361Z.yml": 106,
+        ".playwright-mcp/page-2026-08-07T16-11-56-672Z.yml": 108,
+        ".playwright-mcp/page-2026-08-07T16-13-29-154Z.yml": 138,
+        ".playwright-mcp/page-2026-08-07T16-13-37-428Z.yml": 110,
+        ".playwright-mcp/page-2026-08-07T16-14-04-947Z.yml": 106,
+        ".playwright-mcp/page-2026-08-07T16-14-12-333Z.yml": 136,
+        ".playwright-mcp/page-2026-08-07T16-14-27-060Z.yml": 106,
+        "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx": 17,
+        "docs/renovate.md": 10,
+        "package.json": 1
+      },
+      "user_removed_per_file": {
+        "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx": 5,
+        "docs/renovate.md": 10,
+        "package.json": 1
+      }
+    }
+  ]
+}
