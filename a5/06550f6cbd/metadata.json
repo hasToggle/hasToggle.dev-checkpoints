@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "a506550f6cbd",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/__tests__/review-decisions.test.ts",
+    "apps/app/app/(authenticated)/components/brain/review-pane.tsx",
+    "apps/app/app/(authenticated)/components/sidebar.tsx",
+    "apps/app/app/(authenticated)/layout.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "apps/app/app/(authenticated)/review/[id]/page.tsx",
+    "apps/app/app/(authenticated)/review/components/desk.tsx",
+    "apps/app/app/(authenticated)/review/components/rejected-drafts.tsx",
+    "apps/app/app/(authenticated)/review/components/review-queue.tsx",
+    "apps/app/app/(authenticated)/review/components/source-quote.tsx",
+    "apps/app/app/(authenticated)/review/page.tsx",
+    "apps/app/app/actions/knowledge/get-proposal.ts",
+    "apps/app/app/actions/knowledge/list-proposals.ts",
+    "apps/app/app/actions/knowledge/resolve.ts",
+    "apps/app/lib/review-decisions.ts",
+    "apps/app/next.config.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a5/06550f6cbd/0/metadata.json",
+      "transcript": "/a5/06550f6cbd/0/full.jsonl",
+      "content_hash": "/a5/06550f6cbd/0/content_hash.txt",
+      "prompt": "/a5/06550f6cbd/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 15,
+    "cache_creation_tokens": 46397,
+    "cache_read_tokens": 391155,
+    "output_tokens": 3236,
+    "api_call_count": 8
+  }
+}
