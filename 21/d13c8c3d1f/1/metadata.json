@@ -1,0 +1,53 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "21d13c8c3d1f",
+  "session_id": "f358f45e-dbb3-4e65-a738-a7fa7add3fb0",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-07T18:21:43.008395Z",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "7d685c2879e9",
+  "token_usage": {
+    "input_tokens": 1247,
+    "cache_creation_tokens": 970470,
+    "cache_read_tokens": 69507663,
+    "output_tokens": 156670,
+    "api_call_count": 269
+  },
+  "session_metrics": {
+    "turn_count": 8
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-07T18:21:42.962162Z",
+    "agent_lines": 1,
+    "agent_removed": 4,
+    "human_added": 11,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 12,
+    "total_lines_changed": 27,
+    "agent_percentage": 18.51851851851852,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2876,
+      "agent_lines_removed": 4
+    }
+  ]
+}
