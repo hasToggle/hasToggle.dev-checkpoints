@@ -1,0 +1,17 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/pretoria directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+This branch/PR reshapes what hasToggle is about - a Next.js and Vercel playground. Behind the free product I want to run coding bootcamps / cohorts. For that I'd like to have a feature where I can join users while they're in the app. The users then see a popup of some kind saying something like "a coach/Eric wants to join you" and they can accept or decline. I'd use the app project for that since it's already gated using auth. I don't yet know if I'd join via video and let them choose if they want to stay in the chat only. It's always unpleasant to be on video.
+Your task is to think this through and come up with a plan that technically supports this. Also, educate me where I might have fallen short or not mentioned something that may benefit us. The end goal is a solid feature for multiplayer interaction between a group of learners and the coach. A group might only consist of a single learner if nobody else is online.
