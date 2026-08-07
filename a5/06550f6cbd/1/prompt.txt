@@ -1,0 +1,13 @@
+Manual notes work. However, I tried something else, too.
+The note: Der Kunde Muster bevorzugt Termine am Abend.
+
+That surfaced two decisions for me, one for the new person and one for the fact. I accepted the fact and denied the person. That errored:
+factDrafts[0] anchors person draft "person-1", which is being discarded
+
+---
+
+Yes. Plus, since we're touching some UI here as well, let's improve the UI/UX of the review detail page. Currently, it's only reachable via the review tab on the home page, which transition to the detail page. He currently have two worlds in one, which is odd. The review page did exist and it had a sidebar entry. The detail review page was accessible via items for review. But now we have a tab for reviewing items, which looks neat, but still leads to the previously built UI of the review detail page. The user loses track of navigation as well, since the UI from the home page with its tab is gone. Now there's a breadcrumb that tells the user they're on the brain > proposal page. The detail review UI itself is not beautiful either. Stretches for the entire width, looking odd. Now this change to make the form dep-aware which should be visually clear as well. So, there's some work that I'd like to have consistent. Before you apply any changes, shoot me back your suggestion for the updated, badass UI/UX you envision.
+
+---
+
+Build it, keep it in English.

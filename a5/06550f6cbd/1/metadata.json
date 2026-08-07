@@ -1,0 +1,63 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "a506550f6cbd",
+  "session_id": "f358f45e-dbb3-4e65-a738-a7fa7add3fb0",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-07T15:57:50.873319Z",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/__tests__/review-decisions.test.ts",
+    "apps/app/lib/review-decisions.ts",
+    "apps/app/app/actions/knowledge/get-proposal.ts",
+    "apps/app/app/actions/knowledge/resolve.ts",
+    "apps/app/app/(authenticated)/review/components/desk.tsx",
+    "apps/app/app/(authenticated)/review/components/review-queue.tsx",
+    "apps/app/app/(authenticated)/review/components/source-quote.tsx",
+    "apps/app/app/(authenticated)/review/components/rejected-drafts.tsx",
+    "apps/app/app/(authenticated)/review/[id]/components/review-form.tsx",
+    "apps/app/app/(authenticated)/review/page.tsx",
+    "apps/app/app/(authenticated)/review/[id]/page.tsx",
+    "apps/app/app/actions/knowledge/list-proposals.ts",
+    "apps/app/app/(authenticated)/components/sidebar.tsx",
+    "apps/app/app/(authenticated)/layout.tsx",
+    "apps/app/app/(authenticated)/components/brain/review-pane.tsx",
+    "apps/app/next.config.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "cb85795725f0",
+  "checkpoint_transcript_start": 428,
+  "transcript_lines_at_start": 428,
+  "token_usage": {
+    "input_tokens": 910,
+    "cache_creation_tokens": 123901,
+    "cache_read_tokens": 26497631,
+    "output_tokens": 62661,
+    "api_call_count": 90
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-07T15:57:50.843282Z",
+    "agent_lines": 932,
+    "agent_removed": 173,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 932,
+    "total_lines_changed": 1105,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
