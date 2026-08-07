@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "31c4226f763d",
+  "session_id": "f358f45e-dbb3-4e65-a738-a7fa7add3fb0",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-07T16:03:48.797732Z",
+  "branch": "Kheirah/why-separate-extraction-step",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "fcea78443699",
+  "checkpoint_transcript_start": 827,
+  "transcript_lines_at_start": 827,
+  "token_usage": {
+    "input_tokens": 51,
+    "cache_creation_tokens": 11667,
+    "cache_read_tokens": 9342535,
+    "output_tokens": 6653,
+    "api_call_count": 27
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1278,
+      "agent_lines_removed": 0
+    }
+  ]
+}
