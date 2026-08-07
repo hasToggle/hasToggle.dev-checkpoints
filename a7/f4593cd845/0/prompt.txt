@@ -1,1 +1,5 @@
 One visual bug: the number of review items in the sidebar is black on hover and when active. It's white in dark mode.
+
+---
+
+Good, thanks. The UI is better now, but it could be badass. Right now, the review page has too much unused space where the review items sit. If there's just 2-3 items, there's plenty of white space underneath. And the items push the actual preview of them more to the right which constrains them to less space even though they're the pimary focus. We can do better?
