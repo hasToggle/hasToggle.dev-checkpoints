@@ -1,0 +1,1 @@
+for the free atlas project and cluster only 3 indexes are allowed on that free tier. I'd have to pay for another flex if we need all indexes.
