@@ -15,3 +15,9 @@ If the user asks for help with Conductor, you can ask them to go to "Help -> Sen
 
 This branch/PR reshapes what hasToggle is about - a Next.js and Vercel playground. Behind the free product I want to run coding bootcamps / cohorts. For that I'd like to have a feature where I can join users while they're in the app. The users then see a popup of some kind saying something like "a coach/Eric wants to join you" and they can accept or decline. I'd use the app project for that since it's already gated using auth. I don't yet know if I'd join via video and let them choose if they want to stay in the chat only. It's always unpleasant to be on video.
 Your task is to think this through and come up with a plan that technically supports this. Also, educate me where I might have fallen short or not mentioned something that may benefit us. The end goal is a solid feature for multiplayer interaction between a group of learners and the coach. A group might only consist of a single learner if nobody else is online.
+
+---
+
+Fix Claude.md's mention of the wrong db.
+
+Let's postpone the feature. Keep this change scoped to fixing the md only. Commit, push and open a PR.
