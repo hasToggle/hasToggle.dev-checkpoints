@@ -1,0 +1,64 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "20b374deacea",
+  "session_id": "dab131b6-ca01-4e51-8ced-9549e6a1e994",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-08T19:18:47.013908Z",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/app/app/actions/users/get.ts",
+    "apps/app/app/actions/users/search.ts",
+    "apps/app/app/api/collaboration/auth/route.ts",
+    "apps/app/env.ts",
+    "apps/app/liveblocks.config.ts",
+    "apps/app/package.json",
+    "apps/web/content/legal/privacy.mdx",
+    "biome.jsonc",
+    "bun.lock",
+    "packages/collaboration/auth.ts",
+    "packages/collaboration/config.ts",
+    "packages/collaboration/hooks.ts",
+    "packages/collaboration/keys.ts",
+    "packages/collaboration/package.json",
+    "packages/collaboration/room.tsx",
+    "packages/collaboration/tsconfig.json"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "43024a083307",
+  "checkpoint_transcript_start": 959,
+  "transcript_lines_at_start": 959,
+  "token_usage": {
+    "input_tokens": 25,
+    "cache_creation_tokens": 12530,
+    "cache_read_tokens": 6429621,
+    "output_tokens": 5568,
+    "api_call_count": 13
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-08T19:18:46.862926Z",
+    "agent_lines": 27,
+    "agent_removed": 361,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 27,
+    "total_lines_changed": 388,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
