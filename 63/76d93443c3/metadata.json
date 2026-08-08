@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "6376d93443c3",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/erasure.tsx",
+    "apps/web/content/legal/privacy.mdx",
+    "apps/web/content/legal/terms.mdx",
+    "packages/seo/metadata.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/63/76d93443c3/0/metadata.json",
+      "transcript": "/63/76d93443c3/0/full.jsonl",
+      "content_hash": "/63/76d93443c3/0/content_hash.txt",
+      "prompt": "/63/76d93443c3/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 57,
+    "cache_creation_tokens": 471089,
+    "cache_read_tokens": 13648319,
+    "output_tokens": 22016,
+    "api_call_count": 30
+  }
+}
