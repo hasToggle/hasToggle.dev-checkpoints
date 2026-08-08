@@ -1,0 +1,24 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/memorynine/vienna directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Remove the sidebar entries webhooks and digests in the app project. They're remnants from the fork (as is the entire web project). Clean up the app project from anything related to digests. Remove webhooks, but leave any backend code in place if it exists; it might be useful later on.
+
+Then go through the web project and remove any pages about masterclasses or learning. Cleanly remove any code; leave nothing behind in the repo. Then, for the landing page in the web project create a dedicated landing page for memorynine. Check out the product in the app project and then design the most badass page that makes people want to subscribe to it.
+
+---
+
+3. remove the learn/button from the app as well, so no dangling code remains.
+2. can you generate the memorynine logos, wordmark assets yourself? if so, do so.
+1. good, let's leave this alone for now.
