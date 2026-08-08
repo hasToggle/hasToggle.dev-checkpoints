@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "98c93561029c",
+  "session_id": "dab131b6-ca01-4e51-8ced-9549e6a1e994",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-08T19:54:53.535628Z",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/layout.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "57f5b6640ab3",
+  "checkpoint_transcript_start": 1230,
+  "transcript_lines_at_start": 1230,
+  "token_usage": {
+    "input_tokens": 31,
+    "cache_creation_tokens": 9286,
+    "cache_read_tokens": 9489050,
+    "output_tokens": 5542,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-08T19:54:53.341089Z",
+    "agent_lines": 7,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 7,
+    "total_lines_changed": 7,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
