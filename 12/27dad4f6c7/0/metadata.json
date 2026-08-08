@@ -1,0 +1,55 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "1227dad4f6c7",
+  "session_id": "6edf8871-9c95-4940-b467-32718198d079",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-08T12:59:59.222041Z",
+  "branch": "Kheirah/fix-lint-and-storybook",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/storybook/package.json",
+    "bun.lock"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "cc2aade5f14f",
+  "token_usage": {
+    "input_tokens": 794,
+    "cache_creation_tokens": 624119,
+    "cache_read_tokens": 48430656,
+    "output_tokens": 116227,
+    "api_call_count": 248
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-08T12:59:59.201099Z",
+    "agent_lines": 59,
+    "agent_removed": 8,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 59,
+    "total_lines_changed": 67,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1941,
+      "agent_lines_removed": 1543
+    }
+  ]
+}
