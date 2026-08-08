@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "504f6c643327",
+  "strategy": "manual-commit",
+  "branch": "renovate/minor-updates",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/app/__tests__/eval-tenant.test.ts",
+    "apps/app/agent/channels/eve.ts",
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/50/4f6c643327/0/metadata.json",
+      "transcript": "/50/4f6c643327/0/full.jsonl",
+      "content_hash": "/50/4f6c643327/0/content_hash.txt",
+      "prompt": "/50/4f6c643327/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1214,
+    "cache_creation_tokens": 135708,
+    "cache_read_tokens": 7875610,
+    "output_tokens": 33180,
+    "api_call_count": 68
+  }
+}
