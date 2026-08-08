@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "797570768ad7",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/app/app/(unauthenticated)/layout.tsx",
+    "packages/design-system/brand/logo.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/79/7570768ad7/0/metadata.json",
+      "transcript": "/79/7570768ad7/0/full.jsonl",
+      "content_hash": "/79/7570768ad7/0/content_hash.txt",
+      "prompt": "/79/7570768ad7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 42,
+    "cache_creation_tokens": 29797,
+    "cache_read_tokens": 11381968,
+    "output_tokens": 13187,
+    "api_call_count": 22
+  }
+}
