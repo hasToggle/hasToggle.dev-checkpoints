@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "83fcbdb63f61",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/theme-toggle.tsx",
+    "apps/web/app/styles.css"
+  ],
+  "sessions": [
+    {
+      "metadata": "/83/fcbdb63f61/0/metadata.json",
+      "transcript": "/83/fcbdb63f61/0/full.jsonl",
+      "content_hash": "/83/fcbdb63f61/0/content_hash.txt",
+      "prompt": "/83/fcbdb63f61/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 68,
+    "cache_creation_tokens": 55418,
+    "cache_read_tokens": 20200535,
+    "output_tokens": 24390,
+    "api_call_count": 36
+  }
+}

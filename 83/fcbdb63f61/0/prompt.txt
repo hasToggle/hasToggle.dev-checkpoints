@@ -1,0 +1,1 @@
+I see there's a theme switcher on the app project but not on the web project. Does the landing page support both light and dark mode? Add the theme switcher and make any changes to the page if necessary.
