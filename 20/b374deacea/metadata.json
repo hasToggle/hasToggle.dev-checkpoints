@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "20b374deacea",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/app/app/actions/users/get.ts",
+    "apps/app/app/actions/users/search.ts",
+    "apps/app/app/api/collaboration/auth/route.ts",
+    "apps/app/env.ts",
+    "apps/app/liveblocks.config.ts",
+    "apps/app/package.json",
+    "apps/web/content/legal/privacy.mdx",
+    "biome.jsonc",
+    "bun.lock",
+    "packages/collaboration/auth.ts",
+    "packages/collaboration/config.ts",
+    "packages/collaboration/hooks.ts",
+    "packages/collaboration/keys.ts",
+    "packages/collaboration/package.json",
+    "packages/collaboration/room.tsx",
+    "packages/collaboration/tsconfig.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/20/b374deacea/0/metadata.json",
+      "transcript": "/20/b374deacea/0/full.jsonl",
+      "content_hash": "/20/b374deacea/0/content_hash.txt",
+      "prompt": "/20/b374deacea/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 25,
+    "cache_creation_tokens": 12530,
+    "cache_read_tokens": 6429621,
+    "output_tokens": 5568,
+    "api_call_count": 13
+  }
+}
