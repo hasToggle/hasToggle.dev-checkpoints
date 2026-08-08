@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "1e4db1af9fed",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/memorynine-landing-cleanup",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/cta.tsx",
+    "apps/web/app/[locale]/components/effort.tsx",
+    "apps/web/app/[locale]/components/erasure.tsx",
+    "apps/web/app/[locale]/components/faqs.tsx",
+    "apps/web/app/[locale]/components/hero.tsx",
+    "apps/web/app/[locale]/components/hunting.tsx",
+    "apps/web/app/[locale]/components/mark.tsx",
+    "apps/web/app/[locale]/components/refusals.tsx",
+    "apps/web/app/[locale]/components/time-lost.tsx",
+    "apps/web/app/[locale]/components/trace.tsx",
+    "apps/web/app/[locale]/page.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/1e/4db1af9fed/0/metadata.json",
+      "transcript": "/1e/4db1af9fed/0/full.jsonl",
+      "content_hash": "/1e/4db1af9fed/0/content_hash.txt",
+      "prompt": "/1e/4db1af9fed/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 83,
+    "cache_creation_tokens": 403344,
+    "cache_read_tokens": 17046961,
+    "output_tokens": 32741,
+    "api_call_count": 44
+  }
+}

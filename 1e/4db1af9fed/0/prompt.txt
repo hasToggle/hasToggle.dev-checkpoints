@@ -1,0 +1,3 @@
+The copy of the landing page looks good, but it's too congruent with the technical underpinnings of the product. It's advertising the product on the grounds its technical implementation. But users don't care. They care about themselves. They care about what they can do with it. Are they faster with it? Do they spend less time per week? Questions like these are what the copy should be about.
+
+You know this, Claude. Do another pass. Give me the greatest copy. You may change the UI along with the copy wherever it suits the copy. We're not set in stone. Think like a founder and sell like a marketer.
