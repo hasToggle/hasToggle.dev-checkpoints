@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3061f348364b",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/ask-ui-demo-parity",
+  "checkpoints_count": 4,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/30/61f348364b/0/metadata.json",
+      "transcript": "/30/61f348364b/0/full.jsonl",
+      "content_hash": "/30/61f348364b/0/content_hash.txt",
+      "prompt": "/30/61f348364b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1122,
+    "cache_creation_tokens": 313949,
+    "cache_read_tokens": 4417627,
+    "output_tokens": 49093,
+    "api_call_count": 42
+  }
+}
