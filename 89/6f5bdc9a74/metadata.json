@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "896f5bdc9a74",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-landing-page",
+  "checkpoints_count": 12,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/demo-section.tsx",
+    "apps/web/app/[locale]/(playground)/image/og-demo.tsx",
+    "apps/web/app/[locale]/(playground)/image/source.ts",
+    "apps/web/app/[locale]/(playground)/inline-code.tsx",
+    "apps/web/app/[locale]/components/faqs.tsx",
+    "apps/web/app/[locale]/components/footer.tsx",
+    "apps/web/app/[locale]/components/hero-asterisk.tsx",
+    "apps/web/app/[locale]/components/hero.tsx",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/api/og/route.tsx",
+    "apps/web/app/styles.css",
+    "apps/web/assets/JetBrainsMono-Bold.ttf",
+    "apps/web/assets/JetBrainsMono-OFL.txt",
+    "apps/web/assets/JetBrainsMono-Regular.ttf"
+  ],
+  "sessions": [
+    {
+      "metadata": "/89/6f5bdc9a74/0/metadata.json",
+      "transcript": "/89/6f5bdc9a74/0/full.jsonl",
+      "content_hash": "/89/6f5bdc9a74/0/content_hash.txt",
+      "prompt": "/89/6f5bdc9a74/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 178,
+    "cache_creation_tokens": 842609,
+    "cache_read_tokens": 38800239,
+    "output_tokens": 99235,
+    "api_call_count": 89
+  }
+}

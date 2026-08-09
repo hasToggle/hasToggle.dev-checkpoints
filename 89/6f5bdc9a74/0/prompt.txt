@@ -1,0 +1,58 @@
+What kind of project would be ideal for this, let's call it, company brain? Currently, this is a turbo repo with Next.js apps, and an API project and some other things. Do I keep the next-forge as the template, do set up something new?
+
+---
+
+ah never mind the last message; it was the wrong chat.
+
+remove "Every demo below is the real feature, running on the page you're reading. " from the hero.
+"Contents — start anywhere; the order is the syllabus" reads odd. Either remove it or adjust the copy.
+reword "Both cards below are real. "
+
+Generally, adjust the copy from proclaiming everything is real (except the mockup line in the hero which is great) to something more suitable. Think in terms of what the visitor who is a developer wants and expects. Don't advertise the features of the product; sell to the needs and wants of any one developer instead. The range of developers is wide, from aspirational developers who aren't technical yet to senior developers.
+
+Keep the titles "Two components walk into a page." and  "This page was baked before you arrived." and "Some things move faster with a coach." Everything else not to strictly up for a rewrite. Most of it is very good. Be selective.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/vS846B/Screenshot 2026-08-09 at 16.08.28.png (128.1 KB)
+</system_instruction>
+
+
+
+.context/attachments/vS846B/Screenshot 2026-08-09 at 16.08.28.png 
+"use cachebakes" is not stylized and merges into the next word. fix that. and I think that applies elsewhere too. fix both.
+
+---
+
+I don't understand "Flexbox only, no grid — Satori is a renderer with standards. Strong opinions have never looked this much like a build error." and what is Satori?
+
+---
+
+Mix it: “The fine print: it looks like CSS, but the renderer (Satori) only understands flexbox. Grid users will be shown the door, politely, at build time.”
+
+---
+
+"The write-up lands in your inbox: what it shows, why it matters, where the docs undersell it."
+The "where the docs undersell it." sounds off. Suggest options.
+
+---
+
+1
+
+---
+
+The image renderer feels cheap to be honest; it doesn't look like an image. can we do better?
+
+---
+
+Does Satori support some kind of texture to go with our changes?
+
+---
+
+I don't see the dot grid; is it so subtle?
+
+---
+
+Check the code examples for every exhibit for correctness. If all's good, no changes are needed.
