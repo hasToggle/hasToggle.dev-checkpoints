@@ -56,3 +56,7 @@ I don't see the dot grid; is it so subtle?
 ---
 
 Check the code examples for every exhibit for correctness. If all's good, no changes are needed.
+
+---
+
+Commit and push to remote when done.
