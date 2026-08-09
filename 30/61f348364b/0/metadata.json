@@ -1,0 +1,60 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3061f348364b",
+  "session_id": "034a0e99-1d8d-413f-ad1e-02206384ed78",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-09T13:03:00.862373Z",
+  "branch": "Kheirah/ask-ui-demo-parity",
+  "checkpoints_count": 4,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "a46e50fffb11",
+  "token_usage": {
+    "input_tokens": 1122,
+    "cache_creation_tokens": 313949,
+    "cache_read_tokens": 4417627,
+    "output_tokens": 49093,
+    "api_call_count": 42
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
