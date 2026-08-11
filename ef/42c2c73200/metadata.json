@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ef42c2c73200",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/rebake-double-regeneration",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/ef/42c2c73200/0/metadata.json",
+      "transcript": "/ef/42c2c73200/0/full.jsonl",
+      "content_hash": "/ef/42c2c73200/0/content_hash.txt",
+      "prompt": "/ef/42c2c73200/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 483,
+    "cache_creation_tokens": 1339140,
+    "cache_read_tokens": 62913242,
+    "output_tokens": 218728,
+    "api_call_count": 247
+  }
+}
