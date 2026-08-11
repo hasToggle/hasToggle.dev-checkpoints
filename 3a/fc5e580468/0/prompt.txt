@@ -1,0 +1,51 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/macau directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+When I click on rebake the page, I get a new hash and timestamp back. But then when I reload the page, I get a different hash and timestamp. Why? Why does it regenerate the site twice? Reloading regenerated the page at that time of reloading, no matter how long I wait.
+
+---
+
+For image invalidaton, it's the same process if I'm not mistaken. When the source is marked invalided, the first request of that image sends an invalidation requests and the second actually gets the updated image (provided the request time of the updated image). Is that why this is happening for the bake as well or is it a different mechanism?
+
+---
+
+Why does the new first value get an expiry timestamp at all? Is that the default mechanism? It sounds like it's more of a side effect tripping over its own feet. Where does the hash and time get written to, by the way?
+
+---
+
+How about option 2 with an additon:
+We fix the copy and add a reload button for a client-side refresh. Clicking once gives you back the time you initiated the bake. Maybe we can make it so the hash is not updated (if possible/makes sense) and the rebake button is inactive. After clicking reload, the new, persistent hash arrives with the updated timestamp.
+
+What do you think?
+
+---
+
+Your rec, option 1.
+
+---
+
+Approve.
+
+---
+
+Continue.
+
+---
+
+1
+
+---
+
+Go
