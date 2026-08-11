@@ -49,3 +49,14 @@ Continue.
 ---
 
 Go
+
+---
+
+2
+
+---
+
+bypass secrets are gone.
+three copies: let's fix them. what do you suggest? be clear in your explanation of before and after and why it needed fixing, so it's easily digestible.
+fix the Tailwind class.
+fix the caption of p outside aria-live
