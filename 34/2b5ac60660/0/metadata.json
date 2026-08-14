@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "342b5ac60660",
+  "session_id": "dbb879b7-59c6-49c1-8125-c9b9beb3f5a2",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-14T18:05:50.120371Z",
+  "branch": "renovate/patch-updates-v1",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "packages/auth/client.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ce0ebaab0e70",
+  "token_usage": {
+    "input_tokens": 46,
+    "cache_creation_tokens": 58728,
+    "cache_read_tokens": 1499955,
+    "output_tokens": 12620,
+    "api_call_count": 25
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-14T18:05:50.115403Z",
+    "agent_lines": 2,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 2,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
