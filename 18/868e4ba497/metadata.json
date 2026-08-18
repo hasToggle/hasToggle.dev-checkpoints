@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "18868e4ba497",
+  "strategy": "manual-commit",
+  "branch": "renovate/minor-updates-v1",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "packages/auth/client.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/18/868e4ba497/0/metadata.json",
+      "transcript": "/18/868e4ba497/0/full.jsonl",
+      "content_hash": "/18/868e4ba497/0/content_hash.txt",
+      "prompt": "/18/868e4ba497/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 50,
+    "cache_creation_tokens": 69060,
+    "cache_read_tokens": 1712317,
+    "output_tokens": 14443,
+    "api_call_count": 27
+  }
+}
