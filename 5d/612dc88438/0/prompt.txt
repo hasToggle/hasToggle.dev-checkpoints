@@ -1,0 +1,19 @@
+That's better, but the transition doesn't indicate that it's taking place. Especially with the toggle on, when rebaking the fingerprint the button's UI updates almost immediately, but the hash itself updates later. And the issue is, there's no visual indication that something's still updating.
+
+What's more, the toggle's position could be better. The two buttons when the toggle is on could be positioned better. Rethink the layout and design of the demo, top and bottom, everything. Reimagine the most badass demo with great UX. We need a design language for all demos, with controls placed at places users will expect them to be, like the wheel in a car. Clear design language. Badass UX. All in service of a playground built on clarity and ease of use. Apply it to the second demo first, before expanding.
+
+---
+
+Go.
+
+---
+
+The header and footer of the demo has "this page’s own cache" and "cacheTag("landing-shell") · cacheLife("days") · one entry, shared by every visitor" which I wonder, is it helpful to understanding the demo? Let's be minimalist in that we question each design choice and ask the question, does this contribute to clarity, to user experience? The toggle for slow motion is still on the same spot, which I find hard to reproduce across demos. Controls should have their fixed place like editing controls in a rich text editor have their place and users know where to expect them. The headline with the bake hash and the datetime and served text below, the paragraph below that, then the buttons, ... You have my permission to reimagine the design language from the ground up. The demo is functional and the user feedback during transitions is good and these can stay as a guiding principle, but the demo itself is yours to rethink fundamentally. Think to yourself, what would you enjoy as an aspiring developer, as a non-technical person, as a junior developer, as a senior developer? That's the audience. That's what we have to design against.
+
+---
+
+What about the footnote "The ritual: clear the cache, hard refresh, clear it again, open an incognito window, ask a colleague to load it. Five steps, three of which quietly refill the entry you just cleared.", I don't really see how to adds to clarity based on our demo. Any suggestions what to replace it with?
+
+---
+
+A and voice-check.
