@@ -1,0 +1,1 @@
+Toggling off is slow and jarring even. After the click there's no immediate visual feedback. Instead, the page "hangs" until the request resolves. Improve that for immediate feedback. What Next.js features can we use for that?
