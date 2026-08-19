@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "4ea043b7c526",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/landing-copy-voice-redesign",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "apps/web/app/[locale]/components/faqs.tsx",
+    "apps/web/app/[locale]/components/footer.tsx",
+    "apps/web/app/[locale]/components/hero.tsx",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/api/og/title.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/4e/a043b7c526/0/metadata.json",
+      "transcript": "/4e/a043b7c526/0/full.jsonl",
+      "content_hash": "/4e/a043b7c526/0/content_hash.txt",
+      "prompt": "/4e/a043b7c526/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3927,
+    "cache_creation_tokens": 303249,
+    "cache_read_tokens": 5854516,
+    "output_tokens": 54512,
+    "api_call_count": 46
+  }
+}

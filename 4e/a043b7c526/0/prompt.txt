@@ -1,0 +1,36 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/fredericton directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Read the changes, understand them, and assess whether we need any further adjustments to the copy or voice. The goal is consistency across copy and voice.md. We want a unique voice, or in our case a plethora of voices combined to create a unified layer that speaks the same language.
+
+What's more, we want a "Unofficial" tag somewhere, headline preferably, to signal that this playground is not endorsed by the Next.js team or Vercel.
+
+The demos are not locked, by the way. We should keep what they're about, but the UI/UX shape and interaction can be changed alongside the copy to better support it.
+
+---
+
+I don't see any tooltip when hovering over the asterisk of the headline. The pointer turns into a question mark but nothing else happens.
+
+---
+
+ye it works now, the browser tab was stakle. clean up anything you installed
+
+---
+
+does the "Still to build" section hold up to its promise of showcasing everything that's possible on a web page with its current items? make no edits, just a screening.
+
+---
+
+agree. make the necessary changes.
