@@ -1,0 +1,14 @@
+Question:
+If this is the mechanism of updateTag, then our particular demo surfaces a risk as well in that the function should not produce different results on each call, because that would confuse the user. For instance, a save to the db should not say one thing for the private bake and another thing after. Most use cases don't have that behavior, but the very mechanism could be problematic for functions that do return different values for some reason. Am I wrong?
+
+---
+
+I'm thinking of simplifying the demo to some extent, not just touching the digest. The actual flow should feel as designed - simple. The underlying mechanism should surface as a second beat. Maybe we can play with a toggle (pun intended) to have the user themselves make the flow visible that's responsible for the updateTag. Combine what we have with the missing simplistic start. What do you reckon?
+
+---
+
+I'm good with a. Consider the edge case where users have the demo toggled, click the first button but not the second, and switch off the toggle again.
+
+---
+
+Yes
