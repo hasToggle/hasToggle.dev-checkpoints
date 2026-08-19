@@ -1,0 +1,39 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "d9de6e5bbe03",
+  "session_id": "868c5548-bc9b-4ad0-841e-0ba00b9db2cf",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-19T15:22:27.033439Z",
+  "branch": "Kheirah/landing-copy-voice-redesign",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/page.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "410335e74908",
+  "checkpoint_transcript_start": 979,
+  "transcript_lines_at_start": 979,
+  "token_usage": {
+    "input_tokens": 4,
+    "cache_creation_tokens": 829,
+    "cache_read_tokens": 856416,
+    "output_tokens": 616,
+    "api_call_count": 2
+  },
+  "session_metrics": {
+    "turn_count": 11
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-19T15:22:26.960562Z",
+    "agent_lines": 4,
+    "agent_removed": 3,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 4,
+    "total_lines_changed": 7,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
