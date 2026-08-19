@@ -1,0 +1,18 @@
+Let's retouch the copy again:
+"You did, and it worked: the entry was gone the instant you called it, for every visitor at once. But a revalidation is a deletion with a hopeful name. use cache bakes a component’s output into the page’s static shell; a cache tag is the handle you pull to throw that entry away. Pulling it renders nothing — the fresh page takes a request, and until one arrives, “revalidated” and “stale” are both true.
+
+The stamp below is this page’s own cache entry — one entry, shared by every visitor. Press the button and a fresh bake lands for all of them, in the time it takes the label to change back. It feels like one event.
+
+It is three. Flip the switch and run it again in slow motion — the panel narrates each event as it happens. The fingerprint moves twice, not once, and the gap between those two moves is where you were standing when you said it."
+
+As I read through it, it becomes increasingly more difficult to follow. In the beginning, “revalidated” and “stale” are both true is the first hiccup. I stumble over that bit because it introduces two new concepts from nowhere. By the end of the paragraph, the reads says something about fingerprints which I have to collapse to mean the colors and hex values, and "where you were standing when you said it." is even more confusing.
+
+I think some Brain Greene is a good choice for narration, especially for conceptually abstract things which coding is.
+
+---
+
+"ticket" still doesn't resonate
+
+---
+
+I feel like we should add that asking for the page, the slowed-down second button click, can be done through a new tab as well or by another visitor. The button itself literally is just a page refresh. What do you think? And how can we best add that?
