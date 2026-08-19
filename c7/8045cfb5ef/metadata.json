@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "c78045cfb5ef",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/landing-copy-voice-redesign",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.test.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-panel.tsx",
+    "apps/web/app/[locale]/(playground)/shell/rebake-state.test.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-state.ts",
+    "apps/web/app/[locale]/page.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c7/8045cfb5ef/0/metadata.json",
+      "transcript": "/c7/8045cfb5ef/0/full.jsonl",
+      "content_hash": "/c7/8045cfb5ef/0/content_hash.txt",
+      "prompt": "/c7/8045cfb5ef/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4056,
+    "cache_creation_tokens": 964589,
+    "cache_read_tokens": 22175554,
+    "output_tokens": 138542,
+    "api_call_count": 116
+  }
+}
