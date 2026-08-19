@@ -1,0 +1,9 @@
+I have a question about the bake demo. Invalidating the cache does not refill it, the demo teaches. Let's make that easier to digest. What are the in-code handles for invalidating content and refilling the cache exactly? What's the flow? Provide a general example, then apply it to our demo. No edits. Just a walkthrough. if it's helpful we'll adjust the copy/demo.
+
+---
+
+It's worth a pass for sure. But let's bring even more clarity to the demo. It is confusing that the updateTag forces a rerender which in turn runs the getBake function misses the cache and produces a new hash - which does not land in the shared cache. Why does this rerender's getBake function all NOT create the shared cache entry? Why does it require a second refresh?
+
+---
+
+Go ahead.

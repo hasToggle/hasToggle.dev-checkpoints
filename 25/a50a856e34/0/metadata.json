@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "25a50a856e34",
+  "session_id": "868c5548-bc9b-4ad0-841e-0ba00b9db2cf",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-19T10:00:59.727124Z",
+  "branch": "Kheirah/landing-copy-voice-redesign",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.test.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "9e610542baeb",
+  "checkpoint_transcript_start": 266,
+  "transcript_lines_at_start": 266,
+  "token_usage": {
+    "input_tokens": 70,
+    "cache_creation_tokens": 68590,
+    "cache_read_tokens": 8143957,
+    "output_tokens": 37972,
+    "api_call_count": 38
+  },
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-19T10:00:59.69295Z",
+    "agent_lines": 20,
+    "agent_removed": 12,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 20,
+    "total_lines_changed": 32,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 20,
+      "agent_lines_removed": 12
+    }
+  ]
+}
