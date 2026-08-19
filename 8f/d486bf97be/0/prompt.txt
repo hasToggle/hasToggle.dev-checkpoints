@@ -1,0 +1,34 @@
+Before you do, let me add something. The hash/fingerprint could be apples and oranges, a set of fruits or symbols, for aspiring developers while something more appropriate features for juniors and seniors. How would be add that, what could it look like?
+
+---
+
+A, unlabeled.
+
+---
+
+toggling off throws in the console "The children should not have changed if we pass in the same set."
+
+---
+
+Ah, good. Let's review the title "I cleared the cache, so the page is fresh now."
+We can do better to hook in the user more.
+
+---
+
+I lean A, but it's not hitting hard enough and the underlying misconception of the demo is not clear to me. Do developers struggle with emptying the cache and with refilling it? What is the actual issue devs have with caching strategies? I am open to rewriting the title and text.
+
+---
+
+Green light.
+
+When you're done, think about our interaction and what you can extract from it for our voice.md. It's currently a guide for the site. Maybe voice.md is the wrong place for what you learned here. But I feel like we should continuously improve future interaction with one another and hence, store the learnings somewhere.
+
+---
+
+The hash is not the hex color? It doesn't compute. We should align the fingerprint to the hex color since that's what the color is supposed to represent - the literal value.
+
+---
+
+commit.
+
+on the persistent memory - yes, concerning hasToggle I want everything to be contained in the repo in a structured way.
