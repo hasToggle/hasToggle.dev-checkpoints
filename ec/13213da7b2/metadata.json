@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ec13213da7b2",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/landing-copy-voice-redesign",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "docs/voice.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ec/13213da7b2/0/metadata.json",
+      "transcript": "/ec/13213da7b2/0/full.jsonl",
+      "content_hash": "/ec/13213da7b2/0/content_hash.txt",
+      "prompt": "/ec/13213da7b2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4604,
+    "cache_creation_tokens": 2536429,
+    "cache_read_tokens": 90171629,
+    "output_tokens": 315383,
+    "api_call_count": 272
+  }
+}
