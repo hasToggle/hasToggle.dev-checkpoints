@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "fc46d264da19",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/fc/46d264da19/0/metadata.json",
+      "transcript": "/fc/46d264da19/0/full.jsonl",
+      "content_hash": "/fc/46d264da19/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3094,
+    "cache_creation_tokens": 476216,
+    "cache_read_tokens": 26621822,
+    "output_tokens": 198968,
+    "api_call_count": 105
+  }
+}
