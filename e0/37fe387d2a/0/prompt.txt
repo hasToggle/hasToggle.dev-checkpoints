@@ -64,3 +64,11 @@ commit and push
 ---
 
 In these sentences "the fetch ran no cache API — the page rendered again, and this time the cache kept it. Expiring an entry and refilling it are two different events. You just watched both." remove the last one. It reads like AI generated prose.
+
+---
+
+commit the change. before you push, fix the issue the build just experienced:
+web:typecheck: app/[locale]/(playground)/shell/rebake-copy.test.ts(30,7): error TS2322: Type '{ expiredAt: string; hasCompletedCycle: false; mode: "machinery"; phase: "expired"; }' is not assignable to type 'RebakeState'.
+web:typecheck:   Property 'idAtExpiry' is missing in type '{ expiredAt: string; hasCompletedCycle: false; mode: "machinery"; phase: "expired"; }' but required in type '{ expiredAt: string; hasCompletedCycle: boolean; idAtExpiry: string; mode: "machinery"; phase: "expired"; }'.
+web:typecheck: error: script "typecheck" exited with code 1
+web#typecheck:  ERROR  command (/vercel/path0/apps/web) /bun1/bun run typecheck exited (1)
