@@ -18,3 +18,7 @@ The web project's landing page has a light and a dark mode, but there's no theme
 ---
 
 Build it.
+
+---
+
+Yes.
