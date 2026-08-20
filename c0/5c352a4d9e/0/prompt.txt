@@ -145,3 +145,7 @@ commit and push
 
 "Tell me when seats open" should set the focus to the input field. 
 Plus, once it's been pressed it longer navigates to the digest. It should.
+
+---
+
+commit and push
