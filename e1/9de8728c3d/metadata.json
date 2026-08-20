@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "e19de8728c3d",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/landing-lighthouse-prod-gap",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/proxy.ts",
+    "packages/analytics/keys.ts",
+    "packages/analytics/provider.tsx",
+    "packages/feature-flags/components/toolbar.tsx",
+    "packages/feature-flags/lib/toolbar-enabled.ts",
+    "packages/feature-flags/lib/toolbar.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e1/9de8728c3d/0/metadata.json",
+      "transcript": "/e1/9de8728c3d/0/full.jsonl",
+      "content_hash": "/e1/9de8728c3d/0/content_hash.txt",
+      "prompt": "/e1/9de8728c3d/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 70,
+    "cache_creation_tokens": 47813,
+    "cache_read_tokens": 9575543,
+    "output_tokens": 31873,
+    "api_call_count": 35
+  }
+}
