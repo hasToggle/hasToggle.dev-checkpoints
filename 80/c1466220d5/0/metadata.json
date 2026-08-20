@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "80c1466220d5",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T19:28:07.78051Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 3,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "1a36344b6335",
+  "token_usage": {
+    "input_tokens": 2911,
+    "cache_creation_tokens": 335061,
+    "cache_read_tokens": 5002764,
+    "output_tokens": 104946,
+    "api_call_count": 33
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 133,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/lab-design.md": 133
+      }
+    }
+  ]
+}
