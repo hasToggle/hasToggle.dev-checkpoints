@@ -14,3 +14,7 @@ If the user asks for help with Conductor, you can ask them to go to "Help -> Sen
 </system_instruction>
 
 There's a burger menu on smaller screen sizes which when clicked opens an empty UI. Since we don't yet have any links, let's remove the menu.
+
+---
+
+commit and push, open a PR. By the way, update your memory to your default behavior which I believe is to commit regularly.
