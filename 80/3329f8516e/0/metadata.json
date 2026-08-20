@@ -1,0 +1,55 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "803329f8516e",
+  "session_id": "657d64fc-c5bb-4fd2-af99-330a139a3b2a",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T14:20:51.855364Z",
+  "branch": "Kheirah/theme-switcher",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/components/navbar.tsx",
+    "apps/web/app/[locale]/components/theme-switch.tsx",
+    "packages/design-system/providers/theme.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "804d55060a14",
+  "token_usage": {
+    "input_tokens": 253,
+    "cache_creation_tokens": 173744,
+    "cache_read_tokens": 18456087,
+    "output_tokens": 62302,
+    "api_call_count": 134
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-20T14:20:51.779075Z",
+    "agent_lines": 93,
+    "agent_removed": 1,
+    "human_added": 63,
+    "human_modified": 37,
+    "human_removed": 0,
+    "total_committed": 193,
+    "total_lines_changed": 194,
+    "agent_percentage": 48.45360824742268,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 140,
+      "agent_lines_removed": 1
+    }
+  ]
+}
