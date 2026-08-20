@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "925508ed3894",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/theme-switcher",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/92/5508ed3894/0/metadata.json",
+      "transcript": "/92/5508ed3894/0/full.jsonl",
+      "content_hash": "/92/5508ed3894/0/content_hash.txt",
+      "prompt": "/92/5508ed3894/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 433,
+    "cache_creation_tokens": 262590,
+    "cache_read_tokens": 40702833,
+    "output_tokens": 111257,
+    "api_call_count": 229
+  }
+}

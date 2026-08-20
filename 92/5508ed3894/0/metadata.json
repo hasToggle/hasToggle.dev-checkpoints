@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "925508ed3894",
+  "session_id": "657d64fc-c5bb-4fd2-af99-330a139a3b2a",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T15:02:26.005287Z",
+  "branch": "Kheirah/theme-switcher",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "e435182abfd5",
+  "token_usage": {
+    "input_tokens": 433,
+    "cache_creation_tokens": 262590,
+    "cache_read_tokens": 40702833,
+    "output_tokens": 111257,
+    "api_call_count": 229
+  },
+  "session_metrics": {
+    "turn_count": 6
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 10,
+      "agent_lines_removed": 0
+    }
+  ]
+}
