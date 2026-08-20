@@ -1,0 +1,74 @@
+The hero line "this line streamed in just for you — 20 Aug 2026, 05:30:33 UTC"
+The first it streams in, it takes a while. We don't have a loading/suspended state for it, do we?
+
+---
+
+yes
+
+---
+
+back to the copy of caching & revalidation:
+I still feel like it doesn't speak to my experience as a developer. The concept of caching and revalidation is not easy to digest for beginners, yes. But personally I have never had the "argument" on my mind that I revalidated some data and yet it remained stale. From USING the site, that never happened to me because I never even realized it's more than one event. In the observability at Vercel I did ask myself why some requests show the cache miss, why some are marked as stale. 
+
+I'd like to nail the demo. It has to speak to something developers actually experience. And the argument, as the copy says, is not something any dev experienced except if they accidentally built an impure function or mutated data during a GET request. Otherwise, it's looks and feels like one event.
+
+---
+
+Full P3.
+
+However, the title "It’s either cached or it isn’t" and the start of P1 "So did we" does not add up. No belief was expressed explicitly enough to continue with "So did we".
+
+---
+
+is the bake and actions.ts up to date with our demo?
+
+---
+
+yes
+
+---
+
+the comment "The bake is a random id" should read "The bake here is a random color value"
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/MQb3O0/Screenshot 2026-08-20 at 08.13.04.png (96.5 KB)
+</system_instruction>
+
+
+
+.context/attachments/MQb3O0/Screenshot 2026-08-20 at 08.13.04.png 
+
+This is a screenshot of the logf of the GET request I just made to the preview deployment after the rebake. Even in the observability there's no STALE marker. Reconcile this with our demo and copy. You can log into Vercel yourself and read logs, observe what happens on the preview deployment. I'd think that STALE is a state that only shows for revalidateTag, not for updateTag.
+
+---
+
+Think about how best to integrate that into the demo, the badges for revalidated and the tag. Also, the copy has to change here, too: the hash above was rendered before your expiry landed. The hash is now a hex color. Maybe just say color?
+
+---
+
+Go
+
+---
+
+Commit the changes.
+
+There's a gap in our UI I think: After clicking Expire the entry, the second button becomes clickable immediately. Should we close it or keep it intentionally since it skips the private render?
+
+---
+
+commit and push
+
+---
+
+In these sentences "the fetch ran no cache API — the page rendered again, and this time the cache kept it. Expiring an entry and refilling it are two different events. You just watched both." remove the last one. It reads like AI generated prose.
+
+---
+
+commit the change. before you push, fix the issue the build just experienced:
+web:typecheck: app/[locale]/(playground)/shell/rebake-copy.test.ts(30,7): error TS2322: Type '{ expiredAt: string; hasCompletedCycle: false; mode: "machinery"; phase: "expired"; }' is not assignable to type 'RebakeState'.
+web:typecheck:   Property 'idAtExpiry' is missing in type '{ expiredAt: string; hasCompletedCycle: false; mode: "machinery"; phase: "expired"; }' but required in type '{ expiredAt: string; hasCompletedCycle: boolean; idAtExpiry: string; mode: "machinery"; phase: "expired"; }'.
+web:typecheck: error: script "typecheck" exited with code 1
+web#typecheck:  ERROR  command (/vercel/path0/apps/web) /bun1/bun run typecheck exited (1)
