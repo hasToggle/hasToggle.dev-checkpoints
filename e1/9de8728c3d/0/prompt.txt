@@ -1,0 +1,2 @@
+merged. The prod url is https://www.hastoggle.dev/
+The performance and bets practices scores aren't at a full 100. It's a question of the target, of course, which device and network. For my case, it's a MacBook M5 on a fast connection. See what's causing the gap and if we can mitigate it. If so, create a new branch.
