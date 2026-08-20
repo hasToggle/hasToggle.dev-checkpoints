@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "87b77d0c17b6",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/simplify-vercel-analytics-gate",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/87/b77d0c17b6/0/metadata.json",
+      "transcript": "/87/b77d0c17b6/0/full.jsonl",
+      "content_hash": "/87/b77d0c17b6/0/content_hash.txt",
+      "prompt": "/87/b77d0c17b6/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 17747,
+    "cache_read_tokens": 5087219,
+    "output_tokens": 10224,
+    "api_call_count": 15
+  }
+}
