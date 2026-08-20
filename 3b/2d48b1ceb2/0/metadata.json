@@ -1,0 +1,66 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3b2d48b1ceb2",
+  "session_id": "28cc76b5-5cd4-4159-be0e-fdbe8ea0d423",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T11:53:13.221763Z",
+  "branch": "Kheirah/defer-og-demo-fetch",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "1e8e24c81fd7",
+  "checkpoint_transcript_start": 794,
+  "transcript_lines_at_start": 794,
+  "token_usage": {
+    "input_tokens": 62,
+    "cache_creation_tokens": 29999,
+    "cache_read_tokens": 9765063,
+    "output_tokens": 21662,
+    "api_call_count": 31
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 191186,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/lighthouse/FINAL-desktop-real.report.html": 2901,
+        ".context/lighthouse/FINAL-desktop-real.report.json": 12607,
+        ".context/lighthouse/FINAL-desktop.report.html": 2901,
+        ".context/lighthouse/FINAL-desktop.report.json": 12583,
+        ".context/lighthouse/FINAL-mobile-devtools.report.html": 2901,
+        ".context/lighthouse/FINAL-mobile-devtools.report.json": 12648,
+        ".context/lighthouse/FINAL-mobile-real.report.html": 2901,
+        ".context/lighthouse/FINAL-mobile-real.report.json": 12664,
+        ".context/lighthouse/FINAL-mobile-sim.report.html": 2901,
+        ".context/lighthouse/FINAL-mobile-sim.report.json": 12440,
+        ".context/lighthouse/GAP-desktop.report.json": 12322,
+        ".context/lighthouse/PROD-desktop.report.html": 2901,
+        ".context/lighthouse/PROD-desktop.report.json": 11980,
+        ".context/lighthouse/baseline-mobile.report.html": 2901,
+        ".context/lighthouse/baseline-mobile.report.json": 12665,
+        ".context/lighthouse/devtools-throttled.report.json": 7108,
+        ".context/lighthouse/inlinecss-devtools.report.json": 7280,
+        ".context/lighthouse/prod-simulated.report.json": 6554,
+        ".context/lighthouse/run3-mobile.report.json": 12526,
+        ".context/lighthouse/run4-mobile.report.json": 12426,
+        ".context/lighthouse/run5-desktop.report.json": 12591,
+        ".context/lighthouse/run5-mobile.report.json": 12448,
+        ".context/lighthouse/summarize.mjs": 37
+      }
+    }
+  ]
+}

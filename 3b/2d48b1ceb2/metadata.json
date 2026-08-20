@@ -1,0 +1,23 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "3b2d48b1ceb2",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/defer-og-demo-fetch",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/3b/2d48b1ceb2/0/metadata.json",
+      "transcript": "/3b/2d48b1ceb2/0/full.jsonl",
+      "content_hash": "/3b/2d48b1ceb2/0/content_hash.txt",
+      "prompt": "/3b/2d48b1ceb2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 62,
+    "cache_creation_tokens": 29999,
+    "cache_read_tokens": 9765063,
+    "output_tokens": 21662,
+    "api_call_count": 31
+  }
+}
