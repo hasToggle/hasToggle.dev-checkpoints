@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "c3c17d3a1f57",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/landing-lighthouse-100",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/components/footer.tsx",
+    "apps/web/app/[locale]/components/hero.tsx",
+    "apps/web/app/[locale]/global-error.tsx",
+    "apps/web/app/[locale]/layout.tsx",
+    "apps/web/app/fonts/Switzer-Bold.woff2",
+    "apps/web/app/fonts/Switzer-Medium.woff2",
+    "apps/web/app/fonts/Switzer-Regular.woff2",
+    "apps/web/app/fonts/Switzer-Semibold.woff2",
+    "apps/web/app/fonts/index.ts",
+    "apps/web/app/layout.tsx",
+    "apps/web/app/styles.css",
+    "apps/web/next.config.ts",
+    "packages/analytics/instrumentation-client.ts",
+    "packages/analytics/provider.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c3/c17d3a1f57/0/metadata.json",
+      "transcript": "/c3/c17d3a1f57/0/full.jsonl",
+      "content_hash": "/c3/c17d3a1f57/0/content_hash.txt",
+      "prompt": "/c3/c17d3a1f57/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 286,
+    "cache_creation_tokens": 449353,
+    "cache_read_tokens": 21541627,
+    "output_tokens": 117369,
+    "api_call_count": 145
+  }
+}
