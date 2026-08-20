@@ -1,0 +1,36 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "2acd0bb7835f",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/boundary/demo.tsx",
+    "apps/web/app/[locale]/(playground)/demo-section.tsx",
+    "apps/web/app/[locale]/(playground)/image/demo.tsx",
+    "apps/web/app/[locale]/(playground)/mutation/demo.tsx",
+    "apps/web/app/[locale]/(playground)/shell/demo.tsx",
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx",
+    "apps/web/app/[locale]/lab/boundary/page.tsx",
+    "apps/web/app/[locale]/lab/caching/page.tsx",
+    "apps/web/app/[locale]/lab/chapter.tsx",
+    "apps/web/app/[locale]/lab/og-images/page.tsx",
+    "apps/web/app/[locale]/lab/server-actions/page.tsx",
+    "apps/web/app/[locale]/lab/streaming/page.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/2a/cd0bb7835f/0/metadata.json",
+      "transcript": "/2a/cd0bb7835f/0/full.jsonl",
+      "content_hash": "/2a/cd0bb7835f/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 28,
+    "cache_creation_tokens": 30696,
+    "cache_read_tokens": 3647547,
+    "output_tokens": 23132,
+    "api_call_count": 14
+  }
+}
