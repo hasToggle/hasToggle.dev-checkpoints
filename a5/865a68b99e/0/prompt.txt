@@ -1,0 +1,3 @@
+The two links should indicate they're opening a new tab with the expected icon.
+
+And the hero features a comment "Nothing on this page is a mockup. We checked twice." which spans two lines. Either we add another double slash or the multi-line version. I'd prefer the dashes for two lines.
