@@ -1,0 +1,45 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "7c304873a4ac",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T19:48:37.403354Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/faqs.tsx",
+    "apps/web/app/confirmed/page.tsx",
+    "apps/web/app/api/og/route.tsx",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/[locale]/components/contents-nav.tsx",
+    "docs/voice.md",
+    "docs/design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "1a36344b6335",
+  "checkpoint_transcript_start": 545,
+  "transcript_lines_at_start": 545,
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 24129,
+    "cache_read_tokens": 3972770,
+    "output_tokens": 16674,
+    "api_call_count": 12
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-20T19:48:37.377661Z",
+    "agent_lines": 81,
+    "agent_removed": 12,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 81,
+    "total_lines_changed": 93,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
