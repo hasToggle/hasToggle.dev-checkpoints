@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "70153400ab0f",
+  "session_id": "7ef62d69-befe-49c2-8f43-5393febc9123",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-20T13:39:56.562928Z",
+  "branch": "Kheirah/footer-repo-links",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/footer.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "8ecbcd67abe7",
+  "token_usage": {
+    "input_tokens": 57,
+    "cache_creation_tokens": 67988,
+    "cache_read_tokens": 2019597,
+    "output_tokens": 8032,
+    "api_call_count": 30
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-20T13:39:56.541173Z",
+    "agent_lines": 6,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 6,
+    "total_lines_changed": 6,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
