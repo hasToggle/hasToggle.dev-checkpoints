@@ -50,3 +50,9 @@ Think about how best to integrate that into the demo, the badges for revalidated
 ---
 
 Go
+
+---
+
+Commit the changes.
+
+There's a gap in our UI I think: After clicking Expire the entry, the second button becomes clickable immediately. Should we close it or keep it intentionally since it skips the private render?
