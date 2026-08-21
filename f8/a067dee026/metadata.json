@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "f8a067dee026",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/components/footer.tsx",
+    "apps/web/app/[locale]/legal/layout.tsx",
+    "apps/web/content/legal/imprint.mdx",
+    "apps/web/content/legal/privacy.mdx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f8/a067dee026/0/metadata.json",
+      "transcript": "/f8/a067dee026/0/full.jsonl",
+      "content_hash": "/f8/a067dee026/0/content_hash.txt",
+      "prompt": "/f8/a067dee026/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 18,
+    "cache_creation_tokens": 25303,
+    "cache_read_tokens": 7304349,
+    "output_tokens": 15871,
+    "api_call_count": 9
+  }
+}

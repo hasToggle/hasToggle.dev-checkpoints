@@ -1,0 +1,3 @@
+Lastly, we need an imprint and a privacy page. Research the legal requirements in Germany of what to state in both. Use placeholders for now. I'll give you the concrete data once the shape and content are right.
+
+If helpful, use https://www.adsimple.de/datenschutz-generator/ as reference. It seems to generate German copy. We want an English copy.
