@@ -1,0 +1,5 @@
+Very good. I think some subtle icon would be visually pleasing for the three items. Which one would be best suitable? Maybe even a set of two different icons, one before reaching it and one after.
+
+On the copy:
+The following paragraph can go, as well as the UI accompanying it. It's an artifact of the var demo.
+"Kept where? Press “Re-render the panel” in the deck: the component runs again — watch the render badge tick — and the count comes back unchanged. A plain variable would have been re-declared at zero by that same render. The state variable is stored with React, outside the call, which is why a re-render cannot touch it."
