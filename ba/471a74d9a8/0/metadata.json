@@ -1,0 +1,50 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "ba471a74d9a8",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-21T08:30:22.418326Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/state/copy.ts",
+    "apps/web/app/[locale]/(playground)/state/copy.test.ts",
+    "apps/web/app/[locale]/(playground)/state/card.tsx",
+    "apps/web/app/[locale]/(playground)/state/var-card.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-card.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-panel.tsx",
+    "apps/web/app/[locale]/(playground)/state/source.ts",
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/lab/state/page.tsx",
+    "apps/web/app/[locale]/lab/syllabus.ts",
+    "apps/web/app/[locale]/lab/syllabus.test.ts",
+    "docs/design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "34f067899296",
+  "checkpoint_transcript_start": 1086,
+  "transcript_lines_at_start": 1086,
+  "token_usage": {
+    "input_tokens": 32,
+    "cache_creation_tokens": 43685,
+    "cache_read_tokens": 7868008,
+    "output_tokens": 29080,
+    "api_call_count": 16
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-21T08:30:22.381509Z",
+    "agent_lines": 604,
+    "agent_removed": 16,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 604,
+    "total_lines_changed": 1376,
+    "agent_percentage": 45.05813953488372,
+    "metric_version": 2
+  }
+}
