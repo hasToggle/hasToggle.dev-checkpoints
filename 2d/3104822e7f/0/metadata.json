@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "2d3104822e7f",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-21T10:11:15.624067Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/state/state-panel.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-card.tsx",
+    "apps/web/app/[locale]/(playground)/state/copy.ts",
+    "apps/web/app/[locale]/(playground)/state/copy.test.ts",
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "docs/design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ee09858d4e97",
+  "checkpoint_transcript_start": 1697,
+  "transcript_lines_at_start": 1697,
+  "token_usage": {
+    "input_tokens": 28,
+    "cache_creation_tokens": 17424,
+    "cache_read_tokens": 9373208,
+    "output_tokens": 12127,
+    "api_call_count": 14
+  },
+  "session_metrics": {
+    "turn_count": 14
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-21T10:11:15.547597Z",
+    "agent_lines": 14,
+    "agent_removed": 74,
+    "human_added": 15,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 29,
+    "total_lines_changed": 103,
+    "agent_percentage": 85.43689320388349,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 141,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/lab-design.md": 141
+      }
+    }
+  ]
+}
