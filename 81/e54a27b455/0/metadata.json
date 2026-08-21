@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "81e54a27b455",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-21T05:32:31.039968Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    ".gitignore",
+    ".playwright-mcp/page-2026-08-20T19-44-04-162Z.yml",
+    ".playwright-mcp/page-2026-08-20T19-47-57-343Z.yml",
+    ".playwright-mcp/page-2026-08-21T05-21-28-235Z.yml",
+    ".playwright-mcp/page-2026-08-21T05-22-45-116Z.yml"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "83cae6293f90",
+  "checkpoint_transcript_start": 924,
+  "transcript_lines_at_start": 924,
+  "token_usage": {
+    "input_tokens": 2,
+    "cache_creation_tokens": 1571,
+    "cache_read_tokens": 400033,
+    "output_tokens": 645,
+    "api_call_count": 1
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-21T05:32:31.008014Z",
+    "agent_lines": 1,
+    "agent_removed": 944,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 945,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
