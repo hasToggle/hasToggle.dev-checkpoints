@@ -1,0 +1,3 @@
+The lab page says "The plan is everything Next.js can do, and as much of Vercel as can be proved from inside a web page. One chapter at a time, in public."
+
+When I visit this page I'm wondering why the chapters are perspectives, some use "I", some use "You" and that by itself or by the introduction below "Contents" does not explain it. On that note, the mention of building out the lab and doing it in public feels misplaced.
