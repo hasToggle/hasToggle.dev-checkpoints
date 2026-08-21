@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "9660e00ca470",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".playwright-mcp/page-2026-08-20T19-44-04-162Z.yml",
+    ".playwright-mcp/page-2026-08-20T19-47-57-343Z.yml",
+    ".playwright-mcp/page-2026-08-21T05-21-28-235Z.yml",
+    ".playwright-mcp/page-2026-08-21T05-22-45-116Z.yml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/96/60e00ca470/0/metadata.json",
+      "transcript": "/96/60e00ca470/0/full.jsonl",
+      "content_hash": "/96/60e00ca470/0/content_hash.txt",
+      "prompt": "/96/60e00ca470/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 3166,
+    "cache_creation_tokens": 862080,
+    "cache_read_tokens": 39845530,
+    "output_tokens": 226854,
+    "api_call_count": 141
+  }
+}
