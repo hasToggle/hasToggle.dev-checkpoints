@@ -1,0 +1,18 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/1MR7T5/Screenshot 2026-08-21 at 16.20.18.png (55.6 KB)
+</system_instruction>
+
+
+
+.context/attachments/1MR7T5/Screenshot 2026-08-21 at 16.20.18.png 
+
+Functional. But unacceptable. Except for the original logo which sits neatly within its four square pluses, the theme switcher and the new links are not aligned. Also, I'd prefer the links on the right where the switcher currently sits. The theme switcher has to be reimagined to sit elsewhere and look differently from now; it would consume too much space in its current form.
+
+---
+
+The on hover color on the nav links is only visible in light mode. Fix it in dark mode.
+
+Add the pluses to the theme switcher to separate it from the social links. The bg color of the theme switcher is in too much contrast to the footer bg, in both light and dark mode. Make the difference subtler.
+
+All links in the footer currently sit under Playground. I think we can add another category and separate them a bit.
