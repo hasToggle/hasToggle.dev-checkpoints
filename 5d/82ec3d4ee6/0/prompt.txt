@@ -1,0 +1,1 @@
+Centere the social icons and the theme switcher within their boxes.
