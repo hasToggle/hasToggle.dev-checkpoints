@@ -1,0 +1,9 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/r0kTt5/Screenshot 2026-08-21 at 15.15.01.png (7.3 KB)
+</system_instruction>
+
+
+
+.context/attachments/r0kTt5/Screenshot 2026-08-21 at 15.15.01.png 
+What are these backticks? I know that I migrated this article where these backticks meant inline code. But here it's stylized as bold and the backticks remain in place. Replace them with whatever MDX interprets as an inline code snippet.
