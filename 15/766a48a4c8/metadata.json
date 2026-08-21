@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "15766a48a4c8",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/content/blog/this-is-bananas-why-you-dont-get-arrays.mdx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/15/766a48a4c8/0/metadata.json",
+      "transcript": "/15/766a48a4c8/0/full.jsonl",
+      "content_hash": "/15/766a48a4c8/0/content_hash.txt",
+      "prompt": "/15/766a48a4c8/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 668774,
+    "cache_read_tokens": 1377448,
+    "output_tokens": 7690,
+    "api_call_count": 3
+  }
+}
