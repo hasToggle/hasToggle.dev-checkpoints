@@ -1,0 +1,10 @@
+Regenerate the affected CLAUDE.md block. Either remove it if there's a reference to the real location elsewhere, or adjust it to point to that location.
+
+hasToggle is about Next.js which is built on React. Yes, we should totally reference React docs.
+
+(1) yes
+(2) yes
+(3) yes
+(4) well, that's actually two concerns. The order in which lab demos ship is historical, in retrospect. Assume we've covered everything, then the order in which we covered it becomes irrelevant. But the order in which to display the registry is not. In fact, it's not a question of order but structure. We should group concepts in the same or similar manner as the React / Next.js / Vercel docs.
+
+That leaves the blog as the last piece of our initial public offering. There's one article already and it's not covering anything Next.js-specific. It's about how to understand arrays. I think blog posts need the freedom to be about fundamentals and peripherals. We don't need to cover existing demos with an article which would merely reiterate what the demos shows. Articles should be operating as their own narrative about web development. On that note, remove the hello world article. I wonder if we should add a link to the blog already. We have 5 demos, the lab with the next demo coming up, and a single article about arrays. Feels disjointed at this point. How can we smoothen that?

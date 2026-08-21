@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "61218fc4ae84",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/web/content/blog/hello-world.mdx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/61/218fc4ae84/0/metadata.json",
+      "transcript": "/61/218fc4ae84/0/full.jsonl",
+      "content_hash": "/61/218fc4ae84/0/content_hash.txt",
+      "prompt": "/61/218fc4ae84/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 23396,
+    "cache_read_tokens": 1349718,
+    "output_tokens": 14462,
+    "api_call_count": 3
+  }
+}
