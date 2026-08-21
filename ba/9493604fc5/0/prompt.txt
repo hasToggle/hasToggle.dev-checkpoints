@@ -1,0 +1,3 @@
+Run it.
+
+What's more, the counter demo lost something in the refactor: the animation from the button click to the code execution and back again to the button with the count now increased. It displayed cause and effect, and the rerender mechanism very vividly. We said, we'd lose the shiki in the browser, but it's not worth losing it in favor of a less vivid demo. Whether we need shiki on the client is something you know better than me. Maybe we can server-render most or all of it and use whatever CSS/JS comes out of it. But that animation was key. What do you think?
