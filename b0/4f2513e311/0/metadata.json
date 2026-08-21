@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "b04f2513e311",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-21T08:33:25.388705Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "apps/web/app/[locale]/lab/syllabus.ts",
+    "apps/web/app/[locale]/lab/page.tsx",
+    "apps/web/app/[locale]/lab/syllabus.test.ts",
+    "docs/design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "34f067899296",
+  "checkpoint_transcript_start": 1206,
+  "transcript_lines_at_start": 1206,
+  "token_usage": {
+    "input_tokens": 24,
+    "cache_creation_tokens": 26559,
+    "cache_read_tokens": 6292329,
+    "output_tokens": 12892,
+    "api_call_count": 12
+  },
+  "session_metrics": {
+    "turn_count": 10
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-21T08:33:25.347554Z",
+    "agent_lines": 256,
+    "agent_removed": 95,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 256,
+    "total_lines_changed": 351,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
