@@ -1,0 +1,1 @@
+When navigating between lab pages, or any of our pages, you are scrolled to the top instead of opening the page already at the top. That's something to do with the smooth scroll behavior that might cause this, but do your own investigation into this. What's the root cause?
