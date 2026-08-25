@@ -1,0 +1,5 @@
+1. Redesign the contact form and page to fit our design.
+2. OK.
+3. Add the missing logic.
+
+All changes on this PR.

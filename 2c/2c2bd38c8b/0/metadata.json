@@ -1,0 +1,60 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "2c2c2bd38c8b",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-25T18:58:18.81464Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "packages/database/types.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/api/unsubscribe/route.test.ts",
+    "apps/web/app/unsubscribed/page.tsx",
+    "apps/web/proxy.ts",
+    "packages/email/templates/digest.tsx",
+    "packages/email/templates/welcome-to-waitlist.tsx",
+    "apps/app/app/(authenticated)/digest/[id]/preview/page.tsx",
+    "apps/web/content/legal/privacy.mdx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "2b337dfd9c0c",
+  "checkpoint_transcript_start": 2620,
+  "transcript_lines_at_start": 2620,
+  "token_usage": {
+    "input_tokens": 40,
+    "cache_creation_tokens": 889313,
+    "cache_read_tokens": 16941160,
+    "output_tokens": 25884,
+    "api_call_count": 20
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-25T18:58:18.677057Z",
+    "agent_lines": 161,
+    "agent_removed": 11,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 161,
+    "total_lines_changed": 172,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 141,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/lab-design.md": 141
+      }
+    }
+  ]
+}
