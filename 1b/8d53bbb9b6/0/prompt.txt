@@ -1,0 +1,27 @@
+1.
+provider
+Ernst Stolz
+Limberger Straße 40
+49080 Osnabrück
+
+contact
+support@spiritsdontfly.com
+
+VAT ID
+DE430874195
+
+Responsible for editorial content - same as provider
+
+The competent supervisory authority of my Bundesland: the state is Lower Saxony.
+
+2.
+Hosting - current. Recheck if we need to link the DPA as per any applicable regulations.
+Rate limiting - Arcject not used.
+Error monitoring - EU
+The digest - Confirm Frankfurt. Verify Resend's portal address yourself. Check the unsubscribe logic, I don't remember its implementation.
+Contact form - which contact form?
+
+3.
+Google Analytics - no GA.
+English for now.
+Delete terms.mdx.
