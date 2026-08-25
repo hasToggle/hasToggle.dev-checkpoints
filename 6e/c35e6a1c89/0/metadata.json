@@ -1,0 +1,39 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "6ec35e6a1c89",
+  "session_id": "c0f2ba34-9617-46d3-8ed5-02645177a756",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-25T18:58:23.702723Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/contact/page.tsx",
+    "apps/web/app/[locale]/contact/components/contact-form.tsx",
+    "apps/web/app/[locale]/components/footer.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "2b337dfd9c0c",
+  "token_usage": {
+    "input_tokens": 3710,
+    "cache_creation_tokens": 5592994,
+    "cache_read_tokens": 221033662,
+    "output_tokens": 555552,
+    "api_call_count": 413
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-25T18:58:23.560572Z",
+    "agent_lines": 114,
+    "agent_removed": 101,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 114,
+    "total_lines_changed": 215,
+    "agent_percentage": 100,
+    "metric_version": 2
+  }
+}
