@@ -1,0 +1,25 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/kinshasa directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+The repo's Readme is stale. Explore the web project and deeply understand what hasToggle is about. In addition to what you find, I have two milestones wort writing down.
+
+1. The full range of Next.js interactive in the playground
+2. A full web application, e.g. ecommerce shop, with a TOC per page and/or section of all the things implemented there, interactive. You can click any item of content and the site displays its selected underlying mechanism. A production site hosts much more complexity than an isolated demo of any one feature can show. It would be a real goal to have a production application, albeit a fake one if it's an ecommerce shop, that itself is meta about its implementation.
+
+Before you rewite the Readme, give me a preview of what you'd write here.
+
+---
+
+write it
