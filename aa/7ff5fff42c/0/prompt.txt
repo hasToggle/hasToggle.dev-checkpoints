@@ -1,0 +1,2 @@
+"The monorepo is a fork"
+That's not quite correct. You don't fork it if you want to actually build your own product, you install it. Forking it would mean you also inherit the install scripts and command for updating. Correct me if I'm wrong, but I did not fork it. What's the more accurate term, what do we describe it as?
