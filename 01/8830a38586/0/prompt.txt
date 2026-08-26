@@ -1,0 +1,1 @@
+After the flip, have the increased number animate subtly as to indicate where to look for the change one final time.
