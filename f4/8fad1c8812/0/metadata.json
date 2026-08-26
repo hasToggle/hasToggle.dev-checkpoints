@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "f48fad1c8812",
+  "session_id": "7879bdc4-f01d-47be-961e-4e347e95c98d",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-26T15:15:55.051333Z",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/lab/page.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "ff0b82679a29",
+  "token_usage": {
+    "input_tokens": 774,
+    "cache_creation_tokens": 769846,
+    "cache_read_tokens": 98281277,
+    "output_tokens": 180015,
+    "api_call_count": 387
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-26T15:15:54.968706Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 15,
+    "human_modified": 7,
+    "human_removed": 0,
+    "total_committed": 20,
+    "total_lines_changed": 42,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 922,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/2Q2uTe/session-transcript-c0f2ba34-9617-46d3-8ed5-02645177a756.md": 781,
+        ".context/lab-design.md": 141
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 922,
+      "user_lines_removed": 0,
+      "agent_lines_added": 74,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/2Q2uTe/session-transcript-c0f2ba34-9617-46d3-8ed5-02645177a756.md": 781,
+        ".context/lab-design.md": 141
+      }
+    }
+  ]
+}
