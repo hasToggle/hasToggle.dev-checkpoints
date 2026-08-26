@@ -1,0 +1,53 @@
+{
+  "cli_version": "0.6.3",
+  "checkpoint_id": "d7ead1ed17d1",
+  "session_id": "7598c55a-bc4b-4339-803f-39e3be72531f",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-26T14:15:29.905637Z",
+  "branch": "renovate/minor-updates-v2",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/app/app/(authenticated)/components/brain/knowledge-chat.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "11eb2c137b77",
+  "token_usage": {
+    "input_tokens": 106,
+    "cache_creation_tokens": 80350,
+    "cache_read_tokens": 3982325,
+    "output_tokens": 16862,
+    "api_call_count": 53
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-26T14:15:29.897046Z",
+    "agent_lines": 16,
+    "agent_removed": 5,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 16,
+    "total_lines_changed": 21,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 16,
+      "agent_lines_removed": 5
+    }
+  ]
+}
