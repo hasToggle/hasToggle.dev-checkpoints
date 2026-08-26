@@ -227,3 +227,33 @@ Continue.
 **Report:** `/Users/eric/conductor/workspaces/memorynine/amsterdam/.superpowers/sdd/2026-08-26-initiative-morning-brief/task-2-report.md` (includes initial implementation + fix report)</result>
 <usage><subagent_tokens>53627</subagent_tokens><tool_uses>14</tool_uses><duration_ms>65578</duration_ms></usage>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>af5332681b5b22315</task-id>
+<tool-use-id>toolu_019YFDKtz8jSxb19dUWxftEK</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-memorynine-amsterdam/04204145-316f-4d52-ac9d-027e64e5632b/tasks/af5332681b5b22315.output</output-file>
+<status>completed</status>
+<summary>Agent "Implement Task 4: sweep" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Perfect! I've successfully fixed the critical failure isolation issue. Here's the status:
+
+**Status**: COMPLETED (FIX APPLIED)
+
+**Commits**: 2
+- `c64b68db` feat(knowledge): morning-brief sweep with claim-then-send idempotency
+- `4933fef` fix(knowledge): isolate per-tenant recordOutcome failures to prevent double-counting
+
+**Test Results**: 18 initiative tests, 367 total package suite — all pass (44/1465 expects)
+
+**Critical Fix**:
+- Wrapped each `recordOutcome()` call in its own try/catch to prevent: (a) double-counting on send-success + record-failure, (b) sweep abort on failed-outcome record-failure
+- Upgraded failure-isolation test to verify a tenant with news succeeds despite sibling's send failure
+- Added why-comments explaining the idempotency guarantees
+
+**Quality**: Typecheck clean, Biome clean, no regressions
+
+**Report**: `/Users/eric/conductor/workspaces/memorynine/amsterdam/.superpowers/sdd/2026-08-26-initiative-morning-brief/task-4-report.md` (updated with fix details)</result>
+<usage><subagent_tokens>69481</subagent_tokens><tool_uses>17</tool_uses><duration_ms>88722</duration_ms></usage>
+</task-notification>
