@@ -1,0 +1,9 @@
+The numbering of chapters is a remaining detail to change. To recount, the idea is to send out weekly digests which extend the syllabus by one chapter. The order in which chapters are added to the syllabus is arbitrary. But we do display the chapters with their order in the lab and elsewhere. Except for the sequence in which they land, there's no point in having them at all. It's an artifact. I don't want hasToggle to rely on arbitrary order. That would only add to confusion since there's no equivalent number neither on Nextjs docs nor on Vercel. What else do we display, what are our options?
+
+---
+
+Option 1. Shelf-order. 
+
+Think about what to replace the 2.5rem gutter with. Structurally, it does add value and I'd like it to stay.
+
+Do check other pages like the contact page where there's mention of a section's learning by numeral. Adjust it and add a link, why not.
