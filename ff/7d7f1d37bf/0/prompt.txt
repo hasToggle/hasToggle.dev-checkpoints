@@ -200,3 +200,7 @@ Almost nothing, and nothing product-facing.
 ---
 
 Continue.
+
+---
+
+1. you can set MONGODB_TEST_URI yourself, point it to a docker image or use the atlas connection string found in the envs; on local development it's connecting to a staging db, not prod.
