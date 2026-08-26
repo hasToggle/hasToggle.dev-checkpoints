@@ -8,3 +8,7 @@ Read the PR body, adjust it to reflect our progress. And tell me, what about the
 ---
 
 Go.
+
+---
+
+Change "lands Monday" to detail the next exact date, Monday 31th August or whatever the format dictates.
