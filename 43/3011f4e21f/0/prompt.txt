@@ -1,0 +1,1 @@
+The number increases immediately instead of waiting for the animation. It should stay as-is and increment after.
