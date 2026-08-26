@@ -196,3 +196,7 @@ Almost nothing, and nothing product-facing.
 12. **People pane is erase-only.** `person-row.tsx` offers a GDPR Art. 17 cascade and nothing else — no person page, no fact list, no way to see the `factCount` it displays.</result>
 <usage><subagent_tokens>129210</subagent_tokens><tool_uses>39</tool_uses><duration_ms>258596</duration_ms></usage>
 </task-notification>
+
+---
+
+Continue.
