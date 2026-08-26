@@ -1,0 +1,206 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/memorynine/amsterdam directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask. 
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/culajO/session-transcript-2e59211f-2dcd-4b83-b120-97e4a3e7b70e.md (9.8 KB)
+</system_instruction>
+
+
+
+.context/attachments/culajO/session-transcript-2e59211f-2dcd-4b83-b120-97e4a3e7b70e.md 
+
+I see. Let's discard the personal variant again. Let's focus on the B2B variant we have built, but use eve still.
+
+Now run an adverserial assessment. Critique the status quo and the file-based approach we can combine it with via eve.
+
+The product is or should be this:
+Founders use it to capture their 
+- thoughts (where things are never written down or otherwise persisted, permanently inside their minds)
+- emails
+- meetings
+- notes
+
+They use the product to see what's up, check up on what's stored, by themselves and by co-founders. They are proactively notified by the product for
+- recurring events like meet ups with clients
+- warming up contacts
+- various other proactive scenarious
+
+Not all features are implemented, yet. The end goal of the product is to be of use to founders for ingesting everything they want and use the product instead of any CRM systems. This product replaces the need for a CRM. Moreover, it's proactive and not just a passive knowledge ingestion system with a query UI. It's a system designed to do things with the goal of offloading mental and cognitive load on the founders. So far, the product has some guardrails for how knowledge gets into the db through reviews and extraction and all. Questions all assumptions, hidden, assumed or otherwise, and dig down to the essential foundation for the end goals. Base your proposed solution on first principles thinking like the fact that agents are trained to be very good in the CLI and they can navigate the file system really well to get an understanding of the codebase. That's why I mentioned eve. But knowledge should persist somewhere, preferably in the db, which has to function in tandem with how agents like to work best. Think from the ground up. Nothing is locked. Design the best solution.
+
+---
+
+<task-notification>
+<task-id>abe97280250fd502d</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-memorynine-amsterdam/04204145-316f-4d52-ac9d-027e64e5632b/tasks/abe97280250fd502d.output</output-file>
+<status>completed</status>
+<summary>Agent "Survey app surfaces and flows" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I have a complete picture. Here's the map.
+
+---
+
+# memorynine — current product surface map
+
+**Root:** `/Users/eric/conductor/workspaces/memorynine/amsterdam` · app under `apps/app` · branch `Kheirah/ask-ui-demo-parity`
+
+---
+
+## 1. Pages / routes
+
+The surface is far smaller than the vocabulary suggests. **There are five authenticated routes, total.**
+
+**Authenticated** (`apps/app/app/(authenticated)/`)
+
+| Path | File | What it does |
+|---|---|---|
+| `/` | `page.tsx` | "Brain" — the whole product on one screen. Redirects to `/join` if no `orgId`. Fires 5 parallel server actions (sources, open proposals, skipped proposals, people, briefs) and hands them to `BrainWorkspace` as four panes. |
+| `/review` | `review/page.tsx` | Has no body when work exists — it redirects straight to `/review/&lt;first open proposal&gt;`. Renders only an "All caught up" empty state. |
+| `/review/[id]` | `review/[id]/page.tsx` | The review desk: source quote, the confirm/discard form (or a re-extract control if extraction skipped the source), rejected drafts, and a filmstrip queue. |
+| `/team` | `team/page.tsx` | Members, invitations, allowed email domains. This is the closest thing to a settings page. |
+| `/join` | `join/page.tsx` | Pre-org landing: pending invitations, domain-matched joinable orgs, create-org fallback. |
+| layout | `layout.tsx` | Arcjet `secure()`, `currentUser()` gate, beta-flag banner, Knock `NotificationsProvider`, sidebar with a live open-proposal badge (`countOpenProposals`). |
+
+**Unauthenticated** (`apps/app/app/(unauthenticated)/`): `sign-in/[[...sign-in]]/page.tsx`, `sign-up/[[...sign-up]]/page.tsx`, plus a split-screen `layout.tsx` carrying the product pitch ("Ninety seconds is enough to start").
+
+**API routes**: `app/api/auth/[...all]/route.ts` (better-auth), `app/api/knowledge/upload/route.ts` (presigned blob upload), `app/.well-known/vercel/flags/route.ts`.
+
+**Routes that do not exist:** `/ask`, `/capture`, `/people` are **307 redirects to `/`**, hardcoded in `apps/app/next.config.ts`. There is **no `/sources`, no `/engagements`, no `/digests`, no `/settings`, no person-detail page, no source-detail page**. The `engagements` collection, engagement fact anchors, and engagement dossiers all exist in `@repo/knowledge` with **zero UI** — `grep engagement` over `apps/app/app/**/*.tsx` returns nothing.
+
+The panes on `/` are: `components/brain/knowledge-chat.tsx` (Ask), `capture-pane.tsx` (note + recorder + source list), `review-pane.tsx`, `people-pane.tsx` — toggled by `workspace.tsx`, a client-side segmented control, not routing. Deep-linking to a pane is impossible.
+
+---
+
+## 2. Ingestion / capture paths
+
+Three real paths, one env-config-gated.
+
+1. **Manual note** — `app/actions/knowledge/create-source.ts` → `createManualSource(text)`. Inserts `{type:"manual", status:"received", tenantId: orgId}` into `sources`, then `after(() =&gt; processSourceNow(...))`. UI: `components/brain/note-form.tsx`.
+2. **Voice memo** — `components/brain/recorder.tsx` (MediaRecorder) → `uploadPresigned` to a **private** Vercel Blob via `app/api/knowledge/upload/route.ts` (token scoped to `voice/&lt;name&gt;`, audio-only content types, 100 MB, 10 min TTL) → `createVoiceSource(blobUrl, contentType)` validates the host against `PRIVATE_BLOB_HOST_REGEX` and inserts `{type:"voice", audio:{blobUrl}}`. Format helpers in `lib/capture.ts`.
+3. **Inbound email** — `apps/api/app/webhooks/inbound-email/route.ts`. Resend/svix signature verify → `parseInboundSenderMap(process.env.KNOWLEDGE_INBOUND_SENDERS)` → `createEmailSource` (`packages/knowledge/inbound.ts`, deterministic `_id` so retries are no-ops) → `after(() =&gt; processSource(...))`.
+
+Both instant legs converge on `apps/app/lib/instant-pipeline.ts` → `processSource` from `@repo/knowledge`, with the 5-minute cron as backstop.
+
+**Proposals** are never created by the app. They are created inside `@repo/knowledge` only: `extraction-run.ts` / `process-source.ts` (from sources), `re-extraction.ts` (user-triggered retry), `consolidation.ts` and `contradiction.ts` (cron-triggered, source-less proposals).
+
+**Meeting / calendar integration: none. Not real, not stubbed.** Grepping `calendar|meeting|zoom|granola|gcal|otter|fireflies` across `apps/app`, `apps/api`, `packages/knowledge` returns only German fixture text and one comment. `components/brain/brief-pane.tsx:15` says it out loud: *"This is that, **with the calendar left out**."* The `/` layout's pitch copy and the brief pane are both built to the shape of a pre-call trigger that has no trigger.
+
+**Flag — email tenancy is env config.** `KNOWLEDGE_INBOUND_SENDERS` is a hand-maintained JSON blob mapping `sender-email → tenantId`, read from `process.env` per request. There is no per-org inbound address, no UI to manage it, no relationship to the `organization` table. Onboarding an org to email capture requires a deploy. Everyone not in the map is logged and dropped (`route.ts:~120`).
+
+---
+
+## 3. The review flow
+
+- **Listing**: `app/actions/knowledge/list-proposals.ts` — `listOpenProposals()` (`skipReason: {$exists:false}`), `listSkippedProposals()`, `countOpenProposals()` for the sidebar badge. Rendered by `review/components/review-strip.tsx` (filmstrip) and `components/brain/review-pane.tsx` (the `/` pane).
+- **Detail**: `app/actions/knowledge/get-proposal.ts` → `review/[id]/components/review-form.tsx`, which renders the entity→fact dependency graph as literal branch lines and mirrors the backend cascade client-side via `lib/review-decisions.ts` (`applyCascade`, `cascadedFactIndices`, `buildResolveInput`, `friendlyResolveError`).
+- **Resolution**: **exactly one caller** of `resolveProposalItems` in product code — `app/actions/knowledge/resolve.ts`. It guards `status === "superseded"` at the action layer (deliberately, per its own comment, so `resolveProposalItems`' idempotent resume for `"resolved"` stays intact), then refreshes dossiers for every anchor that gained a fact via `collectDossierAnchors` + `refreshDossier` in a sequential loop.
+- **Recourse**: `app/actions/knowledge/re-extract.ts` → `reExtractSource`, driven by `review/[id]/components/re-extract-control.tsx` with an optional free-text hint. Only reachable for proposals carrying a `skipReason`.
+
+---
+
+## 4. Ask / answer flow
+
+- **Agent**: `apps/app/agent/agent.ts` — a three-line `defineAgent({ model: process.env.KNOWLEDGE_CHAT_MODEL ?? "deepseek/deepseek-v4-flash-0731" })`. Behaviour lives entirely in `agent/instructions.md` (two-tier facts-vs-raw-sources doctrine, mandatory citation, conflict surfacing, abstention, prompt-injection handling).
+- **Mount**: `withEve(...)` in `apps/app/next.config.ts` mounts `./agent` at `/eve/v1/*`, same-origin — no separate service, no CORS, no second token.
+- **Channel/auth**: `agent/channels/eve.ts`. Verifier chain `[betterAuthSession, evalTenant, localDev()]`. `betterAuthSession` re-reads the session off request headers and stamps `attributes.tenantId = session.session.activeOrganizationId`; returns `null` (falls through, does not accept) when there's no active org.
+- **Tools**: `agent/tools/search-knowledge.ts` (hybrid `retrieveFacts` + optional Voyage rerank + `findContestedFactIds`), `agent/tools/search-sources.ts` (raw unreviewed material). Both read `tenantId` from `ctx.session.auth.current?.attributes?.tenantId` and throw if absent — never from tool input.
+- **Client**: `components/brain/knowledge-chat.tsx` calls **`useEveAgent()` with no options at all**. Per `node_modules/eve/dist/src/react/use-eve-agent.d.ts`, that means: default same-origin host, default reducer, **no `session`, no `initialSession`, no `initialEvents`**. The store (`eve-agent-store.js`) creates the session lazily on first `send()`.
+
+**Sessions are per component mount, not per user or per org.** Nothing keys, stores, or reloads a session id. A page refresh or a tab-switch away from the Ask pane and back starts a brand-new conversation. There is no history surface.
+
+**Receipts** travel out-of-band, deliberately: `app/actions/knowledge/get-receipts.ts` (server action) is called on first citation click by `components/brain/use-receipts.ts`, composes via `composeReceipt` + `findContestedFactIds`, resolves capturer names via `lib/member-names.ts`. Rendered by `receipt-panel.tsx` / `citation-chip.tsx` / `fact-citation.tsx` / `source-citation.tsx`. **Nothing about an answer, its citations, or its receipts is persisted.** Receipts live in a `useState` map for the life of the mount.
+
+**Flag — known auth hole, documented and unfixed.** `agent/channels/eve.ts:88-90`:
+&gt; *"route auth authenticates the caller, it does not prove that this caller owns the session id in the URL. eve treats a session id as a bearer capability, so before this is exposed beyond internal users we need to persist session → tenant ownership and check it on resume and on stream."*
+
+---
+
+## 5. Proactive machinery
+
+Everything scheduled lives in **`apps/api`**, declared in `apps/api/vercel.json`:
+
+| Cron | Schedule | Route | Real? |
+|---|---|---|---|
+| `/cron/knowledge-pipeline` | `*/5 * * * *` | `apps/api/app/cron/knowledge-pipeline/route.ts` | **Real.** `sweepPipeline` (transcribe → extract → propose, with stale-run recovery), plus GDPR blob-cleanup crash recovery. `maxDuration = 300`. |
+| `/cron/knowledge-consolidation` | `0 3 * * *` | `apps/api/app/cron/knowledge-consolidation/route.ts` | **Real.** The "dream cycle": `sweepConsolidation` then `sweepContradictions`, both producing **proposals**, never direct writes. |
+| `/cron/keep-alive` | `0 1 * * *` | `apps/api/app/cron/keep-alive/route.ts` | Real, trivial — a Mongo `ping`. |
+
+All gated by `apps/api/app/cron/auth.ts` (`requireCronSecret`, fail-closed 503 when unset).
+
+**Everything else in this category is absent or a stub:**
+
+- **Digests: do not exist for this product.** The only "digest" in the repo is `apps/email/scripts/digest.ts` + `packages/database/types.ts` `Digest` — a hand-run CLI (`create|update|schedule|list|send`) that mails a marketing newsletter to `subscribers` collected by the **apps/web** landing page. It has no connection to facts, orgs, tenants, or the knowledge DB.
+- **Notifications: mounted but never fired.** `@repo/notifications` (Knock) appears in exactly three places in the app: `env.ts`, `components/notifications-provider.tsx`, and the bell in `components/sidebar.tsx`. The server-side client — `packages/notifications/index.ts` `export const notifications = new Knock(...)` — is **imported by nothing anywhere in the monorepo**. Zero notifications are ever sent. The bell renders `null` without a Knock key.
+- **Outbound email from the product: none.** `resend.emails.send` is called only in `packages/auth/emails.ts` (verification/invites), `apps/web/app/[locale]/contact/actions/contact.tsx`, and `apps/web/app/api/confirm/route.ts`.
+- **The only push toward the user** is `components/brain/source-list.tsx`, which polls `router.refresh()` every 15 s while any source is mid-pipeline, and the sidebar's proposal-count badge. Both require the user to already be looking at the app.
+
+Net: the system is proactive about *processing* and completely passive about *reaching the user*. Nothing tells a founder there's a review queue, a contradiction, or a brief waiting.
+
+**Also present**: spend telemetry (`packages/knowledge/usage.ts`, `createUsageRecorder`, `scripts/usage-report.cli.ts`) writes a `usage` row per model call — cron-free, read only by CLI.
+
+---
+
+## 6. Tenancy
+
+`tenantId` is always the better-auth **active organization id**, but it is derived **three independent times**:
+
+1. **Server actions / pages** — `auth()` from `packages/auth/server.ts` returns `orgId = session.session.activeOrganizationId`. Every knowledge action opens with `const { orgId } = await auth(); if (!orgId) return &lt;empty&gt;;` and then puts `tenantId: orgId` **inside the Mongo filter itself**, not as a post-hoc check. This is consistent across all 10 knowledge actions. `re-extract.ts` documents the pattern explicitly ("a proposal id from another tenant simply does not match and looks identical to 'not found'").
+2. **Agent channel** — `agent/channels/eve.ts` re-reads the session from raw request headers via `authInstance.api.getSession()` and stamps `attributes.tenantId`. Tools read it back off `ctx.session.auth`. This path shares no code with (1).
+3. **Evals** — `evalTenant()` reads `process.env.EVAL_TENANT_ID`, gated on `isLocalDevelopmentServer()`. Ordering (`evalTenant` before `localDev()`) is pinned by `__tests__/eval-tenant.test.ts` because `localDev()` would otherwise shadow it.
+
+Storage is also split: the auth/app DB (`@repo/database`, `MONGODB_DB ?? "app"`) is a **different Mongo client and database** from the knowledge DB (`packages/knowledge/client.ts`, `KNOWLEDGE_MONGODB_URI` / `KNOWLEDGE_MONGODB_DB ?? "knowledge"`). There is no FK, no join, and no referential integrity between `organization` in one and `tenantId` strings in the other. Cross-DB reads happen ad hoc — e.g. `get-receipts.ts` calls `listOrganizationMembers(orgId)` (auth DB) to resolve `capturedBy` on knowledge documents.
+
+Vector/text index tenancy is enforced as a **pre-filter** in `packages/knowledge/retrieval.ts` (`{ path: "tenantId", type: "filter" }`) — noted in-file as deliberate, since post-filtering would let another tenant's docs consume this tenant's `k`.
+
+---
+
+## 7. Anything file-based
+
+Almost nothing, and nothing product-facing.
+
+- **Fixture corpus**: `packages/knowledge/fixtures/{corpus,facts,sources,ids}.ts` — ~80 hand-authored German facts and ~35 sources, as TypeScript literals.
+- **Seeding**: `packages/knowledge/scripts/seed-evals.ts` (+ `.cli.ts`) wipes and reinserts those fixtures into **Atlas** for two tenants (`TENANT_ALPHA`, `TENANT_BETA`). Scoping by `tenantId: {$in: EVAL_TENANTS}` is described in-file as "the entire safety mechanism." Not files — DB rows.
+- **Markdown from facts**: `packages/knowledge/dossier.ts` `composeDossier()` genuinely emits markdown (`# Anchor`, `## category`, `- fact text`, token-budgeted to ~600 tokens, oldest dropped first). But it is stored as a `content` **string in the `dossiers` Mongo collection**, refreshed by `refreshDossier` on review. Nothing writes it to disk, and — notably — **nothing reads `dossier.content` either**: `list-briefs.ts` uses the `dossiers` collection purely as an *index* ("whom is it worth briefing, freshest first") and then re-reads the underlying facts, because `composeDossier` drops the fact ids a receipt needs. The rendered markdown is currently dead weight.
+- **No eve sandbox, no skills, no workspace materialization.** `grep sandbox|defineSkill|skills/` over `apps/app` and `packages/knowledge` returns nothing. The agent has two tools and one instruction file.
+- The only real filesystem materialization is eve's own dev infrastructure: `apps/app/.eve/dev-runtime/snapshots/&lt;id&gt;/source/**` holds three full copies of the monorepo source tree, pointed at by `.eve/dev-runtime/current.json`. Build tooling, not product.
+
+---
+
+## Flags — half-built, stubbed, or drifted
+
+1. **`agent/channels/eve.ts:88`** — session ids are bearer capabilities; session→tenant ownership is not persisted or checked on resume/stream. Self-documented as blocking external exposure.
+2. **No chat persistence whatsoever.** `useEveAgent()` with zero options. Ask has no history, no resume, no shareable answer. Every receipt lookup is re-fetched per mount.
+3. **Knock is decorative.** Provider + bell mounted; the server client is imported by nothing. Zero notifications sent, ever.
+4. **Digest machinery belongs to the marketing site**, not the product — `apps/email/scripts/digest.ts` over `packages/database` `subscribers`/`digests`. If "digests" is a product surface in anyone's head, it does not exist in code.
+5. **No calendar/meeting hook of any kind**, while the sign-in copy, the brief pane, and `askAbout("What should I know before I talk to X?")` are all built around a pre-call moment nothing detects. `brief-pane.tsx:15` admits the omission.
+6. **Email tenancy is a deploy-time env JSON** (`KNOWLEDGE_INBOUND_SENDERS`), unmanageable from the UI and disconnected from the org model.
+7. **Dead revalidation**: `create-source.ts` calls `revalidatePath("/capture")` twice — `/capture` was collapsed into `/` and is now a redirect (`next.config.ts`). The path being revalidated no longer exists; the capture pane relies on a client-side `router.refresh()` instead.
+8. **Dead parameter**: `BuildBriefInput.now: Date` (`packages/knowledge/brief.ts:45`) is required by callers and never used by `buildBrief`.
+9. **`listBriefs` swallows every error** and returns `[]` (deliberately, to protect a shared `Promise.all` with three other panes — but it means a broken brief pane is indistinguishable from an empty one, visible only in server logs).
+10. **`layout.tsx` beta banner** renders a hardcoded "Beta feature now available" string off `showBetaFeature()` — next-forge scaffold residue.
+11. **Payments are half-wired**: `apps/api/app/webhooks/payments/route.ts` handles Stripe events against `user.stripeCustomerId`, with a comment saying to set it "wherever checkout provisioning happens" — there is no checkout, no pricing surface in `apps/app`, and no billing page.
+12. **People pane is erase-only.** `person-row.tsx` offers a GDPR Art. 17 cascade and nothing else — no person page, no fact list, no way to see the `factCount` it displays.</result>
+<usage><subagent_tokens>129210</subagent_tokens><tool_uses>39</tool_uses><duration_ms>258596</duration_ms></usage>
+</task-notification>
+
+---
+
+Continue.
+
+---
+
+1. you can set MONGODB_TEST_URI yourself, point it to a docker image or use the atlas connection string found in the envs; on local development it's connecting to a staging db, not prod.
