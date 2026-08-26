@@ -1,0 +1,10 @@
+Read the PR body, adjust it to reflect our progress. And tell me, what about the follow ups? They should be resolved. If not, which ones are still open?
+
+---
+
+1. Let's preview it locally, though. Activate it temporarily.
+2. Do the audit.
+
+---
+
+Go.
