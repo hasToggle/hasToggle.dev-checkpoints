@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "fbb5dab05325",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/use-client-demo-redesign",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/fb/b5dab05325/0/metadata.json",
+      "transcript": "/fb/b5dab05325/0/full.jsonl",
+      "compact_transcript": "/fb/b5dab05325/0/transcript.jsonl",
+      "content_hash": "/fb/b5dab05325/0/content_hash.txt",
+      "prompt": "/fb/b5dab05325/0/prompt.txt",
+      "assets_manifest": "/fb/b5dab05325/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 440,
+    "cache_creation_tokens": 345261,
+    "cache_read_tokens": 51384182,
+    "output_tokens": 179816,
+    "api_call_count": 220
+  }
+}
