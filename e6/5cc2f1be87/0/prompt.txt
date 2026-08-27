@@ -20,3 +20,15 @@ We don't need the 3min revalidation. Most of the time, no commits are landing. I
 
 delete "We reached for it the same way, for about a year, before anyone made us say what it was protecting against. "
 and rewrite the second paragraph; it reads like AI, not like our voice.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/EDYL68/Screenshot 2026-08-27 at 14.24.09.png (52.6 KB)
+</system_instruction>
+
+
+
+.context/attachments/EDYL68/Screenshot 2026-08-27 at 14.24.09.png 
+the first line in the screenshot doesn't fit and the second line is hard to read without formatting.
