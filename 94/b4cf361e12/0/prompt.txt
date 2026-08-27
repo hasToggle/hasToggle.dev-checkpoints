@@ -1,0 +1,13 @@
+Commit them.
+
+---
+
+Having "The fine print:" on every demo is tiring. Be minimalistic. And this bit "The move everyone learns second" is educating. Not our voice.
+
+---
+
+One thing bothers me. The initial state, the server component, does not display anything useful except being meta about it. Keep the meta, but provide options for displaying what developers would expect from a server component.
+
+---
+
+C with an acceptable drift for when new commits land but the site still serves from cache until rebuilt, a few minutes at most.
