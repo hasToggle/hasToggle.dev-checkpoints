@@ -96,3 +96,7 @@ Reword: The error offers two placements: the file, or its parent. The parent is 
 ---
 
 Let's rethink what the footnote should say. It shouldn't be about the error but the boundary.
+
+---
+
+A. The line is the boundary that lets data through. In the ...
