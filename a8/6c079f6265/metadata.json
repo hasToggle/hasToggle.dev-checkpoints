@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "a86c079f6265",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/playground-site-design",
+  "checkpoints_count": 8,
+  "files_touched": [
+    ".context/lighthouse/PROD-mobile-real.report.json"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a8/6c079f6265/0/metadata.json",
+      "transcript": "/a8/6c079f6265/0/full.jsonl",
+      "compact_transcript": "/a8/6c079f6265/0/transcript.jsonl",
+      "content_hash": "/a8/6c079f6265/0/content_hash.txt",
+      "prompt": "/a8/6c079f6265/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 10077,
+    "cache_read_tokens": 2453624,
+    "output_tokens": 11539,
+    "api_call_count": 7
+  }
+}

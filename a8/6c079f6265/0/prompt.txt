@@ -1,0 +1,9 @@
+why do we need a non-prod protection against 404? In my experience analytics works locally without 404ing.
+
+---
+
+Keep it. Merged.
+
+The mobile Lighthouse audit says there's legacy JS shipping to the browser. We can steer that with a different compile target if I'm not mistaken. The question is, should we? A lower target includes older browsers. What do we expect our audience to use? I have no data yet.
+
+And about the missing 10 perf points, it's all about LCP. I don't get that. Does LCP consider the entire page? That would be unreasonable to gauge performance of things below the fold. And yet, we don't have major things loading above the fold either, do we?
