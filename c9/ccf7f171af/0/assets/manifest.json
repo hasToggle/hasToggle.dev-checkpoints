@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "name": "img-472d65f4b1b1d87935bda9c362a8e59b.png",
+      "media_type": "image/png",
+      "size": 61521,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-2ef4ab444371fdb9b6027e5ceabfb351.png",
+      "media_type": "image/png",
+      "size": 60112,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-41319b73ec02e54bafac4500c7814f6d.png",
+      "media_type": "image/png",
+      "size": 59990,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-cd1469d90ae57712bcb95f9c55cdb82d.png",
+      "media_type": "image/png",
+      "size": 53814,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-43a8fe2acf31309d7bf90ce8e9816acf.png",
+      "media_type": "image/png",
+      "size": 49946,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-8fffc2b78da21a02336aba0780c2c280.png",
+      "media_type": "image/png",
+      "size": 49114,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-72de423807bdee032d423b3f5b7ef989.png",
+      "media_type": "image/png",
+      "size": 48298,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-c60063782e5fd89959bc8b99f060fa46.png",
+      "media_type": "image/png",
+      "size": 48064,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-f50604d52b5961cab3d47e1452db14a0.png",
+      "media_type": "image/png",
+      "size": 47131,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-fa0e88ba99bfc84a93f6f1d672f21d24.png",
+      "media_type": "image/png",
+      "size": 46228,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-426e58f67fa922bdc566e6b02bd7d51d.png",
+      "media_type": "image/png",
+      "size": 42391,
+      "sha256": "[REDACTED_TOKEN]"
+    }
+  ]
+}
