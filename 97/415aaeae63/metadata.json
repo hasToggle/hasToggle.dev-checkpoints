@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "97415aaeae63",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/use-client-demo-redesign",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/97/415aaeae63/0/metadata.json",
+      "transcript": "/97/415aaeae63/0/full.jsonl",
+      "compact_transcript": "/97/415aaeae63/0/transcript.jsonl",
+      "content_hash": "/97/415aaeae63/0/content_hash.txt",
+      "prompt": "/97/415aaeae63/0/prompt.txt",
+      "assets_manifest": "/97/415aaeae63/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 486,
+    "cache_creation_tokens": 365996,
+    "cache_read_tokens": 59929910,
+    "output_tokens": 193051,
+    "api_call_count": 243
+  }
+}
