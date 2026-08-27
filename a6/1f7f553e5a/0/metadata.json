@@ -1,0 +1,99 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "a61f7f553e5a",
+  "session_id": "4e2c3085-403f-410d-b352-fee180e009e4",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-27T13:37:45.861609Z",
+  "branch": "Kheirah/use-client-demo-redesign",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-fable-5",
+  "turn_id": "e07c15007988",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 518,
+    "cache_creation_tokens": 381412,
+    "cache_read_tokens": 66163401,
+    "output_tokens": 201005,
+    "api_call_count": 259
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_016WbPoiX6CPL4gFQao3X1Zt",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "e07c15007988",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 19,
+        "end": 20,
+        "entry_ids": [
+          "81edcbcc-f368-4f2b-ba28-d53b81392106"
+        ],
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01KpvE88VJarxyVwD6K5wvK1",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "frontend-design:frontend-design"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "e07c15007988",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 1586,
+        "end": 1587,
+        "entry_ids": [
+          "7f1b1f8b-d3e8-4116-a7a6-40c8917f47dc"
+        ],
+        "tool_use_id": "toolu_01KpvE88VJarxyVwD6K5wvK1"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01KpvE88VJarxyVwD6K5wvK1"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: frontend-design:frontend-design",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
