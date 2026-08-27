@@ -1,0 +1,30 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/washington directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+The intial setup of hasToggle's web project is done. Now I want to go into detail of the existing demos. Let's start with "I’ll put “use client” on it, to be safe."
+
+The goal is to capture a real misconception (which this demo does, people do confuse client and server components) such that the demonstration of it is easy to recognize. Users should not have to think. They do have to make an effort to understand the mechanism depicted, that's the mental effort hasToggle expects of you when slowing down the demo or hitting the narrate toggle. That's something to streamline as well, what does the toggle say in all demos? All demos should have a toggle, that's the whole point. Users should be able to switch between the effect and the cause, as in the useState and cache demos.
+
+The question then is, is the misconception recognizable in the current demo? I think we can do better then being presented with two cards. The user should be introduced to the difference, not confronted with it in the first beat.
+
+Do some thinking. See what you come up with.
+
+---
+
+Slow motion it is. On option A: Using useState without declaring the file "use client" throws an error in development. Developers would not ship something broken, they couldn't by design. And using local variables would require the developer to not be familiar with React. I'm not 100% convinced, but let's see it visually first. Use the superpowers companion and spin up the throwaway dev server, so I can get a better feel of your recommended change.
+
+---
+
+All right, I like the flow. The language has to change, it's too meta, e.g. "this is the moment the belief is born: the fix is one line, and the error itself hands it to you."

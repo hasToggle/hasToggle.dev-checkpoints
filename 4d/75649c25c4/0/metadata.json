@@ -1,0 +1,82 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "4d75649c25c4",
+  "session_id": "4e2c3085-403f-410d-b352-fee180e009e4",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-27T11:32:02.606589Z",
+  "branch": "Kheirah/use-client-demo-redesign",
+  "checkpoints_count": 7,
+  "save_step_count": 2,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-fable-5",
+  "turn_id": "f4ce1fe61984",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 188,
+    "cache_creation_tokens": 195185,
+    "cache_read_tokens": 14720255,
+    "output_tokens": 78332,
+    "api_call_count": 94
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_016WbPoiX6CPL4gFQao3X1Zt",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f4ce1fe61984",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 19,
+        "end": 20,
+        "entry_ids": [
+          "81edcbcc-f368-4f2b-ba28-d53b81392106"
+        ],
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
