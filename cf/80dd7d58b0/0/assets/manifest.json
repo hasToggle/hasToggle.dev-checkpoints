@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "name": "img-b48e7cb1ed94cd3188bc6049e73058d0.png",
+      "media_type": "image/png",
+      "size": 61521,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-11cacb883d119a45211b1676f695d0df.png",
+      "media_type": "image/png",
+      "size": 60112,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-a1f76bfc8ebe235ee067088c1a9c2374.png",
+      "media_type": "image/png",
+      "size": 59990,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-e99680656e9c430f8950a58340116313.png",
+      "media_type": "image/png",
+      "size": 54246,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-4dbd8df9ef9719c33e1e42380619e4e3.png",
+      "media_type": "image/png",
+      "size": 54236,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-96628653950d644071e96e64fec953d4.png",
+      "media_type": "image/png",
+      "size": 53814,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-0bd8b6e6042a6723b19f8973d9b3cb97.png",
+      "media_type": "image/png",
+      "size": 49946,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-d4d06e6acc4b8cf2341e568553294784.png",
+      "media_type": "image/png",
+      "size": 49114,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-ae304b7de2a99000f53a306a330a7578.png",
+      "media_type": "image/png",
+      "size": 48298,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-084f2caeddb49c241f5b2d2d54be13fc.png",
+      "media_type": "image/png",
+      "size": 48064,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-03558b534661988d5131a284ef9c9da8.png",
+      "media_type": "image/png",
+      "size": 47131,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-27da48fc49120e949baa6fa4a4738e41.png",
+      "media_type": "image/png",
+      "size": 46228,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-acbd67b74ee0604cc558d7ebf0d55071.png",
+      "media_type": "image/png",
+      "size": 42391,
+      "sha256": "[REDACTED_TOKEN]"
+    }
+  ]
+}

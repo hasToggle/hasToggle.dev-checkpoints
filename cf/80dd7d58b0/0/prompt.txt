@@ -1,0 +1,62 @@
+Commit them.
+
+---
+
+Having "The fine print:" on every demo is tiring. Be minimalistic. And this bit "The move everyone learns second" is educating. Not our voice.
+
+---
+
+One thing bothers me. The initial state, the server component, does not display anything useful except being meta about it. Keep the meta, but provide options for displaying what developers would expect from a server component.
+
+---
+
+C with an acceptable drift for when new commits land but the site still serves from cache until rebuilt, a few minutes at most.
+
+---
+
+We don't need the 3min revalidation. Most of the time, no commits are landing. It's only in windows where I actually push changes that the last commit could be stale. But that resolves once the project rebuilds, which it does automatically. I think "hours" was all right there. Remind me, what does hours expressively mean?
+
+---
+
+delete "We reached for it the same way, for about a year, before anyone made us say what it was protecting against. "
+and rewrite the second paragraph; it reads like AI, not like our voice.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/EDYL68/Screenshot 2026-08-27 at 14.24.09.png (52.6 KB)
+</system_instruction>
+
+
+
+.context/attachments/EDYL68/Screenshot 2026-08-27 at 14.24.09.png 
+the first line in the screenshot doesn't fit and the second line is hard to read without formatting.
+
+---
+
+"bake" is not actual terminology; it's used in a demo about caching only. We should use real engineering terms.
+
+---
+
+The demo still feels disjointed. Why would I suddenly need a button that counts and entirely replace my server-side fetch that I had for a reason?
+
+Any suggestions as to how to clear the seam, make the addition of a client component feel effortless cognitively?
+
+---
+
+A with the full resolution of C in the demo
+
+---
+
+The intermediate state with "use client" renders the server component just fine which is odd. It suggests that putting the directive on any server components is a normal practice. It's not. The fetch in our case is client-side, and any other logic which would have queried the db would fail. That state is not a functional one, or shouldn't be.
+
+---
+
+This is too truthful. The user is guided through two failures. It may feel authentic as a developer could experience that themselves, but it doesn't feel great in the demo. Options?
+
+I liked the nudging on the buttons. The user was nudged toward clicking the next button. Bring it back.
+
+---
+
+A
