@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "name": "img-4c6be30a9e61287c7513453c058a5bd7.png",
+      "media_type": "image/png",
+      "size": 48298,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-e26dadadaeb4b3f30da84d3707bbea5d.png",
+      "media_type": "image/png",
+      "size": 48064,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-57df7e6f9696437fe5694a8b3d3b51e2.png",
+      "media_type": "image/png",
+      "size": 47131,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-6496fc175972d31ca59415812503209b.png",
+      "media_type": "image/png",
+      "size": 46228,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-06b2200341c7c51844985f3f846d6983.png",
+      "media_type": "image/png",
+      "size": 42391,
+      "sha256": "[REDACTED_TOKEN]"
+    }
+  ]
+}
