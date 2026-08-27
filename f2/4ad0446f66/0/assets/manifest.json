@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "name": "img-af427ef4757e294de1aa4e437946676d.png",
+      "media_type": "image/png",
+      "size": 53814,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-cb0c166df9cd6e51d7bdd18e64e89f18.png",
+      "media_type": "image/png",
+      "size": 49946,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-c38e270b55068ff166560bfc9eed676c.png",
+      "media_type": "image/png",
+      "size": 49114,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-ed63de4de15df79b1eb3e01ea06a34dc.png",
+      "media_type": "image/png",
+      "size": 48298,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-e80e6cc21d035e5bb7e1587d01571946.png",
+      "media_type": "image/png",
+      "size": 48064,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-338cc9c190aee4d0eb16b96f0220a8cd.png",
+      "media_type": "image/png",
+      "size": 47131,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-82dd5e48ace70e5179157e74a36732af.png",
+      "media_type": "image/png",
+      "size": 46228,
+      "sha256": "[REDACTED_TOKEN]"
+    },
+    {
+      "name": "img-db4678883c6f883efd477a5e289c5fcd.png",
+      "media_type": "image/png",
+      "size": 42391,
+      "sha256": "[REDACTED_TOKEN]"
+    }
+  ]
+}
