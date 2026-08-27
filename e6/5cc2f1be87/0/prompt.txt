@@ -1,0 +1,22 @@
+Commit them.
+
+---
+
+Having "The fine print:" on every demo is tiring. Be minimalistic. And this bit "The move everyone learns second" is educating. Not our voice.
+
+---
+
+One thing bothers me. The initial state, the server component, does not display anything useful except being meta about it. Keep the meta, but provide options for displaying what developers would expect from a server component.
+
+---
+
+C with an acceptable drift for when new commits land but the site still serves from cache until rebuilt, a few minutes at most.
+
+---
+
+We don't need the 3min revalidation. Most of the time, no commits are landing. It's only in windows where I actually push changes that the last commit could be stale. But that resolves once the project rebuilds, which it does automatically. I think "hours" was all right there. Remind me, what does hours expressively mean?
+
+---
+
+delete "We reached for it the same way, for about a year, before anyone made us say what it was protecting against. "
+and rewrite the second paragraph; it reads like AI, not like our voice.
