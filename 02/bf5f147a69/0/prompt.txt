@@ -1,0 +1,36 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/kinshasa directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+I have entire.io installed locally and set up to push to a separate remote repo. And that works. But within Entire.io's dashboard I get no sessions displayed. I only see the individual commits and the files committed. But there are no sessions. Investigate the root cause. Ideally, I want to attach sessions (which I hope are somehow possible to share publicly) to my hasToggle repo or even website. Pure commits are chaotic and don't relate to any one feature clearly enough.
+
+---
+
+I've run it. What are dispatches? Educate me.
+
+---
+
+Yes, and do check for secret exposure since I don't want secrets to land in my entire.io captures and be publicly accessible.
+
+---
+
+No, I'd rather we activate externalize_images, goredact, and PII redaction (I'll still be able to have the LLM read or write PII, it just won't persist in the transcript if I understand correctly).
+
+What's more, a history rewrite would be all right by me, plus the hasToggle repo could benefit from that too in that we remove the knowledge hub entirely since that's an entirely different product not at all related to hasToggle.
+
+Before you do anything, verify the options and history rewrites. We don't want breaking changes.
+
+---
+
+Apply the two settings only.
