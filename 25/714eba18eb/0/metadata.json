@@ -1,0 +1,96 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "25714eba18eb",
+  "session_id": "4e2c3085-403f-410d-b352-fee180e009e4",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-27T13:33:39.245214Z",
+  "branch": "Kheirah/use-client-demo-redesign",
+  "checkpoints_count": 2,
+  "save_step_count": 3,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/boundary/demo.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5",
+  "turn_id": "f291ad1d657b",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 494,
+    "cache_creation_tokens": 369545,
+    "cache_read_tokens": 61462669,
+    "output_tokens": 195668,
+    "api_call_count": 247
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_016WbPoiX6CPL4gFQao3X1Zt",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f291ad1d657b",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 19,
+        "end": 20,
+        "entry_ids": [
+          "81edcbcc-f368-4f2b-ba28-d53b81392106"
+        ],
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_016WbPoiX6CPL4gFQao3X1Zt"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 27
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-27T13:33:39.153018Z",
+    "agent_lines": 0,
+    "agent_removed": 2,
+    "human_added": 0,
+    "human_modified": 4,
+    "human_removed": 0,
+    "total_committed": 2,
+    "total_lines_changed": 6,
+    "agent_percentage": 33.33333333333333,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 2,
+      "agent_lines_removed": 2
+    }
+  ]
+}
