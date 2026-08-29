@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "c2c84aa4d6c7",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/fetch-strategy-demo-redesign",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx",
+    "docs/voice.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/c2/c84aa4d6c7/0/metadata.json",
+      "transcript": "/c2/c84aa4d6c7/0/full.jsonl",
+      "compact_transcript": "/c2/c84aa4d6c7/0/transcript.jsonl",
+      "content_hash": "/c2/c84aa4d6c7/0/content_hash.txt",
+      "prompt": "/c2/c84aa4d6c7/0/prompt.txt",
+      "assets_manifest": "/c2/c84aa4d6c7/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 16,
+    "cache_creation_tokens": 9898,
+    "cache_read_tokens": 2766012,
+    "output_tokens": 6790,
+    "api_call_count": 8
+  }
+}
