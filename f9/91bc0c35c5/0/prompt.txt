@@ -1,0 +1,6 @@
+"the second it is done" would be more accurate.
+"The delays are simulated. The streaming is real: each row is a Server Component that finishes on the server, and every arrival time you read was measured rather than written down."
+
+"one boundary, no fallback · three rows, one arrival · the fastest has to wait for the slowest"
+
+The fineprint is still too much story about nothing. Make it match our demo. Check out the useState, server/client component, and cache demos for reference.
