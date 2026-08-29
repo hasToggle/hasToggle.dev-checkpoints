@@ -1,0 +1,11 @@
+Let's iterate on the fineprint here before committing. The start with "A boundary decides when work is shown, not when it begins." sounds useful. Let's continue that. Be on point, precise, and concise. This is not a novel.
+
+---
+
+A boundary decides when work is shown, not when it begins. The three calls here start together — await them in a chain and the fastest one still waits for the slowest.
+
+Is that accurate? The first and last designation of calls may be out of order. The slowest could be the second. Talking in slow and fast is more accurate, isn't it?
+
+---
+
+Yes, commit it.

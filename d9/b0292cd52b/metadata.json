@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "d9b0292cd52b",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/fetch-strategy-demo-redesign",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/stream/copy.test.ts",
+    "apps/web/app/[locale]/(playground)/stream/copy.ts",
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx",
+    "apps/web/app/[locale]/(playground)/stream/rows.test.ts",
+    "apps/web/app/[locale]/(playground)/stream/rows.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/d9/b0292cd52b/0/metadata.json",
+      "transcript": "/d9/b0292cd52b/0/full.jsonl",
+      "compact_transcript": "/d9/b0292cd52b/0/transcript.jsonl",
+      "content_hash": "/d9/b0292cd52b/0/content_hash.txt",
+      "prompt": "/d9/b0292cd52b/0/prompt.txt",
+      "assets_manifest": "/d9/b0292cd52b/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 5553,
+    "cache_read_tokens": 2358426,
+    "output_tokens": 4389,
+    "api_call_count": 7
+  }
+}
