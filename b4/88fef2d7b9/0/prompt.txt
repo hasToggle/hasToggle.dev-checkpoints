@@ -1,0 +1,6 @@
+Reword the three parapraphs and the fineprint to sound more like our voice. Drop the "0 = the response opened" since it's the same on all three. As for the reset button, I don't see how it's useful. It doesn't really reset anything, just goes back to the first state, which you can by clicking the first button - and is more intuitive to do.
+
+Reword these too:
+one await before the return · the 400 ms row lands with the other two, 1500 ms after it finished
+one boundary around all three · the fallback ships at +0, the rows still arrive together
+a boundary per part · the last row still costs 1900 ms, and nothing else waits for it
