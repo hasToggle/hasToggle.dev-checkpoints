@@ -48,3 +48,24 @@ Browser-checked: yes — reloaded `/lab/server-actions`, expanded the code drawe
 Concerns: none. Full detail appended to `.superpowers/sdd/mutation-redesign-plan/task-9-report.md`.</result>
 <usage><subagent_tokens>100741</subagent_tokens><tool_uses>19</tool_uses><duration_ms>133426</duration_ms></usage>
 </task-notification>
+
+---
+
+<task-notification>
+<task-id>aef1ca0dd52b71b0a</task-id>
+<tool-use-id>toolu_01T1W6hDTBJUiKLHdBUu1Aup</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-reykjavik/656a83ba-9ab6-4e45-8c66-1bb57ed134f0/tasks/aef1ca0dd52b71b0a.output</output-file>
+<status>completed</status>
+<summary>Agent "Task 10: the copy pass" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>**Status:** all four fixes done, plus the `SEAMS.refresh` revert. Commit `9f1e73b5`.
+
+**Tests/typecheck:** `bun test` 324 pass / 0 fail; `tsc --noEmit` clean; `bun run fix` — only the pre-existing `boundary/crossed-file.tsx` error, and `git status` confirms it touched nothing of mine.
+
+**Drove the page:** yes — I ran the intro as a script, sentence by sentence, in a browser. The deck's resting position, the unchanged number beside a body reading `{"count":9,…}`, the form returning when `network` goes off, the `&lt;form&gt;`'s `action` attribute rewiring at step three, one unbroken `WORKING` span (t+9ms → t+100ms), and 41 × `x` earning a real `400` with the status row marked "you wrote this" — all first-hand.
+
+**Final step-one instruction:** "The deck below already stands on it. Leave a mark and press `Save it`, then watch the number above the form."
+
+Two notes: "Leave a mark" is deliberately the panel's own `NOTE_LABEL`, so prose and control name one act one way. And the revert forced one edit you didn't ask for — paragraph two's "a `GET` for the page you are already looking at" had to go, because the restored seam says that again; the intro now keeps only the *why*, the seam the *what*.</result>
+<usage><subagent_tokens>207552</subagent_tokens><tool_uses>20</tool_uses><duration_ms>360365</duration_ms></usage>
+</task-notification>
