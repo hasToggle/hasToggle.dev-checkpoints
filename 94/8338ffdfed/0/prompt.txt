@@ -1,0 +1,50 @@
+<task-notification>
+<task-id>ba84btmzf</task-id>
+<tool-use-id>toolu_014o9NMYBNG5sV26RACARNB6</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-reykjavik/656a83ba-9ab6-4e45-8c66-1bb57ed134f0/tasks/ba84btmzf.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for fix-round commit" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bdw6ledos</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-reykjavik/656a83ba-9ab6-4e45-8c66-1bb57ed134f0/tasks/bdw6ledos.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for Task 8 fix commit" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bwbb2q4g6</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-reykjavik/656a83ba-9ab6-4e45-8c66-1bb57ed134f0/tasks/bwbb2q4g6.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for Task 9 fix commit" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a1a94fe7851d6ab64</task-id>
+<tool-use-id>toolu_016wawctkVnMtujt2miwPvPA</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-reykjavik/656a83ba-9ab6-4e45-8c66-1bb57ed134f0/tasks/a1a94fe7851d6ab64.output</output-file>
+<status>completed</status>
+<summary>Agent "Task 9: wire up and retire" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Status: fixed and committed. Commit `ff2300ae` (on top of `34e41158`).
+
+- Finding 1: `saveNote` excerpt now reads `headers().get("next-action") ?? ""` for `actionId` and threads it through both the failure and success returns (also fixed a pre-existing missing success return), matching `actions.ts` exactly in call shape and fallback.
+- Finding 2: fixed via drawer self-description, not `ReferenceBar` — each arrangement's comment now names its real file; `CodeBlock`'s `file` label is now `"app/api/press/route.ts + note-form.tsx + actions.ts"`; `sourceHref` left pointing at the chapter folder, `ReferenceBar` untouched.
+- Re-read the full excerpt once more against `route.ts`/`actions.ts`; no other unbacked claims found beyond the two elisions already ruled acceptable.
+
+Tests: `bun test` — 324 pass, 0 fail. Typecheck: `bunx tsc --noEmit` — clean, no output. `bun run fix` — no changes needed to my files, only the pre-existing out-of-scope `crossed-file.tsx` lint finding remains.
+
+Browser-checked: yes — reloaded `/lab/server-actions`, expanded the code drawer, confirmed the new file label and the `actionId` lines render correctly, no console errors, then stopped the dev server.
+
+Concerns: none. Full detail appended to `.superpowers/sdd/mutation-redesign-plan/task-9-report.md`.</result>
+<usage><subagent_tokens>100741</subagent_tokens><tool_uses>19</tool_uses><duration_ms>133426</duration_ms></usage>
+</task-notification>
