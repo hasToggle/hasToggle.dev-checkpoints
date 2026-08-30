@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "169d7f44679a",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/server-actions-demo-rethink",
+  "checkpoints_count": 3,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/16/9d7f44679a/0/metadata.json",
+      "transcript": "/16/9d7f44679a/0/full.jsonl",
+      "compact_transcript": "/16/9d7f44679a/0/transcript.jsonl",
+      "content_hash": "/16/9d7f44679a/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 86,
+    "cache_creation_tokens": 181175,
+    "cache_read_tokens": 5009076,
+    "output_tokens": 80792,
+    "api_call_count": 43
+  }
+}
