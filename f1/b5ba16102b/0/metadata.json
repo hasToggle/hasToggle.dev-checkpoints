@@ -1,0 +1,375 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "f1b5ba16102b",
+  "session_id": "a6c2b59d-a5c7-4667-93f9-c807bfc7d26e",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-13T15:53:50.238389Z",
+  "branch": "Kheirah/capability-first-framing",
+  "checkpoints_count": 21,
+  "save_step_count": 21,
+  "files_touched": [
+    "README.md",
+    "apps/web/app/[locale]/(playground)/boundary/boundary-panel.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/card.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/copy.test.ts",
+    "apps/web/app/[locale]/(playground)/boundary/copy.ts",
+    "apps/web/app/[locale]/(playground)/boundary/crossed-file.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/demo.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/refusal.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/server-card.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/source.ts",
+    "apps/web/app/[locale]/(playground)/demo-section.tsx",
+    "apps/web/app/[locale]/(playground)/image/demo.tsx",
+    "apps/web/app/[locale]/(playground)/mutation/demo.tsx",
+    "apps/web/app/[locale]/(playground)/shell/baked-stamp.tsx",
+    "apps/web/app/[locale]/(playground)/shell/demo.tsx",
+    "apps/web/app/[locale]/(playground)/shell/index-value.tsx",
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.test.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-copy.ts",
+    "apps/web/app/[locale]/(playground)/shell/rebake-panel.tsx",
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/(playground)/stream/copy.ts",
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx",
+    "apps/web/app/[locale]/(playground)/stream/strategy.test.ts",
+    "apps/web/app/[locale]/(playground)/stream/strategy.ts",
+    "apps/web/app/[locale]/(playground)/stream/stream-panel.tsx",
+    "apps/web/app/[locale]/components/hero-footnote.tsx",
+    "apps/web/app/[locale]/components/hero.tsx",
+    "apps/web/app/[locale]/lab/chapter.tsx",
+    "apps/web/app/[locale]/lab/page.tsx",
+    "apps/web/app/[locale]/lab/syllabus.test.ts",
+    "apps/web/app/[locale]/lab/syllabus.ts",
+    "apps/web/app/[locale]/page.tsx",
+    "docs/design.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "07c0cefc0ae6",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 2702,
+    "cache_creation_tokens": 490504,
+    "cache_read_tokens": 14692224,
+    "output_tokens": 61364,
+    "api_call_count": 105
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01JtsPMQ2rtMDQToVEDT76Hg",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "07c0cefc0ae6",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 50,
+        "end": 51,
+        "entry_ids": [
+          "a687a360-a630-48c8-9aaf-6055257c5acf"
+        ],
+        "tool_use_id": "toolu_01JtsPMQ2rtMDQToVEDT76Hg"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01JtsPMQ2rtMDQToVEDT76Hg"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01DGUQYhCKKJcZoEgZGxVnxo",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "commit-commands:commit"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "07c0cefc0ae6",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 825,
+        "end": 826,
+        "entry_ids": [
+          "b1cc52bd-654c-48af-b6eb-538f265a051e"
+        ],
+        "tool_use_id": "toolu_01DGUQYhCKKJcZoEgZGxVnxo"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01DGUQYhCKKJcZoEgZGxVnxo"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: commit-commands:commit",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 21
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 397,
+      "user_lines_removed": 85,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287,
+        "apps/web/app/[locale]/(playground)/boundary/demo.tsx": 12,
+        "apps/web/app/[locale]/(playground)/demo-section.tsx": 6,
+        "apps/web/app/[locale]/(playground)/image/demo.tsx": 7,
+        "apps/web/app/[locale]/(playground)/mutation/demo.tsx": 13,
+        "apps/web/app/[locale]/(playground)/shell/demo.tsx": 16,
+        "apps/web/app/[locale]/(playground)/state/demo.tsx": 3,
+        "apps/web/app/[locale]/(playground)/stream/demo.tsx": 6,
+        "apps/web/app/[locale]/components/hero-footnote.test.ts": 16,
+        "apps/web/app/[locale]/components/hero-footnote.tsx": 10,
+        "apps/web/app/[locale]/components/hero.tsx": 4,
+        "apps/web/app/[locale]/lab/chapter.tsx": 2,
+        "apps/web/app/[locale]/lab/page.tsx": 6,
+        "apps/web/app/[locale]/lab/syllabus.ts": 8,
+        "apps/web/app/[locale]/page.tsx": 1
+      },
+      "user_removed_per_file": {
+        "apps/web/app/[locale]/(playground)/boundary/demo.tsx": 12,
+        "apps/web/app/[locale]/(playground)/demo-section.tsx": 6,
+        "apps/web/app/[locale]/(playground)/image/demo.tsx": 8,
+        "apps/web/app/[locale]/(playground)/mutation/demo.tsx": 13,
+        "apps/web/app/[locale]/(playground)/shell/demo.tsx": 15,
+        "apps/web/app/[locale]/(playground)/state/demo.tsx": 3,
+        "apps/web/app/[locale]/(playground)/stream/demo.tsx": 5,
+        "apps/web/app/[locale]/components/hero-footnote.tsx": 2,
+        "apps/web/app/[locale]/components/hero.tsx": 4,
+        "apps/web/app/[locale]/lab/chapter.tsx": 2,
+        "apps/web/app/[locale]/lab/page.tsx": 6,
+        "apps/web/app/[locale]/lab/syllabus.ts": 8,
+        "apps/web/app/[locale]/page.tsx": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 110,
+      "agent_lines_removed": 85,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 110,
+      "agent_lines_removed": 85,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 110,
+      "agent_lines_removed": 85,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 207,
+      "agent_lines_removed": 409,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 268,
+      "agent_lines_removed": 404,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 268,
+      "agent_lines_removed": 404,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 279,
+      "agent_lines_removed": 412,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 279,
+      "agent_lines_removed": 412,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 279,
+      "agent_lines_removed": 412,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 285,
+      "agent_lines_removed": 420,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 12,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 285,
+      "agent_lines_removed": 420,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 13,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 303,
+      "agent_lines_removed": 438,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 14,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 303,
+      "agent_lines_removed": 438,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 15,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 303,
+      "agent_lines_removed": 438,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 16,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 313,
+      "agent_lines_removed": 454,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 17,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 313,
+      "agent_lines_removed": 453,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 18,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 311,
+      "agent_lines_removed": 458,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 19,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 311,
+      "agent_lines_removed": 458,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 20,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 311,
+      "agent_lines_removed": 458,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 21,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 468,
+      "agent_lines_removed": 612,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    },
+    {
+      "checkpoint_number": 22,
+      "user_lines_added": 287,
+      "user_lines_removed": 0,
+      "agent_lines_added": 468,
+      "agent_lines_removed": 612,
+      "user_added_per_file": {
+        ".context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md": 287
+      }
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/las-vegas directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md (19.3 KB)
+</system_instruction>
+
+
+
+.context/attachments/UFzMYo/session-transcript-efa91830-738c-46a0-84b2-287eaa8c39b3.md 
+
+Let's go over the copy and adjust it. The demos depend on it and look as if they drifted and incoherent. I do like the upbeat direction we're headed now. But when the captured misconceptions had to give way, the demos are the ones left to reflect the same energy and stance. I'll point out copy to adjust first, then we'll go over the demos. Good?
+
+---
+
+- "use client" is how you spend that: you trade the database call and the key for useState, useEffect and onClick, for that file and everything it imports. It is a good trade. It is just not a free one.
+
+I don't like the metaphor of spending and trade.
+
+- Use the deck
+
+Too meta. Let's not refer to our demos as deck or other things. Too many abstraction layers is not conducive do understanding. People know that the demo was built for the purpose of using it, interacting with it. They don't need to be made aware of it being a demo, with mentions like a deck and panel.
+
+- Use the deck to give the hash a copy button and the compiler steps in with the exact fix, by name. Apply it and the compiler steps in again — the directive claimed the whole file, and "use cache" has no client form — and names the real fix: a separate file. Take the third step and the button works. Three moves, every one of them signposted.
+
+This is too literal in what the demo wants to walk the user through. I think this is where we need to change the demo. The title no longer fits the demo. The demo is about the "use client" directive while the title suggests the opposite. Let's brainstorm what the change could mean, where could the demo go instead? Give me some recommendations.
+
+---
+
+1. The focus was never a checkable path of errors. That's incidental. I'm happy to see those beats go.
+
+---
+
+Go, but keep the current title.
+
+---
+
+Let's call it "Server Component" and visually connect the client component in the copy "a Server Component can import a Client Component · the directive sits on the smallest file that needs it" somehow. Use your experience as a design engineer for the best UI/UX
+
+---
+
+give me an option for the fineprint here in the chat first. I like the direction but the language is not there yet.
+
+---
+
+Your rec. Apply it. Then give me options in the chat for the footer comment "The line is the boundary that lets data through. The hash crosses it as a prop to the button — serialized, one way, server to client. The fetch never crosses, only what it fetched."
+
+---
+
+/* Nothing in card.tsx got smaller. The fetch, the cache, the User-Agent header, the error path: all still there, all still in Node. The browser just received react code to build a button. */
+Something in that direction. Improve my additions and play it back to me.
+
+---
+
+C
+
+---
+
+Title: Your page can be static and up-to-date at the same time.
+Then, except for the first sentence, rewrite everything. Lean on the work we just did for reference. The demo feels congruent, correct me if I'm wrong. Nothing major to refactor, just small adjustments.
+
+---
+
+I'm not convinced of "bake" being the right choice. I think we shouldn't invent terms in a place where there are so many abstractions already. What is the accurate term or way of describing it?
+
+---
+
+Yes
+
+---
+
+"To watch a cache work, cache something that never repeats." reads like an instruction to the user; it shouldn't
+
+---
+
+Next, The stream·streaming & suspense.
+
+Changes along the same axis as the last demos, This time, the title is free game.
+
+---
+
+Keep the title
+
+---
+
+what about the toggle that shows the three streaming options?
+
+---
+
+Bring the earlier stream intro back, I think that read better
+
+---
+
+## Error Type
+Console Error
+
+## Error Message
+Route "/[locale]": Could not validate `instant` because a Client Component in a parent segment prevented the page from rendering.
+
+
+    at StreamedNow (app/[locale]/(playground)/hero-readout.tsx:8:19)
+    at HeroReadout (app/[locale]/(playground)/hero-readout.tsx:65:11)
+    at Hero (app/[locale]/components/hero.tsx:57:13)
+    at MarketingPage (app/[locale]/page.tsx:228:7)
+
+## Code Frame
+   6 |
+   7 | async function StreamedNow() {
+>  8 |   await connection();
+     |                   ^
+   9 |   return (
+  10 |     // .ht-land: the arrival is this line's entire message, so it announces
+  11 |     // itself with the same wash the bake stamp uses. Pure CSS on mount — it
+
+Next.js version: 16.3.3 (Turbopack)
+
+is that incidental or something we have to address?
+
+---
+
+All right.
+
+The three buttons each make sense, but the UX is bad in that the user is nudged to click the next one without having explicitly clicked the first. Plus, the order in which the user experienced the three variants is irrelevant. What else do you think can take its place for a great UX?
+
+---
+
+Try 1, let me see what it feels like
+
+---
+
+Rename "fetch it all first" to something more concise and accurate, like "Just fetch it"
+
+---
+
+Commit our changes to the demos thus far.
