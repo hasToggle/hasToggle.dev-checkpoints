@@ -88,3 +88,7 @@ The confirmed route does exist, though:
 .context/attachments/phEucB/Screenshot 2026-09-13 at 18.44.43.png 
 
 Adjust its copy.
+
+---
+
+Commit and push to remote.
