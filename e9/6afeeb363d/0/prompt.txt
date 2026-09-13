@@ -1,0 +1,90 @@
+Mutation is next, apply the same thinking as to the previous demos.
+
+---
+
+Good. Do you think a toggle makes sense here? What could it show, which machinery?
+
+---
+
+OK.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/by3gvL/Screenshot 2026-09-13 at 18.04.45.png (86.1 KB)
+</system_instruction>
+
+
+
+The first request with the toggle on shifts the layout down. 
+Plus, the three fineprints read like separate things, no order, reads disjointed.
+.context/attachments/by3gvL/Screenshot 2026-09-13 at 18.04.45.png
+
+---
+
+With the toggle off there's too much white space
+
+---
+
+Commit and move on to the image demo, apply the same direction of changes.
+
+---
+
+Exactly, commit then move on to the state chapter.
+
+---
+
+The title could need more energy of Cleo. Give me some options to choose from.
+
+---
+
+1
+
+---
+
+Commit our work. Any other demo left to touch?
+
+---
+
+Push to remote and open e PR
+
+---
+
+Let's change the image demo for the counter.
+
+---
+
+I meant, the. replace image demo on the landing page with the counter demo.
+
+---
+
+Last change, the digest.
+
+The goal is to collect people who are genuinely interested in signing up for a cohort. The weekly digest is a nice idea, but it's missing the point. People don't revisit the site once every week just because I set a rhythm. They revisit is when I sent them an email. And that email should not be a weekly newsletter but an honest update on the cohort and the demos. The logic of the form doesn't have to change much if at all. It's the copy.
+
+---
+
+Renaming the id as well, it's a code change, true, but you are allowed to touch it.
+
+Before you apply the changes, think of something better than "the list." And don't commit the changes, yet.
+
+---
+
+Thinking back to the copy changes we made for all demos, rethink the copy here in that vein too. Keep "the waitlist" but rethink everything else.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/phEucB/Screenshot 2026-09-13 at 18.44.43.png (61.6 KB)
+</system_instruction>
+
+
+
+Remove anything truly unused.
+
+The confirmed route does exist, though:
+.context/attachments/phEucB/Screenshot 2026-09-13 at 18.44.43.png 
+
+Adjust its copy.

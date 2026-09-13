@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "e96afeeb363d",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/capability-first-framing",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "README.md",
+    "apps/web/app/[locale]/(playground)/demo-section.tsx",
+    "apps/web/app/[locale]/components/digest.tsx",
+    "apps/web/app/[locale]/components/seats-cta.tsx",
+    "apps/web/app/[locale]/components/waitlist.tsx",
+    "apps/web/app/[locale]/lab/page.tsx",
+    "apps/web/app/[locale]/lab/syllabus.ts",
+    "apps/web/app/[locale]/latest/route.ts",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/confirmed/page.tsx",
+    "apps/web/app/unsubscribed/page.tsx",
+    "packages/email/templates/confirm-subscription.tsx",
+    "packages/email/templates/welcome-to-waitlist.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e9/6afeeb363d/0/metadata.json",
+      "transcript": "/e9/6afeeb363d/0/full.jsonl",
+      "compact_transcript": "/e9/6afeeb363d/0/transcript.jsonl",
+      "content_hash": "/e9/6afeeb363d/0/content_hash.txt",
+      "prompt": "/e9/6afeeb363d/0/prompt.txt",
+      "assets_manifest": "/e9/6afeeb363d/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 5074,
+    "cache_creation_tokens": 602360,
+    "cache_read_tokens": 40193654,
+    "output_tokens": 114760,
+    "api_call_count": 196
+  }
+}
