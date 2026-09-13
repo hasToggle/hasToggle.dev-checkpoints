@@ -1,0 +1,38 @@
+Mutation is next, apply the same thinking as to the previous demos.
+
+---
+
+Good. Do you think a toggle makes sense here? What could it show, which machinery?
+
+---
+
+OK.
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/by3gvL/Screenshot 2026-09-13 at 18.04.45.png (86.1 KB)
+</system_instruction>
+
+
+
+The first request with the toggle on shifts the layout down. 
+Plus, the three fineprints read like separate things, no order, reads disjointed.
+.context/attachments/by3gvL/Screenshot 2026-09-13 at 18.04.45.png
+
+---
+
+With the toggle off there's too much white space
+
+---
+
+Commit and move on to the image demo, apply the same direction of changes.
+
+---
+
+Exactly, commit then move on to the state chapter.
+
+---
+
+The title could need more energy of Cleo. Give me some options to choose from.

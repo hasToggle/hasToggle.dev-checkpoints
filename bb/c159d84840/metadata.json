@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "bbc159d84840",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/capability-first-framing",
+  "checkpoints_count": 9,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-card.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-panel.tsx",
+    "docs/design.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/bb/c159d84840/0/metadata.json",
+      "transcript": "/bb/c159d84840/0/full.jsonl",
+      "compact_transcript": "/bb/c159d84840/0/transcript.jsonl",
+      "content_hash": "/bb/c159d84840/0/content_hash.txt",
+      "prompt": "/bb/c159d84840/0/prompt.txt",
+      "assets_manifest": "/bb/c159d84840/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1362,
+    "cache_creation_tokens": 67421,
+    "cache_read_tokens": 13105450,
+    "output_tokens": 31917,
+    "api_call_count": 51
+  }
+}
