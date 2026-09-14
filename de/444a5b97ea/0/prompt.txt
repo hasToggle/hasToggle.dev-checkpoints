@@ -1,0 +1,60 @@
+diff yields this:
+index e2499a04..779f0e54 100644
+--- a/.claude/settings.json
++++ b/.claude/settings.json
+@@ -1,21 +1,4 @@
+ {
+-  "permissions": {
+-    "allow": [
+-      "mcp__ide__getDiagnostics",
+-      "Bash",
+-      "mcp__next-devtools__init",
+-      "mcp__next-devtools__nextjs_runtime",
+-      "WebSearch",
+-      "mcp__plugin_context7_context7__resolve-library-id",
+-      "mcp__plugin_context7_context7__query-docs",
+-      "WebFetch(domain:github.com)"
+-    ],
+-    "deny": [
+-      "Read(./.entire/metadata/**)",
+-      "Read(**/.env*)"
+-    ],
+-    "ask": []
+
+2. add it yourself.
+
+3. I ran the install script without the changes to the json files:
+
+Traceback (most recent call last):
+  File "/Users/eric/src/privacy-filter/./.venv/bin/opf", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/__main__.py", line 209, in main
+    _run_redaction_command(argv_list)
+  File "/Users/eric/src/privacy-filter/opf/__main__.py", line 136, in _run_redaction_command
+    result = redactor.redact(text)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_api.py", line 257, in redact
+    runtime, decoder = self.get_prediction_components(decode=decode)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_api.py", line 451, in get_prediction_components
+    runtime = self.get_runtime()
+              ^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_api.py", line 405, in get_runtime
+    self._runtime = load_inference_runtime(
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_core/runtime.py", line 231, in load_inference_runtime
+    model = Transformer.from_checkpoint(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_model/model.py", line 1015, in from_checkpoint
+    model = Transformer(
+            ^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/opf/_model/model.py", line 929, in __init__
+    self.embedding = torch.nn.Embedding(
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/.venv/lib/python3.12/site-packages/torch/nn/modules/sparse.py", line 166, in __init__
+    torch.empty((num_embeddings, embedding_dim), **factory_kwargs),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/eric/src/privacy-filter/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 584, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
