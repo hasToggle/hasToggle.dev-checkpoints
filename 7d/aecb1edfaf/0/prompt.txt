@@ -1,0 +1,5 @@
+I reran entire enable --force
+
+The stuck sessions discarded.
+
+Guide me on the not done items. How do I update goredact, install OPF, what do I do about the branch?
