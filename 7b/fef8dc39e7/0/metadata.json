@@ -1,0 +1,128 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "7bfef8dc39e7",
+  "session_id": "6fe19b97-5b4e-4502-8c15-11bdcf9ae09e",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-14T13:50:16.492761Z",
+  "branch": "Kheirah/waitlist-resignup-hardening",
+  "checkpoints_count": 2,
+  "save_step_count": 1,
+  "files_touched": [
+    "packages/email/templates/already-subscribed.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "1005145cfede",
+  "checkpoint_transcript_start": 199,
+  "transcript_lines_at_start": 199,
+  "compact_transcript_start": 29,
+  "token_usage": {
+    "input_tokens": 36,
+    "cache_creation_tokens": 5875,
+    "cache_read_tokens": 280048,
+    "output_tokens": 3413,
+    "api_call_count": 3
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01YSgS3fPZpQZAxjtZwFtL9k",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "1005145cfede",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "07ac2461-54c7-43c2-b568-5517e78b6c31"
+        ],
+        "tool_use_id": "toolu_01YSgS3fPZpQZAxjtZwFtL9k"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01YSgS3fPZpQZAxjtZwFtL9k"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01ByoVL3Z3FeZrW2iR9FXrXs",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:test-driven-development"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "1005145cfede",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 88,
+        "end": 89,
+        "entry_ids": [
+          "985cadc0-5f09-49da-a154-897f40072fcd"
+        ],
+        "tool_use_id": "toolu_01ByoVL3Z3FeZrW2iR9FXrXs"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01ByoVL3Z3FeZrW2iR9FXrXs"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:test-driven-development",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-09-14T13:50:16.468611Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 10,
+    "human_removed": 10,
+    "total_committed": 0,
+    "total_lines_changed": 20,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1,
+      "user_lines_removed": 1,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "packages/email/templates/already-subscribed.tsx": 1
+      },
+      "user_removed_per_file": {
+        "packages/email/templates/already-subscribed.tsx": 1
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1,
+      "agent_lines_removed": 1
+    }
+  ]
+}
