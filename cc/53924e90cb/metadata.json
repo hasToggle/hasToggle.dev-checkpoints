@@ -1,0 +1,51 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "cc53924e90cb",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/resend-unsubscribe-review",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "README.md",
+    "apps/app/app/(authenticated)/digest/[id]/preview/page.tsx",
+    "apps/email/package.json",
+    "apps/email/scripts/digest.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/reconcile/route.test.ts",
+    "apps/web/app/api/reconcile/route.ts",
+    "apps/web/app/api/unsubscribe/route.test.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/api/webhooks/resend/route.test.ts",
+    "apps/web/app/api/webhooks/resend/route.ts",
+    "apps/web/app/unsubscribed/page.tsx",
+    "apps/web/env.ts",
+    "apps/web/lib/email-deliverability.test.ts",
+    "apps/web/lib/subscribers.ts",
+    "apps/web/proxy.ts",
+    "apps/web/test-preload.ts",
+    "bun.lock",
+    "packages/database/types.ts",
+    "packages/email/broadcast.test.ts",
+    "packages/email/broadcast.ts",
+    "packages/email/index.ts",
+    "packages/email/keys.ts",
+    "packages/email/package.json",
+    "packages/email/templates/digest.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/cc/53924e90cb/0/metadata.json",
+      "transcript": "/cc/53924e90cb/0/full.jsonl",
+      "compact_transcript": "/cc/53924e90cb/0/transcript.jsonl",
+      "content_hash": "/cc/53924e90cb/0/content_hash.txt",
+      "prompt": "/cc/53924e90cb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1712,
+    "cache_creation_tokens": 245478,
+    "cache_read_tokens": 6636706,
+    "output_tokens": 53776,
+    "api_call_count": 61
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "cc53924e90cb",
+  "session_id": "1c540d81-2db6-4c2d-9ffc-96bedef7879d",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-14T10:23:21.260017Z",
+  "branch": "Kheirah/resend-unsubscribe-review",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "README.md",
+    "apps/app/app/(authenticated)/digest/[id]/preview/page.tsx",
+    "apps/email/package.json",
+    "apps/email/scripts/digest.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/reconcile/route.test.ts",
+    "apps/web/app/api/reconcile/route.ts",
+    "apps/web/app/api/unsubscribe/route.test.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/api/webhooks/resend/route.test.ts",
+    "apps/web/app/api/webhooks/resend/route.ts",
+    "apps/web/app/unsubscribed/page.tsx",
+    "apps/web/env.ts",
+    "apps/web/lib/email-deliverability.test.ts",
+    "apps/web/lib/subscribers.ts",
+    "apps/web/proxy.ts",
+    "apps/web/test-preload.ts",
+    "bun.lock",
+    "packages/database/types.ts",
+    "packages/email/broadcast.test.ts",
+    "packages/email/broadcast.ts",
+    "packages/email/index.ts",
+    "packages/email/keys.ts",
+    "packages/email/package.json",
+    "packages/email/templates/digest.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "684e612173db",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 1712,
+    "cache_creation_tokens": 245478,
+    "cache_read_tokens": 6636706,
+    "output_tokens": 53776,
+    "api_call_count": 61
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01RAiVV26ambTv1p2qBUWKX7",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "resend:resend"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "684e612173db",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "531abafb-6b8d-4275-bb5d-a9bdc8ff8d5a"
+        ],
+        "tool_use_id": "toolu_01RAiVV26ambTv1p2qBUWKX7"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01RAiVV26ambTv1p2qBUWKX7"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: resend:resend",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-09-14T10:23:21.228161Z",
+    "agent_lines": 551,
+    "agent_removed": 216,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 551,
+    "total_lines_changed": 767,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

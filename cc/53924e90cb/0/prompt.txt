@@ -1,0 +1,42 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/dalat directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+You're on a new branch with a placeholder name. Conductor will automatically rename it in the background to match your task.
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+I'm using Resend for emails in the web project. Currently, I've manually built the unsubscribe logic instead of relying on what Resend offers. Research the full capability of Resend's service and recommend changes where applicable.
+
+---
+
+I wonder if we should loosen the strict promise of deleting addresses in favor of Resend's soft-delete flip of a boolean. GDPR request for deletion could be another layer for those who explicitly ask. As long as GDPR doesn't require me to hard-delete when unsubcribing, that would be a viable path, right? Verify it, please.
+
+---
+
+I see. Does GDPR apply only to users in the EU or to all users because I myself live in the EU?
+
+---
+
+Final question, what do Broadcasts with the newer Segments do? What is it that I would lose if I drop it?
+
+---
+
+What about sending to many contacts and having to manage rate limits of Resend?
+
+---
+
+Why not build the middlepath right now if it's within the GDPR posture?
+
+---
+
+There are no older digests; i've never sent out any.
+Reconciliation I'd prefer as a MongoDB Atlas scheduled trigger. I know how to build one. You will just have to pass me the function that calls our endpoint. Also, I want to use Values inside Atlas for safely referencing them in the function. I will provide an example function I've already built, so you know how to adapt it and display it back to me.
