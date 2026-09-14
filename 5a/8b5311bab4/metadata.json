@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "5a8b5311bab4",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/waitlist-email-logos-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "packages/email/assets.ts",
+    "packages/email/templates/confirm-subscription.test.tsx",
+    "packages/email/templates/confirm-subscription.tsx",
+    "packages/email/templates/digest.test.tsx",
+    "packages/email/templates/digest.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5a/8b5311bab4/0/metadata.json",
+      "transcript": "/5a/8b5311bab4/0/full.jsonl",
+      "compact_transcript": "/5a/8b5311bab4/0/transcript.jsonl",
+      "content_hash": "/5a/8b5311bab4/0/content_hash.txt",
+      "prompt": "/5a/8b5311bab4/0/prompt.txt",
+      "assets_manifest": "/5a/8b5311bab4/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1382,
+    "cache_creation_tokens": 98922,
+    "cache_read_tokens": 3881136,
+    "output_tokens": 23341,
+    "api_call_count": 46
+  }
+}

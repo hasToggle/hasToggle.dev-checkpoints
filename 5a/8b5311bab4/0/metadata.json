@@ -1,0 +1,113 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "5a8b5311bab4",
+  "session_id": "bed7f363-77a1-4947-b429-033b71faa7d6",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-14T13:06:02.973302Z",
+  "branch": "Kheirah/waitlist-email-logos-fix",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "packages/email/assets.ts",
+    "packages/email/templates/confirm-subscription.test.tsx",
+    "packages/email/templates/confirm-subscription.tsx",
+    "packages/email/templates/digest.test.tsx",
+    "packages/email/templates/digest.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "f7ab2e8dc286",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 1382,
+    "cache_creation_tokens": 98922,
+    "cache_read_tokens": 3881136,
+    "output_tokens": 23341,
+    "api_call_count": 46
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01BPh2Bwo4e3M2ewUfnvEcv4",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:systematic-debugging"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f7ab2e8dc286",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "09ad9664-138d-41f2-ae89-f214a26f2827"
+        ],
+        "tool_use_id": "toolu_01BPh2Bwo4e3M2ewUfnvEcv4"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01BPh2Bwo4e3M2ewUfnvEcv4"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:systematic-debugging",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_01HHrNRvF9uybqmwJ1rAqY3c",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "frontend-design:frontend-design"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "f7ab2e8dc286",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 185,
+        "end": 186,
+        "entry_ids": [
+          "09c754cc-dd26-4659-b51a-7d1bedbc31c8"
+        ],
+        "tool_use_id": "toolu_01HHrNRvF9uybqmwJ1rAqY3c"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01HHrNRvF9uybqmwJ1rAqY3c"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: frontend-design:frontend-design",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "initial_attribution": {
+    "calculated_at": "2026-09-14T13:06:02.93222Z",
+    "agent_lines": 288,
+    "agent_removed": 60,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 288,
+    "total_lines_changed": 348,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}
