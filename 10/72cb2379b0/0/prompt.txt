@@ -1,0 +1,5 @@
+Commit, push to remote and open a PR.
+
+---
+
+Read all email addresses that signed up and check them against our new pipeline, dry-run, no mutation. Give me a summary so I can make an informed decision.

@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "1072cb2379b0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/waitlist-resignup-hardening",
+  "checkpoints_count": 3,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/10/72cb2379b0/0/metadata.json",
+      "transcript": "/10/72cb2379b0/0/full.jsonl",
+      "compact_transcript": "/10/72cb2379b0/0/transcript.jsonl",
+      "content_hash": "/10/72cb2379b0/0/content_hash.txt",
+      "prompt": "/10/72cb2379b0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 550,
+    "cache_creation_tokens": 23432,
+    "cache_read_tokens": 2140545,
+    "output_tokens": 11998,
+    "api_call_count": 20
+  }
+}
