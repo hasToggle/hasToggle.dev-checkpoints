@@ -1,1 +1,0 @@
-Do another pass on the copy of the already-subbed template. It's not yet carrying our voice. Give me some options before committing.
