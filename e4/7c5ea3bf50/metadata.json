@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "e47c5ea3bf50",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-audit-harden-base",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/blog/page.tsx",
+    "apps/web/app/[locale]/components/not-found-page.tsx",
+    "apps/web/app/[locale]/contact/page.tsx",
+    "apps/web/app/[locale]/error.tsx",
+    "apps/web/app/[locale]/global-error.tsx",
+    "apps/web/app/[locale]/lab/chapter.tsx",
+    "apps/web/app/[locale]/lab/page.tsx",
+    "apps/web/app/[locale]/legal/[slug]/page.tsx",
+    "apps/web/app/[locale]/not-found.tsx",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/[locale]/robots.ts",
+    "apps/web/app/[locale]/sitemap.ts",
+    "apps/web/app/api/og/route.tsx",
+    "apps/web/app/confirmed/page.tsx",
+    "apps/web/app/global-error.tsx",
+    "apps/web/app/layout.tsx",
+    "apps/web/app/not-found.tsx",
+    "apps/web/app/robots.ts",
+    "apps/web/app/sitemap.test.ts",
+    "apps/web/app/sitemap.ts",
+    "apps/web/lib/security-headers.ts",
+    "apps/web/proxy.ts",
+    "packages/seo/metadata.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e4/7c5ea3bf50/0/metadata.json",
+      "transcript": "/e4/7c5ea3bf50/0/full.jsonl",
+      "compact_transcript": "/e4/7c5ea3bf50/0/transcript.jsonl",
+      "content_hash": "/e4/7c5ea3bf50/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 416,
+    "cache_creation_tokens": 51547,
+    "cache_read_tokens": 2432954,
+    "output_tokens": 15420,
+    "api_call_count": 13
+  }
+}
