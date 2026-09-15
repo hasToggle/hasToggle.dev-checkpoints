@@ -1,0 +1,53 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "2e145290b143",
+  "session_id": "976898c6-1665-4435-b6ff-6037dcfddff7",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-15T13:27:59.3257Z",
+  "branch": "Kheirah/web-audit-harden-base",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/lib/confirmation-origin.test.ts",
+    "apps/web/lib/confirmation-origin.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "88b3f6b6a9fd",
+  "checkpoint_transcript_start": 709,
+  "transcript_lines_at_start": 709,
+  "compact_transcript_start": 104,
+  "token_usage": {
+    "input_tokens": 2,
+    "cache_creation_tokens": 1571,
+    "cache_read_tokens": 261889,
+    "output_tokens": 1932,
+    "api_call_count": 1
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-09-15T13:27:59.273617Z",
+    "agent_lines": 39,
+    "agent_removed": 16,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 39,
+    "total_lines_changed": 55,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 79,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/hardening-audit-2026-09-15.md": 79
+      }
+    }
+  ]
+}
