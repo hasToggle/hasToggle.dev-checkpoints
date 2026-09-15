@@ -1,0 +1,277 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/maseru directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+You're on a new branch with a placeholder name. Conductor will automatically rename it in the background to match your task.
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Explore the web project and find any issues or opportunities to improve the product. There's not much, a landing page with a lab and a blog, a contact form and waitlist signup. The purpose of this task is to harden and improve the base we have now, so further work is built on a better foundation.
+
+---
+
+<task-notification>
+<task-id>a11c84f53dac45f88</task-id>
+<tool-use-id>toolu_011Hk2EoZ4MZs8UGWsns1DUo</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-maseru/976898c6-1665-4435-b6ff-6037dcfddff7/tasks/a11c84f53dac45f88.output</output-file>
+<status>completed</status>
+<summary>Agent "Run web quality gates" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Everything needed is in hand; no further commands required. Working tree is still clean (git status printed nothing).
+
+## Report: apps/web quality gates and CI inventory
+
+Repo root: `/Users/eric/conductor/workspaces/hasToggle.dev/maseru`. `node_modules` was already present; `bun install` skipped. No env vars were needed for any gate (the test preload sets fallbacks, see §4). No tracked files modified, nothing committed.
+
+### 1. Quality gates (all green)
+
+**`bun test` (apps/web)** — 0.155s wall clock:
+```
+bun test v1.3.14 (0d9b296a)
+ 271 pass
+ 0 fail
+ 965 expect() calls
+Ran 271 tests across 41 files. [147.00ms]
+```
+No `.skip`/`.only`/`.todo`/`xit`/`xdescribe` anywhere in `apps/web/**/*.test.ts(x)`.
+
+**`bunx tsc --noEmit --emitDeclarationOnly false` (apps/web)** — no output, exit 0, 1.27s (native TS7 binary).
+
+**`bunx biome check apps/web` (root)** — exit 0:
+```
+Checked 227 files in 857ms. No fixes applied.
+```
+Zero errors, zero warnings; the per-rule tally is empty.
+
+**`bunx turbo typecheck --filter='web...'` (root)** — exit 0, 2.19s:
+```
+ Tasks:    14 successful, 14 total
+Cached:    0 cached, 14 total
+```
+Covered `web` plus 13 packages: `@repo/{email,design-system,database,security,seo,cms,rate-limit,internationalization,feature-flags,auth,observability,next-config,analytics}`.
+
+### 2. CI inventory (`.github/`)
+
+`.github/` contains only `CODE_OF_CONDUCT.md` and `workflows/` with two files:
+
+- `/Users/eric/conductor/workspaces/hasToggle.dev/maseru/.github/workflows/claude-code-review.yml` — `on: pull_request [opened, synchronize, ready_for_review, reopened]`; runs `anthropics/claude-code-action@v1` with `prompt: '/code-review:code-review ...'`. Checkout is `actions/checkout@v7`.
+- `/Users/eric/conductor/workspaces/hasToggle.dev/maseru/.github/workflows/claude.yml` — `@claude` mention trigger on issue/PR comments and reviews; same action.
+
+**Key finding: there is no GitHub Actions gate for test, typecheck, lint, or build on PRs.** The only PR workflow is the AI code review. The real gate is Vercel's build (`turbo build` → `dependsOn: ["^build", "test", "typecheck"]` in `turbo.json`), which is the only place tests and typecheck run before merge/deploy — and only for the packages Vercel builds. Biome (`bun run check` → `ultracite check`) is not part of the turbo `build` pipeline, so lint runs nowhere automatically.
+
+**Pinning:** actions are pinned to major tags only (`@v7`, `@v1`), not SHAs.
+
+**Root `bun test`:** nothing in CI runs it. Root `package.json` `"test": "turbo test"`, which fans out to per-workspace `bun test` scripts (apps/app, apps/api, apps/web, packages/email, packages/internationalization). There is no root `bunfig.toml`, so a bare `bun test` at the root would sweep all workspaces without apps/web's preload — consistent with the memory note about false failures.
+
+**Renovate:** `/Users/eric/conductor/workspaces/hasToggle.dev/maseru/renovate.json` — `config:recommended`, `automerge: true` (PR type) for patch/pin/digest ("patch updates" group) and minor ("minor updates" group); `rangeStrategy: bump` for `apps/**` and `packages/**`; blocks `@radix-ui/react-slot@1.3.1` and `radix-ui@1.6.5`. Note: with automerge on and no test/typecheck workflow, the only thing gating an automerge is the Claude review job and Vercel's checks. No `.github/dependabot.yml`.
+
+### 3. Test coverage of user-facing surfaces (apps/web)
+
+| Source | Sibling test |
+|---|---|
+| `app/api/confirm/route.ts` | `route.test.ts` present |
+| `app/api/confirmed/route.ts` | `route.test.ts` present |
+| `app/api/reconcile/route.ts` | `route.test.ts` present |
+| `app/api/webhooks/resend/route.ts` | `route.test.ts` present |
+| `app/[locale]/contact/actions/contact.tsx` | **UNTESTED** |
+| `lib/email-validation.ts` | `email-validation.test.ts` present (also `lib/email-deliverability.test.ts`) |
+| `lib/subscribers.ts` | **UNTESTED** (no sibling; exercised only indirectly through the four API route tests) |
+| `lib/token.ts` | **UNTESTED** (no sibling; `confirmed/route.test.ts` imports `generateTokenHash` as a helper, so it's exercised but not asserted on) |
+| `proxy.ts` | **UNTESTED** |
+| `app/[locale]/lab/syllabus.ts` | `syllabus.test.ts` present |
+| `app/[locale]/sitemap.ts` | **UNTESTED** |
+| `app/api/og/route.tsx` | **UNTESTED**; `app/api/og/title.ts` has `title.test.ts` (route imports `clampTitle`, `DEFAULT_OG_TITLE` from it) |
+
+41 test files total; 34 of them are playground/masterclass demo logic (copy, reducers, parsers), 7 cover the API/lib surface.
+
+### 4. `apps/web/test-preload.ts` (via `bunfig.toml` `[test] preload`)
+
+- Sets `process.env` fallbacks (`??=`) for `MONGODB_URI` (localhost), `RESEND_FROM`, `RESEND_TOKEN`, `RESEND_SEGMENT_ID`, `RESEND_WEBHOOK_SECRET`, `RECONCILE_SECRET`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_WEB_URL` — all obviously fake test values, so t3-env validation passes when `env.ts` loads transitively.
+- `mock.module("server-only", () =&gt; ({}))`.
+- Mocks `@/env` with `ABSTRACT_API_KEY: ""` (deliberately empty → deliverability API bypassed, fail-open).
+- Mocks `@repo/database` (`createId`, `database.subscriber.{deleteMany,deleteOne,find,findOne,updateOne}` returning empty results), `@repo/email` (`resend.contacts.{create,list,remove}`, `emails.send`, `webhooks.verify` throwing "No signature"), `@repo/email/keys`, the two email templates (`confirm-subscription`, `already-subscribed`), `@repo/observability/error`, `@repo/observability/log`.
+- Comment in the file admits `mock.module` doesn't reliably intercept dynamic imports through path aliases, hence the env fallbacks.
+
+### 5. E2E / integration
+
+None. No `playwright.config.*`, `vitest.config.*`, or `e2e/` directory anywhere in the repo; no `playwright`/`vitest` dependency in any `package.json`. The only `__tests__` dirs are in `apps/app` and `apps/api` (scaffold apps, not the site). All apps/web tests are Bun unit tests against mocked services.
+
+### 6. knip and TODO markers
+
+- **knip: skipped** — not installed (`node_modules/.bin/knip` and `apps/web/node_modules/.bin/knip` both absent).
+- TODO/FIXME/HACK/XXX grep hits 3 files, all false positives — the strings are demo fixture content, not code markers:
+  - `apps/web/app/[locale]/learn/masterclass-28-07-2026/demos/era3-reach/reveals.ts:46` ("checkout.js — 3 TODOs, still there.")
+  - `.../demos/era1-playground/completions.ts:32` (`// TODO: ship it` inside a sample completion string)
+  - `.../demos/era1-playground/highlight/tokens.generated.ts:458` (same string, generated tokens)
+
+### Notable gaps, in one line each
+1. No PR workflow runs test/typecheck/lint/build; Vercel build is the de facto gate and lint is gated nowhere.
+2. Renovate automerges minors with that gap in place.
+3. `proxy.ts`, `contact.tsx` (server action), `sitemap.ts`, `og/route.tsx`, `lib/subscribers.ts`, `lib/token.ts` have no direct tests.
+4. Zero end-to-end coverage of the site.</result>
+<usage><subagent_tokens>46642</subagent_tokens><tool_uses>11</tool_uses><duration_ms>97563</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>aa342c09ba7fe3a90</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-maseru/976898c6-1665-4435-b6ff-6037dcfddff7/tasks/aa342c09ba7fe3a90.output</output-file>
+<status>completed</status>
+<summary>Agent "Audit web's shared packages" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>Here is the hardening review. Everything below was read in this worktree; no files were modified.
+
+## Ranked findings
+
+### 1. HIGH — nosecone security headers are dropped on every request
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/proxy.ts:102` returns `middlewareResponse || headersResponse`, but the NEMO chain never returns a falsy value: `createNEMO`'s `processQueue` ends with `createFinalResponse(...)` → `NextResponse.next({...})` when no middleware terminated (`node_modules/.bun/@zanreal+nemo@3.0.1+.../dist/index.js`, `processQueue`/`createFinalResponse`), and for non-excluded paths `internationalizationMiddleware` itself always returns a `NextResponse.rewrite`/`redirect`/`next` (`node_modules/.bun/next-international@1.3.1/.../dist/app/middleware/index.js`, `createI18nMiddleware`). So `headersResponse` from `securityHeaders()` (proxy.ts:31-33) is discarded for page routes *and* API routes — no HSTS, X-Frame-Options, X-Content-Type-Options, COOP/CORP, Referrer-Policy reach the browser.
+Fix: build the nosecone headers first and copy them onto whatever response the chain returns (e.g. `headersResponse.headers.forEach((v,k)=&gt;middlewareResponse.headers.set(k,v))`) instead of choosing one or the other.
+
+### 2. HIGH — CSP is disabled outright
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/packages/security/middleware.ts:14` sets `contentSecurityPolicy: false`, discarding nosecone's default directive set (`node_modules/.bun/nosecone@1.12.0/.../dist/index.js:118-139`: `default-src 'self'`, `object-src 'none'`, `frame-ancestors 'none'`, etc.), so the marketing site ships zero CSP — and `noseconeOptionsWithToolbar` (middleware.ts:17) widens a policy that does not exist.
+Fix: keep `defaults.contentSecurityPolicy` and extend `scriptSrc`/`connectSrc`/`imgSrc` for the analytics, Sentry and Vercel hosts the app actually uses (nonce or hash for inline Next bootstrap rather than `'unsafe-inline'`).
+
+### 3. HIGH — no unique index on `subscribers.email`, no index on `token`
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/packages/database/index.ts:28-34` only calls `db.collection(...)`; a repo-wide grep for `createIndex`/`ensureIndex` finds nothing, and there is no migration/setup script in `packages/database` (only `index.ts`, `keys.ts`, `types.ts`). Consequences: the upsert at `apps/web/app/api/confirm/route.ts:61-78` can race two concurrent signups into two documents for the same address; `removeSubscriber` at `apps/web/lib/subscribers.ts:17` (`deleteOne({ email })`) then leaves a copy behind after an unsubscribe/complaint — a GDPR-deletion promise (documented in that file's comment) that silently half-executes. The token lookup at `apps/web/app/api/confirmed/route.ts:20-22` and the `findOne({ email })` at `confirm/route.ts:146` are full collection scans.
+Fix: add a startup/migration step creating `{ email: 1 }` unique and `{ token: 1 }` (sparse) indexes, and switch `deleteOne` to `deleteMany`.
+
+### 4. HIGH — `/api/confirm` sends mail with no rate limit
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/app/api/confirm/route.ts:127-170` has only a per-address 2-minute cooldown (line 20, 160); `@repo/rate-limit` is imported nowhere but the contact action (only `apps/web/app/[locale]/contact/actions/contact.tsx:6`). An attacker rotating addresses gets unbounded Resend sends, unbounded Abstract API spend (`apps/web/lib/email-validation.ts:71`) and unbounded Mongo upserts per IP.
+Fix: wrap the route in `createRateLimiter({ limiter: slidingWindow(n, "1h") })` keyed on client IP (plus a per-address key) before any send.
+
+### 5. MED — raw internal error text is returned to end users
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/packages/observability/error.ts:17-28`: `parseError` captures to Sentry (line 21) *and* returns `error.message` verbatim. That return value is surfaced to users at `apps/web/app/[locale]/contact/actions/contact.tsx:58-60` (so a Resend API/domain/auth failure message is rendered in the form) and at `apps/web/proxy.ts:52-53` (Arcjet failure text in a 403 JSON body). The waitlist routes correctly use fixed strings instead (`confirm/route.ts:180-186`).
+Fix: have callers log via `parseError` but return a fixed user-facing string; reserve the parsed message for logs/Sentry.
+
+### 6. MED — confirmation link origin is taken from the request Host header
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/app/api/confirm/route.ts:164` passes `new URL(request.url).origin` into `ConfirmSubscription({ baseUrl, token })` (`packages/email/templates/confirm-subscription.tsx:34`), so a spoofed/unrecognised Host yields a confirmation button pointing at an attacker origin carrying the plaintext token.
+Fix: allowlist the origin (localhost/preview/`PUBLIC_ORIGIN`) and fall back to `PUBLIC_ORIGIN` from `packages/email/assets.ts:11` otherwise.
+
+### 7. MED — contact-form rate limit degrades to a single global bucket and is env-optional
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/app/[locale]/contact/actions/contact.tsx:28-35` keys on `x-forwarded-for`, which may be `null` (key becomes `contact_form_null`, one shared 1/day bucket) and is the full proxy chain rather than the leftmost client IP; the whole block is skipped when the optional Upstash keys are absent (`packages/rate-limit/keys.ts:11-12`), and `new Redis({url: undefined})` only `console.warn`s (`@upstash/redis/nodejs.mjs:204-217`), so a misconfigured deploy has no limiter and no hard failure.
+Fix: derive the IP from the leftmost XFF entry with a non-shared fallback, and fail closed (reject) when the limiter is unconfigured in production.
+
+### 8. MED — contact form input is unvalidated and unbounded
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/app/[locale]/contact/actions/contact.tsx:20-50`: `name`/`email`/`message` are cast from `FormData` with only a truthiness check, then `email` is used as `replyTo`. Rendering itself is safe — `packages/email/templates/contact.tsx:23,32,35` interpolate as JSX children, which React escapes — but there is no length cap or email-format check (unlike the waitlist, which uses `lib/email-validation.ts`).
+Fix: validate with zod (email format, max lengths) before calling `resend.emails.send`.
+
+### 9. MED — Arcjet protection is silently optional
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/packages/security/index.ts:16-18` returns early when `ARCJET_KEY` is unset, and `keys.ts:10` marks it `.optional()`; `apps/web/proxy.ts:36-38` skips the check for the same reason. Rules themselves are correct (`shield` LIVE at index.ts:29, `detectBot` LIVE at index.ts:36) — the weakness is that a missing env var disables all of it with no signal.
+Fix: require `ARCJET_KEY` in production env validation (or log/alert loudly when absent).
+
+### 10. LOW — `@repo/auth` is a no-op the marketing site does not need
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/packages/auth/middleware.ts:16-18`: `authMiddleware` just calls the handler with a stub `auth` resolving `{}` — no cookies, no DB call, no Clerk/better-auth import, so the runtime and bundle cost in `apps/web/proxy.ts:88` is effectively zero, but it is dead indirection. `@repo/auth` is imported exactly once in `apps/web` (that line); nothing else (`client.ts`, `server.ts`, `instance.ts`, `provider.tsx`, `components/*`) is referenced.
+Fix: export `proxy` directly and drop the `@repo/auth` dependency from `apps/web/package.json:12`.
+
+### 11. LOW — transactional waitlist mail carries no `List-Unsubscribe`
+`resend.emails.send` calls at `apps/web/app/api/confirm/route.ts:80-89` and `:106-117` pass no `headers`; only broadcasts get one-click unsubscribe, via Resend's placeholder at `packages/email/broadcast.ts:10`. The "already on the waitlist" mail (`packages/email/templates/already-subscribed.tsx`) is list-driven and its footer (line 36-40) only *mentions* the digest unsubscribe link.
+Fix: add `List-Unsubscribe` / `List-Unsubscribe-Post` headers (or a one-click URL) to the already-subscribed send.
+
+### 12. LOW — locale cookie set without `secure`
+`next-international`'s `addLocaleToResponse` sets `Next-Locale` with `sameSite: "strict"` only (no `secure`, no `path` pinning), and `packages/internationalization/middleware.ts:11-13` cannot override it. Also note the cookie takes precedence over negotiation, so `Accept-Language` is only consulted when no cookie exists.
+Fix: re-set the cookie with `secure` in the proxy, or switch to a self-managed locale cookie.
+
+## Notes on things that check out
+
+- **Accept-Language bug is fixed.** `packages/internationalization/locale-negotiation.ts:12-20` filters Negotiator output through `Intl.getCanonicalLocales`, which drops the `"*"` wildcard and malformed tags (`en_US`) that previously made `matchLocale` throw `RangeError` → 500. Locale list is `en, es, de, zh, fr, pt` (`packages/internationalization/languine.json`), strategy `rewriteDefault`.
+- **Mongo client caching/options are correct.** `packages/database/index.ts:1` has `import "server-only"`; the global cache is applied only when `NODE_ENV !== "production"` (line 22-24), i.e. the dev-HMR pattern, and pool/timeout options (lines 12-19) are deliberate for small Atlas tiers.
+- **Token handling is sound.** 32 random bytes, SHA-256 stored, plaintext only in the mail (`apps/web/lib/token.ts`); `confirmed/route.ts:27-36` checks expiry; `reconcile/route.ts:23-29` uses `timingSafeEqual` with a length pre-check.
+- **Resend webhook verifies signatures** before acting (`apps/web/app/api/webhooks/resend/route.ts:37-48`) and returns 500 to force retries on deletion failure (line 52-56); payload typing comes from `resend`'s own `WebhookEventPayload` re-exported at `packages/email/index.ts:6`.
+- **Rate limiter construction:** `packages/rate-limit/index.ts:10-15` defaults to `slidingWindow(10, "10 s")` with prefix `has-toggle`; callers can override both. Redis is module-level, so the client is created at import time regardless of env.
+- **@repo/* dependency usage:** all 14 workspace deps in `apps/web/package.json` are imported somewhere under `apps/web` — `analytics` (instrumentation-client.ts:1, app/layout.tsx:2), `auth` (proxy.ts:1 only), `cms`, `database`, `design-system`, `email`, `feature-flags`, `internationalization`, `next-config`, `observability`, `rate-limit`, `security`, `seo`. None are strictly unused; `@repo/auth` is the only one whose single use is a no-op (finding 10).
+- `PUBLIC_ORIGIN` hard-coding in `packages/email/assets.ts:11` is intentional and documented (inboxes cannot reach localhost/preview hosts) — not a defect for images, only for the confirm link case in finding 6.</result>
+<usage><subagent_tokens>70342</subagent_tokens><tool_uses>24</tool_uses><duration_ms>179960</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a4a1c9cc1d69f7b82</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-maseru/976898c6-1665-4435-b6ff-6037dcfddff7/tasks/a4a1c9cc1d69f7b82.output</output-file>
+<status>completed</status>
+<summary>Agent "Review web Next.js routing/pages" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I read the code and cross-checked behavior against `apps/web/node_modules/next/dist/docs` (Next 16.3.5). Findings, ranked.
+
+## HIGH
+
+**1. `global-error.tsx` is in the wrong directory — it never runs**
+`/Users/eric/conductor/workspaces/hasToggle.dev/maseru/apps/web/app/[locale]/global-error.tsx:1`
+Docs (`node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/error.md:163`) state global error UI must be "located in the root app directory, **even when leveraging internationalization**"; here it sits under `[locale]`, so root-layout/root-template errors fall through to Next's built-in 500 and the `captureException` at line 17 never fires. Fix: move the file to `app/global-error.tsx` (verified against docs).
+
+**2. No `error.tsx` or `not-found.tsx` anywhere in the app**
+`find` over `app/` returns only `app/[locale]/global-error.tsx`. Consequences, all verified against `03-file-conventions/not-found.md` and `error.md:96`: `/en/nope` and `/lab/nope` render Next's **default** 404 (OS-color-scheme styled, no navbar/footer, no brand); `notFound()` in `app/[locale]/blog/[slug]/page.tsx:141` and `app/[locale]/legal/[slug]/page.tsx:107` hit that same default; and any render error inside a page (e.g. the GitHub fetch path in `(playground)/boundary/server-card.tsx:35`) has no segment boundary above it, so it escalates to the whole-document error page. Fix: add `app/[locale]/not-found.tsx` and `app/[locale]/error.tsx` using `Navbar`/`Footer`.
+
+**3. Sitemap advertises two URLs that are not routes**
+`app/[locale]/sitemap.ts:7-15` scans `fs.readdirSync("app")` for directories and filters `_ ( [ .` and `api`. The surviving top-level dirs are exactly `confirmed` and `fonts` — so the sitemap emits `https://…/fonts` (a hard 404; it's the `next/font` asset folder) and `https://…/confirmed` (a post-signup dead end that should not be indexed). Fix: delete the `fs` scan and list routes explicitly, as the file already does for `SHIPPED` at line 35.
+
+**4. Sitemap omits shipped, linked routes**
+`app/[locale]/sitemap.ts:20-47` covers `/`, `/lab`, `/lab/&lt;shipped&gt;`, `/blog/&lt;slug&gt;`, `/legal/&lt;slug&gt;` — but not `/blog` (linked at `app/[locale]/components/footer.tsx:80`), not `/contact` (linked at footer.tsx:82), and not `/learn/ref-vs-state`. Fix: add `blog` and `contact` to the explicit list from #3.
+
+**5. Six locales are prerendered, all English, all `lang="en"`, with no hreflang or canonical**
+`app/[locale]/layout.tsx:8` maps over `locales`, which resolves to `["en","es","de","zh","fr","pt"]` (`packages/internationalization/languine.json`). No page reads a dictionary, and `app/layout.tsx:30` hardcodes `lang="en"`, so `/de/lab`, `/fr/blog` etc. serve identical English under a wrong-or-absent language signal. No `alternates.canonical` or `alternates.languages` exists anywhere in `app/` (grep returns zero hits), and `sitemap.md:221-279` documents `alternates.languages` as the supported mechanism. Fix: either trim `languine.json` targets to `["en"]` until translations exist, or set `lang` from `params.locale` plus `alternates.canonical`/`languages` per page.
+
+## MEDIUM
+
+**6. No root `metadata` export at all**
+`app/layout.tsx` has no `export const metadata`. There is therefore no `title.template`, no root `metadataBase`, no default description/OG — which is why `metadataBase` is re-declared in five separate places (`app/[locale]/page.tsx:55`, `lab/page.tsx:29`, `lab/chapter.tsx:24`, `blog/page.tsx:16`, `contact/page.tsx:14`) and why `app/confirmed/page.tsx` and `learn/ref-vs-state/page.tsx` ship with no title at all. Fix: add root metadata with `metadataBase` and `title: { default, template: "%s — hasToggle" }`.
+
+**7. `/learn/ref-vs-state` is unreferenced, indexable, and has zero metadata**
+`app/[locale]/learn/ref-vs-state/page.tsx:1` — grep for `ref-vs-state` outside its own directory returns nothing, so no link reaches it; unlike the masterclass (`learn/masterclass-28-07-2026/page.tsx:8` sets `robots:{index:false}`), it has no `metadata` export, so it is crawlable, titleless, and absent from the sitemap. It is also a 400-line `"use client"` page pulling `motion`, `lucide-react`, and `nuqs`. Fix: delete it, or add noindex + metadata + a link.
+
+**8. `Logo` is a client component with no interactivity**
+`app/[locale]/components/logo.tsx:1` declares `"use client"` for what is a `next/image` plus static `&lt;svg&gt;` paths — no hooks, no handlers. It renders in `Navbar` and `Footer`, i.e. on every page including the landing page, pushing ~8 KB of SVG path data into the client bundle and the RSC payload for nothing. Fix: drop the directive.
+
+**9. `global-error.tsx` is unstyled and uses the legacy prop**
+`app/[locale]/global-error.tsx:8,15,35` — it imports the fonts but never imports `./styles.css`; docs (`error.md:163-165`) explicitly note global error "must define its own … global styles, fonts" because it replaces the root layout, so the Tailwind classes at line 29 resolve against nothing. Separately, `error.md:117-157` and the version table at `error.md:331` show `retry` became the stable prop in **v16.3.0** and that `reset` should only be used "if you have a specific reason"; this file takes `reset`. Fix: import `../styles.css` and switch to `retry`.
+
+**10. `/api/og` is an unauthenticated, uncached, unbounded image generator**
+`app/api/og/route.tsx:53-64` reads `?title=` and renders a 1200×630 PNG with no `Cache-Control` header set, no allowlist, and no rate limiting. `clampTitle` (`app/api/og/title.ts:11-23`) does validate well — trims, strips `\p{Cc}\p{Cf}`, caps at 70 chars — so the injection surface is fine; the exposure is cost: every distinct `?title=` value is a fresh Satori render plus two font reads. Fix: set an explicit long `Cache-Control` on the response and consider signing or allowlisting the parameter. (Font loading itself is correct — memoized in a module-scope promise at line 18-26.)
+
+**11. Legal `generateMetadata` passes an unvalidated slug into a filesystem path**
+`app/[locale]/legal/[slug]/page.tsx:39` calls `getLegalMeta(slug)` → `getLegalPage(slug)` → `path.join(LEGAL_DIR, slug + ".mdx")` (`packages/cms/lib/mdx.ts:180`) *before* the `getLegalSlugs().includes(slug)` guard at line 106 runs. `../` in an encoded slug can reach any `.mdx` on disk (frontmatter would then surface in `&lt;title&gt;`/`&lt;meta&gt;`). The blog route does not have this hole — `app/[locale]/blog/[slug]/page.tsx:31` uses `getBlogPosts().find(...)`, a membership lookup. Fix: guard with `getLegalSlugs().includes(slug)` inside `generateMetadata`, or reject slugs matching `/[^a-z0-9-]/`.
+
+**12. Four declared dependencies are never imported in this app**
+`package.json:38,40,44,46` — `react-canvas-confetti`, `usehooks-ts`, `react-use-measure`, `date-fns` have zero import sites across `app/`, `components/`, `lib/`. `recharts` is imported only by `learn/masterclass-28-07-2026/demos/era4-runtime/dashboard-renderer.tsx:17`, i.e. only by the unreferenced masterclass. Good news for the question you asked: **none of the heavy client deps reach the landing page** — `shiki` appears only in server components under `use cache` (`(playground)/code-block.tsx:2`, `state/replay-code.tsx:2`), and `motion` appears only under `learn/`. Fix: remove the four unused ones.
+
+## LOW
+
+**13. `font-display` is a dead utility class**
+Used in 10+ places including `app/[locale]/components/hero.tsx:24` (the h1) and `app/confirmed/page.tsx:4`, but no `--font-display` token is defined in `app/styles.css` (`:105-127` defines `--font-switzer`, `--font-sans`, `--font-mono` only) nor in `packages/design-system/styles/globals.css`. Tailwind v4 emits nothing for it; the text silently inherits `--font-sans`, which happens to be the same face, so nothing looks broken. Fix: define `--font-display` or delete the class.
+
+**14. Blog/legal titles use a different suffix from every other page**
+`packages/seo/metadata.ts:26` produces `"… | has-toggle"`, while `app/[locale]/page.tsx:65`, `lab/page.tsx:39`, `blog/page.tsx:26` all use `"— hasToggle"`. Fix: unify via the root `title.template` from #6.
+
+**15. `robots.ts` and `sitemap.ts` live under `[locale]`**
+`app/[locale]/robots.ts:1`, `app/[locale]/sitemap.ts:1`. With `urlMappingStrategy: "rewriteDefault"` (`packages/internationalization/middleware.ts:14`) the default-locale rewrite makes `/sitemap.xml` and `/robots.txt` resolve, so this works — but it also mints `/de/robots.txt`, `/fr/sitemap.xml`, … as five extra copies, each advertising the same un-prefixed URLs, and `sitemap.md:15` places these at "the root of your `app` directory". Fix: move both to `app/`.
+
+**16. `/latest` drops the locale prefix**
+`app/[locale]/latest/route.ts:10` redirects to `/lab/${LATEST.slug}` unconditionally, so `/de/latest` lands on the English `/lab/state`. Harmless while all locales are English; wrong the moment they aren't.
+
+**17. Blog dates are formatted in UTC from a possibly-dateless frontmatter**
+`app/[locale]/blog/page.tsx:32` does `new Date(iso).toISOString().slice(0,10)`; `packages/cms/lib/mdx.ts:130` reads `date` with no `??` fallback and no validation (unlike every other field there), so a post missing `date` renders `Invalid Date` → a thrown `RangeError` from `toISOString()` on the index page. Fix: validate frontmatter `date` in the CMS reader.
+
+**18. Legal pages date-stamp themselves with bake time**
+`app/[locale]/legal/[slug]/page.tsx:93` passes `date={new Date()}` inside a `"use cache"` scope with `cacheLife("days")` (line 60). This is deliberate and documented in the comment at lines 51-55, so flagging only for visibility: the sidebar shows the cache bake date, not a document revision date, which is the wrong signal on an imprint/privacy page.
+
+## Verified clean (no action)
+
+- **Cache Components discipline is genuinely good.** Every request-time read is behind a boundary: `cookies()` in `press-count.tsx:11` is Suspense-wrapped at `mutation/demo.tsx:57`; `cookies()` in `mutation/index-value.tsx:10` is Suspense-wrapped at `lab/page.tsx:93`; `connection()` in `hero-readout.tsx:8` is wrapped at line 56 of the same file; `connection()` in `stream/stage.tsx:21,64` sits under the `Suspense` at `stream/demo.tsx:87`; `searchParams` is awaited only inside `StreamStage` (`stream/demo.tsx:33`), never in the page body. No `"use cache"` function closes over request data — `getBake`, `getServerFacts`, `highlight`, `Copyright`, `Article`, `LegalArticle`, `getLegalMeta` all take plain serializable arguments or none.
+- **`dynamicParams` behavior is correct.** Both MDX routes export `generateStaticParams` and then re-check membership before rendering (`blog/[slug]/page.tsx:140`, `legal/[slug]/page.tsx:106`), so the default `dynamicParams: true` cannot leak an unknown slug.
+- **`app/[locale]/layout.tsx:8`** correctly supplies `generateStaticParams` for the whole subtree, which is what keeps the `[locale]` pages prerenderable under `cacheComponents` — the comment at lines 5-7 matches documented behavior.
+- **`instrumentation.ts`, `instrumentation-client.ts`, `app/fonts/index.ts`** are all fine; `instrumentation-client.ts:8` correctly exports `onRouterTransitionStart`, and the font setup self-hosts both faces with `display:"swap"` and explicit fallbacks.
+- **`components/sidebar.tsx` is NOT dead** — imported by `blog/[slug]/page.tsx:16` and `legal/[slug]/page.tsx:13`.
+- **`app/.well-known/vercel/flags/route.ts`** is a correct two-line delegation, and `proxy.ts:56-66` correctly excludes `/.well-known`, `/api`, and `/confirmed` from the i18n rewrite.</result>
+<usage><subagent_tokens>120244</subagent_tokens><tool_uses>37</tool_uses><duration_ms>254804</duration_ms></usage>
+</task-notification>

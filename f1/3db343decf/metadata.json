@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "f13db343decf",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-audit-harden-base",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/f1/3db343decf/0/metadata.json",
+      "transcript": "/f1/3db343decf/0/full.jsonl",
+      "compact_transcript": "/f1/3db343decf/0/transcript.jsonl",
+      "content_hash": "/f1/3db343decf/0/content_hash.txt",
+      "prompt": "/f1/3db343decf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 1546,
+    "cache_creation_tokens": 151502,
+    "cache_read_tokens": 6414746,
+    "output_tokens": 41468,
+    "api_call_count": 53,
+    "subagent_tokens": {
+      "input_tokens": 178,
+      "cache_creation_tokens": 222046,
+      "cache_read_tokens": 2702685,
+      "output_tokens": 39134,
+      "api_call_count": 44
+    }
+  }
+}
