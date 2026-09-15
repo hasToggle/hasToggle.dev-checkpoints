@@ -1,0 +1,10 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/vXDnAp/HANDOFF-hastoggle-dev.md (4.1 KB)
+</system_instruction>
+
+
+
+On the unique index: here's the handoff from hasToggle-ops:
+
+.context/attachments/vXDnAp/HANDOFF-hastoggle-dev.md
