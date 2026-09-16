@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "3036d7ed09da",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/contact-form-email-redesign",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/contact/actions/contact.tsx",
+    "packages/email/templates/contact.test.tsx",
+    "packages/email/templates/contact.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/30/36d7ed09da/0/metadata.json",
+      "transcript": "/30/36d7ed09da/0/full.jsonl",
+      "compact_transcript": "/30/36d7ed09da/0/transcript.jsonl",
+      "content_hash": "/30/36d7ed09da/0/content_hash.txt",
+      "prompt": "/30/36d7ed09da/0/prompt.txt",
+      "assets_manifest": "/30/36d7ed09da/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 612,
+    "cache_creation_tokens": 77449,
+    "cache_read_tokens": 1458849,
+    "output_tokens": 10474,
+    "api_call_count": 21
+  }
+}
