@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "16d2f02a28aa",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/image/demo.tsx",
+    "apps/web/app/[locale]/(playground)/image/og-demo.tsx",
+    "apps/web/app/[locale]/(playground)/image/source.ts",
+    "apps/web/app/[locale]/(playground)/stream/search-params.test.ts",
+    "apps/web/app/[locale]/(playground)/stream/strategy.test.ts",
+    "apps/web/app/[locale]/blog/page.tsx",
+    "apps/web/app/[locale]/contact/page.tsx",
+    "apps/web/app/[locale]/lab/chapter.tsx",
+    "apps/web/app/[locale]/lab/page.tsx",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/app/api/og/route.tsx",
+    "apps/web/app/api/og/title.test.ts",
+    "apps/web/app/api/og/title.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/16/d2f02a28aa/0/metadata.json",
+      "transcript": "/16/d2f02a28aa/0/full.jsonl",
+      "compact_transcript": "/16/d2f02a28aa/0/transcript.jsonl",
+      "content_hash": "/16/d2f02a28aa/0/content_hash.txt",
+      "prompt": "/16/d2f02a28aa/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 386,
+    "cache_creation_tokens": 52763,
+    "cache_read_tokens": 3656837,
+    "output_tokens": 22514,
+    "api_call_count": 13
+  }
+}
