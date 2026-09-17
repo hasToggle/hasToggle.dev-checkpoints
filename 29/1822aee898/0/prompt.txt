@@ -1,0 +1,38 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/ljubljana directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/ThPARa/session-transcript-aa448f85-60ca-4ebe-aefc-bdbfdaea3246.md (21.1 KB)
+</system_instruction>
+
+
+
+.context/attachments/ThPARa/session-transcript-aa448f85-60ca-4ebe-aefc-bdbfdaea3246.md 
+
+For email addresses that I already used for testing, how do I continue testing? The manual labor of removing the doc from the db and email in Resend is not scalable. What's the best solution here?
+
+---
+
+I just did try an email that's already registered and Vercel logs say, the POST request to api.resend.com/contacts returned 201 but to api.resend.com/emails returned 409.
+
+---
+
+And why are there two calls to merry-bat-282376.upstash.io/pipeline ?
+
+---
+
+Do the small fix.
