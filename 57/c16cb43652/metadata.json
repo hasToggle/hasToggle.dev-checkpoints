@@ -1,0 +1,34 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "57c16cb43652",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/shell/actions.ts",
+    "apps/web/app/api/og/route.tsx",
+    "apps/web/lib/rate-limit.ts",
+    "packages/internationalization/dictionaries/de.json",
+    "packages/internationalization/dictionaries/es.json",
+    "packages/internationalization/dictionaries/fr.json",
+    "packages/internationalization/dictionaries/pt.json",
+    "packages/internationalization/dictionaries/zh.json",
+    "packages/rate-limit/keys.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/57/c16cb43652/0/metadata.json",
+      "transcript": "/57/c16cb43652/0/full.jsonl",
+      "compact_transcript": "/57/c16cb43652/0/transcript.jsonl",
+      "content_hash": "/57/c16cb43652/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 128,
+    "cache_creation_tokens": 7721,
+    "cache_read_tokens": 734273,
+    "output_tokens": 6591,
+    "api_call_count": 4
+  }
+}
