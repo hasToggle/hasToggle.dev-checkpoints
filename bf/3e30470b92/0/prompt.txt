@@ -1,0 +1,19 @@
+<task-notification>
+<task-id>bt9wjj22o</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-ljubljana/aa448f85-60ca-4ebe-aefc-bdbfdaea3246/tasks/bt9wjj22o.output</output-file>
+<status>completed</status>
+<summary>Background command "Wait for the preview deployment to reach a terminal state" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+I used an email that's registered and got the "You’re already on the waitlist." email. Ironically, that email does not have an unsubscribe link as it states itself that all digests have one (granted this email is not a digest one, but still).
+
+---
+
+Remind me, how does unsubscribing work now? And why would we need an HMAC now if we already have unsub logic without it?
+
+---
+
+I see. Option B it is! Fold it into this PR.

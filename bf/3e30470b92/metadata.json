@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "bf3e30470b92",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 4,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/bf/3e30470b92/0/metadata.json",
+      "transcript": "/bf/3e30470b92/0/full.jsonl",
+      "compact_transcript": "/bf/3e30470b92/0/transcript.jsonl",
+      "content_hash": "/bf/3e30470b92/0/content_hash.txt",
+      "prompt": "/bf/3e30470b92/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 615,
+    "cache_creation_tokens": 405872,
+    "cache_read_tokens": 7917539,
+    "output_tokens": 35034,
+    "api_call_count": 23,
+    "subagent_tokens": {
+      "input_tokens": 1322,
+      "cache_creation_tokens": 431430,
+      "cache_read_tokens": 3947949,
+      "output_tokens": 71170,
+      "api_call_count": 46
+    }
+  }
+}
