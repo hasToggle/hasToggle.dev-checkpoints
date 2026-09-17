@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "3e6144a9ffcf",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".context/contact-mail-mobile.png",
+    ".context/contact-mail.png"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3e/6144a9ffcf/0/metadata.json",
+      "transcript": "/3e/6144a9ffcf/0/full.jsonl",
+      "compact_transcript": "/3e/6144a9ffcf/0/transcript.jsonl",
+      "content_hash": "/3e/6144a9ffcf/0/content_hash.txt",
+      "prompt": "",
+      "assets_manifest": "/3e/6144a9ffcf/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 98,
+    "cache_creation_tokens": 2238,
+    "cache_read_tokens": 356217,
+    "output_tokens": 1340,
+    "api_call_count": 4
+  }
+}
