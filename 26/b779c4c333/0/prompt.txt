@@ -1,0 +1,3 @@
+I want one.
+
+I just realised the "/confirmed" route is accessible by just visiting it without any email link. How does verification work? We shouldn't let that route be accessible like that; it's confusing too.

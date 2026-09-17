@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "26b779c4c333",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/api/confirmed/route.test.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/lib/confirmation-ticket.ts",
+    "apps/web/proxy.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/26/b779c4c333/0/metadata.json",
+      "transcript": "/26/b779c4c333/0/full.jsonl",
+      "compact_transcript": "/26/b779c4c333/0/transcript.jsonl",
+      "content_hash": "/26/b779c4c333/0/content_hash.txt",
+      "prompt": "/26/b779c4c333/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 161,
+    "cache_creation_tokens": 308898,
+    "cache_read_tokens": 1582561,
+    "output_tokens": 9521,
+    "api_call_count": 6
+  }
+}
