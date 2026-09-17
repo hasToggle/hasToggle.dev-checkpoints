@@ -1,0 +1,7 @@
+<task-notification>
+<task-id>b32tgr0v8</task-id>
+<tool-use-id>toolu_01DgR64smdtQu5qKyk17BotX</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-ljubljana/aa448f85-60ca-4ebe-aefc-bdbfdaea3246/tasks/b32tgr0v8.output</output-file>
+<status>completed</status>
+<summary>Background command "Run the production build for apps/web" completed (exit code 0)</summary>
+</task-notification>
