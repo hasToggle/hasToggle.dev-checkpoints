@@ -1,0 +1,309 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/ljubljana directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+You're on a new branch with a placeholder name. Conductor will automatically rename it in the background to match your task.
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Do a review on the web project using /agent-skills:review
+
+---
+
+<task-notification>
+<task-id>addf1dcb1d57df694</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-ljubljana/aa448f85-60ca-4ebe-aefc-bdbfdaea3246/tasks/addf1dcb1d57df694.output</output-file>
+<status>completed</status>
+<summary>Agent "Review web server-side code" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Review: apps/web server-side surface
+
+**Verification:** `bun test` in apps/web: 165 pass, 0 fail (24 files). `bun run typecheck`: clean. Both run before reading code.
+
+**Overall:** The code is in good shape. The tests are behaviour-first and readable, the mail/DB flows are idempotent by design, error paths are explicit, and Next 16 APIs are used correctly (`proxy.ts`, `after`, `updateTag` from a server action only, `retry` prop on error boundaries — I checked the bundled docs before accepting each). Findings below are ordered by leverage; only the first three are things I would fix before the next deploy.
+
+---
+
+### Important
+
+**1. Orphan detection in reconcile compares raw addresses, so a casing mismatch between Mongo and Resend reads as "left the list" and deletes the subscriber.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/reconcile/route.ts:98-106`
+`known` is built from Resend's `c.email` and `orphaned` from the stored `s.email`, neither passed through `normalizeEmail`. The code itself documents that legacy mixed-case rows exist (`confirm/route.ts:97-100`, `lib/subscribers.ts:19-20`). Scenario: a confirmed legacy row `[REDACTED_EMAIL]`; Resend returns the contact lowercased (or vice versa). `known.has("[REDACTED_EMAIL]")` is false, the row counts as orphaned, `orphansLookWrong` allows up to 5 such rows on a small list, and `removeSubscriber` erases a live subscriber. Nothing in the test suite covers a casing difference here.
+Fix: normalize both sides — `new Set(contacts.map((c) =&gt; normalizeEmail(c.email)))` and `.filter((email) =&gt; !known.has(normalizeEmail(email)))`. Add a test with a mixed-case DB row and a lowercase Resend contact asserting no deletion.
+
+**2. Six locales are configured but nothing under `app/[locale]` reads the locale; non-English visitors get redirected to `/de/...` (etc.) and served English with `lang="en"`.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/packages/internationalization/languine.json` (targets `es de zh fr pt`), consumed by `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/proxy.ts:65-76`, `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/layout.tsx:8-9`, `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/layout.tsx:41`.
+`rewriteDefault` in next-international rewrites `en` silently but 307-redirects every other negotiated locale to a prefixed URL (verified in `next-international/dist/app/middleware/index.js:51-60`). A grep of `apps/web/app` finds no `getDictionary` or `params.locale` consumer. Consequences: (a) a browser with `Accept-Language: de` lands on `/de/lab` showing English under `&lt;html lang="en"&gt;`; (b) `generateStaticParams` prerenders six identical copies of every page; (c) `/de/lab/...` and `/lab/...` are duplicate content with no `alternates.canonical` anywhere in the app and the sitemap lists only unprefixed paths; (d) `/de/latest` redirects to unprefixed `/lab/&lt;slug&gt;`, which the proxy redirects again to `/de/lab/&lt;slug&gt;` — two hops.
+Fix: until translations exist, set `targets: []` in languine.json (one locale, one prerender, no redirects) or drop the i18n rewrite from the proxy chain. If keeping locales is intentional groundwork, at minimum set `lang` from the param and add canonical URLs.
+
+**3. Subscriber removal fans out with unbounded concurrency against Resend, and a failed `contacts.remove` is swallowed, so the route reports success while the contact stays flagged.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/reconcile/route.ts:121`, `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/subscribers.ts:21-28`, `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/webhooks/resend/route.ts:51-55`.
+Resend's documented default is 2 requests/second. Scenario: a reconcile run with 10 flagged contacts issues 10 parallel `contacts.remove` calls; most answer 429 (`error.name` is not `not_found`), `removeSubscriber` only calls `parseError` and resolves, the Mongo rows are already deleted, and the response says `unsubscribed: 10`. The contacts remain in Resend flagged unsubscribed until a later run happens to succeed. The webhook route's comment ("A 500 makes Resend retry, which is what a failed deletion needs") is only true for a Mongo failure; a Resend failure never reaches that catch.
+Fix: in `removeSubscriber`, throw on any Resend error other than `not_found` (the webhook then genuinely retries, and reconcile reports a real failure). In reconcile, process `leaving` sequentially (a `for...of` with `await`) or with a small concurrency cap; the list is short and the run is scheduled, so latency is free. Add a test where `contacts.remove` returns a `rate_limit_exceeded` error and assert the response is not 200.
+
+### Suggestion
+
+**4. The paid deliverability lookup runs before the subscriber row is read, so every resubmit of a known address costs an Abstract API credit and up to 5 s.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirm/route.ts:211-230`
+A row on file already passed validation when it was created. Currently latent (no `ABSTRACT_API_KEY` in prod), but the ordering will bite when it is set. Fix: keep the rate-limit check first, then do the format/disposable checks, then `findOne`; only call the deliverability API when `existing` is null. `validateEmail` would need to expose the cheap checks separately.
+
+**5. A rejected limiter promise is cached forever, turning a one-off Upstash import failure into a permanent 500 on `/api/confirm` and the contact action for the instance's lifetime.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/rate-limit.ts:111-116`
+Fix: `limiter.catch(() =&gt; limiters.delete(id))` after `set`, or fall back to the memory limiter on rejection.
+
+**6. Same poisoned-promise pattern for the OG fonts: one transient `readFile` failure makes every subsequent `/api/og` render fail on that instance.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/og/route.tsx:20-26`
+Fix: `fontsPromise = ...; fontsPromise.catch(() =&gt; { fontsPromise = null; })`.
+
+**7. The dynamic `import("@/env")` exists for test mocking, and its justifying comment is contradicted by the test that depends on it.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/email-validation.ts:74-77`
+The comment says `mock.module` does not intercept `@/env`; `lib/email-deliverability.test.ts:7-16` overrides `@/env` via `mock.module` and the "rejects undeliverable emails" test only passes if that override is observed. Either the static import would work equally well (then drop the dynamic import and the comment), or the real reason is import timing (then say that). Cleaner: pass the API key in as a parameter and keep env out of the module entirely.
+
+**8. The `email_ci` collated unique index and the `token` lookup have no in-repo definition, yet `confirm`'s E11000 fallback path depends on the former existing with exactly `{ locale: "en", strength: 2 }`.**
+`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/email-validation.ts:20-26`, `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirmed/route.ts:20-22`
+No migrations is a stated project decision, so this is not a defect, but a fresh database (or a preview pointed at a new cluster) silently loses the case-insensitive dedupe and does a collection scan on every confirmation click. Fix: a one-shot `ensureIndexes` script or a README note in `packages/database` listing the two indexes.
+
+### Nit
+
+**9.** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirm/route.ts:49` — `EMAIL_SHAPE` duplicates `EMAIL_RE` in `lib/email-validation.ts:28`; export one.
+
+**10.** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/proxy.ts:25` — `"/(api|trpc)(.*)"` is a scaffold leftover; there is no trpc.
+
+**11.** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/rate-limit.ts:39` — `stamps[i] as number` is a no-op cast; `noUncheckedIndexedAccess` is not enabled in `packages/typescript-config/base.json`.
+
+**12.** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/(playground)/mutation/actions.ts:59` — the `setCookie` receipt string is hand-assembled from `options` and will silently drift if the cookie gains an attribute (`secure`, a domain). Fine for a demo; a comment noting it must mirror `options` would help.
+
+**13.** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/next.config.ts:22-25` — `remotePatterns?.push` mutates the array on the shared `config` object imported from `@repo/next-config` rather than spreading a new one.
+
+### What's done well
+
+- `confirm/route.ts` is a model of a careful mail endpoint: same response for every outcome (no enumeration), per-address and per-caller windows checked before any cost, idempotency keys on both mails, and the E11000-then-collated-retry path is explained and tested including the "no row matched" failure.
+- `reconcile/route.ts`'s `orphansLookWrong` guard is exactly the kind of refusal a scheduled deleter should have, and it is unit-tested at its boundaries.
+- `lib/confirmation-origin.ts` handles the Host-header trust problem correctly (exact host match, own-deployment allowlist, parse failure falls back) with tests for the lookalike cases.
+- `security-headers.ts` documents why `'unsafe-inline'` is there instead of a nonce, which is the single most-asked question a future reader will have.
+- Test preload strategy (shared module mocks, per-file `spyOn`, `resetRateLimiters`) keeps 24 files from leaking into each other, and the tests read as specifications.
+
+### Verification story
+- Tests reviewed: yes, all 11 test files, before the code.
+- Build verified: `bun test` and `bun run typecheck` both clean; I did not run `next build`.
+- Security: deferred to the separate reviewer; nothing glaring found beyond item 3 (which is a data-consistency issue, not an exposure).</result>
+<usage><subagent_tokens>110497</subagent_tokens><tool_uses>25</tool_uses><duration_ms>278898</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a070f7a1f402304cb</task-id>
+<tool-use-id>toolu_01KFRJqYVHdtnNRrJqvFh5xr</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-ljubljana/aa448f85-60ca-4ebe-aefc-bdbfdaea3246/tasks/a070f7a1f402304cb.output</output-file>
+<status>completed</status>
+<summary>Agent "Review web UI and playground" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Review Summary
+
+**Verdict:** REQUEST CHANGES (one shipped interaction bug; the rest is cleanup)
+
+**Overview:** The UI surface is in good shape. The Cache Components usage is correct against the bundled docs — `use cache` + `cacheTag`/`cacheLife` in `bake.ts`, `updateTag` in the action, `searchParams` passed as a promise and awaited inside `&lt;Suspense&gt;` (matches `08-caching.md:546-562`), `cookies()` only behind boundaries, `generateStaticParams` on `[locale]`, `connection()` where request-time rendering is genuinely wanted. Client boundaries are drawn at the panel level with server slots threaded as props, exactly as `docs/design.md` prescribes. The findings below are one real defect in the stream picker, one architectural leftover from the scaffold, and duplication that the design doc itself flags.
+
+Checks run: `bun test` in apps/web — **165 pass, 0 fail** (24 files). `bun run check` at repo root — **Checked 446 files, No fixes applied**. `next build`/`tsc` not run.
+
+### Important
+
+1. **`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/(playground)/stream/stream-panel.tsx:99-102, 116`** — Arrow-key navigation in the arrangement radiogroup never moves focus. `querySelector('[data-strategy="…"]')` matches the `&lt;span className="contents" data-strategy&gt;` wrapper, not the button; a span with no `tabindex` ignores `.focus()`. Result: pressing → selects the next arrangement (a real navigation fires) but focus stays on the old button, now `tabIndex={-1}`, so the roving-tabindex contract the biome-ignore comment promises is broken for keyboard users. The same wrapper breaks two visuals: Tailwind v4's `divide-x` is `:where(&amp; &gt; :not(:last-child))` (verified in `node_modules/tailwindcss/dist/lib.js`), so the border lands on a `display: contents` element and never paints — the segmented control has no dividers; and `first:rounded-l-lg last:rounded-r-lg` on the button matches every button (each is the sole child of its span), so the middle segment gets both radii and the `aria-checked:bg-muted` fill shows rounded corners mid-control. **Fix:** delete the span, put `data-strategy={strategy}` on the `&lt;button&gt;` in `Segment`, and let `divide-x`/`first:`/`last:` act on the buttons directly.
+
+2. **`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/layout.tsx:8-9` + `proxy.ts:66-78`** — Six locales are prerendered and routed for a single-language site. `@repo/internationalization` declares `en, es, de, zh, fr, pt` (`languine.json`), so `generateStaticParams` prerenders every page six times, and `next-international` with `urlMappingStrategy: "rewriteDefault"` redirects a visitor whose `Accept-Language` prefers `de` from `/lab` to `/de/lab` — which renders the identical English page under a root `&lt;html lang="en"&gt;` (`app/layout.tsx:41`). No page reads `params.locale`; `getDictionary` is imported nowhere in apps/web. Costs: 6× build time and Vercel output for every route (including the `use cache` shells), duplicate-content URLs crawlers can index that the sitemap omits, and a wrong `lang` for non-English visitors. **Fix (smallest):** give the web app a single-locale list (`["en"]`) for both `generateStaticParams` and the middleware, or skip `internationalizationMiddleware` in `i18nWithExclusions` entirely; longer term, drop the `[locale]` segment. Verify with `curl -I -H 'Accept-Language: de' https://&lt;preview&gt;/lab` before and after — I checked the middleware config, not a live response.
+
+### Suggestions
+
+3. **Duplication the design grammar says should be shared** — Four identical view-switch blocks (`label` + `Switch` with the same 9-class string): `shell/rebake-panel.tsx:333-345`, `stream/stream-panel.tsx:219-231`, `mutation/mutation-panel.tsx:49-62`, `state/state-panel.tsx:23-37`. `LOCKED_LOOK` copied verbatim in `rebake-panel.tsx:38-41` and `boundary/boundary-panel.tsx:20-23`. The ghost-stack height reservation (`grid` + `[grid-area:1/1]` + `invisible` + `aria-hidden`) is hand-rolled five times: `StableSlot` in `rebake-panel.tsx:56-79`, seam stacks in `boundary-panel.tsx:171-184`, `stream-panel.tsx:272-288`, `mutation-panel.tsx:112-128`, and the card stack in `boundary-panel.tsx:149-168`. `docs/design.md §5` already lists "StableSlot grows a JSX-safe design" as blocked work. **Fix:** `(playground)/view-switch.tsx` (`{ id, label, checked, disabled, onChange }`) and a shared `(playground)/stable-slot.tsx` taking `variants: readonly { key: string; node: ReactNode }[]` plus `active`. That alone takes `rebake-panel.tsx` (407 lines) under the 300 mark without touching its logic.
+
+4. **`/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/highlighter.ts`** is dead (`initHighlighter` is imported nowhere) and would load a different theme (`ayu-dark`) than the live pipeline. Meanwhile `highlight()` in `(playground)/code-block.tsx:4-12` and `highlightReplay()` in `state/replay-code.tsx:5-13` are the same `codeToHtml` call with the same `use cache`/`cacheLife("max")`. **Fix:** delete `lib/highlighter.ts`; export `highlight` from `code-block.tsx` (or `lib/highlight.ts`) and call it from `replay-code.tsx`.
+
+5. **Dead exports/props (grep-verified, zero call sites):** `components/expandable.tsx` (whole file, ships a `"use client"` module), `components/gradient.tsx` (both exports), `Mark` in `components/logo.tsx:22`, `Lead` and the `dark` prop in `components/text.tsx`, `NEXT_UP` in `lab/syllabus.ts:252`, `banner` prop on `Navbar`, `size` prop on `Container`, `VAR_CARD_SOURCE` in `state/source.ts:105` (unused even by the banked `var-card.tsx`), and the `params` field in `LocaleLayoutProperties` (`layout.tsx:13`). Also `NuqsAdapter` in `layout.tsx:2,20`: `nuqs` is used nowhere in apps/web, so a client provider and a dependency ship for nothing. **Fix:** remove; keep `var-card.tsx` as design.md banks it deliberately.
+
+6. **Slug→folder mapping is encoded three times.** `components/contents-nav.tsx:10-16` hard-codes `LANDING_SLUGS` separately from the five demo imports in `page.tsx:232-240`; each `lab/*/page.tsx` hard-codes a `commitsHref` folder (`shell` for `caching`, `mutation` for `server-actions`, `image` for `og-images`); each `*/demo.tsx` hard-codes the matching `sourceHref`. Adding a chapter means editing four places, contradicting `syllabus.ts`'s "one entry flip" contract. **Fix:** add `folder` to `ShippedChapter` and derive both GitHub URLs; export a `LANDING_CHAPTERS` list that `page.tsx` and `contents-nav.tsx` both consume.
+
+7. **`stream-panel.tsx:173`** — `useState&lt;Strategy&gt;(DEFAULT_STRATEGY)` means a deep link like `/lab/streaming?mode=blocking` server-renders the picker and the seam as "Wrap each part" and flips after `StageRendered`'s effect runs post-hydration. This is a conscious trade-off for keeping the panel in the static shell (the comment says "mirrors rather than decides"), so I'd only note the visible flash; if it bothers you, the seam could ride inside the streamed stage next to `StageRendered` so it is server-correct from the first byte, leaving only the picker to catch up.
+
+8. **Heading outline noise (a11y).** `Subheading` defaults to `h2`, so every landing section emits two h2s — the eyebrow ("The boundary · server &amp; client components") and the title. `DemoSection` already demotes the eyebrow to `div` under an `h1`; do the same under h2 (`demo-section.tsx:58`, `page.tsx:153,233`, `faqs.tsx:104`, `lab/page.tsx:153`) so the heading list reads one entry per section. `aria-labelledby` already points at the real title, so nothing else changes.
+
+### Nits
+
+9. **`boundary-panel.tsx:159`** — key `${b}-${active}` remounts both cards (the inactive one too) on every beat change; only the split card needs the `.ht-land` remount. Key the active wrapper on `beat` and leave the ghost keyed on `b`.
+10. **`components/sidebar.tsx:13`** — `async` arrow with no `await`; a Server Component needn't be async. **`blog/[slug]/page.tsx:19-22`** builds `url` from `VERCEL_PROJECT_PRODUCTION_URL` (undefined locally → `http://undefined`), while `app/layout.tsx:16` already sets `metadataBase` from `NEXT_PUBLIC_WEB_URL`; use one source.
+11. **`image/og-demo.tsx:112-117`** — revoking the previous object URL inside the `setImage` updater is a side effect in an updater (runs twice in dev StrictMode; harmless but leaks a warning path). Revoke where `shownUrl.current` is reassigned instead.
+12. With `reactCompiler: true` (`next.config.ts:9`), the manual `useCallback`/`useMemo` in the panels is mostly redundant; not worth a sweep, just don't add more.
+
+### What's Done Well
+
+- The per-run keying of `settledKey` in `stream-panel.tsx:183-185,214` means a late `StageSettled` from a superseded run can never flip the gauge to `live` early — a subtle race handled by construction.
+- `rebake-state.ts` + `rebake-copy.ts` keep the reducer and every string testable outside React, and the tests (152 + 153 lines) actually pin the width-reservation invariants the ghosts depend on.
+- Progressive enhancement is real: `mutation-panel.tsx` posts without JS, `code-block.tsx` disclosure is native `&lt;details&gt;`, `seats-cta.tsx` keeps the plain anchor for modified clicks.
+- `og-demo.tsx:61-91` arming the 60 kB fetch on approach rather than mount is the right call for an exhibit that far down the page.
+- Every `aria-disabled` control has a matching handler guard (`rebake-panel.tsx:223`), so the focus-preserving pattern doesn't leak clicks.
+
+### Verification Story
+
+- Tests reviewed: yes — 165 pass; coverage is strong on reducers/copy/parsers, none on the client panels' DOM (the roving-focus bug in #1 is exactly what a small `@testing-library` test on `ArrangementPicker` would have caught).
+- Build verified: no (`bun test` and Biome only; `next build` and `tsc` not run).
+- Security checked: out of scope per request.</result>
+<usage><subagent_tokens>240580</subagent_tokens><tool_uses>33</tool_uses><duration_ms>303606</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a3ec52236aafc04b5</task-id>
+<tool-use-id>toolu_017chXAZ8ZsjbrcAGhKseEYX</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-ljubljana/aa448f85-60ca-4ebe-aefc-bdbfdaea3246/tasks/a3ec52236aafc04b5.output</output-file>
+<status>completed</status>
+<summary>Agent "Security audit of web app" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Security Audit Report — `apps/web`
+
+### Summary
+- Critical: 0
+- Important: 2
+- Suggestion: 9
+
+Trust boundaries reviewed: `/api/confirm` (JSON POST, anonymous), `/api/confirmed` (GET with token), `/api/webhooks/resend` (signed POST), `/api/reconcile` (bearer POST), `/api/og` (GET with `title`), three server actions (`contact`, `pressTheButton`, `rebakeShell`), `?mode`/`?stream` on the streaming chapter, the `playground-presses` cookie, the `Host` header (confirmation origin), and the proxy chain. PR #447's hardening holds where it was applied; the findings below are about what its in-memory floor can and cannot do on serverless, plus a handful of gaps it did not cover.
+
+---
+
+### Findings
+
+#### [IMPORTANT] Rate limiting is per function instance, so the durable floor on confirmation mail is a 2-minute cooldown (30 mails/hour to any address)
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/rate-limit.ts:31-69,105-118`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirm/route.ts:24,30-31,244`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/contact/actions/contact.tsx:18,38-45`
+- **Description:** With no Upstash in prod, `rateLimiter()` returns `createMemoryLimiter`, a `Map` that lives in one function instance. Vercel scales instances on concurrency and recycles them, so every parallel instance grants its own `PER_ADDRESS` (3/h) and `PER_CALLER` (10/10min) budget, and a cold start zeroes it. The only cross-instance control on `/api/confirm` is the Mongo-backed `RESEND_COOLDOWN_MS` at line 244, which is 2 minutes and never grows. The contact action has no durable control at all.
+- **Impact:** (a) Mail bombing: an attacker submits a victim's address every ~2 minutes and the victim receives up to 30 "confirm your subscription" mails an hour, 720 a day, indefinitely, each from `RESEND_FROM`. That burns Resend quota and, once the victim hits "spam", the sending domain's reputation. (b) The contact form can be looped at roughly 3 × (number of warm instances) per hour into the `RESEND_FROM` inbox. (c) The already-subscribed path is bounded (idempotency key per day) — that one is fine.
+- **Proof of concept:** A script POSTing `{"email":"&lt;victim&gt;"}` to `/api/confirm` once every 121 s from a single IP. The memory limiter will trip after 3 hits per instance, but concurrent requests from a second IP (or a burst that forces a new instance) get fresh budgets; the cooldown line is the only thing that always holds, and it allows a send every 2 minutes.
+- **Recommendation:** Persist the per-address budget in the store you already have. Cheapest shape: store `confirmationsSentToday`/`lastConfirmationAt` on the subscriber row (they are written in the same `updateOne`) and refuse — silently, keeping the uniform `SUCCESS_MESSAGE` — when the daily count is over a small cap (e.g. 5), or make the cooldown exponential (`2min, 10min, 1h, 24h`). For the per-caller limit, either a `rate_limits` collection with a TTL index keyed on `prefix:ip`, or a Vercel WAF rate-limit rule on `/api/confirm` and on POSTs to `/contact`, which needs no code and is the layer `lib/rate-limit.ts`'s own comment says is the real tool. Until one of those lands, treat `PER_CALLER` as a burst limiter only, as the file comment already admits.
+
+#### [IMPORTANT] `/api/og` renders a fresh PNG for every distinct `title` with no throttle
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/og/route.tsx:53-55,203-205`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/og/title.ts:11-23`
+- **Description:** Input handling is correct (control/format characters stripped, clamped to 70 chars, default on empty). What is missing is any bound on the number of unique renders. `Cache-Control: public, s-maxage=86400` only saves repeat titles; a caller varying one character per request gets a Satori + resvg render (hundreds of ms CPU, 1200×630 raster) per hit. There is no rate limiter on this route, and Arcjet is not configured in prod, so the bot allowlist in `proxy.ts` is inert.
+- **Impact:** Function-duration and CDN-write cost driven by the attacker, and a CPU-bound route that can crowd out the confirm/contact functions on the same project. Not data exposure — this is a cost/availability finding.
+- **Proof of concept:** `for i in $(seq 1 100000); do curl -so /dev/null "https://&lt;site&gt;/api/og?title=x$i"; done` — every request misses the cache and renders.
+- **Recommendation:** Two options, and I would do both: (1) a Vercel WAF rate-limit rule on `/api/og` (e.g. 60/min per IP); (2) restrict `title` to known values — every first-party caller passes a chapter title or a fixed string (`page.tsx:56`, `chapter.tsx:27`, `lab/page.tsx:32`, `blog/page.tsx:19`, `contact/page.tsx:17`), and only the image-chapter demo (`og-demo.tsx:51,102`) sends free text. Serve free text only when the request carries a short HMAC over the title (signed server-side when the demo page renders), or cap the demo's free-text path with the same memory limiter the forms use so at least bursts are bounded.
+
+---
+
+#### [SUGGESTION] `/api/confirm` accepts cross-site `text/plain` form posts, which lets a third-party page borrow visitors' IPs against the caller limit
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirm/route.ts:196-199`
+- **Description:** `request.json()` parses the body regardless of `Content-Type`, and there is no `Origin`/`Sec-Fetch-Site` check. A `&lt;form enctype="text/plain"&gt;` on any site can submit `{"email":"victim@…","x":"=…"}` without a preflight. The route needs no cookie, so this is not classic CSRF — the attacker can already call it directly — but it distributes the `PER_CALLER` key across unwitting visitors' IPs.
+- **Recommendation:** Reject unless `content-type` starts with `application/json` and, when an `Origin` header is present, it equals the configured origin or one of the trusted deployment hosts (reuse the allowlist from `lib/confirmation-origin.ts`). Cheap and closes the enumeration-by-proxy path.
+
+#### [SUGGESTION] Confirmation is a GET with side effects, and the token stays valid forever once confirmed
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirmed/route.ts:20-36,53-57`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/api/confirm/route.ts:116` (token never cleared)
+- **Description:** Link scanners (Outlook Safe Links, corporate gateways) follow the confirm URL, so an address that never asked can be confirmed by its own mail filter. After confirmation the row keeps `token` with `tokenExpiresAt: null`, so the same URL remains a live capability: every later hit re-runs `resend.contacts.create({ unsubscribed: false })`. The window where that matters is between a Resend-side unsubscribe and the webhook deleting the row (seconds), so exploitation is narrow — but the token also sits in Vercel request logs for the life of the retention period.
+- **Recommendation:** On confirmation, `$unset` the token (or replace it with a random "confirmed" marker) so the URL is single-use; make the second-click UX a redirect to `/confirmed` keyed on nothing. If scanner auto-confirm is a concern for list quality, land the link on a page with a one-button POST form rather than confirming on GET.
+
+#### [SUGGESTION] Contact `name` admits CR/LF into the mail subject
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/contact/actions/schema.ts:11`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/contact/actions/contact.tsx:58`
+- **Description:** `z.string().trim().min(1).max(120)` allows newlines; `subject` is built from it. The Resend SDK ships JSON so there is no raw-SMTP header injection on this side, and Resend's API is the layer that would have to mishandle it — but a one-line rule removes the dependency on that. `email` is safe (`z.email()` forbids CR/LF), `to` is fixed, so the form cannot relay mail to third parties.
+- **Recommendation:** `name: z.string().trim().min(1).max(120).regex(/^[^\r\n]+$/)`.
+
+#### [SUGGESTION] Email-validation logs write the submitted address's domain to prod logs
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/email-validation.ts:96-98,106-108,119-125`
+- **Description:** On Abstract API failure the log line includes `for domain "${domain}"`. The repo's own rule (CLAUDE.md, "Live subscriber data") names a bare employer domain as PII it will not print, and `log` in prod is Logtail-or-console, i.e. Vercel runtime logs. Not reachable today (no `ABSTRACT_API_KEY` in prod), but it is the kind of line that gets enabled and forgotten. Also: `consoleLoggingIntegration` in `packages/observability/server.ts` will forward these to Sentry the day a DSN is set.
+- **Recommendation:** Drop the domain from the message; log status code and reason only. The `JSON.stringify(error)` lines in `confirm/route.ts:238,253` are fine as far as I can tell (Resend error shapes are `{name,message,statusCode}` without the recipient) — worth a glance if Resend ever adds request echo.
+
+#### [SUGGESTION] `rebakeShell` is an unauthenticated global cache purge
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/(playground)/shell/actions.ts:16-19`; `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/app/[locale]/(playground)/shell/bake.ts:20-28`
+- **Description:** Any visitor can call the action in a loop; each call expires `landing-shell` for everyone, so the landing page and the shell chapter re-render dynamically for every visitor for as long as the loop runs. Next's built-in Origin/Host check stops cross-site invocation but not a same-origin script. It is the demo's point, so the fix is coalescing, not auth.
+- **Recommendation:** Read `getBake().bakedAt` inside the action and return early (with the existing bake) if it is younger than ~5 s; optionally add the memory limiter keyed on `clientIp`.
+
+#### [SUGGESTION] `X-Powered-By: Next.js` still ships
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/next.config.ts` (no `poweredByHeader`); nosecone does not strip it.
+- **Recommendation:** `nextConfig.poweredByHeader = false`. Trivial fingerprint removal; the headers test in `lib/security-headers.test.ts` could assert it.
+
+#### [SUGGESTION] Dead `/ingest/*` rewrite is a public relay to PostHog US
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/packages/next-config/index.ts:11-26`; the comment in `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/lib/security-headers.ts:11-15` confirms the SDK does not use it, and `proxy.ts:23` excludes it from security headers.
+- **Description:** Anyone can POST arbitrary events through `hastoggle.dev/ingest/...` to `us.i.posthog.com` (fixed host, so not SSRF). Surface with no user.
+- **Recommendation:** Remove the three rewrites, or point them at the configured EU host and make the SDK use them if ad-blocker bypass is wanted.
+
+#### [SUGGESTION] Dependencies: one advisory chain reaches this app; one tiny package sits on every request
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/package.json:38` (`@zanreal/nemo` 3.0.1); `bun audit` output.
+- **Description:** `bun audit` reports `fast-uri` (4 high, SSRF/host-confusion in URI normalization) reachable via `@repo/feature-flags › @vercel/toolbar` and `@sentry/nextjs`. This app never hands untrusted URLs to `fast-uri` (it is ajv's URI resolver inside those SDKs), so it is not exploitable here — bump on the next Renovate pass. No direct dependency has install scripts. `@zanreal/nemo` composes two functions in `proxy.ts` and runs on every request; a low-download package in that position is more supply-chain exposure than the ~10 lines it saves.
+- **Recommendation:** Inline the composition (`for (const mw of [i18nWithExclusions, arcjetMiddleware]) { const r = await mw(request); if (r) return r; }`) and drop the dependency. Everything else in `bun audit` is in workspaces `web` does not import (`@repo/ai`, `@repo/payments`, storybook, studio).
+
+#### [SUGGESTION] Env-gated guards are off in prod; the consequences are worth stating explicitly
+
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/ljubljana/apps/web/proxy.ts:41-44` (Arcjet), `packages/observability/error.ts:20-26` (Sentry)
+- **Description:** With no `ARCJET_KEY`, `secure()` returns before building the client, so Shield and bot detection never run — the `CATEGORY:*` allowlist is decorative. With no DSN, `parseError` becomes `console.error`; the "refused reconciliation" alarm at `reconcile/route.ts:109` and webhook failures at `webhooks/resend/route.ts:54` therefore surface only in Vercel logs nobody is paged on. The privacy-policy deletion path depends on those retries being noticed.
+- **Recommendation:** Either enable a free-tier Sentry DSN for the web project so refusals page someone, or wire `parseError` to a Vercel log drain alert. Decide deliberately whether Arcjet stays in the tree; if it is not coming back, the WAF rate-limit rules above are its replacement.
+
+---
+
+### Positive Observations
+
+Verified against the code, not assumed:
+
+- **Webhook signature:** `resend.webhooks.verify` (resend 6.28.1) delegates to `standardwebhooks`, which enforces the timestamp tolerance and constant-time HMAC compare; the secret is required (`startsWith("whsec_")`) so a missing secret fails closed. Body is read as text before parsing.
+- **Reconcile auth:** `timingSafeEqual` with length guard, secret required at ≥32 chars, response is counts only, and `orphansLookWrong` refuses a listing that would empty the list.
+- **Tokens:** 256 bits from `crypto.randomBytes`, only the SHA-256 hash is stored, 24 h expiry, Resend idempotency key derived from the hash so a retry cannot double-send.
+- **Confirmation origin:** the `Host`-derived origin is honoured only for the configured URL, `VERCEL_URL`/`VERCEL_BRANCH_URL`, or localhost — a spoofed Host cannot make the confirm link point at an attacker's domain. `Location: /confirmed` is relative: no open redirect.
+- **Mongo:** `normalizeEmail` collapses non-strings to `""`, `searchParams.get` is always a string, webhook payloads are signature-gated; every filter is a string or a static shape. No operator injection path found.
+- **Enumeration:** uniform `SUCCESS_MESSAGE` for new, pending and already-confirmed addresses; rejection reasons for disposable/undeliverable share one line.
+- **Server actions:** Next's Origin/Host comparison (docs: `data-security.md:550`) covers CSRF for `contact`, `pressTheButton`, `rebakeShell`; `contact` uses a zod schema, a fixed `to`, and React-escaped templates; the cookie in the mutation demo is `httpOnly`, `SameSite=Lax`, and parsed with `/^\d{1,4}$/`.
+- **Headers:** HSTS 2y + subdomains, `frame-ancestors 'none'` + `X-Frame-Options: DENY`, COOP/CORP same-origin, `object-src 'none'`, `base-uri 'none'`, `form-action 'self'`, strict referrer. `'unsafe-inline'` in `script-src` is a documented trade for the static shell, and the compensating fact holds: the only `dangerouslySetInnerHTML` sites (`code-block.tsx:46`, `replay-code.tsx:29`) render Shiki output of repo-owned strings; no visitor input is ever rendered into HTML.
+- **Env:** `client: {}` in `env.ts`; every `NEXT_PUBLIC_*` in the extended keys is a public identifier (PostHog key/host, GA id, Sentry DSN, URLs). Secrets are server-only and validated at boot. Sentry has `maskAllText`, `blockAllMedia`, and no `sendDefaultPii`.
+- **OG input:** `clampTitle` strips `\p{Cc}\p{Cf}` and caps length; fonts are read once per instance from a fixed path — no path or URL is attacker-influenced, so no SSRF or traversal.
+- **Errors:** `error.tsx` shows a fixed line; API 500s return fixed JSON; `SyntaxError` on bad JSON is mapped to a 400 without echo.
+
+### Recommendations (priority order)
+
+1. Durable per-address cap on confirmation mail (Mongo counter or exponential cooldown) — the one finding with a real victim.
+2. Vercel WAF rate-limit rules on `/api/confirm`, `/api/og`, and `/contact` POST — replaces both the absent Arcjet and the memory limiter's gaps without code.
+3. Content-Type/Origin check on `/api/confirm`; clear the token on confirm.
+4. The small hygiene items: `poweredByHeader: false`, CR/LF rule on `name`, drop the domain from validation logs, remove the `/ingest` rewrites, inline `@zanreal/nemo`, coalesce `rebakeShell`.</result>
+<usage><subagent_tokens>109990</subagent_tokens><tool_uses>17</tool_uses><duration_ms>374180</duration_ms></usage>
+</task-notification>
+
+---
+
+1. OK
+2. I installed upstash on Vercel and connected it to the web project. Envs are present for preview and prod only. Instead of the Vercel WAF, use @upstash/redis (install as a separate package if not available). Here's an example snippet:
+
+import { Redis } from '@upstash/redis';
+import { NextResponse } from 'next/server';
+
+// Initialize Redis
+const redis = Redis.fromEnv();
+
+export const POST = async () => {
+  // Fetch data from Redis
+  const result = await redis.get("item");
+  
+  // Return the result in the response
+  return new NextResponse(JSON.stringify({ result }), { status: 200 });
+};
+
+Use the official docs for reference and install @upstash/ratelimit for the actual rate limiting.
+
+3. Yes, single-locale for now.
+4. OK.
+5. OK.
+6. What is a signed title? I've been thinking about removing the ability to enter your own text and have it render because users can enter anything including profanity and then share that, too.
+
+On the suggestions:
+Fix all, except leave the nuqs package. If it's not being used yet, it should be. We're already using search params for demos.

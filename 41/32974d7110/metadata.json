@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "4132974d7110",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "apps/web/app/api/reconcile/route.test.ts",
+    "apps/web/app/api/reconcile/route.ts",
+    "apps/web/app/api/webhooks/resend/route.test.ts",
+    "apps/web/app/api/webhooks/resend/route.ts",
+    "apps/web/lib/subscribers.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/41/32974d7110/0/metadata.json",
+      "transcript": "/41/32974d7110/0/full.jsonl",
+      "compact_transcript": "/41/32974d7110/0/transcript.jsonl",
+      "content_hash": "/41/32974d7110/0/content_hash.txt",
+      "prompt": "/41/32974d7110/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 642,
+    "cache_creation_tokens": 170095,
+    "cache_read_tokens": 3237081,
+    "output_tokens": 21091,
+    "api_call_count": 21
+  }
+}
