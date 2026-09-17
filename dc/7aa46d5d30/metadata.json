@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "dc7aa46d5d30",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/boundary/boundary-panel.tsx",
+    "apps/web/app/[locale]/(playground)/boundary/demo.tsx",
+    "apps/web/app/[locale]/(playground)/code-block.tsx",
+    "apps/web/app/[locale]/(playground)/demo-section.tsx",
+    "apps/web/app/[locale]/(playground)/locked-look.ts",
+    "apps/web/app/[locale]/(playground)/mutation/demo.tsx",
+    "apps/web/app/[locale]/(playground)/mutation/mutation-panel.tsx",
+    "apps/web/app/[locale]/(playground)/shell/demo.tsx",
+    "apps/web/app/[locale]/(playground)/shell/rebake-panel.tsx",
+    "apps/web/app/[locale]/(playground)/stable-stack.tsx",
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/(playground)/state/replay-code.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-panel.tsx",
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx",
+    "apps/web/app/[locale]/(playground)/stream/stream-panel.tsx",
+    "apps/web/app/[locale]/(playground)/view-switch.tsx",
+    "apps/web/app/[locale]/components/container.tsx",
+    "apps/web/app/[locale]/components/contents-nav.tsx",
+    "apps/web/app/[locale]/components/expandable.tsx",
+    "apps/web/app/[locale]/components/faqs.tsx",
+    "apps/web/app/[locale]/components/gradient.tsx",
+    "apps/web/app/[locale]/components/logo.tsx",
+    "apps/web/app/[locale]/components/navbar.tsx",
+    "apps/web/app/[locale]/components/text.tsx",
+    "apps/web/app/[locale]/lab/boundary/page.tsx",
+    "apps/web/app/[locale]/lab/caching/page.tsx",
+    "apps/web/app/[locale]/lab/chapter.tsx",
+    "apps/web/app/[locale]/lab/og-images/page.tsx",
+    "apps/web/app/[locale]/lab/server-actions/page.tsx",
+    "apps/web/app/[locale]/lab/state/page.tsx",
+    "apps/web/app/[locale]/lab/streaming/page.tsx",
+    "apps/web/app/[locale]/lab/syllabus.test.ts",
+    "apps/web/app/[locale]/lab/syllabus.ts",
+    "apps/web/app/[locale]/page.tsx",
+    "apps/web/lib/highlighter.ts",
+    "docs/design.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/dc/7aa46d5d30/0/metadata.json",
+      "transcript": "/dc/7aa46d5d30/0/full.jsonl",
+      "compact_transcript": "/dc/7aa46d5d30/0/transcript.jsonl",
+      "content_hash": "/dc/7aa46d5d30/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 160,
+    "cache_creation_tokens": 40772,
+    "cache_read_tokens": 1071007,
+    "output_tokens": 19102,
+    "api_call_count": 5
+  }
+}
