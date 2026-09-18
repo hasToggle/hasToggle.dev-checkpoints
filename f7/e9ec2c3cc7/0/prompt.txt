@@ -1,0 +1,8 @@
+Verify the recommended Sentry setup before deleting sentry.server.config.ts and sentry.edge.config.ts
+
+Remove the stale comments from state/demo and state-card.
+
+Leave everything else as-is for now.
+
+On the bug:
+Fold it into this pass. Before you fix it, explain to me in plain English what the issue is and what the change entails, so I can make an informed decision.

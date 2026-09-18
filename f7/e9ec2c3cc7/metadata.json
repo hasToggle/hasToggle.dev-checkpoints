@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "f7e9ec2c3cc7",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/simplify-web-code",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-card.tsx",
+    "apps/web/sentry.edge.config.ts",
+    "apps/web/sentry.server.config.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f7/e9ec2c3cc7/0/metadata.json",
+      "transcript": "/f7/e9ec2c3cc7/0/full.jsonl",
+      "compact_transcript": "/f7/e9ec2c3cc7/0/transcript.jsonl",
+      "content_hash": "/f7/e9ec2c3cc7/0/content_hash.txt",
+      "prompt": "/f7/e9ec2c3cc7/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 18,
+    "cache_creation_tokens": 11339,
+    "cache_read_tokens": 1200028,
+    "output_tokens": 3682,
+    "api_call_count": 9
+  }
+}
