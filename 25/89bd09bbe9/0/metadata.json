@@ -117,6 +117,37 @@
         "label": "Skill: merging-branches-safely",
         "default_collapsed": true
       }
+    },
+    {
+      "id": "claude-skill-toolu_01JDiZwcMPT8xiKrdRfoq7mB",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "remember:remember"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "c0e57952b4d9",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 623,
+        "end": 624,
+        "entry_ids": [
+          "fa4346b0-f30d-4319-b345-e83894496023"
+        ],
+        "tool_use_id": "toolu_01JDiZwcMPT8xiKrdRfoq7mB"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01JDiZwcMPT8xiKrdRfoq7mB"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: remember:remember",
+        "default_collapsed": true
+      }
     }
   ],
   "session_metrics": {
