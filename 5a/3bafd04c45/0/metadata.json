@@ -1,0 +1,126 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "5a3bafd04c45",
+  "session_id": "d00a489d-072c-464c-9d8b-e8c7d1b23a35",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-18T07:13:55.569001Z",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app/unsubscribe/leave-form.tsx",
+    "apps/web/app/unsubscribe/page.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-5",
+  "turn_id": "f97c50e21f9f",
+  "checkpoint_transcript_start": 409,
+  "transcript_lines_at_start": 409,
+  "compact_transcript_start": 63,
+  "token_usage": {
+    "input_tokens": 48,
+    "cache_creation_tokens": 29772,
+    "cache_read_tokens": 4081135,
+    "output_tokens": 12366,
+    "api_call_count": 24
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01RJTkaJ6FZJuh4tkvCW1YTA",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "superpowers:brainstorming"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "8829ef0827bb",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 31,
+        "end": 32,
+        "entry_ids": [
+          "b1292837-ba61-4c7f-9be1-5abed7cce74c"
+        ],
+        "tool_use_id": "toolu_01RJTkaJ6FZJuh4tkvCW1YTA"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01RJTkaJ6FZJuh4tkvCW1YTA"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: superpowers:brainstorming",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_019bMrMjkXLng3zEZmuEDQhT",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "resend:resend"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "8829ef0827bb",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 85,
+        "end": 86,
+        "entry_ids": [
+          "2d6bef43-f0ed-46c6-91f5-ae891f00e8c2"
+        ],
+        "tool_use_id": "toolu_019bMrMjkXLng3zEZmuEDQhT"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_019bMrMjkXLng3zEZmuEDQhT"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: resend:resend",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-09-18T07:13:55.529606Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 24,
+    "total_committed": 0,
+    "total_lines_changed": 29,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 337,
+      "user_lines_removed": 24,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/ThPARa/session-transcript-aa448f85-60ca-4ebe-aefc-bdbfdaea3246.md": 261,
+        ".context/attachments/comments/github-general-5714903655.md": 15,
+        "apps/web/app/unsubscribe/done/page.tsx": 4,
+        "apps/web/app/unsubscribe/leave-form.tsx": 41,
+        "apps/web/app/unsubscribe/page.tsx": 16
+      },
+      "user_removed_per_file": {
+        "apps/web/app/unsubscribe/done/page.tsx": 5,
+        "apps/web/app/unsubscribe/page.tsx": 19
+      }
+    }
+  ]
+}

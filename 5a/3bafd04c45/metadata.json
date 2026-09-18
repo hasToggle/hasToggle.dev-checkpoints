@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "5a3bafd04c45",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/web/app/unsubscribe/leave-form.tsx",
+    "apps/web/app/unsubscribe/page.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/5a/3bafd04c45/0/metadata.json",
+      "transcript": "/5a/3bafd04c45/0/full.jsonl",
+      "compact_transcript": "/5a/3bafd04c45/0/transcript.jsonl",
+      "content_hash": "/5a/3bafd04c45/0/content_hash.txt",
+      "prompt": "/5a/3bafd04c45/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 48,
+    "cache_creation_tokens": 29772,
+    "cache_read_tokens": 4081135,
+    "output_tokens": 12366,
+    "api_call_count": 24
+  }
+}
