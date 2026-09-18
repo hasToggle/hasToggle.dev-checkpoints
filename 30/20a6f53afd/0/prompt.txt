@@ -1,0 +1,347 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/chengdu directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+You're on a new branch with a placeholder name. Conductor will automatically rename it in the background to match your task.
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Use /agent-skills:code-simplify on the web project.
+
+---
+
+<task-notification>
+<task-id>a7fea3fe3846d95a7</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-chengdu/3d2703e9-eede-486a-bc54-ede0e54acc61/tasks/a7fea3fe3846d95a7.output</output-file>
+<status>completed</status>
+<summary>Agent "Simplify scan: shell/state/boundary/mutation" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I found nine behaviour-preserving simplifications in the four chapters. I ran no builds or tests, so nothing here is verified beyond reading the code and grepping.
+
+Only copy, reducer and parser tests exist in these chapters (`rebake-copy.test.ts`, `rebake-state.test.ts`, `state/copy.test.ts`, `boundary/copy.test.ts`, `mutation/copy.test.ts`, `count-parser.test.ts`). No component or e2e test renders any panel or card. Wherever a finding says "no test", verification means `tsc --noEmit`, Biome and a look at a preview deploy.
+
+All paths are under `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/app/[locale]/(playground)/`.
+
+## Findings, ranked by value
+
+### 1. `state/source.ts:1-23` — export that only feeds one template (high confidence)
+- **Pattern:** `STATE_CARD_SOURCE` has a leading and trailing newline. Its only reader in `apps/web`, `packages` or `docs` is line 23, which calls `.trim()` and prepends a header to build `STATE_SOURCE`. The split dates from commit 746fc10c, when the drawer showed two cards.
+- **Before:** `export const STATE_CARD_SOURCE = \`\n"use client"; … }\n\`;` followed by `export const STATE_SOURCE = \`// state-card.tsx\n${STATE_CARD_SOURCE.trim()}\`;`
+- **After:** one literal, `export const STATE_SOURCE = \`// state-card.tsx\n"use client";\n\nimport { useState } from "react"; … }\`;`, keeping the doc comment.
+- **Why it preserves behaviour:** the resulting string is byte-identical and nothing else imports the removed name.
+- **Tests:** none reference either constant. A one-off `console.log(STATE_SOURCE === old)` would confirm.
+
+### 2. `shell/rebake-copy.ts:130-143` — nested `if` with a duplicated return (high confidence)
+- **Before:**
+  ```ts
+  if (state.phase === "refetched") {
+    // A different visitor's request may have … nothing left to compare.
+    if (state.privateId === currentId) { return MACHINERY_SERVED_READOUT; }
+    return { caption: REVEALED_CAPTION, … };
+  }
+  return MACHINERY_SERVED_READOUT;
+  ```
+- **After:**
+  ```ts
+  // (same why-comment, kept)
+  if (state.phase === "refetched" &amp;&amp; state.privateId !== currentId) {
+    return { caption: REVEALED_CAPTION, detail: revealedDetail(state.privateId, currentId), label: "served" };
+  }
+  return MACHINERY_SERVED_READOUT;
+  ```
+- **Why it preserves behaviour:** the truth table is unchanged, and TypeScript still narrows `privateId` through the `&amp;&amp;`.
+- **Tests:** `rebake-copy.test.ts` covers readout per phase, including the same-id case.
+
+### 3. `shell/rebake-panel.tsx:48-58, 91, 260-262, 267-273` — label choice made twice (high confidence, no test)
+- **Pattern:** the panel picks `machinery ? EXPIRE_LABELS : FUSED_LABELS` and indexes `[1]` or `[0]`. `Deck` then repeats the same ternary for `variants`. Both `askLabel` and `rebakeLabel` are fully determined by `isRebaking`, `isFetching` and `machinery`, the last two of which `Deck` already receives.
+- **Change:**
+  - Drop the `askLabel` and `rebakeLabel` props.
+  - Add `isRebaking`.
+  - Inside `Deck`, compute `const rebakeLabels = machinery ? EXPIRE_LABELS : FUSED_LABELS;`.
+  - Pass `value={rebakeLabels[isRebaking ? 1 : 0]}` with `variants={rebakeLabels}`, and `value={ASK_LABELS[isFetching ? 1 : 0]}`.
+  - Delete panel lines 260-262.
+- **Why it preserves behaviour:** the props reaching `StableStack` are identical. `Deck` is not exported.
+- **Optional naming:** tuples like `{ idle, busy }` instead of `[0]` and `[1]` would read better. That part is taste.
+
+### 4. `boundary/server-card.tsx:82-144` — same condition tested twice in JSX (medium confidence, no test)
+- **Pattern:** `facts.commit ?` appears at line 84 and again at line 127. The commit branch nests a fragment, a `&lt;p&gt;` and another ternary, four levels deep.
+- **Change:** return early for the fallback, then write the commit path flat:
+  ```tsx
+  if (!facts.commit) {
+    return (
+      &lt;div className="flex flex-col gap-2"&gt;
+        &lt;p className="font-display …"&gt;Rendered in Node.js &lt;span …&gt;{facts.nodeVersion}&lt;/span&gt;&lt;/p&gt;
+        &lt;p className="text-foreground/75 text-sm/6"&gt;at {formatClock(…)}, then cached — …&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+  const { commit } = facts;
+  ```
+- **Why it preserves behaviour:** the DOM is the same for both outcomes.
+- **Risk:** the JSX whitespace (`{" "}` and `&amp;#32;`) must be carried over verbatim. That is the reason for medium.
+
+### 5. `state/state-card.tsx:122-186` — 65-line handler doing two jobs (medium confidence, no test)
+- **Pattern:** `handleClick` holds the press itself (guard, `setCount`, `setSettling`, the non-narrate shortcut) and the whole replay choreography (four scheduling blocks).
+- **Change:** move lines 135-185 verbatim, comments included, into a sibling closure `const startReplay = (next: number) =&gt; { … }`. `handleClick` then ends with `if (!narrate) { setShown(next); return; } startReplay(next);`.
+- **Why it preserves behaviour:** the statements and their order are unchanged, run synchronously from the same handler. It stays inside the component, so every ref and setter is still in scope.
+- **Risk:** the existing `noJsxPropsBind` ignore still applies. The React Compiler is on (`next.config.ts:10`), but this does not change what it sees semantically.
+
+### 6. `boundary/card.tsx:24-43` with `boundary/copy.ts:16-25` — unreachable "client" branches (medium confidence, your call)
+- **Pattern:** `SIDES` and `DIRECTIVE_LINES` map both beats to the same value. They are leftovers from the four-beat design (commits ca7d780a, 7b8d8dd5, 725eb7ab). As a result `side` is always `"server"`, and both orange arms in `FileCard` (lines 31 and 40) can never render.
+- **Minimal change:** in `card.tsx`, drop `SIDES` and the two ternaries, hard-code the cyan classes and `SIDE_NAMES.server`, and render a single `"// no directive"` constant.
+- **Test impact:** `boundary/copy.test.ts:14-22` pins both tables as a statement of the lesson ("card.tsx stays on the server in both states"). Removing the tables means deleting or rewording those two tests.
+- **Alternative:** if the tables are kept as lesson-as-data, leave them and add one line in `card.tsx` saying the orange arm is reserved. Rendered output is unchanged either way.
+
+### 7. `state/card.tsx:40-49` and `boundary/card.tsx:55-64` — ten duplicated lines (medium confidence, low-to-medium value)
+- **Pattern:** the facts `&lt;ul&gt;` is identical in both files apart from padding classes (`pt-3` versus `px-4 py-3 sm:px-5`). The cyan and orange pill class strings are also identical in both files.
+- **Change:** extract `FactRows({ facts, className })` into a playground-level file. The `ul` keeps `grid gap-1 border-foreground/10 border-t font-mono text-muted-foreground text-xs/5` plus the passed className.
+- **Why it preserves behaviour:** both files are Server-compatible (neither has `"use client"`). Tailwind class order inside `cn` does not affect output.
+- **Note:** only two call sites exist, and the state card's doc comment says it is "the boundary demo's card, re-cut". This is a modest win.
+
+### 8. `shell/rebake-panel.tsx:175-210` — two near-identical `startRebake` bodies (low-to-medium confidence, no test)
+- **Change:** one transition with one try/catch, keeping both why-comments:
+  ```ts
+  startRebake(async () =&gt; {
+    let rebakedAt: string;
+    try { ({ rebakedAt } = await rebakeShell()); } catch { setRebakeFailed(true); return; }
+    if (machinery) { dispatch({ at: rebakedAt, idAtExpiry: currentId, type: "expired" }); return; }
+    dispatch({ type: "fused" });
+    router.refresh();
+  });
+  ```
+- **Why it preserves behaviour:** the only difference is that the machinery `dispatch` moves outside the `try`, and a reducer dispatch does not throw.
+- **Note:** the current two-path layout mirrors the demo's two views, and the comments depend on it. I would report this one but not push for it.
+
+### 9. Three small items (high confidence on the first two)
+- **`rebake-panel.tsx:275`** — in `revealed={machinery &amp;&amp; state.phase === "refetched"}`, the `machinery &amp;&amp;` is redundant. The `RebakeState` union only allows `refetched` under `mode: "machinery"`, and `Deck` only renders the chip inside its machinery branch.
+- **`shell/actions.ts:7`** — `RebakeResult` is exported but only used on line 23. Drop the `export`.
+- **`mutation/count-parser.ts:15-16`** — `Math.min(parsed, MAX_COUNT)` cannot bind today, because `/^\d{1,4}$/` already caps the value at 9999, which equals `MAX_COUNT`. The "caps at MAX_COUNT" test passes either way. Low confidence: it may be deliberate insurance against someone lowering `MAX_COUNT`. If it stays, a short comment saying so is the better fix.
+
+## Considered and deliberately not reported
+- **Banked code:** `state/var-card.tsx`, `VAR_CARD_SOURCE`, and `varProofDeclared` / `varProofClicked` have no callers. They are explicitly held for the /learn lesson (file header, design.md §5) and the copy functions are tested. This is not dead code.
+- **`PressReceipt.count`:** set in `mutation/actions.ts` and `GHOST_RECEIPT` but never read, since `RequestCard` ignores it. It mirrors the return value shown in the `MUTATION_SOURCE` drawer, so removing it would make the drawer less truthful. Leave it.
+- **Visible behaviour:** the duplicate `return { rebakedAt }` in `shell/actions.ts`, the `=== true` and `!== null` ref guards, and the `useCallback`s in the panels are each documented or tied to a lint rule or side-effect ordering.
+- **Layout-bearing markup:** the ghost stacks, `&lt;form&gt;&lt;div&gt;` wrappers and `key` remounts all carry rendered output.
+
+## Stale comments (accuracy, not simplification)
+- `shell/rebake-panel.tsx:198` says the button stays "Re-baking…". The label is "Revalidating…".
+- `state/demo.tsx:51-52` says "narrate mode and the re-render pass are its view state". `StatePanel` has no pass state any more; `panelPass` only survives in the banked `VarCard`.
+- `state/state-card.tsx:41-42` describes a "press (annotated with the closure's genuinely stale read)" step. The replay has three notes (function, `useState`, paint) and no press annotation.
+
+## Already clean
+- **shell:** `index-value.tsx`, `baked-stamp.tsx`, `bake.ts`, `source.ts`, `rebake-state.ts`, `demo.tsx`.
+- **state:** `state-panel.tsx`, `replay-code.tsx`, `copy.ts`.
+- **boundary:** `index-value.tsx`, `copy-button.tsx`, `source.ts`, `demo.tsx`, `boundary-panel.tsx`.
+- **mutation:** every file, apart from the low-confidence `parseCount` note in finding 9.</result>
+<usage><subagent_tokens>94469</subagent_tokens><tool_uses>12</tool_uses><duration_ms>137676</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a9194494dec54b093</task-id>
+<tool-use-id>toolu_01RtjrkWhrhMGdGGuFk8CAvV</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-chengdu/3d2703e9-eede-486a-bc54-ede0e54acc61/tasks/a9194494dec54b093.output</output-file>
+<status>completed</status>
+<summary>Agent "Simplify scan: stream/image/shared playground" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I found eight behaviour-preserving simplifications in scope, most of them small; the rest of the scope is clean. I ran no tests, typecheck or build (read-only audit). Confirmation came from grep across `apps/web` and `packages`, plus `git log`. A shared-pieces refactor landed on 2026-09-17 (5246931a) and already removed most of what this kind of audit finds.
+
+Paths below are relative to `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/app/[locale]/(playground)/`.
+
+The only bun tests in scope are `stream/{copy,rows,parse-run-id,search-params}.test.ts`. No component has a test, so for every `.tsx` finding the gate is `tsc --noEmit` plus `bun run check`.
+
+## Findings, ranked by value
+
+### 1. `image/og-demo.tsx:51` and `:102` — the endpoint string is built twice
+- **Pattern:** `endpoint` is derived at L51, then the same template literal is rebuilt inside the fetch effect at L102. A reader has to check that the fetched URL and the displayed or linked URL are the same one.
+- **Change:** in the effect, `fetch(endpoint)`, and deps `[title, armed]` become `[endpoint, armed]`.
+- **Why it preserves behaviour:** `endpoint` is a pure, injective function of `title`, so the effect re-runs on exactly the same renders and fetches the same URL.
+- **Tests:** none.
+- **Confidence:** high.
+
+### 2. `live-panel.tsx:5,37,52` and `code-block.tsx:23,34` — props no caller passes
+- **Pattern:** no `LivePanel` caller passes `className` (mutation, shell, boundary, stream, state, image), and nothing outside `(playground)` imports it. `CodeBlock`'s `lang` is never passed, so it is always `"tsx"`.
+- **Change:**
+  - Drop `className` from `LivePanelProps`, the destructure and the `cn(...)` call.
+  - Drop `lang` from `CodeBlockProps` and call `highlight(code, "tsx")`.
+  - Keep `highlight`'s own `lang` parameter, because `state/replay-code.tsx:12` uses it.
+- **Why it preserves behaviour:** `cn(a, b, undefined)` produces the same string as `cn(a, b)`, and the default value was the only value ever used.
+- **Tests:** none.
+- **Confidence:** high. This matches what 5246931a already did ("Unused components and props go").
+
+### 3. `reference-bar.tsx:4` — stale comment
+- **Pattern:** `/** The code drawer (a CodeBlock with variant="bar"). */`. `CodeBlock` has no `variant` prop. The comment arrived in 72accf86, and no `variant` remains anywhere on `CodeBlock`.
+- **Change:** `/** The code drawer: a CodeBlock. */`.
+- **Why it preserves behaviour:** comment only. It currently sends a new reader looking for a prop that does not exist.
+- **Confidence:** high.
+
+### 4. `stream/timeline.tsx:136-146` — nested conditional inside the axis JSX
+- **Pattern:** `ms === 0 ? {left: 0} : { left, transform: ms === TIMELINE_MAX_MS ? … : … }`, inline in a `style` prop.
+- **Change:** lift it to a module-level helper above `Axis`, call it as `style={tickLabelStyle(ms)}`, and keep a "why" line on it (first label flush left, last flush right, the rest centred):
+  ```ts
+  function tickLabelStyle(ms: number): React.CSSProperties {
+    if (ms === 0) return { left: 0 };
+    const shift = ms === TIMELINE_MAX_MS ? "-100%" : "-50%";
+    return { left: `${trackPercent(ms)}%`, transform: `translateX(${shift})` };
+  }
+  ```
+- **Why it preserves behaviour:** it returns identical style objects for every tick.
+- **Tests:** `rows.test.ts` covers `trackPercent` and the ticks; the helper itself is untested.
+- **Confidence:** high.
+
+### 5. `stream/stage.tsx:28-36` and `stream/row.tsx:139-147` — the same 9-line `LandedRow` map in two files
+- **Pattern:** `GroupRows` and `StageGhosts` both map `STREAM_ROWS` to `&lt;LandedRow … landedMs={X} /&gt;`, passing each row's fields one by one. `stage.tsx:105-109`, `:113-119`, `:152-157` and `row.tsx` forward the same three fields the same way. `source.ts:21-22`, the code the visitor is shown, already writes `{...row}`.
+- **Change, part (a):** add `export function LandedRows({ landedMs }: { landedMs: number })` to `row.tsx`, holding the map. `StageGhosts` then returns `&lt;LandedRows landedMs={SLOWEST_MS} /&gt;` and `GroupRows` renders `&lt;LandedRows landedMs={landedMs} /&gt;`.
+- **Change, part (b), optional:** replace `delayMs=… label=… short=…` with `{...row}`, keeping `key` explicit.
+- **Why it preserves behaviour:** these are server components, so the extra component layer emits no DOM. Keys and their order are unchanged. `StreamRowConfig` has exactly the three fields `RowProps` expects.
+- **Trade-off for (b):** a spread does not trigger excess-property checks. A future field added to `StreamRowConfig` would be forwarded silently.
+- **Tests:** none.
+- **Confidence:** high for (a), medium for (b).
+
+### 6. `stream/search-params.ts:21` and `stream/rows.ts:1` — exports nothing imports
+- **Pattern:** `streamSearchParams` and `StreamRowConfig` are referenced only inside their own files. Grep finds no other use, tests included.
+- **Change:** drop the `export` keyword on both.
+- **Why it preserves behaviour:** no importer exists.
+- **Tests:** the search-params and rows tests import other names only.
+- **Confidence:** high; value is low.
+
+### 7. `stream/timeline.tsx:123` and `stream/stream-panel.tsx:54` — `cn()` doing no work
+- **Pattern:** `className={cn(RESPONSE_ONLY)}` wraps a single constant. `Segment` recomputes `cn(SEGMENT_LOOK, "first:rounded-l-lg last:rounded-r-lg")` on every render.
+- **Change:** use `className={RESPONSE_ONLY}`. Move the two `rounded` classes into `SEGMENT_LOOK` as its last argument and use `className={SEGMENT_LOOK}`.
+- **Why it preserves behaviour:** twMerge returns a single string unchanged. Nothing in `SEGMENT_LOOK` conflicts with the `rounded` classes, so the merged string is identical down to class order.
+- **Confidence:** high; value is low.
+
+### 8. `stream/parse-run-id.ts:12-19` — two identical guards and an unreachable clamp
+- **Pattern:** two back-to-back `return 0` guards. `Math.min(parsed, MAX_RUN_ID)` can never clamp, because `/^\d{1,3}$/` already limits the value to 999, which equals `MAX_RUN_ID`.
+- **Change:** `if (!(raw &amp;&amp; RUN_ID_PATTERN.test(raw))) return 0; return Number.parseInt(raw, 10);`
+- **Why it preserves behaviour:** the output is identical for every input.
+- **Tests:** `parse-run-id.test.ts` covers all branches, including "999" and "12345".
+- **Confidence:** high for merging the guards. Medium for dropping `Math.min`: it guards against someone lowering `MAX_RUN_ID` without touching the regex, so keep it if you value that, perhaps with a one-line comment saying so.
+
+## Considered and not recommended
+- **IntersectionObserver arm-once block** (`og-demo.tsx:61-91` and `stage-signals.tsx:78-107`, about 12 similar lines). The two differ in what they observe (own node vs `parentElement`), in options, in the `started` guard and deps, and in the order of `disconnect` and the callback. A shared hook would need four parameters and ref-stable callbacks, which is more to read than the duplication. Both copies carry "why" comments.
+- **Splitting `OgDemo`** (215 lines) into `useArmOnApproach` and `useOgImage` hooks. It would preserve behaviour if effect order is kept, but there are no tests and the big explanatory comments are tied to their position in the file.
+- **`StageRendered` and `StageSettled`** are near-twins, but their doc comments explain that they mount at different moments. Keep both.
+- **`StageSignalProvider`** keeps the context private to its file. **`ViewSwitch`** is the shared piece design.md describes. Its `disabled` prop is used by `shell/rebake-panel.tsx:289`, and `StableStack`'s `value` prop is used there too.
+- **Optional props every caller passes.** `DemoSection`'s `meta?` is passed by all current callers, and `OgDemo`'s `references?` by its only caller. Both are harmless API slack.
+
+## Clean, nothing to report
+`stream/`: demo.tsx, copy.ts, strategy.ts, source.ts, index-value.tsx, stage-signals.tsx, and stream-panel.tsx apart from finding 7. `image/`: demo.tsx, source.ts, index-value.tsx. `navigation/index-value.tsx`; its `as PerformanceResourceTiming` assertion is needed. Shared files: demo-section.tsx, hero-readout.tsx, stable-stack.tsx, view-switch.tsx, bake-swatch.tsx, format.ts (both formatters are used), section-link.tsx, inline-code.tsx, locked-look.ts.</result>
+<usage><subagent_tokens>90961</subagent_tokens><tool_uses>12</tool_uses><duration_ms>135587</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a149645415e70c346</task-id>
+<tool-use-id>toolu_018nQzZQBHGytberMTqunQo3</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-chengdu/3d2703e9-eede-486a-bc54-ede0e54acc61/tasks/a149645415e70c346.output</output-file>
+<status>completed</status>
+<summary>Agent "Simplify scan: api/lib/proxy" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I found 8 simplification opportunities, none of them large. The consent, unsubscribe and reconcile flows are already flat and well commented, so I propose nothing that touches their control flow or side-effect ordering. I ran no tests, builds or servers; this is from reading the source, `git log` and grep only.
+
+Findings, ranked by value:
+
+**1. Stale "why" comments that describe removed architecture (high confidence)**
+- `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/proxy.ts:54-57` says the i18n middleware runs "via createNEMO". Commit a73a61c0 removed `@zanreal/nemo`, and the chain is now the plain `??` sequence at lines 92-98.
+  - Reword to: "…but this proxy runs it for every matched route, causing rewrites to /en/… paths that don't exist".
+  - `apps/app/proxy.ts:14-16` also points at "apps/web for createNEMO composition". It is out of scope but just as stale.
+- `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/lib/security-headers.ts:10-16` has a parenthetical about "the `/ingest` rewrite in next-config". The same commit deleted that rewrite from `packages/next-config/index.ts`, and grep finds no `ingest` there now.
+  - Drop the parenthetical and keep the eu/eu-assets pairing explanation.
+  - That JSDoc sits on `type HttpsOrigin`, but it documents `posthogOrigins` (line 24). Move it down onto the function.
+- This changes comments only, so behavior is untouched. No tests apply.
+
+**2. `sentry.server.config.ts` and `sentry.edge.config.ts` are dead files (medium-high confidence)**
+- Both are in `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/`, 3 lines each.
+- Nothing in the repo imports them; I grepped all `.ts`, `.tsx`, `.json`, `.md` and `.mjs` files outside `node_modules`.
+- The real init path is `instrumentation.ts` → `packages/observability/instrumentation.ts`, which dynamically imports `./server` or `./edge` directly.
+- The installed `@sentry/nextjs` 10.75 looks only for `sentry.client.config.*` (`build/cjs/config/webpack.js:340`). It never auto-loads the server or edge files.
+- They date from the initial next-forge commit (734b8a77) and have not changed since.
+- Proposal: delete both. The same leftovers exist in `apps/app` and `apps/api`.
+- No tests cover this. Confirm with one preview build with `VERCEL` set before merging.
+
+**3. Extract the duplicated "add contact to the segment" call (high confidence)**
+- The same 5-line `resend.contacts.create({ email, segments: [{ id: env.RESEND_SEGMENT_ID }], unsubscribed: false })` appears in `app/api/confirm/route.ts:229-233` and `app/api/confirmed/route.ts:59-63`.
+- Proposal: add this next to `removeSubscriber` in `lib/subscribers.ts`, and call `addSubscriberContact(subscriber.email)` inside the existing `Promise.all`s:
+  ```ts
+  /** Idempotent: re-creating an existing contact is not an error. */
+  export const addSubscriberContact = (email: string) =&gt;
+    resend.contacts.create({ email, segments: [{ id: env.RESEND_SEGMENT_ID }], unsubscribed: false });
+  ```
+- The call happens at the same position in the same `Promise.all`, with the same arguments and the same return shape. Each caller still handles `.error` its own way (`parseError` versus `after(() =&gt; parseError(…))`).
+- `lib/subscribers.ts` would need to import `@/env`. Use the `@/env` alias, not a relative path, because test-preload mocks that specifier.
+- Tests mock at the `@repo/email` level in `test-preload.ts`, so `confirm/route.test.ts` and `confirmed/route.test.ts` cover it unchanged.
+
+**4. `ticketRedirect(ticket, secure: boolean)` is a boolean flag parameter (high confidence)**
+- `lib/tickets.ts:31`. Both callers compute the identical `request.nextUrl.protocol === "https:"` at `confirmed/route.ts:82-85` and `unsubscribe/route.ts:67-70`.
+- Proposal: change the signature to `ticketRedirect(ticket: Ticket, request: NextRequest)` and derive `const secure = request.nextUrl.protocol === "https:"` inside. `next/server` would need a type-only import.
+- Callers become `ticketRedirect(UNSUBSCRIBED_TICKET, request)`.
+- The `confirmedPage` wrapper then only forwards. It can be inlined at its two call sites, with its comment ("The redirect carries the ticket…") moved to the import or the first use.
+- The cookie string and the 303 are unchanged. The confirmed and unsubscribe route tests cover this; nothing tests `ticketRedirect` directly.
+
+**5. `form ?? undefined` null-to-undefined shuffle (high confidence)**
+- `app/api/unsubscribe/route.ts:43-44`.
+- Before: `const form = … ? await request.formData() : null; const id = credentials(request, form ?? undefined);`
+- After: `… : undefined; const id = credentials(request, form);`
+- The later `form?.get("List-Unsubscribe")` behaves identically for null and undefined. `unsubscribe/route.test.ts` covers it.
+- In the same file, the JSDoc at lines 9-15 describes the GET and POST route contract but is attached to the `credentials` helper. Move it to the top of the file or above `GET`.
+
+**6. Five hand-built copies of the same error envelope in the confirm route (medium confidence)**
+- `app/api/confirm/route.ts:82-101`, `275-278`, `325-338`. All are `NextResponse.json({ error: { message, name } }, { status })`.
+- Proposal:
+  ```ts
+  function errorResponse(name: string, message: string, status: number) {
+    return NextResponse.json({ error: { message, name } }, { status });
+  }
+  ```
+- `validationError(reason)` becomes `errorResponse("ValidationError", VALIDATION_MESSAGES[reason], 400)`, `emailError()` becomes a one-liner, and the 429, the 400 and the 500 become one-liners too.
+- Key order (`message`, then `name`) is preserved, so the JSON bytes are identical. `confirm/route.test.ts` covers it.
+- This is worth doing only because it shortens `POST`'s catch block from 16 lines to 5.
+
+**7. `prune` hand-rolled loop with a type assertion (medium confidence)**
+- `lib/rate-limit.ts:37-43`: a `while` loop with `(stamps[i] as number)` and a `slice`.
+- Proposal: `const prune = (stamps: number[], cutoff: number) =&gt; stamps.filter((stamp) =&gt; stamp &gt; cutoff);`
+- Stamps are pushed in `now()` order, so dropping the expired prefix and filtering give the same result.
+- The only difference is that `filter` always allocates a new array. That is safe because the caller `set`s the result back in both branches.
+- The assertion disappears. `git log -S prune` shows a single commit (92a11cd8) with no performance rationale.
+- `rate-limit.test.ts` covers it. It diverges only if an injected clock runs backwards, and I did not check whether any test does that.
+
+**8. `securityHeaders` is a pass-through wrapper (low confidence, probably leave)**
+- `lib/security-headers.ts:136-137` is `(options) =&gt; nosecone(options)`.
+- It does keep `proxy.ts` and the tests off a direct `@repo/security/middleware` import, so I lean toward leaving it.
+- If kept, `export const securityHeaders = nosecone;` is the honest form, but that is near-taste.
+
+Checked and deliberately not reported:
+- **`validateEmail`** (`lib/email-validation.ts:147`) and the `isDisposableEmail` export have no production callers since de2b52aa split the pipeline. Both test files drive the whole pipeline through `validateEmail`, including null and undefined inputs, so it is a test seam. The `typeof email !== "string"` guard serves those same tests.
+- **The dynamic `import("@/env")`** in `checkEmailDeliverability` is a documented workaround for Bun's module mocking.
+- **The two `timingSafeEqual` comparisons** (reconcile `authorized`, `verifyUnsubscribe`) are 4 lines each. They are security code that reads better kept local.
+- **`listSegmentContacts` recursion** and the two send-then-log blocks in the confirm `POST` differ in their log strings. Merging them would touch logging.
+
+Already clean, nothing to propose:
+- `app/api/webhooks/resend/route.ts`
+- `app/api/reconcile/route.ts`
+- `app/api/og/route.tsx` and `title.ts`
+- `lib/confirmation-origin.ts`
+- `lib/token.ts`
+- `lib/after-load.ts`
+- `lib/report-render-error.ts`
+- `lib/unsubscribe-link.ts`
+- `env.ts`
+- `next.config.ts`
+- `instrumentation.ts`
+- `instrumentation-client.ts`
+
+One out-of-scope aside: the header comment in `lib/rate-limit.ts:4` says "the two forms that send mail", but `rebakeShell` in `app/[locale]/(playground)/shell/actions.ts` uses the limiter too.</result>
+<usage><subagent_tokens>81911</subagent_tokens><tool_uses>22</tool_uses><duration_ms>153652</duration_ms></usage>
+</task-notification>
