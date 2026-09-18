@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "8650a0c181bb",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/fix-lighthouse-issues",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/boundary/demo.tsx",
+    "apps/web/app/[locale]/(playground)/image/demo.tsx",
+    "apps/web/app/[locale]/(playground)/mutation/demo.tsx",
+    "apps/web/app/[locale]/(playground)/reference-bar.tsx",
+    "apps/web/app/[locale]/(playground)/section-link.tsx",
+    "apps/web/app/[locale]/(playground)/shell/demo.tsx",
+    "apps/web/app/[locale]/(playground)/state/demo.tsx",
+    "apps/web/app/[locale]/(playground)/state/state-card.tsx",
+    "apps/web/app/[locale]/(playground)/stream/demo.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/86/50a0c181bb/0/metadata.json",
+      "transcript": "/86/50a0c181bb/0/full.jsonl",
+      "compact_transcript": "/86/50a0c181bb/0/transcript.jsonl",
+      "content_hash": "/86/50a0c181bb/0/content_hash.txt",
+      "prompt": "/86/50a0c181bb/0/prompt.txt",
+      "assets_manifest": "/86/50a0c181bb/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 53961,
+    "cache_read_tokens": 842659,
+    "output_tokens": 6151,
+    "api_call_count": 15
+  }
+}
