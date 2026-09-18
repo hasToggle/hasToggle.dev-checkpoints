@@ -1,0 +1,13 @@
+Pull from origin main, I merged something that may touch files you edited as well. Best to resolve any merge conflicts before pushing.
+
+---
+
+Go.
+
+---
+
+Which remaining items would you recommend fixing along, before I merge the PR?
+
+---
+
+Yes. Btw, DSN is set in prod already.
