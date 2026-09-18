@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "a1fdbd53dfaf",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/sentry-on-request-error",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/api/instrumentation.ts",
+    "apps/app/instrumentation.ts",
+    "apps/web/instrumentation.ts",
+    "packages/observability/instrumentation.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a1/fdbd53dfaf/0/metadata.json",
+      "transcript": "/a1/fdbd53dfaf/0/full.jsonl",
+      "compact_transcript": "/a1/fdbd53dfaf/0/transcript.jsonl",
+      "content_hash": "/a1/fdbd53dfaf/0/content_hash.txt",
+      "prompt": "/a1/fdbd53dfaf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 8714,
+    "cache_read_tokens": 1696839,
+    "output_tokens": 5664,
+    "api_call_count": 10
+  }
+}
