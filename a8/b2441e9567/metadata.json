@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "a8b2441e9567",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/webperf-audit-web",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/styles.css"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a8/b2441e9567/0/metadata.json",
+      "transcript": "/a8/b2441e9567/0/full.jsonl",
+      "compact_transcript": "/a8/b2441e9567/0/transcript.jsonl",
+      "content_hash": "/a8/b2441e9567/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 14537,
+    "cache_read_tokens": 1256215,
+    "output_tokens": 5812,
+    "api_call_count": 13
+  }
+}
