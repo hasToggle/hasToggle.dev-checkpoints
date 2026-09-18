@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "65367bafd5b0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/webperf-audit-web",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/fonts/Switzer-Bold.woff2",
+    "apps/web/app/fonts/index.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/65/367bafd5b0/0/metadata.json",
+      "transcript": "/65/367bafd5b0/0/full.jsonl",
+      "compact_transcript": "/65/367bafd5b0/0/transcript.jsonl",
+      "content_hash": "/65/367bafd5b0/0/content_hash.txt",
+      "prompt": "/65/367bafd5b0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 4,
+    "cache_creation_tokens": 2244,
+    "cache_read_tokens": 268599,
+    "output_tokens": 948,
+    "api_call_count": 2
+  }
+}
