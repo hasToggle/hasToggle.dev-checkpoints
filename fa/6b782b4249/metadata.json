@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "fa6b782b4249",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/sentry-volume-and-cleanup",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "apps/api/sentry.edge.config.ts",
+    "apps/api/sentry.server.config.ts",
+    "apps/app/sentry.edge.config.ts",
+    "apps/app/sentry.server.config.ts",
+    "packages/observability/client-options.ts",
+    "packages/observability/edge.ts",
+    "packages/observability/sampling.ts",
+    "packages/observability/server.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/fa/6b782b4249/0/metadata.json",
+      "transcript": "/fa/6b782b4249/0/full.jsonl",
+      "compact_transcript": "/fa/6b782b4249/0/transcript.jsonl",
+      "content_hash": "/fa/6b782b4249/0/content_hash.txt",
+      "prompt": "/fa/6b782b4249/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 12870,
+    "cache_read_tokens": 2004191,
+    "output_tokens": 8385,
+    "api_call_count": 11
+  }
+}

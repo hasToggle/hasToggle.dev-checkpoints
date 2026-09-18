@@ -1,0 +1,11 @@
+Merged. What's next?
+
+---
+
+1. Lower the rate. I'm on the free plan.
+2. OK.
+3. OK.
+4. Clarify this in plain English for an informed decision on my part.
+
+Fix the small items, too.
+Answer 4 first before starting on the Sentry config.
