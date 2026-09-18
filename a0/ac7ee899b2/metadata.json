@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "a0ac7ee899b2",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/web-review",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "packages/email/templates/chrome.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/a0/ac7ee899b2/0/metadata.json",
+      "transcript": "/a0/ac7ee899b2/0/full.jsonl",
+      "compact_transcript": "/a0/ac7ee899b2/0/transcript.jsonl",
+      "content_hash": "/a0/ac7ee899b2/0/content_hash.txt",
+      "prompt": "/a0/ac7ee899b2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 36,
+    "cache_creation_tokens": 142680,
+    "cache_read_tokens": 2285212,
+    "output_tokens": 11399,
+    "api_call_count": 18
+  }
+}

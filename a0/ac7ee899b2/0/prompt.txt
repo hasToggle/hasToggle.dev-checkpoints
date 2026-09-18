@@ -1,0 +1,16 @@
+When signing up the toast says, Check your inbox. One click confirms it. Let's have it say, Confirmation email sent. Check your inbox.
+
+When removing the email, you are redirected to the unsub page with this content:
+
+Leave the waitlist?
+One press removes this address from the list and from the mail service. Nothing is kept. Until you press, nothing happens
+
+Keep the title, but the paragraph needs a new copy. The page is entirely empty, no header or footer, and I feel like we need to give the user some orientation in that empty space. We should, briefly, re-introduce hasToggle and then say that the button will remove them from the list and mail service. Give me a copy back before you apply anything.
+
+What's more, the button doesn't seem to have any loading state. I clicked it, waited, and then got forwarded to the done page. That copy we need to change as well. Give me a copy before applying anything.
+
+And as for the OPF setting, remove it entirely from pushing, so it doesn't block anymore.
+
+---
+
+Oh, and the "leave it here" underline in the email is drawing too much attention. It's the only stylized piece. Do stylize it, but in a way that doesn't make users want to click it.
