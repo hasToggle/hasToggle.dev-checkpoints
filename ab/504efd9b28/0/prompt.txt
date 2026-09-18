@@ -28,3 +28,15 @@ bash /tmp/ab.sh &gt; /tmp/ab.txt 2&gt;&amp;1; cat /tmp/ab.txt" completed (exit c
 All good. Merged.
 
 Do a follow-up check on prod now. Main redeployed with our changes and DSN on.
+
+---
+
+Do I need Replay at all? What's it for, replaying user interaction?
+
+---
+
+Yes.
+
+---
+
+Create a new branch for it
