@@ -1,0 +1,139 @@
+<task-notification>
+<task-id>a97e39f68a9fcd652</task-id>
+<tool-use-id>toolu_01WMqp4ugMbh2cfNhMcVGKhw</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-chengdu/3d2703e9-eede-486a-bc54-ede0e54acc61/tasks/a97e39f68a9fcd652.output</output-file>
+<status>completed</status>
+<summary>Agent "Simplify scan: pages/components/lab" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>I found 9 behaviour-preserving simplifications in the in-scope files under `apps/web/app` and `apps/web/components`. `apps/web/hooks` does not exist. Nothing was edited and nothing was run; every "dead" claim was checked with `git grep` across `apps/web` and `packages`.
+
+There are no component render tests in `apps/web`. For most findings the only gate is native `tsc` (turbo `typecheck` and `next build`). Tests that touch a finding are named. Paths below are relative to `/Users/eric/conductor/workspaces/hasToggle.dev/chengdu/apps/web/`.
+
+## Findings, ranked by value
+
+### 1. `noMarker` is a boolean prop that has never done anything
+- **Where:** `app/[locale]/components/meta-aside.tsx:6,13,65-69` and `app/[locale]/components/hero.tsx:67`.
+- **Pattern:** dead prop. The only caller is `&lt;MetaAside noMarker variant="block"&gt;`. The `block` branch returns early and never reads `noMarker`. In the original file at commit f49f91e8 the `block` variant already ignored the prop.
+- **Change:**
+  - `hero.tsx:67` becomes `&lt;MetaAside variant="block"&gt;`.
+  - In `meta-aside.tsx`, delete the prop from the interface and the destructuring.
+  - Turn `{!noMarker &amp;&amp; (&lt;span …&gt;{"//"}&lt;/span&gt;)}` into the unconditional `&lt;span&gt;`.
+- **Why it preserves behaviour:** the hero output is byte-identical. Every inline caller already gets the marker because the prop defaults to `false`.
+- **Tests:** typecheck only.
+- **Confidence:** high.
+
+### 2. The same aside-link class string appears six times
+- **Where:**
+  - `app/[locale]/lab/chapter.tsx:17-18` (already a constant, `ASIDE_LINK_CLASS`)
+  - `app/[locale]/page.tsx:120,130`
+  - `app/[locale]/components/faqs.tsx:42,53`
+  - `app/[locale]/contact/page.tsx:61`
+- **Pattern:** the literal `"underline decoration-ht-cyan-700/40 underline-offset-2 transition-colors hover:decoration-ht-cyan-700"` is repeated. `chapter.tsx` has already named it.
+- **Change:** export the constant from one place, for example next to `MetaAside` in `meta-aside.tsx` since all six sit inside or beside a MetaAside or FAQ answer. Use `className={ASIDE_LINK_CLASS}` at the five literal sites.
+- **Why it preserves behaviour:** the class string is identical, and Tailwind still sees the full literal in source.
+- **Tests:** typecheck only.
+- **Confidence:** high.
+
+### 3. The OG/Twitter metadata block is copied five times
+- **Where:**
+  - `app/[locale]/page.tsx:52-64`
+  - `app/[locale]/lab/page.tsx:29-41`
+  - `app/[locale]/blog/page.tsx:16-28`
+  - `app/[locale]/contact/page.tsx:14-26`
+  - `app/[locale]/lab/chapter.tsx:24-36`
+- **Pattern:** `openGraph: { images: [{ height: 630, url: ogImageUrl(X), width: 1200 }] }, twitter: { card: "summary_large_image" }` — 12 identical lines in each file, differing only in the title passed.
+- **Change:** in `app/api/og/title.ts`, beside `ogImageUrl`, add:
+  ```ts
+  export function ogCard(title: string): Pick&lt;Metadata, "openGraph" | "twitter"&gt; {
+    return {
+      openGraph: { images: [{ height: 630, url: ogImageUrl(title), width: 1200 }] },
+      twitter: { card: "summary_large_image" },
+    };
+  }
+  ```
+  Each site becomes `{ description, title, ...ogCard(PAGE_OG_TITLES.lab) }`.
+- **Why it preserves behaviour:** the metadata object is the same; only key order changes.
+- **Tests:** `app/api/og/title.test.ts` sits next to it. A one-line test for `ogCard` would be cheap.
+- **Confidence:** high.
+
+### 4. Two unused `MarketingButton` variants
+- **Where:** `app/[locale]/components/marketing-button.tsx:5-12` (`brand`) and `25-31` (`secondary`).
+- **Pattern:** dead code. Every caller uses the default `primary` or `variant="outline"`. No caller passes a dynamic `variant={…}`; I checked the multi-line call sites too.
+- **Change:** delete the two entries. `keyof typeof variants` narrows by itself.
+- **Why it preserves behaviour:** nothing renders them, so no rendered element loses classes.
+- **Tests:** typecheck would catch any missed caller.
+- **Confidence:** high.
+
+### 5. `Sidebar` has a dead `tags` prop and a pointless `async`
+- **Where:** `components/sidebar.tsx:1,9,13,17,46-53`.
+- **Pattern:** both callers pass only `authors`, `date`, `readingTime` and `toc`. Nobody passes `tags`. `capitalize` is imported solely for that branch. The component is `async` but awaits nothing; that dates from the next-forge initial commit and carries no "why" comment.
+- **Change:** drop the `tags` prop, its branch, the `capitalize` import, and `async`.
+- **Why it preserves behaviour:** the branch is unreachable. Both call sites are inside `"use cache"` server components, so a synchronous child renders identically.
+- **Tests:** typecheck.
+- **Confidence:** high for `tags`, medium-high for `async`.
+
+### 6. The Navbar `variant` prop only ever has one value
+- **Where:**
+  - `app/[locale]/components/navbar.tsx:10,18,20,31,37,47,54`
+  - `app/[locale]/components/plus-grid.tsx:3,17,21,27-30,65,69,77-88,97,101,107-108`
+- **Pattern:** dead branch. All seven `&lt;Navbar&gt;` call sites pass `variant="light"`, which is also the default. `variant="dark"` has zero hits anywhere. The footer never passes a variant to the PlusGrid components.
+- **Change:**
+  - Remove `variant` from `Navbar` and `Nav`, and drop the attribute at the seven call sites.
+  - Inline `text-foreground` and `fill="var(--foreground)"`.
+  - Optionally remove `variant` from `PlusGridRow`, `PlusGridItem` and `PlusGridIcon`, keeping the light strings.
+  - Un-export `PlusGridIcon`, which is used only inside its own file.
+- **Why it preserves behaviour:** only the light class strings are ever emitted today.
+- **Caveats:** the "light/dark name the section band" comment in `plus-grid.tsx` is a why-comment attached to this prop, so it goes with the prop or not at all. I did not propose removing the `PlusGrid` wrapper itself: it renders `class=""` in the navbar, and swapping it for a bare `&lt;div&gt;` would change the DOM.
+- **Tests:** typecheck.
+- **Confidence:** medium. It is safe, but it removes a band-colour option someone may want later; doing only the Navbar half is the conservative cut.
+
+### 7. The "+ topic" list is duplicated
+- **Where:** `app/[locale]/page.tsx:94-106` and `app/[locale]/lab/page.tsx:169-181`.
+- **Pattern:** 12 identical lines. The only difference is `mt-14` versus `mt-4` on the `&lt;ul&gt;`.
+- **Change:** one small component, for example `components/topic-list.tsx`:
+  ```tsx
+  export function TopicList({ className, topics }: { className?: string; topics: readonly string[] })
+  ```
+  It holds the shared `ul` classes via `cn(shared, className)`. The call sites become `&lt;TopicList className="mt-14" topics={STILL_TO_BUILD} /&gt;` and `&lt;TopicList className="mt-4" topics={planned.map((e) =&gt; e.topic)} /&gt;`. After the change, the `PlannedTopic` type predicate in `lab/page.tsx` could become a plain filter, but that part is optional.
+- **Why it preserves behaviour:** same elements, same classes, and the keys are already the topic string in both places.
+- **Risk:** `cn` (tailwind-merge) can reorder classes. Put the margin class last in the shared literal order, or accept a reordered `class` attribute.
+- **Tests:** `lab/syllabus.test.ts` covers the data, not the markup.
+- **Confidence:** medium.
+
+### 8. The interior-page frame is copied across five files
+- **Where:**
+  - `app/[locale]/lab/page.tsx:196-216,233-238`
+  - `app/[locale]/blog/page.tsx:49-69,106-111`
+  - `app/[locale]/contact/page.tsx:31-51,68-73`
+  - `app/[locale]/components/not-found-page.tsx:15-35,43-47`
+  - `app/[locale]/error.tsx:26-46,55-59`
+- **Pattern:** each file repeats about 20 lines:
+  - the `overflow-x-clip` div, then `Container` with `Navbar`
+  - `main`, then a `Container` with the `pt-16 …` padding
+  - the rail grid with the empty `aria-hidden` cell
+  - `Subheading as="div"`, the `Heading as="h1"` class string, and the lede `&lt;p&gt;` class string
+- **Change:** a `PageFrame({ eyebrow, title, lede, footer = true, headingClassName, children })` in `components/`. The copy is passed through as props and is not altered.
+- **What blocks a naive version:**
+  - `error.tsx` is a client component with no Footer. Footer is an async `use cache` server component, so it has to be passed as a slot or omitted, not imported inside the frame.
+  - The lab heading adds `max-w-4xl`.
+  - The blog page puts `JsonLd` before the navbar.
+- **Why it preserves behaviour:** identical DOM, provided those three variations are carried as props or slots.
+- **Tests:** none; this needs a visual or DOM diff on the preview deployment.
+- **Confidence:** medium-low. It is the largest duplication in scope, but three of the five sites need an escape hatch. Extracting only the rail grid wrapper and the two shared class strings would be the lower-risk version. `confirmed/page.tsx` and `unsubscribe/done/page.tsx` share their whole layout, but at about 15 lines each it sits on the edge of worth doing.
+
+### 9. Small items, each high confidence
+- **`app/[locale]/components/faqs.tsx:6-10` and `73-81`:** the FAQ shape is declared twice. Declare `interface Faq` once and type `FaqItem(props: Faq)`.
+- **`app/[locale]/error.tsx:48`:** `type="button"` is redundant, because `MarketingButton` already sets it on its `&lt;button&gt;` branch (`marketing-button.tsx:66`).
+- **`app/[locale]/contact/actions/schema.ts:8,20`:** `contactSchema` and `ContactInput` are exported but used only inside this file; the test imports only `parseContact`. Un-export both. `SyllabusEntry` (`lab/syllabus.ts:86`) is likewise used only inside `syllabus.ts`.
+
+## Checked and left alone
+- In `lab/syllabus.ts`, `NEXT_UP`, `chapterBySlug` and `READING_ORDER` are exported for `syllabus.test.ts`, which is a testability seam, not dead code.
+- `theme-switch.tsx` is long, but nearly all of it is why-comments with WCAG contrast measurements. `label` equals `value` in `OPTIONS`; collapsing that is a matter of taste.
+- The root-level files (`robots.ts`, `sitemap.ts`, `layout.tsx`, `global-error.tsx`, `not-found.tsx`, `fonts/index.ts`) are all already tight, as are `unsubscribe/*`, `contents-nav.tsx`, `seats-cta.tsx`, `hero-*.tsx`, `text.tsx`, `container.tsx`, `waitlist.tsx`, `contact-form.tsx`, `contact.tsx`, `chapter.tsx`, the `lab/*/page.tsx` files and `footer.tsx`.
+- The four near-identical `SocialLinks` entries in the footer are clearer as they are than as a data table.
+- Nesting three or more levels deep, nested ternaries and restating comments did not appear in scope.
+
+## One correctness note, not a simplification
+In `app/[locale]/blog/[slug]/page.tsx:19-22`, the protocol is chosen by calling `startsWith("https")` on `VERCEL_PROJECT_PRODUCTION_URL`. That variable is a bare hostname, so the check is always false and the JSON-LD `mainEntityOfPage` comes out as `http://…`. When the variable is unset it comes out as `http://undefined`. `packages/seo/metadata.ts:18` handles the same variable separately. A fix would change rendered output, so it is outside this audit.</result>
+<usage><subagent_tokens>122173</subagent_tokens><tool_uses>23</tool_uses><duration_ms>155405</duration_ms></usage>
+</task-notification>

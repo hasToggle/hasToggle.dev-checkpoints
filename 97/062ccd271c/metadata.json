@@ -1,0 +1,34 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "97062ccd271c",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/simplify-web-code",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/[locale]/(playground)/code-block.tsx",
+    "apps/web/app/[locale]/(playground)/image/og-demo.tsx",
+    "apps/web/app/[locale]/(playground)/live-panel.tsx",
+    "apps/web/app/[locale]/(playground)/reference-bar.tsx",
+    "apps/web/app/[locale]/(playground)/state/source.ts",
+    "apps/web/app/[locale]/(playground)/stream/parse-run-id.ts",
+    "apps/web/app/[locale]/(playground)/stream/row.tsx",
+    "apps/web/app/[locale]/(playground)/stream/stage.tsx",
+    "apps/web/app/[locale]/(playground)/stream/timeline.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/97/062ccd271c/0/metadata.json",
+      "transcript": "/97/062ccd271c/0/full.jsonl",
+      "compact_transcript": "/97/062ccd271c/0/transcript.jsonl",
+      "content_hash": "/97/062ccd271c/0/content_hash.txt",
+      "prompt": "/97/062ccd271c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 10,
+    "cache_creation_tokens": 14304,
+    "cache_read_tokens": 476540,
+    "output_tokens": 3542,
+    "api_call_count": 5
+  }
+}
