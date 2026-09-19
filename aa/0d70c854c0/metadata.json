@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "aa0d70c854c0",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/ship-web-project",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/api/confirm/route.test.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.test.ts",
+    "apps/web/lib/email-validation.ts",
+    "apps/web/lib/rate-limit.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/aa/0d70c854c0/0/metadata.json",
+      "transcript": "/aa/0d70c854c0/0/full.jsonl",
+      "compact_transcript": "/aa/0d70c854c0/0/transcript.jsonl",
+      "content_hash": "/aa/0d70c854c0/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 20173,
+    "cache_read_tokens": 2418512,
+    "output_tokens": 8274,
+    "api_call_count": 13
+  }
+}
