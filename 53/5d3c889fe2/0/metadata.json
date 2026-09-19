@@ -1,0 +1,123 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "535d3c889fe2",
+  "session_id": "c8cf333d-1473-4e29-8d34-e9c25dfa1906",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-19T10:54:27.739275Z",
+  "branch": "Kheirah/ship-web-project",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/api/confirm/route.test.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.test.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/reconcile/route.test.ts",
+    "apps/web/app/api/reconcile/route.ts",
+    "apps/web/app/api/unsubscribe/route.test.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/confirm/join-form.tsx",
+    "apps/web/app/confirm/page.tsx",
+    "apps/web/app/unsubscribe/page.tsx",
+    "apps/web/lib/tickets.ts",
+    "apps/web/proxy.ts",
+    "packages/database/types.ts",
+    "packages/email/templates/confirm-subscription.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "4d894ce9af42",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 78,
+    "cache_creation_tokens": 270657,
+    "cache_read_tokens": 4547122,
+    "output_tokens": 38210,
+    "api_call_count": 39
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01X3iCujRQTGbitK7wLMdaRy",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:ship"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "af616123-b767-42a1-98a8-55df058866a5"
+        ],
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:ship",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_012vXbDUWdNn6hvLP5eoUY47",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:shipping-and-launch"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 41,
+        "end": 42,
+        "entry_ids": [
+          "ecf621e1-cba9-4fb2-bd2c-4e0163afef3d"
+        ],
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:shipping-and-launch",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "initial_attribution": {
+    "calculated_at": "2026-09-19T10:54:27.693461Z",
+    "agent_lines": 631,
+    "agent_removed": 105,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 631,
+    "total_lines_changed": 736,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

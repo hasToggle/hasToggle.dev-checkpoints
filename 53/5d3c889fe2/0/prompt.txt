@@ -1,0 +1,284 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /Users/eric/conductor/workspaces/hasToggle.dev/singapore directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+You're on a new branch with a placeholder name. Conductor will automatically rename it in the background to match your task.
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+Use /agent-skills:ship on the web project
+
+---
+
+<task-notification>
+<task-id>ab0c06382c2faecd4</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-singapore/c8cf333d-1473-4e29-8d34-e9c25dfa1906/tasks/ab0c06382c2faecd4.output</output-file>
+<status>completed</status>
+<summary>Agent "Test coverage analysis of apps/web" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Test Coverage Analysis: `apps/web`
+
+### Suite result
+- `apps/web`: **189 pass, 0 fail**, 484 expects across 26 files in about 0.4s.
+- `packages/email`: 16 pass, 0 fail across 5 files.
+- No env vars are missing. `test-preload.ts` sets placeholders and stubs `@repo/database`, `@repo/email`, `@/env`, the rate-limit keys and observability. No test touched a real service, so none were skipped.
+
+### Coverage map
+
+| Unit | Tests | Notes |
+|---|---|---|
+| `app/api/confirm/route.ts` (subscribe) | 21 | Thorough: cooldown, legacy casing (E11000), limits, idempotency key. |
+| `app/api/confirmed/route.ts` | 5 | No error-path tests. |
+| `app/api/unsubscribe/route.ts` | 6 | GET and POST, one-click, a 500 case. |
+| `app/api/webhooks/resend/route.ts` | 6 | `resend.webhooks.verify` is always mocked. |
+| `app/api/reconcile/route.ts` | 9 | Orphan guard and auth covered; pagination is not. |
+| `lib/rate-limit.ts` | 6 | Memory limiter and `clientIp` only. |
+| `lib/unsubscribe-link`, `email-validation`, `confirmation-origin`, `security-headers` | yes | |
+| `lib/subscribers.ts`, `lib/tickets.ts` | indirect only | Exercised through the route tests. |
+| `lib/token.ts`, `after-load.ts`, `report-render-error.ts` | none | |
+| `proxy.ts` | **none** | |
+| `instrumentation.ts`, `packages/observability/*` (including `sampling.ts`) | **none** | |
+| `postUrl()` in `blog/[slug]/page.tsx` | **none** | Private const, cannot be imported. |
+| `packages/seo`, `database`, `rate-limit`, `security` | **none** | These packages have no `test` script. |
+| `contact/actions/contact.tsx`, playground `actions.ts`, `og/route.tsx`, `latest/route.ts`, flags route | none | Schema and title helpers only. |
+| Cron endpoints | n/a | `apps/web` has none. `vercel.json` declares no crons; reconcile is called by an Atlas trigger. |
+
+### Prioritized gaps
+
+**P0 (should block ship)**
+1. **`reconcile/route.ts` pagination.** No test returns `has_more: true`.
+   - A truncated listing reads as orphans. With 150 confirmed subscribers and only page 1 read (100 known), 50 look orphaned. The guard allows 75, so 50 real subscribers would be deleted from both stores.
+   - Missing scenarios: multi-page traversal with cursor passing, a `list` error giving 500 with zero deletes, and the 50% boundary of `orphansLookWrong` exercised through the route.
+
+**P1 (should add soon)**
+2. **`confirmed/route.ts` error paths.** Missing: no token (400), `addSubscriberContact` returning an error (should still redirect 303 and report), `findOne` or `updateOne` throwing (500), and two concurrent clicks on the same link.
+3. **`proxy.ts` has no tests.** Missing: a ticketed page without the cookie returns 404 and with it passes; `/api`, `/confirmed` and `/unsubscribe` bypass i18n; security headers are merged onto every branch, including the Arcjet 403.
+4. **`ticketRedirect` `Secure` flag.** Every test request is `http://`, so the https branch that production uses never runs.
+5. **Webhook signature.** `verify` is always stubbed, so header mapping and the secret are unproven. Missing: one test with a genuinely signed payload from the preload secret, the `contact.deleted` event, a multi-recipient bounce where one removal fails, and unknown event types.
+6. **`confirm/route.ts` error envelope.** Missing: malformed JSON (400 `ValidationError`), `null` or non-object body, confirmation send failure (500 `EmailError`), and the no-IP path that skips the caller limit. A double submit is covered one call after another by the cooldown test, but not as two concurrent requests.
+7. **`rateLimiter()` factory.** Missing: memoisation per (prefix, window), eviction of a rejected construction, and `MAX_TRACKED_KEYS` eviction. The "fallback to memory" is only implied by the preload mock.
+
+**P2 (nice to have)**
+8. `postUrl()`: extract it so a test can check that canonical and JSON-LD `@id` match and sit on `NEXT_PUBLIC_WEB_URL`.
+9. `sampling.ts` and `onRequestError`: a test that `instrumentation.ts` exports `onRequestError` and that the rate is between 0 and 1.
+10. Unsubscribe: credentials from the form body, id and sig of wrong types, and a tampered id with a valid sig.
+11. `removeSubscriber` directly: `not_found` is tolerated, and a DB failure surfaces.
+12. `token.ts`, the contact server action, and the playground actions' rate limit.
+
+### Test quality
+- **Strengths:**
+  - Tests are named as specifications and assert on status codes, headers and response envelopes rather than internals.
+  - Mocking sits at the true system boundaries: the database and Resend.
+  - Negative assertions are real: a second click asserts `updateOne` and `createContact` were never called.
+- **Process-wide `mock.module` in the preload:** `parseError` and `log` are no-ops, so no test can assert that an error was reported. The reconcile 409 and the contact failure on confirm report through those alone. `email-deliverability.test.ts` re-mocks `@/env` process-wide, which makes results depend on test order.
+- **Webhook replay is covered by accident.** The helper defaults `contacts.remove` to `not_found`, so every webhook "delete" test is really the replay case. No test runs a first delivery that succeeds with `error: null`.
+- **Possible flake:** "keys the reminder by host, subscriber and day" computes `today` after the call, so it fails if run across UTC midnight.
+- **Call-count assertions:** `updateOne` called once in the confirmed test is borderline implementation detail. It is acceptable there because it stands in for "a write happened".
+- **Fixtures:** one route test uses a first-name local part on `example.com`. It is harmless, but a neutral `[REDACTED_EMAIL]` fits the repo's PII rule better.
+
+I changed no files.</result>
+<usage><subagent_tokens>64712</subagent_tokens><tool_uses>10</tool_uses><duration_ms>75918</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>ae46e51eff8b101b7</task-id>
+<tool-use-id>toolu_01XjXSTSqrYMCgtW7DKYmjBB</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-singapore/c8cf333d-1473-4e29-8d34-e9c25dfa1906/tasks/ae46e51eff8b101b7.output</output-file>
+<status>completed</status>
+<summary>Agent "Five-axis review of apps/web" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Review Summary
+
+**Verdict:** REQUEST CHANGES (one Critical, contained to the reconcile job; everything else is small)
+
+**Overview:** The request-handling surface is well built. Links are signed, tokens are stored hashed, the unsubscribe link deletes nothing on GET, the signup form cannot be used to test list membership, and the Open Graph titles come from a fixed set. `bun test` in `apps/web` passes (189 tests, 0 failures). PRs #460, #462 and #463 are correct as written. The one blocking problem is how the confirmation route and the reconcile job interact: a confirmed subscriber can be deleted without anyone noticing.
+
+All paths below are under `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/`.
+
+### Critical Issues
+
+- **`apps/web/app/api/reconcile/route.ts:108-113`, with `apps/web/app/api/confirmed/route.ts:49-64`: reconcile can delete a subscriber who just confirmed.**
+  - **Failure 1:** At confirmation time, Resend contact creation is refused (rate limit or outage). The route only reports the error, as the comment at `apps/web/app/api/confirm/route.ts:218` acknowledges. The subscriber is confirmed in MongoDB but missing from the Resend segment. The next reconcile run sees the row as an orphan. One orphan is under the `MIN_ORPHAN_ALLOWANCE` of 5, so the run deletes a person who just opted in and saw the thank-you page.
+  - **Failure 2 (race):** Reconcile lists contacts first and reads the database second. A confirmation that lands between the two reads looks like an orphan.
+  - **Fix:** Exclude rows whose `emailVerified` is recent (for example under 24 hours) from `orphaned`. Better still, call `addSubscriberContact` for those rows instead of deleting them. Add a test for a row that is confirmed but has no contact. No current test covers this path.
+
+### Required Changes
+
+- **`apps/web/lib/email-validation.ts:107`: a subscriber's address can end up in logs and Sentry.**
+  - When the Abstract API response has an unexpected shape, the code logs `JSON.stringify(raw)`.
+  - As far as I know, that response echoes the submitted address back; I did not confirm this against Abstract's docs.
+  - `log.error` is `console.error`. `consoleLoggingIntegration` with the levels set in `packages/observability/sampling.ts` forwards it to Sentry as well as to Vercel logs.
+  - **Fix:** Log `Object.keys(raw)` or the zod issues instead of the raw response.
+  - `apps/web/app/api/confirm/route.ts:282,303` have the same pattern with `JSON.stringify(error)`. Resend validation messages can quote the recipient. Log `error.name` only.
+- **`apps/web/proxy.ts:50`: the Arcjet refusal is not in the shared error envelope, so the waitlist form shows an empty error toast.**
+  - The refusal returns `{ error: "Access denied" }` with `error` as a plain string.
+  - After #460, `apps/web/app/[locale]/components/waitlist.tsx:40-41` reads `data.error.message`. For this response that is `undefined`, so the toast is empty.
+  - This cannot happen in production today because `ARCJET_KEY` is not set there. It will happen as soon as the key is added.
+  - **Fix:** Return `{ error: { message, name } }` from the proxy. Also make the form fall back to a fixed line when `message` is not a string.
+
+### Optional
+
+- **`packages/observability/server.ts` and `packages/observability/client-options.ts`: unsubscribe and confirmation URLs may reach Sentry with their query strings.**
+  - There is no `beforeSend` or `beforeSendTransaction` hook. `onRequestError` and the 10% request tracing probably attach the full request URL, so `?id=…&amp;sig=…` on the unsubscribe URLs and `?token=…` on the confirmation link would be sent.
+  - The unsubscribe signature is a permanent capability to remove that address.
+  - I did not confirm the SDK's default behaviour here. Check one real event in Sentry, then strip the query string on those paths.
+- **`apps/web/app/api/og/route.tsx:64-66`: unknown titles cost a full render each and fill the CDN cache.**
+  - An unknown `title` renders the default card under its own cache key, so random titles force a Satori render every time.
+  - **Fix:** Send unknown titles with a 308 redirect to the canonical card URL.
+- **`apps/web/app/api/unsubscribe/route.ts:44`: `request.formData()` sits outside the `try`.** A malformed body gives a bare 500 instead of the 400 `refused()` response.
+- **`apps/web/app/unsubscribe/page.tsx:28`: a repeated `id` parameter gives a 500 instead of a 404.** `?id=a&amp;id=b` arrives as an array at runtime, and the HMAC call throws on it. Add a `typeof id === "string"` guard.
+- **`apps/web/app/api/confirmed/route.ts`: confirmation happens on GET.** A mail scanner that follows links completes the opt-in. The unsubscribe flow already avoids this on purpose. Decide whether the asymmetry is acceptable.
+- **`apps/web/app/api/webhooks/resend/route.ts:21`: a late `contact.deleted` retry can delete someone who re-subscribed.** This is rare. A `created_at` check would close it.
+
+### Nits
+
+- `apps/web/lib/email-validation.ts:147`: `validateEmail` is only called from tests.
+- `apps/web/lib/report-render-error.ts:17`: the dynamic `import()` has no `.catch`, so a failed chunk load becomes an unhandled rejection.
+- `apps/web/app/api/confirmed/route.ts` and `apps/web/app/api/unsubscribe/route.ts` still return `error` as a string. Nothing parses those responses today.
+
+### What's Done Well
+
+- Comments explain why the code is the way it is, which makes security review much easier.
+- `confirmationOrigin` resists Host-header spoofing.
+- Signatures and bearer tokens are compared in constant time.
+- The reconcile guard refuses to empty the list when the contact listing looks incomplete.
+- Idempotency keys are scoped per deployment.
+- A failed limiter or font promise is dropped rather than cached, so one bad moment does not poison the instance.
+- `onRequestError` and the shared sampling module are minimal and correct against the Next.js 16 instrumentation convention.
+
+### Verification Story
+
+- **Tests reviewed:** yes. They cover the routes well. The gaps are the reconcile interaction above and a proxy refusal reaching the form.
+- **Build verified:** no build was run. `bunx tsc --noEmit -p .` in `apps/web` exited without printing errors.
+- **Security checked:** yes. No problems found in authentication or authorization, in `apps/web/env.ts`, in the CSP, in the ticket cookies, or in rate limiting. The memory fallback for rate limiting is a known, documented limit.
+- **Axes:**
+  - Architecture and readability: no findings.
+  - Performance: only the Open Graph item.</result>
+<usage><subagent_tokens>85726</subagent_tokens><tool_uses>13</tool_uses><duration_ms>117424</duration_ms></usage>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a5b6caac412784ac1</task-id>
+<tool-use-id>toolu_01DrHWwrV8KrGGUr8MRWR33r</tool-use-id>
+<output-file>/private/tmp/claude-502/-Users-eric-conductor-workspaces-hasToggle-dev-singapore/c8cf333d-1473-4e29-8d34-e9c25dfa1906/tasks/a5b6caac412784ac1.output</output-file>
+<status>completed</status>
+<summary>Agent "Security audit of apps/web" finished</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+<result>## Security Audit Report: `apps/web`
+
+No Critical findings and nothing in the code blocks shipping outright. The one High — unthrottled confirmation mail from `/api/confirm` — needs a platform-level rate limit before launch. Every finding was checked against the code except the Sentry part of finding 3.
+
+### Summary
+- Critical: 0
+- High: 1
+- Medium: 1
+- Low: 4
+- Info: 3
+
+### Findings
+
+#### 1. [HIGH] `/api/confirm` can send mail to arbitrary addresses with no durable rate limit
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/app/api/confirm/route.ts:33-34,70-81,288` and `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/lib/rate-limit.ts`
+- **Description:** Upstash is not configured in production, so both rate-limit windows live in each instance's memory.
+  - The only controls that persist across instances are the 2-minute per-address cooldown (DB) and the once-a-day reminder idempotency key for confirmed addresses.
+  - Nothing limits how many different addresses a caller can submit.
+  - Even when the limiter works, one IP is allowed 10 sends per 10 minutes, about 1,440 mails a day.
+  - There is no bot challenge and no global send ceiling.
+  - `request.json()` ignores `Content-Type` and the route does not check `Origin`. A cross-site `text/plain` form POST is therefore accepted, which lets an attacker spread requests across visitors' IPs.
+- **Exploit:** A script POSTs `{"email": &lt;victim N&gt;}` for a list of addresses, rotating IPs or simply landing on cold instances.
+  - Each victim gets a branded confirmation mail, repeatable every 2 minutes (subscription bombing).
+  - The same loop uses up the Resend quota and draws spam complaints against the sending domain.
+  - Real signups then stop receiving confirmation mail, which takes the waitlist funnel down on launch day.
+- **Recommendation (minimum acceptable):**
+  1. Add a Vercel WAF rate-limit rule on `POST /api/confirm`, around 5 per 10 minutes per IP. This needs no code and is shared across instances.
+  2. Make the per-address cap durable. Store `confirmationsSent` and a window start on the subscriber row, allow at most 3 per 24 hours, and replace the 2-minute cooldown with it.
+  3. Reject requests unless `Content-Type` is `application/json` and `Origin` matches `confirmationOrigin`.
+
+  Strongly advised on top of that: Vercel BotID or Turnstile on the form, and a global daily send circuit breaker. Upstash would replace (2) once it is configured.
+
+#### 2. [MEDIUM] The confirmation link changes state on GET, so mail scanners can complete the double opt-in
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/app/api/confirmed/route.ts:8-66`
+- **Description:** Following the link sets `emailVerified` and creates the Resend contact. The unsubscribe route deliberately avoids acting on GET for this exact reason (its own comment, `api/unsubscribe/route.ts:10-14`), but the confirm route does not.
+- **Exploit:** An attacker submits a victim's address at an organisation whose mail gateway pre-fetches links. The scanner "confirms" the signup, the victim joins the broadcast list without consenting, and the consent record is worthless.
+- **Recommendation:** Follow the unsubscribe pattern. GET shows a page with a "Confirm" button, and POST performs the write.
+
+#### 3. [LOW] Unsubscribe link secrets can reach third-party analytics and Sentry
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/app/unsubscribe/page.tsx`, rendered under `app/layout.tsx:45` (`AnalyticsProvider`), and `packages/analytics/instrumentation-client.ts:30`
+- **Description:** `/unsubscribe?id=…&amp;sig=…` records a PostHog, GA or Vercel Analytics pageview with the full URL. The `sig` never expires, and `id` is the subscriber's `_id`.
+- **Impact:** Anyone who can read analytics data can unsubscribe that person.
+- **Unverified:** Sentry request data on server errors probably captures query strings as well, including `token=` on `/api/confirmed`. `sendDefaultPii` is unset, which is good.
+- **Recommendation:** Render `/unsubscribe` and `/confirmed` outside `AnalyticsProvider`, or strip the query string with PostHog `before_send` or `sanitize_properties`. Add a Sentry `beforeSend` that redacts `token`, `sig` and `id` from URLs.
+
+#### 4. [LOW] A public server action clears the landing page cache for everyone
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/app/[locale]/(playground)/shell/actions.ts:15-33`
+- **Description:** `updateTag("landing-shell")` sits behind the same in-memory limiter. A loop spread across instances keeps the landing page rendering dynamically, which costs money and latency.
+- **Recommendation:** Cover it with the same WAF rule, or skip `updateTag` when the last bake is under N seconds old.
+
+#### 5. [LOW] A log line can contain an email address
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/lib/email-validation.ts:113-115`
+- **Description:** The line logs the raw Abstract API response, which includes the address checked, to Logtail. It is dormant today because the Abstract key is not set in production.
+- **Recommendation:** Log only the response's keys and the status code.
+
+#### 6. [LOW] Response timing on `/api/confirm` shows whether an address was recently submitted
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/app/api/confirm/route.ts:288-290`
+- **Description:** The cooldown branch returns immediately, while the other branches wait on a DB write and a Resend call. This partly undoes the uniform success message, which exists to hide list membership.
+- **Recommendation:** Send the mail inside `after()` and return the same response at the same point on every path.
+
+#### 7. [INFO] The CSP allows inline scripts
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/lib/security-headers.ts:83`
+- **Description:** `script-src 'unsafe-inline'` is a documented trade-off for prerendered shells. The risk is acceptable because no user-controlled HTML is rendered anywhere. Per-script hashes are worth revisiting later.
+
+#### 8. [INFO] Turning on Arcjet would block the Resend webhook and one-click unsubscribe
+- **Location:** `/Users/eric/conductor/workspaces/hasToggle.dev/singapore/apps/web/proxy.ts:20,32-52`
+- **Description:** If `ARCJET_KEY` is ever set, `detectBot` in LIVE mode runs on `/api/*`. It would refuse Resend's webhook and mail clients' RFC 8058 POSTs.
+- **Recommendation:** Exempt `/api/webhooks/*`, `/api/unsubscribe` and `/api/reconcile` from the Arcjet check before enabling it.
+
+#### 9. [INFO] `bun audit` found nothing critical or high that is reachable from `apps/web`
+- **Result:** The audit completed with 27 advisories (10 high, 14 moderate, 3 low). None of the highs is reachable from `apps/web` with attacker-controlled input.
+  - `js-yaml` comes in through `gray-matter` and only parses the repo's own blog files.
+  - `fast-uri` comes in through `@sentry/nextjs` tooling and never receives attacker-controlled URIs.
+  - The remaining highs sit in `studio` (Prisma), `@repo/payments`, `@repo/ai` and storybook, none of which `apps/web` uses.
+- **Recommendation:** Remove the dead `studio` app to cut the noise.
+
+### Positive Observations
+- **NoSQL injection:** `normalizeEmail` turns any non-string into `""`, and the token is hashed before it is used in a query.
+- **Unsubscribe:** HMAC-SHA256 with `timingSafeEqual` and a length check, a secret of at least 32 characters enforced by zod, and no state change on GET.
+- **Reconcile endpoint:** constant-time bearer comparison against a required secret, plus the guard that refuses a run which would orphan most of the list.
+- **Webhook:** Svix signature checked over the raw body before the payload is parsed.
+- **Redirects:** no open redirect, because `ticketRedirect` uses a constant `Location`. `confirmationOrigin` only accepts allowlisted hosts, which prevents Host-header link poisoning.
+- **OG route:** titles come from an allowlist.
+- **Blog:** slugs come from an allowlist.
+- **`dangerouslySetInnerHTML`:** used only on the repo's own Shiki output and on escaped JSON-LD.
+- **Contact action:** validated with zod, CR/LF blocked in the subject, and mail goes only to the site owner.
+- **Headers:** HSTS for 2 years, `frame-ancestors 'none'`, COOP and CORP set, `poweredByHeader` off, and no CORS headers anywhere.
+- **Secrets and client bundle:** no secrets in tracked files (the only matches are placeholder webhook secrets in `apps/web/test-preload.ts` and patterns in `.entire/redactors/hastoggle-pii.yaml`), `client: {}` in `apps/web/env.ts`, and no Session Replay.
+
+### Recommendations
+Before launch, ship the WAF rule, the durable per-address cap, and the Origin/Content-Type check from finding 1. Schedule finding 2 (confirm on POST) and finding 3 (keep the unsubscribe and confirm URLs out of analytics and Sentry) for the first sprint after launch.</result>
+<usage><subagent_tokens>89867</subagent_tokens><tool_uses>19</tool_uses><duration_ms>147311</duration_ms></usage>
+</task-notification>
+
+---
+
+A few notes on select items (items not mentioned can proceed according to your recommendation):
+
+Does the proposed fix for the reconcile blocker work for emailVerified above 24h? What if the Resend API doesn't create the contact still and it's been over a day now? The next reconcile would detect that as orphaned and delete the document. 
+
+the api/confirm route: Upstash's envs are set for prod and preview. The WAF rule I could add, sure, but if Upstash works for rate limiting, why would we need the WAF rule except for hardened defense?
+
+Confirmation happens on GET: if that's true, we should align with the unsub logic and change to your proposed fix.
+
+Arcjet: Vercel has BotId. We might want to use that instead since I haven't had Arcjet active yet at all.

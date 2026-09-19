@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "535d3c889fe2",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/ship-web-project",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/api/confirm/route.test.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/app/api/confirmed/route.test.ts",
+    "apps/web/app/api/confirmed/route.ts",
+    "apps/web/app/api/reconcile/route.test.ts",
+    "apps/web/app/api/reconcile/route.ts",
+    "apps/web/app/api/unsubscribe/route.test.ts",
+    "apps/web/app/api/unsubscribe/route.ts",
+    "apps/web/app/confirm/join-form.tsx",
+    "apps/web/app/confirm/page.tsx",
+    "apps/web/app/unsubscribe/page.tsx",
+    "apps/web/lib/tickets.ts",
+    "apps/web/proxy.ts",
+    "packages/database/types.ts",
+    "packages/email/templates/confirm-subscription.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/53/5d3c889fe2/0/metadata.json",
+      "transcript": "/53/5d3c889fe2/0/full.jsonl",
+      "compact_transcript": "/53/5d3c889fe2/0/transcript.jsonl",
+      "content_hash": "/53/5d3c889fe2/0/content_hash.txt",
+      "prompt": "/53/5d3c889fe2/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 78,
+    "cache_creation_tokens": 270657,
+    "cache_read_tokens": 4547122,
+    "output_tokens": 38210,
+    "api_call_count": 39
+  }
+}
