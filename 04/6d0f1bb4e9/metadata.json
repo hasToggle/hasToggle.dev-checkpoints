@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "046d0f1bb4e9",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/botid-vercel-log-errors",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/.well-known/vercel/flags/route.ts",
+    "apps/web/lib/bot-check.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/04/6d0f1bb4e9/0/metadata.json",
+      "transcript": "/04/6d0f1bb4e9/0/full.jsonl",
+      "compact_transcript": "/04/6d0f1bb4e9/0/transcript.jsonl",
+      "content_hash": "/04/6d0f1bb4e9/0/content_hash.txt",
+      "prompt": "/04/6d0f1bb4e9/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 46,
+    "cache_creation_tokens": 89113,
+    "cache_read_tokens": 1849211,
+    "output_tokens": 9076,
+    "api_call_count": 23
+  }
+}
