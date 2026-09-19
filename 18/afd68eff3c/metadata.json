@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "18afd68eff3c",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/ship-web-project",
+  "checkpoints_count": 3,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/18/afd68eff3c/0/metadata.json",
+      "transcript": "/18/afd68eff3c/0/full.jsonl",
+      "compact_transcript": "/18/afd68eff3c/0/transcript.jsonl",
+      "content_hash": "/18/afd68eff3c/0/content_hash.txt",
+      "prompt": "/18/afd68eff3c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 12087,
+    "cache_read_tokens": 2299735,
+    "output_tokens": 8627,
+    "api_call_count": 11,
+    "subagent_tokens": {
+      "input_tokens": 75,
+      "cache_creation_tokens": 221262,
+      "cache_read_tokens": 2144552,
+      "output_tokens": 25904,
+      "api_call_count": 38
+    }
+  }
+}

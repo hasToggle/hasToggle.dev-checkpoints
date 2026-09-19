@@ -1,0 +1,124 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "18afd68eff3c",
+  "session_id": "c8cf333d-1473-4e29-8d34-e9c25dfa1906",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-19T11:36:52.270668Z",
+  "branch": "Kheirah/ship-web-project",
+  "checkpoints_count": 3,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "217622b236a3",
+  "checkpoint_transcript_start": 404,
+  "transcript_lines_at_start": 404,
+  "compact_transcript_start": 69,
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 12087,
+    "cache_read_tokens": 2299735,
+    "output_tokens": 8627,
+    "api_call_count": 11,
+    "subagent_tokens": {
+      "input_tokens": 75,
+      "cache_creation_tokens": 221262,
+      "cache_read_tokens": 2144552,
+      "output_tokens": 25904,
+      "api_call_count": 38
+    }
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01X3iCujRQTGbitK7wLMdaRy",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:ship"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "af616123-b767-42a1-98a8-55df058866a5"
+        ],
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:ship",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_012vXbDUWdNn6hvLP5eoUY47",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:shipping-and-launch"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 41,
+        "end": 42,
+        "entry_ids": [
+          "ecf621e1-cba9-4fb2-bd2c-4e0163afef3d"
+        ],
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:shipping-and-launch",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 15,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/comments/github-general-5741252124.md": 15
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 55,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/comments/github-general-5741252124.md": 15,
+        ".context/preview/mail-new.html": 1,
+        ".context/preview/mail-old.html": 1,
+        ".context/preview/server.mjs": 38
+      }
+    }
+  ]
+}
