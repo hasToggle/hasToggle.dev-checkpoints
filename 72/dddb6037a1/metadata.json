@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "72dddb6037a1",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/botid-replaces-arcjet",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "apps/web/app/confirm/page.tsx",
+    "apps/web/app/unsubscribe/page.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/72/dddb6037a1/0/metadata.json",
+      "transcript": "/72/dddb6037a1/0/full.jsonl",
+      "compact_transcript": "/72/dddb6037a1/0/transcript.jsonl",
+      "content_hash": "/72/dddb6037a1/0/content_hash.txt",
+      "prompt": "/72/dddb6037a1/0/prompt.txt",
+      "assets_manifest": "/72/dddb6037a1/0/assets/manifest.json"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 255,
+    "cache_creation_tokens": 1057099,
+    "cache_read_tokens": 27084671,
+    "output_tokens": 98539,
+    "api_call_count": 128
+  }
+}
