@@ -1,0 +1,157 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "010fc6709f0b",
+  "session_id": "c8cf333d-1473-4e29-8d34-e9c25dfa1906",
+  "strategy": "manual-commit",
+  "created_at": "2026-09-19T11:55:47.147359Z",
+  "branch": "Kheirah/botid-replaces-arcjet",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/web/app/[locale]/contact/actions/contact.test.ts",
+    "apps/web/app/[locale]/contact/actions/contact.tsx",
+    "apps/web/app/api/confirm/route.test.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/env.ts",
+    "apps/web/instrumentation-client.ts",
+    "apps/web/lib/bot-check.test.ts",
+    "apps/web/lib/bot-check.ts",
+    "apps/web/lib/bot-protected.ts",
+    "apps/web/lib/email-validation.ts",
+    "apps/web/next.config.ts",
+    "apps/web/package.json",
+    "apps/web/proxy.ts",
+    "apps/web/test-preload.ts",
+    "bun.lock"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-fable-5-1",
+  "turn_id": "5c097ce70303",
+  "checkpoint_transcript_start": 480,
+  "transcript_lines_at_start": 480,
+  "compact_transcript_start": 84,
+  "token_usage": {
+    "input_tokens": 70,
+    "cache_creation_tokens": 72637,
+    "cache_read_tokens": 9025772,
+    "output_tokens": 23549,
+    "api_call_count": 35
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01X3iCujRQTGbitK7wLMdaRy",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:ship"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 28,
+        "end": 29,
+        "entry_ids": [
+          "af616123-b767-42a1-98a8-55df058866a5"
+        ],
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01X3iCujRQTGbitK7wLMdaRy"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:ship",
+        "default_collapsed": true
+      }
+    },
+    {
+      "id": "claude-skill-toolu_012vXbDUWdNn6hvLP5eoUY47",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "agent-skills:shipping-and-launch"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "4d894ce9af42",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 41,
+        "end": 42,
+        "entry_ids": [
+          "ecf621e1-cba9-4fb2-bd2c-4e0163afef3d"
+        ],
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_012vXbDUWdNn6hvLP5eoUY47"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: agent-skills:shipping-and-launch",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-09-19T11:55:47.084922Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 98,
+    "total_committed": 0,
+    "total_lines_changed": 98,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 264,
+      "user_lines_removed": 98,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".context/attachments/comments/github-general-5741252124.md": 15,
+        "CLAUDE.md": 3,
+        "apps/web/app/[locale]/contact/actions/contact.test.ts": 36,
+        "apps/web/app/[locale]/contact/actions/contact.tsx": 7,
+        "apps/web/app/api/confirm/route.test.ts": 15,
+        "apps/web/app/api/confirm/route.ts": 6,
+        "apps/web/env.ts": 1,
+        "apps/web/instrumentation-client.ts": 11,
+        "apps/web/lib/bot-check.test.ts": 47,
+        "apps/web/lib/bot-check.ts": 24,
+        "apps/web/lib/bot-protected.ts": 31,
+        "apps/web/lib/email-validation.ts": 4,
+        "apps/web/next.config.ts": 4,
+        "apps/web/package.json": 2,
+        "apps/web/proxy.ts": 10,
+        "apps/web/test-preload.ts": 6,
+        "bun.lock": 42
+      },
+      "user_removed_per_file": {
+        "CLAUDE.md": 1,
+        "apps/web/env.ts": 10,
+        "apps/web/lib/email-validation.ts": 1,
+        "apps/web/next.config.ts": 1,
+        "apps/web/package.json": 1,
+        "apps/web/proxy.ts": 33,
+        "bun.lock": 51
+      }
+    }
+  ]
+}

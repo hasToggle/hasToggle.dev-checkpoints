@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.10.6",
+  "checkpoint_id": "010fc6709f0b",
+  "strategy": "manual-commit",
+  "branch": "Kheirah/botid-replaces-arcjet",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "CLAUDE.md",
+    "apps/web/app/[locale]/contact/actions/contact.test.ts",
+    "apps/web/app/[locale]/contact/actions/contact.tsx",
+    "apps/web/app/api/confirm/route.test.ts",
+    "apps/web/app/api/confirm/route.ts",
+    "apps/web/env.ts",
+    "apps/web/instrumentation-client.ts",
+    "apps/web/lib/bot-check.test.ts",
+    "apps/web/lib/bot-check.ts",
+    "apps/web/lib/bot-protected.ts",
+    "apps/web/lib/email-validation.ts",
+    "apps/web/next.config.ts",
+    "apps/web/package.json",
+    "apps/web/proxy.ts",
+    "apps/web/test-preload.ts",
+    "bun.lock"
+  ],
+  "sessions": [
+    {
+      "metadata": "/01/0fc6709f0b/0/metadata.json",
+      "transcript": "/01/0fc6709f0b/0/full.jsonl",
+      "compact_transcript": "/01/0fc6709f0b/0/transcript.jsonl",
+      "content_hash": "/01/0fc6709f0b/0/content_hash.txt",
+      "prompt": "/01/0fc6709f0b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 70,
+    "cache_creation_tokens": 72637,
+    "cache_read_tokens": 9025772,
+    "output_tokens": 23549,
+    "api_call_count": 35
+  }
+}
